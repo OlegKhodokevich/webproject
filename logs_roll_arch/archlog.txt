@@ -1,0 +1,112 @@
+16:31:20.375 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:20.382 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:20.382 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:20.484 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:20.484 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:20.485 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:20.488 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:20.489 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:20.593 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:20.593 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:20.593 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:20.595 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:20.595 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:20.704 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:20.704 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:20.705 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:20.708 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:20.709 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:20.813 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:20.813 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:20.813 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:20.817 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:20.817 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:20.921 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:20.921 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:20.921 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:20.922 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:20.922 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:21.029 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:21.029 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:21.029 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:21.030 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:21.030 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:21.138 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:21.138 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:21.138 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:21.139 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:21.139 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:21.247 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:21.247 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:21.247 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:21.248 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:21.248 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:21.356 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:21.356 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:21.356 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:21.357 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:21.357 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:21.467 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:21.467 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:21.468 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:21.472 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:21.472 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:21.575 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:21.576 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:21.576 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:21.577 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:21.577 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:21.685 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:21.685 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:21.685 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:21.686 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:21.686 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:21.794 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:21.794 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:21.794 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:21.798 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:21.798 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:21.904 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:21.904 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:21.904 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:21.905 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:21.905 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:22.012 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:22.012 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:22.012 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:22.014 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:22.014 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:22.121 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:22.121 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:22.121 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:22.123 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:22.123 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:22.230 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:22.230 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:22.230 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:22.233 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:22.233 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:22.339 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:22.339 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:22.339 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:22.340 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:22.341 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:22.446 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider start check pool.
+16:31:22.446 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+16:31:22.446 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+16:31:22.449 [Timer-0] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+16:31:22.450 [Timer-0] INFO  by.khodokevich.web.connection.TimerConnectionProvider - TimerConnectionProvider has checked pool.
+16:31:24.377 [main] ERROR by.khodokevich.web.connection.CustomConnectionPool - Start destroyPool(). freeConnections.size() + 8
+16:31:24.377 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - Start releaseConnection(Connection connection).
+16:31:24.377 [main] ERROR by.khodokevich.web.connection.CustomConnectionPool - Can't put in pool connection because connection is't valid.
+16:31:24.377 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection realize.
+16:31:24.377 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - Start releaseConnection(Connection connection).
+16:31:24.377 [main] ERROR by.khodokevich.web.connection.CustomConnectionPool - Can't put in pool connection because connection is't valid.
+16:31:24.377 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection realize.
+16:31:24.378 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - Start releaseConnection(Connection connection).
+16:31:24.378 [main] ERROR by.khodokevich.web.connection.CustomConnectionPool - Can't put in pool connection because connection is't valid.
+16:31:24.378 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection realize.
+16:31:24.378 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - Start releaseConnection(Connection connection).
+16:31:24.378 [main] ERROR by.khodokevich.web.connection.CustomConnectionPool - Can't put in pool connection because connection is't valid.
+16:31:24.378 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection realize.
+16:31:24.379 [main] ERROR by.khodokevich.web.connection.CustomConnectionPool - End destroyPool().

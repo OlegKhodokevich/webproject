@@ -1,0 +1,11 @@
+.custom-footer {
+    background-color: #f8f9fa!important;
+    min-height: 60px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+.container {
+    width: 90%;
+}

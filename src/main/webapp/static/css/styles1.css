@@ -1,0 +1,158 @@
+
+/*body {*/
+/*    margin: 0;*/
+/*    width: 100%;*/
+/*    min-height: 100vh;*/
+/*}*/
+/*body, form, h1, label, input, option, select, textarea {*/
+/*    font-family: "Segoe UI", sans-serif;*/
+/*    font-size: 13pt;*/
+/*}*/
+.registration_form {
+    box-shadow: 0 2px 20px #ccc;
+    background-color: white;
+    width: 100%;
+}
+.registration_form h1 {
+    margin: 0;
+    font-size: 16pt;
+    padding: 30px 30px 10px;
+}
+.registration_form div {
+    display: flex;
+    margin-top: 20px;
+    align-items: baseline;
+}
+.registration_form label {
+    text-align: right;
+    flex: 0 0 30%;
+}
+.registration_form fieldset {
+    margin-left: 30%;
+    width: 65%;
+    max-width: 600px;
+    padding: 0;
+    height: 110px;
+}
+.registration_form fieldset>div {
+    margin: 12px 0;
+}
+.registration_form input[type="text"], .registration_form input[type="password"], #Birth-date, #emailinput, #phone, #Region, #City {
+    border: none;
+    border-bottom: 2px solid #ccc;
+    flex: 0 1 65%;
+    max-width: 600px;
+    height: 25px;
+    margin-left: 5px;
+    padding: 1px 0;
+    box-sizing: inherit;
+}
+.registration_form input[type="text"]:focus, .registration_form input[type="password"]:focus, #Birth-date:focus, #emailinput:focus, #phone:focus, #Region:focus, #City:focus {
+    outline: none;
+    border-bottom: 2px solid blue;
+}
+.registration_form input:not([type='checkbox']):not([type='radio']), .registration_form textarea {
+    order: 1;
+}
+.registration_form input[type="radio"] {
+    flex-basis: 20px;
+    margin: 5px;
+}
+.registration_form input[type="radio"] + label {
+    text-align: left;
+    margin-left: 5px;
+    height: 100%;
+    flex: 0 0 80%;
+}
+.registration_form input::-webkit-inner-spin-button {
+    display: none;
+}
+.registration_form input::-webkit-inner-spin-button {
+    display: none;
+}
+.registration_form input:required + label::after, .registration_form textarea:required + label::after {
+    content: '*';
+    color: red;
+}
+.registration_form select {
+    width: 100%;
+}
+.registration_form .checkbox::before {
+    content: " ";
+    flex: 0 0 30%;
+}
+.registration_form #agree+label {
+    text-align: left;
+    height: 25px;
+    max-width: 570px;
+    flex: 0 1 65%;
+}
+.registration_form input[type="submit"] {
+    background-color: #FFF;
+    border: 2px solid #6398FF;
+    color: #6398FF;
+    font-weight: bold;
+    padding: 10px;
+    margin: auto;
+    margin-bottom: 20px;
+    font-size: 16px;
+    flex: 0 1 100px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background-color .3s linear, color .3s linear, box-shadow .5s ease-in, transform .5s linear;
+}
+.registration_form input[type="submit"]:hover {
+    background-color: #6398FF;
+    color: #FFF;
+    transform: scale(1.2)
+}
+.registration_form input[type="submit"]:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3)
+}
+.registration_form input[type="submit"]:active {
+    border-color: #1e51b1;
+    box-shadow: inset 0 1px 6px #000;
+}
+@media all and (max-width:560px) {
+    .registration_form {
+        margin: 0;
+        box-shadow: none;
+    }
+    .registration_form div {
+        flex-direction: column;
+        padding: 0 5%;
+    }
+    .registration_form h1 {
+        padding-left: 5%;
+    }
+    .registration_form fieldset {
+        margin: 0 5%;
+        width: 90%;
+    }
+    .registration_form fieldset>div {
+        flex-direction: row;
+    }
+    .registration_form input[type="text"], .registration_form input[type="password"], #Birth-date, #emailinput, #phone, #Region, #City {
+        border: 2px solid #ccc;
+        width: 100%;
+        margin-left: 0;
+    }
+    .registration_form input[type="text"]:focus, .registration_form input[type="password"]:focus, #Birth-date:focus, #emailinput:focus, #phone:focus, #Region:focus, #City:focus {
+        border: 2px solid blue;
+    }
+    .registration_form .checkbox {
+        display: inline-block;
+    }
+    .registration_form input[type="submit"] {
+        width: 100%;
+        flex-basis: 60px;
+    }
+    .registration_form input[type="submit"]:hover {
+        transform: scale(1)
+    }
+    .registration_form #City {
+        width: 100%;
+        max-width: 100%;
+    }
+}

@@ -1,0 +1,156 @@
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+}
+body, form, h1, label, input, option, select, textarea {
+    font-family: "Segoe UI", sans-serif;
+    font-size: 13pt;
+}
+form {
+    margin: 0 50px;
+    box-shadow: 0 2px 20px #ccc;
+}
+h1 {
+    margin: 0;
+    font-size: 16pt;
+    padding: 30px 30px 10px;
+}
+div {
+    display: flex;
+    margin-top: 20px;
+    align-items: baseline;
+}
+label {
+    text-align: right;
+    flex: 0 0 30%;
+}
+fieldset {
+    margin-left: 30%;
+    width: 65%;
+    max-width: 600px;
+    padding: 0;
+    height: 110px;
+}
+fieldset>div {
+    margin: 12px 0;
+}
+input[type="text"], #Birth-date, #emailinput, #phone, #country, #Adress {
+    border: none;
+    border-bottom: 2px solid #ccc;
+    flex: 0 1 65%;
+    max-width: 600px;
+    height: 25px;
+    margin-left: 5px;
+    padding: 1px 0;
+    box-sizing: inherit;
+}
+input[type="text"]:focus, #Birth-date:focus, #emailinput:focus, #phone:focus, #country:focus, #Adress:focus {
+    outline: none;
+    border-bottom: 2px solid blue;
+}
+form input:not([type='checkbox']):not([type='radio']), form textarea {
+    order: 1;
+}
+input[type="radio"] {
+    flex-basis: 20px;
+    margin: 5px;
+}
+input[type="radio"] + label {
+    text-align: left;
+    margin-left: 5px;
+    height: 100%;
+    flex: 0 0 80%;
+}
+input::-webkit-inner-spin-button {
+    display: none;
+}
+input::-webkit-inner-spin-button {
+    display: none;
+}
+input:required + label::after, textarea:required + label::after {
+    content: '*';
+    color: red;
+}
+select {
+    width: 100%;
+}
+.checkbox::before {
+    content: " ";
+    flex: 0 0 30%;
+}
+#agree+label {
+    text-align: left;
+    height: 25px;
+    max-width: 570px;
+    flex: 0 1 65%;
+}
+input[type="submit"] {
+    background-color: #FFF;
+    border: 2px solid #6398FF;
+    color: #6398FF;
+    font-weight: bold;
+    padding: 10px;
+    margin: auto;
+    margin-bottom: 20px;
+    font-size: 16px;
+    flex: 0 1 100px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background-color .3s linear, color .3s linear, box-shadow .5s ease-in, transform .5s linear;
+}
+input[type="submit"]:hover {
+    background-color: #6398FF;
+    color: #FFF;
+    transform: scale(1.2)
+}
+input[type="submit"]:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3)
+}
+input[type="submit"]:active {
+    border-color: #1e51b1;
+    box-shadow: inset 0 1px 6px #000;
+}
+@media all and (max-width:560px) {
+    form {
+        margin: 0;
+        box-shadow: none;
+    }
+    div {
+        flex-direction: column;
+        padding: 0 5%;
+    }
+    h1 {
+        padding-left: 5%;
+    }
+    fieldset {
+        margin: 0 5%;
+        width: 90%;
+    }
+    fieldset>div {
+        flex-direction: row;
+    }
+    input[type="text"], #Birth-date, #emailinput, #phone, #country, #Adress {
+        border: 2px solid #ccc;
+        width: 100%;
+        margin-left: 0;
+    }
+    input[type="text"]:focus, #Birth-date:focus, #emailinput:focus, #phone:focus, #country:focus, #Adress:focus {
+        border: 2px solid blue;
+    }
+    .checkbox {
+        display: inline-block;
+    }
+    input[type="submit"] {
+        width: 100%;
+        flex-basis: 60px;
+    }
+    input[type="submit"]:hover {
+        transform: scale(1)
+    }
+    #Adress {
+        width: 100%;
+        max-width: 100%;
+    }
+}
