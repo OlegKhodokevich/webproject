@@ -1,13 +1,10 @@
 package by.khodokevich.web.util;
 
-import by.khodokevich.web.command.InformationMessage;
-import by.khodokevich.web.entity.User;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,7 +30,6 @@ public class MailAuthenticator {
     }
 
     public static void sendEmail(String eMail, String theme, String text) {
-
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -50,7 +46,5 @@ public class MailAuthenticator {
         } catch (MessagingException e) {
             logger.error("Can't send ,message to e-mail = " + eMail, e);
         }
-
-
     }
 }

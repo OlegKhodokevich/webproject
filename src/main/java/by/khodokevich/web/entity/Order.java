@@ -109,7 +109,7 @@ public class Order extends Entity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return orderId == order.orderId && userId == order.userId && title.equals(order.title) && description.equals(order.description) && address.equals(order.address) && creationDate.equals(order.creationDate)  && completionDate.equals(order.completionDate) && specialization == order.specialization && status == order.status;
+        return orderId == order.orderId && userId == order.userId && title.equals(order.title) && description.equals(order.description) && address.equals(order.address) && creationDate.equals(order.creationDate) && completionDate.equals(order.completionDate) && specialization == order.specialization && status == order.status;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package by.khodokevich.web.service.UserServiceImpl;
 
-import by.khodokevich.web.command.ParameterAndAttributeType;
 import by.khodokevich.web.dao.AbstractDao;
 import by.khodokevich.web.dao.EntityTransaction;
 import by.khodokevich.web.dao.UserDao;
@@ -19,7 +18,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -52,25 +50,25 @@ public class UserServiceImpl implements UserService {
             try {
                 entityTransaction.beginSingleQuery(userDao);
 
-                Optional<User>  checkedUser = userDao.findUserByEMail(eMail);
+                Optional<User> checkedUser = userDao.findUserByEMail(eMail);
                 if (checkedUser.isPresent()) {
                     resultType = DUPLICATE_EMAIL;
                     checkedUser = Optional.empty();
                 }
                 checkedUser = userDao.findUserByPhone(phone);
                 if (checkedUser.isPresent()) {
-                    resultType = (resultType == DUPLICATE_EMAIL )? DUPLICATE_EMAIL_AND_PHONE : DUPLICATE_PHONE;
+                    resultType = (resultType == DUPLICATE_EMAIL) ? DUPLICATE_EMAIL_AND_PHONE : DUPLICATE_PHONE;
                 }
                 if (resultType == SUCCESS) {
                     User userForRegistretion = new User(firstName, lastName, eMail, phone, RegionBelarus.valueOf(region.toUpperCase()), city, UserStatus.DECLARED, UserRole.CUSTOMER);
                     String encodedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
                     userDao.register(userForRegistretion, encodedPassword);
+
                     String encodedEMail = BCrypt.hashpw(eMail, BCrypt.gensalt());
                     String urlPage = userData.get(URL);
                     String url = urlPage + "?command=activate&token=" + encodedEMail + "&eMail=" + eMail;
                     String activatingMessage = WELCOME + url;
                     MailAuthenticator.sendEmail(eMail, E_MAIL_CONFIRMATION, activatingMessage);
-
                 }
                 answerMap.put(RESULT, resultType.name());
             } catch (DaoException e) {
@@ -105,13 +103,13 @@ public class UserServiceImpl implements UserService {
                 String encodedPassword = userDao.findUserPasswordById(foundUser.get().getIdUser());
                 if (BCrypt.checkpw(password, encodedPassword)) {
                     if (foundUser.get().getStatus() == UserStatus.DECLARED) {
+
                         String encodedEMail = BCrypt.hashpw(eMail, BCrypt.gensalt());
                         String urlPage = userData.get(URL);
                         String url = urlPage + "?command=activate&token=" + encodedEMail + "&eMail=" + eMail;
                         String activatingMessage = WELCOME + url;
                         MailAuthenticator.sendEmail(eMail, E_MAIL_CONFIRMATION, activatingMessage);
-                    }
-                    else {
+                    } else {
                         user = foundUser;
                     }
                 }
@@ -131,24 +129,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public CheckingResultType activateUser(String eMail, String token) throws ServiceException {
         CheckingResultType answer;
-        if (BCrypt.checkpw(eMail,token)){
+        if (BCrypt.checkpw(eMail, token)) {
             AbstractDao userDao = new UserDaoImpl();
             EntityTransaction transaction = new EntityTransaction();
-
-
             try {
                 transaction.beginSingleQuery(userDao);
-                Optional<User> user = ((UserDao)userDao).findUserByEMail(eMail);
+                Optional<User> user = ((UserDao) userDao).findUserByEMail(eMail);
 
                 if (user.isPresent()) {
                     if (user.get().getStatus() == UserStatus.DECLARED) {
                         long idUser = user.get().getIdUser();
-                        ((UserDao)userDao).setUserStatus(idUser, UserStatus.CONFIRMED);
+                        ((UserDao) userDao).setUserStatus(idUser, UserStatus.CONFIRMED);
                         answer = SUCCESS;
                     } else {
                         answer = USER_STATUS_NOT_DECLARED;
                     }
-
                 } else {
                     logger.error("Find user not registered. Email = " + eMail);
                     answer = USER_UNKNOWN;
@@ -167,7 +162,6 @@ public class UserServiceImpl implements UserService {
             logger.error("Value of token is not confirmed. Email = " + eMail);
             answer = USER_UNKNOWN;
         }
-
         return answer;
     }
 

@@ -16,25 +16,20 @@ public class CommandProvider {
     private CommandProvider() {
     }
 
-    {
+    static {
         commandMap.put(REGISTER, new RegisterUserCommand());
-        commandMap.put(DEFAULT, new DefaultCommand());
-
-        commandMap.put(GO_TO_REGISTRATION, new GoToRegistrationCommand());
-
-        commandMap.put(SIGN_IN, new SignInCommand());
         commandMap.put(ACTIVATE, new ActivateUserCommand());
-        commandMap.put(GO_TO_MAIN, new GoToMainCommand());
+        commandMap.put(SIGN_IN, new SignInCommand());
+        commandMap.put(LOG_OUT, new LogOutCommand());
+        commandMap.put(DEFAULT, new DefaultCommand());
+        commandMap.put(SET_LOCALE, new SetLocaleCommand());
 
+        commandMap.put(GO_TO_MAIN, new GoToMainCommand());
+        commandMap.put(GO_TO_REGISTRATION, new GoToRegistrationCommand());
         commandMap.put(GO_TO_SIGN_IN, new GoToSignInCommand());
         commandMap.put(GO_TO_ERROR404, new GoToErrorUndefinedPageCommand());
-
-        commandMap.put(SET_LOCALE, new SetLocaleCommand());
-        commandMap.put(LOG_OUT, new LogOutCommand());
-
         commandMap.put(GO_TO_ORDER_PAGE, new GoToOrderPageCommand());
         commandMap.put(FIND_ORDERS_BY_SPECIALIZATIONS, new FindOrdersBySpecializationCommand());
-
     }
 
     public static CommandProvider getInstance() {

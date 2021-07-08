@@ -14,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,12 +23,9 @@ public class RegisterUserCommand implements Command {
 
     private static final String KEY_SENT_MASSAGE = "registration.message_send_link";
     private static final String KEY_MESSAGE_DATA_NOT_CORRECT = "registration.message_data_not_correct";
-
     private static final String KEY_MESSAGE_DUPLICATE_EMAIL = "registration.message_duplicate_email";
     private static final String KEY_MESSAGE_DUPLICATE_PHONE = "registration.message_duplicate_phone";
-
     private static final String KEY_MESSAGE_DUPLICATE_PHONE_AND_PHONE = "registration.message_duplicate_email_and_phone";
-
     private static final String EMPTY_VALUE = "";
 
     @Override
@@ -51,7 +49,7 @@ public class RegisterUserCommand implements Command {
         userData.put(REPEATED_PASSWORD, password);
         userData.put(URL, request.getRequestURL().toString());
         UserService userService = new UserServiceImpl();
-        Map<String,String> answerMap =new HashMap<>();
+        Map<String, String> answerMap;
         CheckingResultType resultType;
         try {
             answerMap = userService.register(userData);
@@ -81,10 +79,8 @@ public class RegisterUserCommand implements Command {
                         break;
                     case DUPLICATE_EMAIL:
                         request.setAttribute(MESSAGE, KEY_MESSAGE_DUPLICATE_EMAIL);
-
                         request.setAttribute(FIRST_NAME, firstName);
                         request.setAttribute(LAST_NAME, lastName);
-
                         request.setAttribute(E_MAIL, EMPTY_VALUE);
                         request.setAttribute(PHONE, phone);
                         request.setAttribute(REGION, region);
@@ -94,12 +90,9 @@ public class RegisterUserCommand implements Command {
 
                     case DUPLICATE_PHONE:
                         request.setAttribute(MESSAGE, KEY_MESSAGE_DUPLICATE_PHONE);
-
                         request.setAttribute(FIRST_NAME, firstName);
-
                         request.setAttribute(LAST_NAME, lastName);
                         request.setAttribute(E_MAIL, eMail);
-
                         request.setAttribute(PHONE, EMPTY_VALUE);
                         request.setAttribute(REGION, region);
                         request.setAttribute(CITY, city);
@@ -107,12 +100,9 @@ public class RegisterUserCommand implements Command {
                         break;
                     case DUPLICATE_EMAIL_AND_PHONE:
                         request.setAttribute(MESSAGE, KEY_MESSAGE_DUPLICATE_PHONE_AND_PHONE);
-
                         request.setAttribute(FIRST_NAME, firstName);
-
                         request.setAttribute(LAST_NAME, lastName);
                         request.setAttribute(E_MAIL, EMPTY_VALUE);
-
                         request.setAttribute(PHONE, EMPTY_VALUE);
                         request.setAttribute(REGION, region);
                         request.setAttribute(CITY, city);
@@ -128,7 +118,6 @@ public class RegisterUserCommand implements Command {
             }
         } catch (ServiceException e) {
             logger.error("User hasn't been registered", e);
-//            request.setAttribute();           TODO if need
             router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
         }
 

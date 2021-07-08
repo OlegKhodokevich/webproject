@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class ExecutorOption extends Entity{
+public class ExecutorOption extends Entity {
     private Optional<String> UNP;
     private List<Skill> skills;
     private double averageMark;

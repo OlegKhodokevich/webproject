@@ -22,10 +22,9 @@ public class UserDataValidator {
     private static final String KEY_REGEXP_EMAIL = "regexp.eMail";
     private static final String KEY_REGEXP_PHONE = "regexp.phone";
     private static final String KEY_REGEXP_CITY = "regexp.city";
-
     private static final String KEY_REGEXP_PASSWORD = "regexp.password";
 
-    public static Map<String, String> checkUserData(Map<String,String> userData) {
+    public static Map<String, String> checkUserData(Map<String, String> userData) {
         String firstName = userData.get(FIRST_NAME);
         String lastName = userData.get(LAST_NAME);
         String eMail = userData.get(E_MAIL);
@@ -103,9 +102,10 @@ public class UserDataValidator {
     public static boolean isRepeatedPasswordValid(String password, String repeatedPassword) {
         return password.equals(repeatedPassword);
     }
+
     public static boolean isRegionValid(String region) {
         RegionBelarus[] regions = RegionBelarus.values();
-        Optional<String> optionalRegion = Arrays.stream(regions).map((s)->s.name()).filter((s)->s.equals(region.toUpperCase())).findAny();
+        Optional<String> optionalRegion = Arrays.stream(regions).map((s) -> s.name()).filter((s) -> s.equals(region.toUpperCase())).findAny();
         return optionalRegion.isPresent();
     }
 }

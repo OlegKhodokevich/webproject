@@ -4,7 +4,6 @@ import by.khodokevich.web.command.Command;
 import by.khodokevich.web.command.PagePath;
 import by.khodokevich.web.command.Router;
 import by.khodokevich.web.entity.User;
-import by.khodokevich.web.entity.UserStatus;
 import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.service.UserService;
 import by.khodokevich.web.service.UserServiceImpl.UserServiceImpl;
@@ -43,7 +42,7 @@ public class SignInCommand implements Command {
                 User user = optionalUser.get();
                 switch (user.getStatus()) {
                     case CONFIRMED:
-                        HttpSession session =request.getSession();
+                        HttpSession session = request.getSession();
                         session.setAttribute(USER, user);
                         session.setAttribute(ROLE, user.getRole().name());
                         session.setAttribute(STATUS, user.getStatus().name());
@@ -68,7 +67,7 @@ public class SignInCommand implements Command {
                 }
             } else {
                 router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.FORWARD);
-                request.setAttribute(MESSAGE, KEY_USER_UNKNOWN);                  //TODO если не подтверждён сюда попадает и нет предупреждения
+                request.setAttribute(MESSAGE, KEY_USER_UNKNOWN);
             }
         } catch (ServiceException e) {
             logger.error("Log In Error", e);

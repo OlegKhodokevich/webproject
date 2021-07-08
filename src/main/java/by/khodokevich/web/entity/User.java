@@ -2,10 +2,8 @@ package by.khodokevich.web.entity;
 
 public class User extends Entity{
     private long userId;
-//    private String firstName;
-//    private String lastName;
     private String firstName;
-    private String lastName;       //TODO
+    private String lastName;
     private String eMail;
     private String phone;
     private RegionBelarus region;
@@ -25,7 +23,6 @@ public class User extends Entity{
         this.city = city;
         this.status = status;
         this.role = role;
-
     }
 
     public User(long idUser, String firstName, String lastName, String eMail, String phone, RegionBelarus region, String city, UserStatus status, UserRole role) {

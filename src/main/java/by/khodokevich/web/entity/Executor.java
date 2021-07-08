@@ -2,7 +2,7 @@ package by.khodokevich.web.entity;
 
 import java.util.Objects;
 
-public class Executor extends User{
+public class Executor extends User {
 
     private ExecutorOption executorOption;
 

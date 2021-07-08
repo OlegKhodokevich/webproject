@@ -26,12 +26,6 @@ public class LogOutCommand implements Command {
         } catch (Throwable e) {
             logger.info(e);
         }
-//
-//        session = request.getSession(true);
-//        User user = (User) session.getAttribute("user");
-//        String role = (String) session.getAttribute("role");
-//
-//        logger.info(" user  = " + user + "  , role  = " + role);
         Router router = new Router(PagePath.TO_MAIN_PAGE, Router.RouterType.REDIRECT);
 
         return router;

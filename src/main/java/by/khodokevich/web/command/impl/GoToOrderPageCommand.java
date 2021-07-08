@@ -38,7 +38,7 @@ public class GoToOrderPageCommand implements Command {
             router = new Router(PagePath.ORDERS, Router.RouterType.REDIRECT);
 
         } catch (ServiceException e) {
-            logger.error("Can't find all orders",e);
+            logger.error("Can't find all orders", e);
             router = new Router(PagePath.TO_ERROR_PAGE, Router.RouterType.REDIRECT);
         }
         return router;

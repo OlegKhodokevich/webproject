@@ -22,7 +22,7 @@ public class ActivateUserCommand implements Command {
         CheckingResultType resultOperation;
 
         HttpSession session = request.getSession();
-        String eMail = request.getParameter(E_MAIL);;
+        String eMail = request.getParameter(E_MAIL);
         String token = request.getParameter(TOKEN);
         UserService userService = new UserServiceImpl();
         try {

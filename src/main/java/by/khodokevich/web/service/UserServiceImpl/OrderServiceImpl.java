@@ -70,8 +70,8 @@ public class OrderServiceImpl implements OrderService {
         try {
             transaction.beginSingleQuery(orderDao);
             for (int i = 0; i < specializations.size(); i++) {
-                    List<Order> transferList = ((OrderDao) orderDao).findOrdersBySpecialization(specializations.get(i));
-                    orders.addAll(transferList);
+                List<Order> transferList = ((OrderDao) orderDao).findOrdersBySpecialization(specializations.get(i));
+                orders.addAll(transferList);
             }
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -82,7 +82,7 @@ public class OrderServiceImpl implements OrderService {
                 logger.error("Can't end transaction", e);
             }
         }
-        logger.info("End findUsersOrders(long idUser). Orders = " + orders);
+        logger.info("End findOrdersBySpecializations. Orders = " + orders);
         return orders;
     }
 }

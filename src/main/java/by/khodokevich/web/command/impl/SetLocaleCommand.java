@@ -19,13 +19,8 @@ public class SetLocaleCommand implements Command {
         HttpSession session = request.getSession();
         logger.info("Old local = " + session.getAttribute(LOCALE));
         String newLocal =  request.getParameter(LOCALE);
-        logger.info("New local1 = " + newLocal);
         session.setAttribute(LOCALE, newLocal);
-        logger.info("set local = " + newLocal);
-        logger.info("current page= " + session.getAttribute(CURRENT_PAGE));
         String pagePath = (String) session.getAttribute(CURRENT_PAGE);
-
-        logger.info("pages local1 = " + pagePath);
         Router router = new Router(pagePath, Router.RouterType.REDIRECT);
         logger.info("New local = " + newLocal);
         return router;
