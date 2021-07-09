@@ -9,10 +9,14 @@ import java.util.Optional;
 
 public interface UserDao {
     boolean setUserStatus(long idUser, UserStatus userStatus) throws DaoException;
+
+    UserStatus getUserStatus(long idUser) throws DaoException;
+
     boolean register(User user, String password) throws DaoException;
 
     Optional<User> findUserByEMail(String eMail) throws DaoException;
 
     Optional<User> findUserByPhone(String eMail) throws DaoException;
+
     String findUserPasswordById(long idUser) throws DaoException;
 }

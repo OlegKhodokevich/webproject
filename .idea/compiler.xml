@@ -9,8 +9,8 @@
         <module name="webproject" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="11">
-      <module name="webproject" target="11" />
+    <bytecodeTargetLevel target="16">
+      <module name="webproject" target="16" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -14,11 +14,11 @@
 <c:if test="${not empty sessionScope.locale}">
     <fmt:setLocale value="${sessionScope.locale}"/>
 </c:if>
+
 <fmt:setBundle basename="text"/>
 
-<fmt:message key="error_tech_come_later" var="locale_error_come_later"/>
-<fmt:message key="error_tech_problems" var="locale_error_tech_problems"/>
-<fmt:message key="error_error" var="locale_error_error"/>
+<fmt:message key="error.tech_problems" var="text_error_tech_problems"/>
+<fmt:message key="error.tech_come_later" var="text_error_tech_come_later"/>
 
 
 <html>
@@ -32,10 +32,8 @@
 </div>
 <div class="container payment_window mb-5 pt-3 pb-5">
     <div class="container mt-5">
-        <h2 class="mt-5">${locale_error_tech_problems}</h2>
-        <h2 class="mt-1">${locale_error_come_later}</h2>
-        <p>${exception.getMessage()}</p>
-        <p>${exception.printStackTrace()}</p>
+        <h2 class="mt-5">${text_error_tech_problems}</h2>
+        <h2 class="mt-1">${text_error_tech_come_later}</h2>
     </div>
 </div>
 

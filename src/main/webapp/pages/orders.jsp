@@ -182,19 +182,19 @@ background-size: cover">
                     </div>
 
                 </c:when>
-
                 <c:when test="${sessionScope.orderList != null}">
                     <div class="list-group">
                         <c:forEach var="order" items="${sessionScope.orderList}">
                             <c:if test="${order != null}">
-                                <a href="#"
-                                   class="list-group-item list-group-item-action flex-column align-items-start active">
+                                <a href="/controller?command=go_to_order_info&orderId=${order.orderId}"
+                                   class="list-group-item list-group-item-action flex-column align-items-start active border-dark mt-2">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1">${order.getTitle()}</h5>
                                         <small>${order.creationDate}</small>           <%--    //TODO data format--%>
                                     </div>
                                     <p class="mb-1">${order.description}</p>
                                     <small>${order.completionDate}</small>
+                                    <input type="hidden" name="orderId" id="orderId" value="${order.orderId}">
                                 </a>
                             </c:if>
                         </c:forEach>

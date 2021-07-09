@@ -14,10 +14,12 @@ import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.service.UserService;
 import by.khodokevich.web.util.MailAuthenticator;
 import by.khodokevich.web.validator.UserDataValidator;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -85,45 +87,63 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> logOn(Map<String, String> userData) throws ServiceException {
+    public Map<String,String> logOn(Map<String, String> userData) throws ServiceException {
         logger.info("Start logIn(Map<String, String> userData). User data = " + userData);
+        Map<String, String> answerMap = new HashMap<>();
+        CheckingResultType resultType;
+        Optional<User> user = Optional.empty();
         String eMail = userData.get(E_MAIL);
         String password = userData.get(PASSWORD);
-        if (!UserDataValidator.isEMailValid(eMail) && UserDataValidator.isPasswordValid(password)) {
-            logger.error("User data is not correct.");
-            throw new ServiceException("User data is not correct.");
-        }
-        UserDaoImpl userDao = new UserDaoImpl();
-        EntityTransaction entityTransaction = new EntityTransaction();
-        Optional<User> user = Optional.empty();
-        try {
-            entityTransaction.beginSingleQuery(userDao);
-            Optional<User> foundUser = userDao.findUserByEMail(eMail);
-            if (foundUser.isPresent()) {
-                String encodedPassword = userDao.findUserPasswordById(foundUser.get().getIdUser());
-                if (BCrypt.checkpw(password, encodedPassword)) {
-                    if (foundUser.get().getStatus() == UserStatus.DECLARED) {
+        if (UserDataValidator.isEMailValid(eMail) && UserDataValidator.isPasswordValid(password)) {
+            UserDaoImpl userDao = new UserDaoImpl();
+            EntityTransaction entityTransaction = new EntityTransaction();
+            try {
+                entityTransaction.beginSingleQuery(userDao);
+                Optional<User> foundUser = userDao.findUserByEMail(eMail);
+                if (foundUser.isPresent()) {
+                    String encodedPassword = userDao.findUserPasswordById(foundUser.get().getIdUser());
+                    if (BCrypt.checkpw(password, encodedPassword)) {
+                        if (foundUser.get().getStatus() == UserStatus.DECLARED) {
 
-                        String encodedEMail = BCrypt.hashpw(eMail, BCrypt.gensalt());
-                        String urlPage = userData.get(URL);
-                        String url = urlPage + "?command=activate&token=" + encodedEMail + "&eMail=" + eMail;
-                        String activatingMessage = WELCOME + url;
-                        MailAuthenticator.sendEmail(eMail, E_MAIL_CONFIRMATION, activatingMessage);
+                            String encodedEMail = BCrypt.hashpw(eMail, BCrypt.gensalt());
+                            String urlPage = userData.get(URL);
+                            String url = urlPage + "?command=activate&token=" + encodedEMail + "&eMail=" + eMail;
+                            String activatingMessage = WELCOME + url;
+                            MailAuthenticator.sendEmail(eMail, E_MAIL_CONFIRMATION, activatingMessage);
+                            resultType = USER_STATUS_NOT_CONFIRM;
+                        } else {
+                            user = foundUser;
+                            resultType = SUCCESS;
+                            answerMap.put(USER_ID, String.valueOf(user.get().getIdUser()));
+                            answerMap.put(FIRST_NAME, user.get().getfirstName());
+                            answerMap.put(LAST_NAME, user.get().getlastName());
+                            answerMap.put(E_MAIL, user.get().geteMail());
+                            answerMap.put(PHONE, user.get().getPhone());
+                            answerMap.put(REGION, user.get().getRegion().name());
+                            answerMap.put(CITY, user.get().getCity());
+                            answerMap.put(ROLE, user.get().getRole().name());
+                            answerMap.put(STATUS, user.get().getStatus().name());
+                        }
                     } else {
-                        user = foundUser;
+                        resultType = USER_UNKNOWN;
                     }
+                } else {
+                    resultType = USER_UNKNOWN;
+                }
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            } finally {
+                try {
+                    entityTransaction.endSingleQuery();
+                } catch (DaoException e) {
+                    logger.error("Can't end transaction", e);
                 }
             }
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        } finally {
-            try {
-                entityTransaction.endSingleQuery();
-            } catch (DaoException e) {
-                logger.error("Can't end transaction", e);
-            }
+        } else {
+            resultType = NOT_VALID;
         }
-        return user;
+        answerMap.put(RESULT, resultType.name());
+        return answerMap;
     }
 
     @Override
@@ -165,4 +185,53 @@ public class UserServiceImpl implements UserService {
         return answer;
     }
 
+    @Override
+    public Optional<User> findDefineUser(long userId) throws ServiceException {
+
+        logger.info("Start findDefineUser(long userId). userId = " + userId);
+        UserDaoImpl userDao = new UserDaoImpl();
+        EntityTransaction entityTransaction = new EntityTransaction();
+        Optional<User> user;
+        try {
+            entityTransaction.beginSingleQuery(userDao);
+            user = userDao.findEntityById(userId);
+            if (user.isPresent()) {
+                if (user.get().getStatus() == UserStatus.ARCHIVED) {
+                    user = Optional.empty();
+                    logger.error("Access error. User's status is archived. User id = " + userId);
+                }
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        } finally {
+            try {
+                entityTransaction.endSingleQuery();
+            } catch (DaoException e) {
+                logger.error("Can't end transaction", e);
+            }
+        }
+        return user;
+    }
+
+    @Override
+    public UserStatus getUserStatus(long userId) throws ServiceException {
+        logger.printf(Level.INFO, "Start getUserStatus(long userId). long userId = %d", userId);
+
+        UserDaoImpl userDao = new UserDaoImpl();
+        EntityTransaction entityTransaction = new EntityTransaction();
+        UserStatus userStatus;
+        try {
+            entityTransaction.beginSingleQuery(userDao);
+            userStatus = userDao.getUserStatus(userId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        } finally {
+            try {
+                entityTransaction.endSingleQuery();
+            } catch (DaoException e) {
+                logger.error("Can't end transaction", e);
+            }
+        }
+        return userStatus;
+    }
 }

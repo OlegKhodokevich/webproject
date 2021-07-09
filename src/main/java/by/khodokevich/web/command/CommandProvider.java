@@ -30,6 +30,7 @@ public class CommandProvider {
         commandMap.put(GO_TO_ERROR404, new GoToErrorUndefinedPageCommand());
         commandMap.put(GO_TO_ORDER_PAGE, new GoToOrderPageCommand());
         commandMap.put(FIND_ORDERS_BY_SPECIALIZATIONS, new FindOrdersBySpecializationCommand());
+        commandMap.put(GO_TO_ORDER_INFO, new GoToOrderInfoPage());
     }
 
     public static CommandProvider getInstance() {

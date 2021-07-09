@@ -2,17 +2,21 @@ package by.khodokevich.web.command;
 
 
 public final class ParameterAndAttributeType {
+    public static final String USER = "user";
+    public static final String USER_ID = "userId";
     public static final String FIRST_NAME = "firstName";
     public static final String LAST_NAME = "lastName";
     public static final String E_MAIL = "eMail";
     public static final String PHONE = "phone";
     public static final String REGION = "region";
     public static final String CITY = "city";
-    public static final String PASSWORD = "password";
-    public static final String REPEATED_PASSWORD = "psw-repeat";
-    public static final String USER = "user";
     public static final String ROLE = "role";
     public static final String STATUS = "status";
+    public static final String PASSWORD = "password";
+    public static final String REPEATED_PASSWORD = "psw-repeat";
+    public static final String ACTIVE_USER = "activeUser";
+    public static final String ACTIVE_USER_ROLE = "activeUserRole";
+    public static final String ACTIVE_USER_STATUS = "activeUserStatus";
 
     public static final String COMMAND = "command";
     public static final String URL = "url";
@@ -27,6 +31,10 @@ public final class ParameterAndAttributeType {
 
     public static final String ORDER_LIST = "orderList";
     public static final String EMPTY_LIST = "empty_list";
+    public static final String ORDER_ID = "orderId";
+    public static final String ORDER = "order";
+
+
 
     private ParameterAndAttributeType() {
 

@@ -21,6 +21,7 @@ import java.util.Set;
 
 public class FindOrdersBySpecializationCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
+    private static final String ORDERS_NOT_FOUND = "order.empty_list";
     private static final String CHECKBOX_VALUE = "on";
 
     @Override
@@ -47,10 +48,11 @@ public class FindOrdersBySpecializationCommand implements Command {
             List<Order> orderList = orderService.findOrdersBySpecializations(specializations);
             logger.info("Orders = " + orderList);
             if (!orderList.isEmpty()) {
-//                request.setAttribute("orderList", orderList);
+//                request.setAttribute(ParameterAndAttributeType.ORDER_LIST, orderList);
                 HttpSession session = request.getSession();
-                session.setAttribute("orderList", orderList);
+                session.setAttribute(ParameterAndAttributeType.ORDER_LIST, orderList);
             } else {
+                request.setAttribute(ParameterAndAttributeType.MESSAGE, ORDERS_NOT_FOUND);
                 request.setAttribute(ParameterAndAttributeType.EMPTY_LIST, Boolean.valueOf(true));
             }
             router = new Router(PagePath.ORDERS, Router.RouterType.REDIRECT);

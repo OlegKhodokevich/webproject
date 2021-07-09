@@ -21,7 +21,9 @@
 background-repeat: no-repeat;
 background-position: center center;
 background-size: cover">
-<jsp:include page="header.jsp"/>
+<header>
+    <jsp:include page="header.jsp"/>
+</header>
 <c:if test="${not empty requestScope.message}">
     <div class="container">
         <div class="container payment_window mb-5 pt-3 pb-5">
@@ -36,6 +38,9 @@ background-size: cover">
 </li>
 <li class="nav-link active text-md-center">
     <a class="header_button" href="/controller?command=log_out">exit</a>
+</li>
+<li class="nav-link active text-md-center">
+    <a class="header_button" href="order_info.jsp">Order Info</a>
 </li>
 <footer class="custom-footer">
 

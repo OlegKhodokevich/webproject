@@ -14,4 +14,5 @@ public enum CommandType {
     GO_TO_SIGN_IN,
     GO_TO_ERROR404,
     GO_TO_ORDER_PAGE,
+    GO_TO_ORDER_INFO,
 }

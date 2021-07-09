@@ -8,6 +8,7 @@ public enum CheckingResultType {
     ERROR,
     USER_UNKNOWN,
     USER_STATUS_NOT_DECLARED,
+    USER_STATUS_NOT_CONFIRM,
     NOT_VALID
 
 }

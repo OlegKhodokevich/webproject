@@ -34,6 +34,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     private static final String SQL_REGISTER_USER = "INSERT INTO users(FirstName, LastName, EMail, Phone, IdRegion, City, Status, RoleUser, EncodedPassword) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE_USER = "UPDATE users SET FirstName = ?, LastName = ?, EMail = ?, Phone = ?, IdRegion = ?, City = ?, Status = ?, RoleUser = ? WHERE IdUser = ?;";
     private static final String SQL_SET_USER_STATUS = "UPDATE users SET Status = ? WHERE IdUser = ?;";
+    private static final String SQL_GET_USER_STATUS = "SELECT Status FROM users WHERE IdUser = ?;";
 
     @Override
     public List<User> findAll() throws DaoException {
@@ -176,6 +177,28 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
         boolean result = numberUpdatedRows == 1;
         logger.info(() -> result ? "Operation was successful. " : " Operation was failed");
         return result;
+    }
+
+    @Override
+    public UserStatus getUserStatus(long idUser) throws DaoException {
+        logger.info("Start getUserStatus(long idUser). User's ID = " + idUser);
+        UserStatus userStatus = null;
+        try (PreparedStatement statement = super.connection.prepareStatement(SQL_GET_USER_STATUS)) {
+            statement.setLong(1, idUser);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    UserStatus status = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
+                } else {
+                    logger.error("No user in database. Id user = " + idUser);
+                    throw new DaoException("No user in database. Id user = " + idUser);
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
+            throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
+        }
+        logger.info("Status =" + userStatus);
+        return userStatus;
     }
 
     @Override

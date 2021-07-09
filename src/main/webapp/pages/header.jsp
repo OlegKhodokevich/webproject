@@ -96,7 +96,7 @@
             </li>
             <ul class="navbar-nav border-right">
                 <li class="nav-link active">
-                    <a class="nav-link" href="/controller?command=go_to_error404"
+                    <a class="nav-link" href="/controller?command=go_to_order_page"
                        style="color: black;">${text_project_orders}</a>
                 </li>
                 <li class="nav-link active">
@@ -111,13 +111,13 @@
             </form>
             <c:choose>
 
-                <c:when test="${empty sessionScope.user}">
+                <c:when test="${empty sessionScope.activeUser}">
                     <li class="nav-link active border-right text-center">
                         <a class="nav-link" href="/controller?command=go_to_sign_in"
                            style="color: black">${text_header_logging}</a>
                     </li>
                 </c:when>
-                <c:when test="${sessionScope.role == 'CUSTOMER'}">
+                <c:when test="${sessionScope.activeUserRole == 'CUSTOMER'}">
                     <li class="nav-item dropdown navbar-nav me-auto mb-2 mb-lg-0">
                         <a class="nav-link dropdown-toggle" href="#" id="profileCustomer" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -139,7 +139,7 @@
                     </li>
 
                 </c:when>
-                <c:when test="${sessionScope.role == 'EXECUTOR'}">
+                <c:when test="${sessionScope.activeUserRole == 'EXECUTOR'}">
                     <li class="nav-item dropdown navbar-nav me-auto mb-2 mb-lg-0">
                         <a class="nav-link dropdown-toggle" href="#" id="profileExecutor" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -162,7 +162,7 @@
                     </li>
                 </c:when>
 
-                <c:when test="${sessionScope.role == 'ADMIN'}">
+                <c:when test="${sessionScope.activeUserRole == 'ADMIN'}">
                     <li class="nav-item dropdown navbar-nav me-auto mb-2 mb-lg-0">
                         <a class="nav-link dropdown-toggle" href="#" id="profileAdmin" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
