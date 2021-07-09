@@ -5,6 +5,7 @@ import by.khodokevich.web.command.*;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
@@ -13,11 +14,10 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 @WebServlet
-public class Controller extends HelloServlet {
+public class Controller extends HttpServlet {
 
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(Controller.class);
     private final CommandProvider commandProvider = CommandProvider.getInstance();
-
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

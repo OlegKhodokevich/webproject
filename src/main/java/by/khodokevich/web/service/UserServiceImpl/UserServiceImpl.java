@@ -55,16 +55,15 @@ public class UserServiceImpl implements UserService {
                 Optional<User> checkedUser = userDao.findUserByEMail(eMail);
                 if (checkedUser.isPresent()) {
                     resultType = DUPLICATE_EMAIL;
-                    checkedUser = Optional.empty();
                 }
                 checkedUser = userDao.findUserByPhone(phone);
                 if (checkedUser.isPresent()) {
                     resultType = (resultType == DUPLICATE_EMAIL) ? DUPLICATE_EMAIL_AND_PHONE : DUPLICATE_PHONE;
                 }
                 if (resultType == SUCCESS) {
-                    User userForRegistretion = new User(firstName, lastName, eMail, phone, RegionBelarus.valueOf(region.toUpperCase()), city, UserStatus.DECLARED, UserRole.CUSTOMER);
+                    User userForRegistration = new User(firstName, lastName, eMail, phone, RegionBelarus.valueOf(region.toUpperCase()), city, UserStatus.DECLARED, UserRole.CUSTOMER);
                     String encodedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-                    userDao.register(userForRegistretion, encodedPassword);
+                    userDao.register(userForRegistration, encodedPassword);
 
                     String encodedEMail = BCrypt.hashpw(eMail, BCrypt.gensalt());
                     String urlPage = userData.get(URL);

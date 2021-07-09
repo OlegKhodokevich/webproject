@@ -43,6 +43,11 @@
 </head>
 <body style="height: 100px">
 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 100px">
     <div class="container-fluid">
         <a class="navbar-brand" href="/controller?command=go_to_main">${text_header_home}</a>
@@ -181,19 +186,11 @@
 
                         </ul>
                     </li>
-
                 </c:when>
-
-
             </c:choose>
-
-
         </div>
     </div>
 </nav>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
 </body>
 </html>

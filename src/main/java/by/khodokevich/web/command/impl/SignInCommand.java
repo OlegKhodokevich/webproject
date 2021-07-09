@@ -18,7 +18,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import static by.khodokevich.web.command.ParameterAndAttributeType.*;
 
@@ -62,17 +61,21 @@ public class SignInCommand implements Command {
                         case CONFIRMED:
                             HttpSession session = request.getSession();
                             User user = new User(userId, firstName, lastName, eMail, phone, regionBelarus, city, status, role);
+                            // ToDo: Add Builder Pattern
                             session.setAttribute(ACTIVE_USER, user);
                             session.setAttribute(ACTIVE_USER_ROLE, user.getRole().name());
                             session.setAttribute(ACTIVE_USER_STATUS, user.getStatus().name());
                             router = new Router(PagePath.MAIN_PAGE, Router.RouterType.REDIRECT);
                             String userName = user.getfirstName();
                             String userSurname = user.getlastName();
+
+                            // ToDo: FirstName, lastName
                             String messege = userName + " " + userSurname + " ";
                             request.setAttribute(MESSAGE, messege);
                             break;
                         case DECLARED:
-                            router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
+                            // ToDo:
+                            router = new Router(PagePath.LOGIN_PAGE + "?message=" + KEY_USER_NOT_CONFIRMED, Router.RouterType.REDIRECT);
                             request.setAttribute(MESSAGE, KEY_USER_NOT_CONFIRMED);
 
                             break;
@@ -94,8 +97,7 @@ public class SignInCommand implements Command {
                     request.setAttribute(MESSAGE, KEY_DATA_NOT_VALID);
                     break;
                 default:
-                    logger.error("Log In Error. Default e-mail :" + eMail);
-                    router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
+                    throw new UnsupportedOperationException();
             }
 //
 //            if (optionalUser.isPresent()) {
