@@ -109,8 +109,8 @@
                        aria-label="Search">
                 <button class="btn btn-outline-success align-bottom" type="submit">Search</button>
             </form>
-            <c:choose>
 
+            <c:choose>
                 <c:when test="${empty sessionScope.activeUser}">
                     <li class="nav-link active border-right text-center">
                         <a class="nav-link" href="/controller?command=go_to_sign_in"
@@ -128,7 +128,7 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">${text_profile_my_orders}</a></li>
+                            <li><a class="dropdown-item" href="/controller?command=go_to_my_orders">${text_profile_my_orders}</a></li>
 
                             <li><a class="dropdown-item" href="#">${text_profile_my_contracts}</a></li>
                             <li>

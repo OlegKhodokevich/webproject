@@ -29,6 +29,9 @@
 <fmt:message key="order.orders" var="text_order_orders"/>
 <fmt:message key="order.specializations" var="text_order_specializations"/>
 <fmt:message key="order.empty_list" var="text_order_empty_list"/>
+<fmt:message key="project.orders" var="text_project_orders"/>
+
+
 
 <c:if test="${not empty requestScope.message}">
     <fmt:message key="logging.welcome_user" var="text_welcome_user"/>
@@ -36,7 +39,7 @@
 
 <html>
 <head>
-    <title>Orders</title>
+    <title>${text_project_orders}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -48,7 +51,9 @@
 background-repeat: no-repeat;
 background-position: center center;
 background-size: cover">
-<jsp:include page="header.jsp"/>
+<header>
+    <jsp:include page="header.jsp"/>
+</header>
 <c:if test="${not empty requestScope.message}">
     <div class="container">
         <div class="container payment_window mb-5 pt-3 pb-5">

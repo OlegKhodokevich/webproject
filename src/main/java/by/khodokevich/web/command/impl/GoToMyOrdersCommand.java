@@ -17,14 +17,18 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class GoToMyOrdersCommand implements Command {
     private static final Logger logger = LogManager.getLogger();
+    private static final String KEY_STATUS_ARCHIVED = "error.status_archived";
+
 
     @Override
     public Router execute(HttpServletRequest request) { //TODO not finished
         Router router;
+
         OrderService orderService = new OrderServiceImpl();
         UserService userService = new UserServiceImpl();
 
@@ -33,19 +37,22 @@ public class GoToMyOrdersCommand implements Command {
         try {
             long userId = user.getIdUser();
             UserStatus currentUserStatus = userService.getUserStatus(userId);
-            if (user.getStatus() == currentUserStatus) {
-                List<Order> orderList = null; //TODO stoped here
-                if (!orderList.isEmpty()) {
-//                request.setAttribute("orderList", orderList);
-                    session.setAttribute("orderList", orderList);
-                } else {
-                    request.setAttribute(ParameterAndAttributeType.EMPTY_LIST, Boolean.valueOf(true));
-                }
-                session.setAttribute(ParameterAndAttributeType.CURRENT_PAGE, PagePath.ORDERS);
+            if (currentUserStatus == UserStatus.CONFIRMED) {
+                List<Order> orderList = orderService.findUsersOrders(userId);
+                orderList.sort(new Comparator<Order>() {
+                    @Override
+                    public int compare(Order o1, Order o2) {
+                        return o1.getStatus().ordinal() - o2.getStatus().ordinal();
+                    }
+                });
+                session.setAttribute(ParameterAndAttributeType.ORDER_LIST, orderList);
+                session.setAttribute(ParameterAndAttributeType.CURRENT_PAGE, PagePath.MY_ORDERS);
+                router = new Router(PagePath.MY_ORDERS, Router.RouterType.REDIRECT);
+            } else {
+                request.setAttribute(ParameterAndAttributeType.MESSAGE, KEY_STATUS_ARCHIVED);
+                router = new Router(PagePath.TO_MAIN_PAGE, Router.RouterType.REDIRECT);
             }
 
-
-            router = new Router(PagePath.ORDERS, Router.RouterType.REDIRECT);
 
         } catch (ServiceException e) {
             logger.error("Can't find all orders", e);

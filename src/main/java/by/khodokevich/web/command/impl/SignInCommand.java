@@ -84,6 +84,7 @@ public class SignInCommand implements Command {
                             logger.error("Log In Error. Default status." + userId);
                             router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
                     }
+                    break;
                 case USER_UNKNOWN:
                     router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.FORWARD);
                     request.setAttribute(MESSAGE, KEY_USER_UNKNOWN);

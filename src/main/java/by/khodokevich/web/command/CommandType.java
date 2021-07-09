@@ -15,4 +15,5 @@ public enum CommandType {
     GO_TO_ERROR404,
     GO_TO_ORDER_PAGE,
     GO_TO_ORDER_INFO,
+    GO_TO_MY_ORDERS,
 }

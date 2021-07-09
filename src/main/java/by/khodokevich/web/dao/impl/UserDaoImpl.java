@@ -187,7 +187,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
             statement.setLong(1, idUser);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    UserStatus status = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
+                    userStatus = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
                 } else {
                     logger.error("No user in database. Id user = " + idUser);
                     throw new DaoException("No user in database. Id user = " + idUser);
