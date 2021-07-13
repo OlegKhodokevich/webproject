@@ -2,6 +2,7 @@ package by.khodokevich.web.dao.impl;
 
 import static by.khodokevich.web.dao.impl.UserColumnName.*;
 
+import by.khodokevich.web.builder.UserBuilder;
 import by.khodokevich.web.dao.AbstractDao;
 import by.khodokevich.web.dao.UserDao;
 import by.khodokevich.web.entity.RegionBelarus;
@@ -23,7 +24,7 @@ import java.util.Optional;
 
 public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(UserDaoImpl.class);
     private static final String SQL_SELECT_ALL_USER = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, Status, RoleUser FROM users JOIN Regions ON Users.IdRegion = Regions.IdRegion;";  //TODO password?
     private static final String SQL_SELECT_DEFINED_USER = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, Status, RoleUser FROM users JOIN Regions ON Users.IdRegion = Regions.IdRegion WHERE IdUser = ?;";
     private static final String SQL_SELECT_DEFINED_USER_BY_EMAIL = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, Status, RoleUser FROM users JOIN Regions  WHERE EMail = ?;";
@@ -54,8 +55,17 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
                 String city = resultSet.getString(CITY);
                 UserStatus status = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
                 UserRole role = UserRole.valueOf(resultSet.getString(ROLE_STATUS).toUpperCase());
-
-                User user = new User(idUser, firstName, lastName, eMail, phone, region, city, status, role);
+                User user = new UserBuilder()
+                        .userId(idUser)
+                        .firstName(firstName)
+                        .lastName(lastName)
+                        .eMail(eMail)
+                        .phone(phone)
+                        .region(region)
+                        .city(city)
+                        .status(status)
+                        .role(role)
+                        .buildUser();
                 logger.info("Has found next user = " + user);
                 users.add(user);
             }
@@ -84,8 +94,17 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
                     String city = resultSet.getString(CITY);
                     UserStatus status = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
                     UserRole role = UserRole.valueOf(resultSet.getString(ROLE_STATUS).toUpperCase());
-
-                    user = new User(idUser, firstName, lastName, eMail, phone, region, city, status, role);
+                    user = new UserBuilder()
+                            .userId(idUser)
+                            .firstName(firstName)
+                            .lastName(lastName)
+                            .eMail(eMail)
+                            .phone(phone)
+                            .region(region)
+                            .city(city)
+                            .status(status)
+                            .role(role)
+                            .buildUser();
                 }
             }
         } catch (SQLException e) {
@@ -246,8 +265,17 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
                     String city = resultSet.getString(CITY);
                     UserStatus status = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
                     UserRole role = UserRole.valueOf(resultSet.getString(ROLE_STATUS).toUpperCase());
-
-                    user = new User(idUser, firstName, lastName, eMail, phone, region, city, status, role);
+                    user = new UserBuilder()
+                            .userId(idUser)
+                            .firstName(firstName)
+                            .lastName(lastName)
+                            .eMail(eMail)
+                            .phone(phone)
+                            .region(region)
+                            .city(city)
+                            .status(status)
+                            .role(role)
+                            .buildUser();
                 }
             }
         } catch (SQLException e) {
@@ -277,8 +305,17 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
                         String city = resultSet.getString(CITY);
                         UserStatus status = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
                         UserRole role = UserRole.valueOf(resultSet.getString(ROLE_STATUS).toUpperCase());
-
-                        user = new User(idUser, firstName, lastName, eMail, phone, region, city, status, role);
+                        user = new UserBuilder()
+                                .userId(idUser)
+                                .firstName(firstName)
+                                .lastName(lastName)
+                                .eMail(eMail)
+                                .phone(phone)
+                                .region(region)
+                                .city(city)
+                                .status(status)
+                                .role(role)
+                                .buildUser();
                     } else {
                         result = CheckingResultType.DUPLICATE_PHONE;
                     }

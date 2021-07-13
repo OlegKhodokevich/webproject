@@ -12,7 +12,7 @@ import java.util.Properties;
 
 
 public class MailAuthenticator {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(MailAuthenticator.class);
     private static final Properties properties = new Properties();
     private static final String PROPERTIES_FILE_NAME = "mail.properties";
     private static final String SPECIFY_E_MAIL_NAME_PROPERTIES = "mail.from";

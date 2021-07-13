@@ -9,7 +9,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class TimerConnectionProvider extends TimerTask {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(TimerConnectionProvider.class);
     private static final AtomicBoolean isConnectionProviderRun = CustomConnectionPool.isConnectionProviderRun;
     private static final ReentrantLock timerConnectionProviderLock = CustomConnectionPool.timerConnectionProviderLock;
     private static Condition condition = timerConnectionProviderLock.newCondition();

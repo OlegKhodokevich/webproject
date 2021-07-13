@@ -9,7 +9,7 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 
 class ProxyConnection implements Connection {
-    private final static Logger logger = LogManager.getLogger();
+    private final static Logger logger = LogManager.getLogger(ProxyConnection.class);
     private Connection connection;
 
     ProxyConnection(Connection connection) {

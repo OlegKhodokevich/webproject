@@ -23,15 +23,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static by.khodokevich.web.command.ParameterAndAttributeType.*;
-import static by.khodokevich.web.command.ParameterAndAttributeType.CITY;
+import static by.khodokevich.web.command.ParameterAttributeType.*;
+import static by.khodokevich.web.command.ParameterAttributeType.CITY;
 import static by.khodokevich.web.service.CheckingResultType.*;
 
 public class UserServiceImpl implements UserService {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
     public static final String WELCOME = "To activate your account, follow the link ";
 
     public static final String E_MAIL_CONFIRMATION = "Logging service. E-mail checking.";
+
+    protected UserServiceImpl() {
+    }
 
     @Override
     public Map<String, String> register(Map<String, String> userData) throws ServiceException {
@@ -47,9 +50,9 @@ public class UserServiceImpl implements UserService {
         String result = answerMap.get(RESULT);
         if (result.equals(SUCCESS.name())) {
             UserDaoImpl userDao = new UserDaoImpl();
-            EntityTransaction entityTransaction = new EntityTransaction();
+
             CheckingResultType resultType = SUCCESS;
-            try {
+            try (EntityTransaction entityTransaction = new EntityTransaction()) {
                 entityTransaction.beginSingleQuery(userDao);
 
                 Optional<User> checkedUser = userDao.findUserByEMail(eMail);
@@ -74,19 +77,15 @@ public class UserServiceImpl implements UserService {
                 answerMap.put(RESULT, resultType.name());
             } catch (DaoException e) {
                 throw new ServiceException(e);
-            } finally {
-                try {
-                    entityTransaction.endSingleQuery();
-                } catch (DaoException e) {
-                    logger.error("Can't end transaction", e);
-                }
+            } catch (Exception e) {
+                throw new ServiceException("Error of closing transaction.", e);
             }
         }
         return answerMap;
     }
 
     @Override
-    public Map<String,String> logOn(Map<String, String> userData) throws ServiceException {
+    public Map<String, String> logOn(Map<String, String> userData) throws ServiceException {
         logger.info("Start logIn(Map<String, String> userData). User data = " + userData);
         Map<String, String> answerMap = new HashMap<>();
         CheckingResultType resultType;
@@ -95,8 +94,7 @@ public class UserServiceImpl implements UserService {
         String password = userData.get(PASSWORD);
         if (UserDataValidator.isEMailValid(eMail) && UserDataValidator.isPasswordValid(password)) {
             UserDaoImpl userDao = new UserDaoImpl();
-            EntityTransaction entityTransaction = new EntityTransaction();
-            try {
+            try (EntityTransaction entityTransaction = new EntityTransaction()) {
                 entityTransaction.beginSingleQuery(userDao);
                 Optional<User> foundUser = userDao.findUserByEMail(eMail);
                 if (foundUser.isPresent()) {
@@ -131,12 +129,8 @@ public class UserServiceImpl implements UserService {
                 }
             } catch (DaoException e) {
                 throw new ServiceException(e);
-            } finally {
-                try {
-                    entityTransaction.endSingleQuery();
-                } catch (DaoException e) {
-                    logger.error("Can't end transaction", e);
-                }
+            } catch (Exception e) {
+                throw new ServiceException("Error of closing transaction.", e);
             }
         } else {
             resultType = NOT_VALID;
@@ -150,8 +144,8 @@ public class UserServiceImpl implements UserService {
         CheckingResultType answer;
         if (BCrypt.checkpw(eMail, token)) {
             AbstractDao userDao = new UserDaoImpl();
-            EntityTransaction transaction = new EntityTransaction();
-            try {
+
+            try (EntityTransaction transaction = new EntityTransaction()) {
                 transaction.beginSingleQuery(userDao);
                 Optional<User> user = ((UserDao) userDao).findUserByEMail(eMail);
 
@@ -170,12 +164,8 @@ public class UserServiceImpl implements UserService {
             } catch (DaoException e) {
                 logger.error("Can't activate user. Email = " + eMail, e);
                 throw new ServiceException(e);
-            } finally {
-                try {
-                    transaction.endSingleQuery();
-                } catch (DaoException e) {
-                    logger.error("Can't end transaction", e);
-                }
+            } catch (Exception e) {
+                throw new ServiceException("Error of closing transaction.", e);
             }
         } else {
             logger.error("Value of token is not confirmed. Email = " + eMail);
@@ -189,9 +179,8 @@ public class UserServiceImpl implements UserService {
 
         logger.info("Start findDefineUser(long userId). userId = " + userId);
         UserDaoImpl userDao = new UserDaoImpl();
-        EntityTransaction entityTransaction = new EntityTransaction();
         Optional<User> user;
-        try {
+        try (EntityTransaction entityTransaction = new EntityTransaction()) {
             entityTransaction.beginSingleQuery(userDao);
             user = userDao.findEntityById(userId);
             if (user.isPresent()) {
@@ -202,12 +191,8 @@ public class UserServiceImpl implements UserService {
             }
         } catch (DaoException e) {
             throw new ServiceException(e);
-        } finally {
-            try {
-                entityTransaction.endSingleQuery();
-            } catch (DaoException e) {
-                logger.error("Can't end transaction", e);
-            }
+        } catch (Exception e) {
+            throw new ServiceException("Error of closing transaction.", e);
         }
         return user;
     }
@@ -217,19 +202,14 @@ public class UserServiceImpl implements UserService {
         logger.printf(Level.INFO, "Start getUserStatus(long userId). long userId = %d", userId);
 
         UserDaoImpl userDao = new UserDaoImpl();
-        EntityTransaction entityTransaction = new EntityTransaction();
         UserStatus userStatus;
-        try {
+        try (EntityTransaction entityTransaction = new EntityTransaction()) {
             entityTransaction.beginSingleQuery(userDao);
             userStatus = userDao.getUserStatus(userId);
         } catch (DaoException e) {
             throw new ServiceException(e);
-        } finally {
-            try {
-                entityTransaction.endSingleQuery();
-            } catch (DaoException e) {
-                logger.error("Can't end transaction", e);
-            }
+        } catch (Exception e) {
+            throw new ServiceException("Error of closing transaction.", e);
         }
         return userStatus;
     }

@@ -15,7 +15,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class CustomConnectionPool {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(CustomConnectionPool.class);
     private static final int DEFAULT_POOL_SIZE = 8;
     private static final int MAX_NUMBER_ADDITIONAL_CONNECTION_ATTEMPT = 3;
     private static final int MAX_WAITING_TIME_GET_CONNECTION_SECONDS = 5;
@@ -90,8 +90,7 @@ public class CustomConnectionPool {
         stopGiveTakeConnectionWhenConnectionProviderRun();
         if (connection instanceof ProxyConnection) {
             try {
-                boolean operation = busyConnections.remove(connection);
-                if (operation) {
+                if (busyConnections.remove(connection)) {
                     freeConnections.put((ProxyConnection) connection);
                 } else {
                     logger.error("Can't put in pool connection because connection is't valid.");
@@ -185,7 +184,7 @@ public class CustomConnectionPool {
             count++;
         }
 
-        if (count == MAX_NUMBER_ADDITIONAL_CONNECTION_ATTEMPT & connectionPoolSize < DEFAULT_POOL_SIZE) {
+        if (count == MAX_NUMBER_ADDITIONAL_CONNECTION_ATTEMPT && connectionPoolSize < DEFAULT_POOL_SIZE) {
             logger.fatal("Connections pool can't be fill. Current size = " + connectionPoolSize);
             throw new RuntimeException("Connections pool can't be fill. Current size = " + connectionPoolSize);
         }

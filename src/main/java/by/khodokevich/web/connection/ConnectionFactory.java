@@ -11,7 +11,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 class ConnectionFactory {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(ConnectionFactory.class);
     private static final String FILE_PROPERTIES_NAME = "database";
     private static final String URL_ATTRIBUTE_NAME = "db.url";
     private static final String USER_ATTRIBUTE_NAME = "db.user";

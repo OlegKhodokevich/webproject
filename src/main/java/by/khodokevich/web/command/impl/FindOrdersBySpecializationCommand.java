@@ -2,13 +2,13 @@ package by.khodokevich.web.command.impl;
 
 import by.khodokevich.web.command.Command;
 import by.khodokevich.web.command.PagePath;
-import by.khodokevich.web.command.ParameterAndAttributeType;
+import by.khodokevich.web.command.ParameterAttributeType;
 import by.khodokevich.web.command.Router;
 import by.khodokevich.web.entity.Order;
 import by.khodokevich.web.entity.Specialization;
 import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.service.OrderService;
-import by.khodokevich.web.service.UserServiceImpl.OrderServiceImpl;
+import by.khodokevich.web.service.UserServiceImpl.ServiceProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class FindOrdersBySpecializationCommand implements Command {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(FindOrdersBySpecializationCommand.class);
     private static final String ORDERS_NOT_FOUND = "order.empty_list";
     private static final String CHECKBOX_VALUE = "on";
 
@@ -32,7 +32,7 @@ public class FindOrdersBySpecializationCommand implements Command {
         logger.info(request.getParameter("spec3"));
         logger.info(request.getAttributeNames());
         logger.info("key = spec3 ,value =" + request.getAttribute("spec3"));
-        OrderService orderService = new OrderServiceImpl();
+        OrderService orderService = ServiceProvider.ORDER_SERVICE;
         try {
 
             Map<String, Specialization> specializationMap = Specialization.getSpecializationMap();
@@ -50,10 +50,10 @@ public class FindOrdersBySpecializationCommand implements Command {
             if (!orderList.isEmpty()) {
 //                request.setAttribute(ParameterAndAttributeType.ORDER_LIST, orderList);
                 HttpSession session = request.getSession();
-                session.setAttribute(ParameterAndAttributeType.ORDER_LIST, orderList);
+                session.setAttribute(ParameterAttributeType.ORDER_LIST, orderList);
             } else {
-                request.setAttribute(ParameterAndAttributeType.MESSAGE, ORDERS_NOT_FOUND);
-                request.setAttribute(ParameterAndAttributeType.EMPTY_LIST, Boolean.valueOf(true));
+                request.setAttribute(ParameterAttributeType.MESSAGE, ORDERS_NOT_FOUND);
+                request.setAttribute(ParameterAttributeType.EMPTY_LIST, Boolean.valueOf(true));
             }
             router = new Router(PagePath.ORDERS, Router.RouterType.REDIRECT);
 

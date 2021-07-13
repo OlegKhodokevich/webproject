@@ -32,16 +32,16 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="Log_Console" level="info" additivity="false">
+        <Logger name="Log_Console" level="debug" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
-        <Logger name="Log_File" level="info" additivity="false">
+        <Logger name="Log_File" level="debug" additivity="false">
             <AppenderRef ref="FileRolling"/>
         </Logger>
 
         <Root level="trace">
-            <AppenderRef ref="FileRolling" level="info"/>
-            <AppenderRef ref="Console" level="info"/>
+            <AppenderRef ref="FileRolling" level="debug"/>
+            <AppenderRef ref="Console" level="debug"/>
         </Root>
 
 

@@ -8,5 +8,5 @@
 <body>
 
 <c:redirect url="/controller?command=go_to_main"/>
-<>
+</body>
 </html>

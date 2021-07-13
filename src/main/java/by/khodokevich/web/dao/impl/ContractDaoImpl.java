@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ContractDaoImpl extends AbstractDao<Contract> {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(ContractDaoImpl.class);
 
     private static final String SQL_SELECT_ALL_CONTRACTS = "SELECT IdContract, IdOrder, IdUserExecutor, Conclude, Complete FROM contracts;";
     private static final String SQL_SELECT_DEFINED_CONTRACT = "SELECT IdOrder, IdUserExecutor, Conclude, Complete FROM contracts WHERE IdContract = ?;";

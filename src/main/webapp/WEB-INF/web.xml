@@ -14,4 +14,30 @@
             <servlet-name>Controller</servlet-name>
             <url-pattern>/controller</url-pattern>
         </servlet-mapping>
+
+<!--    <filter>-->
+<!--        <filter-name>PageNotFoundFilter</filter-name>-->
+<!--        <filter-class>by.khodokevich.web.controller.filter.PageNotFoundFilter</filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>PageNotFoundFilter</filter-name>-->
+<!--        <url-pattern>/*</url-pattern>-->
+<!--    </filter-mapping>-->
+    <filter>
+        <filter-name>XSSFilter</filter-name>
+        <filter-class>by.khodokevich.web.controller.filter.XSSFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>XSSFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>CharsetFilter</filter-name>
+        <filter-class>by.khodokevich.web.controller.filter.CharsetFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharsetFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

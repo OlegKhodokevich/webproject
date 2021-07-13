@@ -9,7 +9,7 @@ import java.util.EnumMap;
 import static by.khodokevich.web.command.CommandType.*;
 
 public class CommandProvider {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(CommandProvider.class);
     private static CommandProvider instance;
     private static EnumMap<CommandType, Command> commandMap = new EnumMap(CommandType.class);
 

@@ -9,11 +9,13 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class EntityTransaction {
+public class EntityTransaction implements AutoCloseable {
     private static final Logger logger = LogManager.getLogger();
     private Connection connection;
+    boolean singleTransaction;
 
     public void begin(AbstractDao... daos) throws DaoException {
+        singleTransaction = false;
         if (connection == null) {
             try {
                 connection = CustomConnectionPool.getInstance().getConnection();
@@ -34,6 +36,7 @@ public class EntityTransaction {
     }
 
     public void beginSingleQuery(AbstractDao dao) throws DaoException {
+        singleTransaction = true;
         if (connection == null) {
             try {
                 connection = CustomConnectionPool.getInstance().getConnection();
@@ -45,8 +48,28 @@ public class EntityTransaction {
         dao.setConnection(connection);
     }
 
+    @Override
+    public void close() throws Exception {
+        if (singleTransaction) {
+            endSingleQuery();
+        } else {
+            end();
+        }
+    }
 
-    public void end() throws DaoException {
+    private void endSingleQuery() throws DaoException {
+        if (connection == null) {
+            throw new DaoException("Connection has been lost.");
+        }
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        connection = null;
+    }
+
+    private void end() throws DaoException {
         if (connection == null) {
             throw new DaoException("Connection has been lost.");
         }
@@ -64,18 +87,5 @@ public class EntityTransaction {
             }
             connection = null;
         }
-    }
-
-
-    public void endSingleQuery() throws DaoException {
-        if (connection == null) {
-            throw new DaoException("Connection has been lost.");
-        }
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
-        connection = null;
     }
 }

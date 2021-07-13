@@ -1,17 +1,17 @@
 package by.khodokevich.web.command.impl;
 
 import by.khodokevich.web.command.Command;
-import by.khodokevich.web.command.CommandType;
+import by.khodokevich.web.command.PagePath;
 import by.khodokevich.web.command.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static by.khodokevich.web.command.ParameterAndAttributeType.*;
+import static by.khodokevich.web.command.ParameterAttributeType.*;
 
 public class SetLocaleCommand implements Command {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(SetLocaleCommand.class);
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -21,6 +21,9 @@ public class SetLocaleCommand implements Command {
         String newLocal =  request.getParameter(LOCALE);
         session.setAttribute(LOCALE, newLocal);
         String pagePath = (String) session.getAttribute(CURRENT_PAGE);
+        if (pagePath == null) {
+            pagePath = PagePath.MAIN_PAGE;
+        }
         Router router = new Router(pagePath, Router.RouterType.REDIRECT);
         logger.info("New local = " + newLocal);
         return router;

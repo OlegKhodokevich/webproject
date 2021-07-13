@@ -1,6 +1,6 @@
 package by.khodokevich.web.command.impl;
 
-import static by.khodokevich.web.command.ParameterAndAttributeType.*;
+import static by.khodokevich.web.command.ParameterAttributeType.*;
 
 import by.khodokevich.web.command.Command;
 import by.khodokevich.web.command.PagePath;
@@ -8,8 +8,7 @@ import by.khodokevich.web.command.Router;
 import by.khodokevich.web.service.CheckingResultType;
 import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.service.UserService;
-import by.khodokevich.web.service.UserServiceImpl.UserServiceImpl;
-import com.oracle.wls.shaded.org.apache.regexp.RE;
+import by.khodokevich.web.service.UserServiceImpl.ServiceProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterUserCommand implements Command {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(RegisterUserCommand.class);
 
     private static final String KEY_SENT_MASSAGE = "registration.message_send_link";
     private static final String KEY_MESSAGE_DATA_NOT_CORRECT = "registration.message_data_not_correct";
@@ -48,7 +47,7 @@ public class RegisterUserCommand implements Command {
         userData.put(PASSWORD, password);
         userData.put(REPEATED_PASSWORD, password);
         userData.put(URL, request.getRequestURL().toString());
-        UserService userService = new UserServiceImpl();
+        UserService userService = ServiceProvider.USER_SERVICE;
         Map<String, String> answerMap;
         CheckingResultType resultType;
         try {

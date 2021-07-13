@@ -1,6 +1,5 @@
 package by.khodokevich.web.validator;
 
-import by.khodokevich.web.command.ParameterAndAttributeType;
 import by.khodokevich.web.entity.RegionBelarus;
 import by.khodokevich.web.service.CheckingResultType;
 import org.apache.logging.log4j.LogManager;
@@ -13,10 +12,10 @@ import java.util.Map;
 import java.util.Optional;
 
 import static by.khodokevich.web.util.RegexpManager.*;
-import static by.khodokevich.web.command.ParameterAndAttributeType.*;
+import static by.khodokevich.web.command.ParameterAttributeType.*;
 
 public class UserDataValidator {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(UserDataValidator.class);
     private static final String KEY_REGEXP_FIRSTNAME = "regexp.firstName";
     private static final String KEY_REGEXP_LASTNAME = "regexp.lastName";
     private static final String KEY_REGEXP_EMAIL = "regexp.eMail";

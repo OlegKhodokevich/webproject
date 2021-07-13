@@ -2,9 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<c:if test="${not empty sessionScope.locale}">
     <fmt:setLocale value="${sessionScope.locale}"/>
-</c:if>
 
 <fmt:setBundle basename="text"/>
 
@@ -22,6 +20,10 @@
 <fmt:message key="logging.title" var="text_logging_title"/>
 <fmt:message key="logging.sign_in" var="text_logging_sign_in"/>
 
+<c:if test="${not empty param['message']}">
+    <fmt:message key="${param['message']}" var="text_message"/>
+</c:if>
+
 <html>
 <head>
     <title>${text_logging_title}</title>
@@ -36,8 +38,7 @@ background-size: cover">
     <jsp:include page="header.jsp"/>
 </header>
 
-<c:if test="${not empty requestScope.message}">
-    <fmt:message key="${requestScope.message}" var="text_message"/>
+<c:if test="${not empty param['message']}">
     <div class="container">
         <div class="container payment_window mb-5 pt-3 pb-5">
             <div class="container mt-5">

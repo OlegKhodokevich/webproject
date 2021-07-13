@@ -1,6 +1,5 @@
 package by.khodokevich.web.controller;
 
-import by.khodokevich.web.HelloServlet;
 import by.khodokevich.web.command.*;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -31,7 +30,7 @@ public class Controller extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        String commandName = request.getParameter(ParameterAndAttributeType.COMMAND);
+        String commandName = request.getParameter(ParameterAttributeType.COMMAND);
 
         Command command = commandProvider.getCommand(commandName);
 

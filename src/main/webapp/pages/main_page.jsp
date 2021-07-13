@@ -1,14 +1,11 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<c:if test="${not empty sessionScope.locale}">
-    <fmt:setLocale value="${sessionScope.locale}"/>
-</c:if>
+<fmt:setLocale value="${sessionScope.locale}"/>
 
 <fmt:setBundle basename="text"/>
-<c:if test="${not empty requestScope.message}">
+<c:if test="${not empty param['message']}">
     <fmt:message key="logging.welcome_user" var="text_welcome_user"/>
 </c:if>
 
@@ -17,18 +14,37 @@
     <title>main</title>
     <link href="/static/css/custom_styles.css" rel="stylesheet"/>
 </head>
-<body  style="background-image: url(../static/image/building_3_c1.jpg);
+<body style="background-image: url(../static/image/building_3_c1.jpg);
 background-repeat: no-repeat;
 background-position: center center;
 background-size: cover">
 <header>
     <jsp:include page="header.jsp"/>
 </header>
-<c:if test="${not empty requestScope.message}">
+
+<%--<script>--%>
+<%--    var params = window--%>
+<%--        .location--%>
+<%--        .search--%>
+<%--        .replace('?','')--%>
+<%--        .split('&')--%>
+<%--        .reduce(--%>
+<%--            function(p,e){--%>
+<%--                var a = e.split('=');--%>
+<%--                p[ decodeURIComponent(a[0])] = decodeURIComponent(a[1]);--%>
+<%--                return p;--%>
+<%--            },--%>
+<%--            {}--%>
+<%--        );--%>
+<%--    var element = document.createElement(params['message']);--%>
+<%--    var body = document.body;--%>
+<%--    body.appendChild(element);--%>
+<%--</script>--%>
+<c:if test="${not empty param['message']}">
     <div class="container">
         <div class="container payment_window mb-5 pt-3 pb-5">
             <div class="container mt-5">
-                <h2 class="mt-5">${requestScope.message}${text_welcome_user}</h2>
+                <h2 class="mt-5">${param['message']} ${text_welcome_user}</h2>
             </div>
         </div>
     </div>

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ExecutorDaoImpl extends AbstractDao<Executor> { // TODO add implementation
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(ExecutorDaoImpl.class);
 
     private static final String SQL_SELECT_ALL_EXECUTORS = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, Status, RoleUser FROM users JOIN regions ON users.IdRegion = regions.IdRegion WHERE RoleUser = \"executor\";";  //TODO password?
     private static final String SQL_SELECT_DEFINED_EXECUTORS = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, Status, RoleUser FROM users JOIN regions ON users.IdRegion = regions.IdRegion WHERE RoleUser = \"executor\" AND IdUser = ?;";

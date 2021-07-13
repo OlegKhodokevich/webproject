@@ -2,6 +2,7 @@ package by.khodokevich.web.dao.impl;
 
 import static by.khodokevich.web.dao.impl.OrderColumnName.*;
 
+import by.khodokevich.web.builder.OrderBuilder;
 import by.khodokevich.web.dao.AbstractDao;
 import by.khodokevich.web.dao.OrderDao;
 import by.khodokevich.web.entity.*;
@@ -17,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(OrderDaoImpl.class);
 
     private static final String SQL_SELECT_ALL_ORDER = "SELECT IdOrder, IdUserCustomer, Title, JobDescription, Address, CreationDate, CompletionDate, Specialization, OrderStatus FROM orders JOIN specializations ON orders.IdSpecialization = specializations.IdSpecialization;";
     private static final String SQL_SELECT_DEFINED_ORDER = "SELECT IdOrder, IdUserCustomer, Title, JobDescription, Address, CreationDate, CompletionDate, Specialization, OrderStatus FROM orders JOIN specializations ON orders.IdSpecialization = specializations.IdSpecialization WHERE IdOrder = ?;";
@@ -49,7 +50,16 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
                 Specialization specialization = Specialization.valueOf(resultSet.getString(SPECIALIZATION).toUpperCase());
                 OrderStatus status = OrderStatus.valueOf(resultSet.getString(ORDER_STATUS).toUpperCase());
 
-                Order order = new Order(orderId, userId, title, description, address, creationDate, completionDate, specialization, status);
+                Order order = new OrderBuilder()
+                        .orderId(orderId)
+                        .title(title)
+                        .description(description)
+                        .address(address)
+                        .creationDate(creationDate)
+                        .completionDate(completionDate)
+                        .specialization(specialization)
+                        .status(status)
+                        .buildOrder();
                 logger.info("Has found next order = " + order);
                 orders.add(order);
             }
@@ -87,8 +97,16 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
                     Date completionDate = parser.parse(completionDateString);
                     Specialization specialization = Specialization.valueOf(resultSet.getString(SPECIALIZATION).toUpperCase());
                     OrderStatus status = OrderStatus.valueOf(resultSet.getString(ORDER_STATUS).toUpperCase());
-
-                    order = new Order(orderId, userId, title, description, address, creationDate, completionDate, specialization, status);
+                    order = new OrderBuilder()
+                            .orderId(orderId)
+                            .title(title)
+                            .description(description)
+                            .address(address)
+                            .creationDate(creationDate)
+                            .completionDate(completionDate)
+                            .specialization(specialization)
+                            .status(status)
+                            .buildOrder();
                 }
             }
         } catch (SQLException e) {
@@ -216,12 +234,12 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
 
     @Override
     public List<Order> findUserOrders(long idUser) throws DaoException {
-        logger.info("Start ffindUserOrders(long idUser) . Id = " + idUser );
+        logger.info("Start ffindUserOrders(long idUser) . Id = " + idUser);
         List<Order> orders = new ArrayList<>();
         SimpleDateFormat parser = new SimpleDateFormat(DATE_PATTERN);
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_USERS_ORDERS)) {
             statement.setLong(1, idUser);
-            try (ResultSet resultSet = statement.executeQuery()){
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     long orderId = resultSet.getLong(ID_ORDER);
                     long userId = resultSet.getLong(ID_CUSTOMER);
@@ -232,8 +250,16 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
                     Date completionDate = parser.parse(resultSet.getString(COMPLETION_DATE));
                     Specialization specialization = Specialization.valueOf(resultSet.getString(SPECIALIZATION).toUpperCase());
                     OrderStatus status = OrderStatus.valueOf(resultSet.getString(ORDER_STATUS).toUpperCase());
-
-                    Order order = new Order(orderId, userId, title, description, address, creationDate, completionDate, specialization, status);
+                    Order order = new OrderBuilder()
+                            .orderId(orderId)
+                            .title(title)
+                            .description(description)
+                            .address(address)
+                            .creationDate(creationDate)
+                            .completionDate(completionDate)
+                            .specialization(specialization)
+                            .status(status)
+                            .buildOrder();
                     logger.info("Has found next order = " + order);
                     orders.add(order);
                 }
@@ -257,7 +283,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
         SimpleDateFormat parser = new SimpleDateFormat(DATE_PATTERN);
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_ORDERS_BY_SPECIALIZATIONS)) {
             statement.setString(1, specialization.name().toLowerCase());
-            try (ResultSet resultSet = statement.executeQuery()){
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     long orderId = resultSet.getLong(ID_ORDER);
                     long userId = resultSet.getLong(ID_CUSTOMER);
@@ -267,8 +293,16 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
                     Date creationDate = parser.parse(resultSet.getString(CREATION_DATE));
                     Date completionDate = parser.parse(resultSet.getString(COMPLETION_DATE));
                     OrderStatus status = OrderStatus.valueOf(resultSet.getString(ORDER_STATUS).toUpperCase());
-
-                    Order order = new Order(orderId, userId, title, description, address, creationDate, completionDate, specialization, status);
+                    Order order = new OrderBuilder()
+                            .orderId(orderId)
+                            .title(title)
+                            .description(description)
+                            .address(address)
+                            .creationDate(creationDate)
+                            .completionDate(completionDate)
+                            .specialization(specialization)
+                            .status(status)
+                            .buildOrder();
                     logger.info("Has found next order = " + order);
                     orders.add(order);
                 }

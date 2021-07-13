@@ -18,4 +18,8 @@ public class PagePath {
     public static final String TO_ORDERS = "?command=go_to_order_page";
     public static final String TO_ORDER_INFO = "?command=go_to_order_page";
 //    public static final String MY_ORDERS = "/pages/my_orders.jsp";
+
+
+    private PagePath() {
+    }
 }

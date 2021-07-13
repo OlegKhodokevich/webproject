@@ -4,17 +4,17 @@ import by.khodokevich.web.command.*;
 import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.service.CheckingResultType;
 import by.khodokevich.web.service.UserService;
-import by.khodokevich.web.service.UserServiceImpl.UserServiceImpl;
+import by.khodokevich.web.service.UserServiceImpl.ServiceProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static by.khodokevich.web.command.ParameterAndAttributeType.*;
+import static by.khodokevich.web.command.ParameterAttributeType.*;
 
 
 public class ActivateUserCommand implements Command {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(ActivateUserCommand.class);
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -24,7 +24,7 @@ public class ActivateUserCommand implements Command {
         HttpSession session = request.getSession();
         String eMail = request.getParameter(E_MAIL);
         String token = request.getParameter(TOKEN);
-        UserService userService = new UserServiceImpl();
+        UserService userService = ServiceProvider.USER_SERVICE;
         try {
             resultOperation = userService.activateUser(eMail, token);
         } catch (ServiceException e) {
@@ -33,7 +33,7 @@ public class ActivateUserCommand implements Command {
         }
         switch (resultOperation) {
             case SUCCESS:
-                request.setAttribute(ParameterAndAttributeType.USER_MESSAGE, InformationMessage.USER_ACTIVATE);
+                request.setAttribute(ParameterAttributeType.USER_MESSAGE, InformationMessage.USER_ACTIVATE);
                 router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
                 break;
             case USER_UNKNOWN:
@@ -48,8 +48,7 @@ public class ActivateUserCommand implements Command {
                 router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
                 break;
             default:
-                logger.error("Unknown operation result.");
-                router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
+                throw new UnsupportedOperationException();
         }
         return router;
     }

@@ -20,15 +20,17 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class OrderServiceImpl implements OrderService {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(OrderServiceImpl.class);
+
+    protected OrderServiceImpl() {
+    }
 
     @Override
     public List<Order> findAllOrder() throws ServiceException {
         logger.info("Start findAllOrder().");
         List<Order> orders;
-        EntityTransaction transaction = new EntityTransaction();
         AbstractDao orderDao = new OrderDaoImpl();
-        try {
+        try (EntityTransaction transaction = new EntityTransaction()) {
             transaction.beginSingleQuery(orderDao);
             List<Order> foundedOrders = orderDao.findAll();
             orders = foundedOrders.stream()
@@ -36,12 +38,8 @@ public class OrderServiceImpl implements OrderService {
                     .toList();
         } catch (DaoException e) {
             throw new ServiceException(e);
-        } finally {
-            try {
-                transaction.endSingleQuery();
-            } catch (DaoException e) {
-                logger.error("Can't end transaction", e);
-            }
+        } catch (Exception e) {
+            throw new ServiceException("Error of closing transaction.", e);
         }
         return orders;
     }
@@ -50,9 +48,8 @@ public class OrderServiceImpl implements OrderService {
     public Optional<Order> findDefineOrder(long orderId) throws ServiceException {
         logger.info("Start findDefineOrder(long orderId). orderId = " + orderId);
         Optional<Order> orderOptional;
-        EntityTransaction transaction = new EntityTransaction();
         AbstractDao orderDao = new OrderDaoImpl();
-        try {
+        try (EntityTransaction transaction = new EntityTransaction()) {
             transaction.beginSingleQuery(orderDao);
             orderOptional = orderDao.findEntityById(orderId);
             if (orderOptional.isPresent() && orderOptional.get().getStatus() != OrderStatus.OPEN) {
@@ -60,12 +57,8 @@ public class OrderServiceImpl implements OrderService {
             }
         } catch (DaoException e) {
             throw new ServiceException(e);
-        } finally {
-            try {
-                transaction.endSingleQuery();
-            } catch (DaoException e) {
-                logger.error("Can't end transaction", e);
-            }
+        } catch (Exception e) {
+            throw new ServiceException("Error of closing transaction.", e);
         }
         logger.info("End findDefineOrder(long orderId). Order = " + orderOptional);
         return orderOptional;
@@ -75,19 +68,14 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findUsersOrders(long idUser) throws ServiceException {
         logger.info("Start findUsersOrders(long idUser). IdUser = " + idUser);
         List<Order> orders;
-        EntityTransaction transaction = new EntityTransaction();
         AbstractDao orderDao = new OrderDaoImpl();
-        try {
+        try (EntityTransaction transaction = new EntityTransaction()) {
             transaction.beginSingleQuery(orderDao);
             orders = ((OrderDao) orderDao).findUserOrders(idUser);
         } catch (DaoException e) {
             throw new ServiceException(e);
-        } finally {
-            try {
-                transaction.endSingleQuery();
-            } catch (DaoException e) {
-                logger.error("Can't end transaction", e);
-            }
+        } catch (Exception e) {
+            throw new ServiceException("Error of closing transaction.", e);
         }
         logger.info("End findUsersOrders(long idUser). Orders = " + orders);
         return orders;
@@ -97,9 +85,8 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findOrdersBySpecializations(List<Specialization> specializations) throws ServiceException {
         logger.info("Start findOrdersBySpecializations(List<Specialization> specializations). Specializations = " + specializations);
         List<Order> orders = new ArrayList<>();
-        EntityTransaction transaction = new EntityTransaction();
         AbstractDao orderDao = new OrderDaoImpl();
-        try {
+        try (EntityTransaction transaction = new EntityTransaction();) {
             transaction.beginSingleQuery(orderDao);
             for (int i = 0; i < specializations.size(); i++) {
                 List<Order> transferList = ((OrderDao) orderDao).findOrdersBySpecialization(specializations.get(i));
@@ -110,12 +97,8 @@ public class OrderServiceImpl implements OrderService {
             }
         } catch (DaoException e) {
             throw new ServiceException(e);
-        } finally {
-            try {
-                transaction.endSingleQuery();
-            } catch (DaoException e) {
-                logger.error("Can't end transaction", e);
-            }
+        } catch (Exception e) {
+            throw new ServiceException("Error of closing transaction.", e);
         }
         logger.info("End findOrdersBySpecializations. Orders = " + orders);
         return orders;
