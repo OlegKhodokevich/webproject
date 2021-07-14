@@ -10,10 +10,9 @@ import by.khodokevich.web.entity.User;
 import by.khodokevich.web.entity.UserRole;
 import by.khodokevich.web.entity.UserStatus;
 import by.khodokevich.web.exception.DaoException;
-import by.khodokevich.web.service.CheckingResultType;
+import by.khodokevich.web.service.CheckingResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -252,7 +251,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     public Optional<User> findUserByEMail(String eMail) throws DaoException {
         logger.info("Start findUserByEMail(String eMail). Email = " + eMail);
         User user = null;
-        CheckingResultType result = CheckingResultType.SUCCESS;
+        CheckingResult result = CheckingResult.SUCCESS;
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_DEFINED_USER_BY_EMAIL)) {
             statement.setString(1, eMail);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -291,12 +290,12 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     public Optional<User> findUserByPhone(String phone) throws DaoException {
         logger.info("Start findUserByPhone(String phone). Phone = " + phone);
         User user = null;
-        CheckingResultType result = CheckingResultType.SUCCESS;
+        CheckingResult result = CheckingResult.SUCCESS;
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_DEFINED_USER_BY_PHONE)) {
             statement.setString(1, phone);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    if (result == CheckingResultType.DUPLICATE_EMAIL) {
+                    if (result == CheckingResult.DUPLICATE_EMAIL) {
                         long idUser = resultSet.getLong(ID_USER);
                         String firstName = resultSet.getString(FIRSTNAME);
                         String lastName = resultSet.getString(LASTNAME);
@@ -317,7 +316,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
                                 .role(role)
                                 .buildUser();
                     } else {
-                        result = CheckingResultType.DUPLICATE_PHONE;
+                        result = CheckingResult.DUPLICATE_PHONE;
                     }
                 }
             }

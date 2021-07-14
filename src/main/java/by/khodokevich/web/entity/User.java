@@ -116,7 +116,7 @@ public class User extends Entity{
     @Override
     public int hashCode() {
         int result = (int)userId + 31 * firstName.hashCode();
-        result = result + 31 * lastName.hashCode();
+        result = result * 31 + lastName.hashCode();
         result = result * 31 + eMail.hashCode();
         result = result * 31 + phone.hashCode();
         result = result * 31 + region.ordinal();

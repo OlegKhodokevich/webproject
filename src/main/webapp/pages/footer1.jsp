@@ -19,7 +19,7 @@
 
 <html>
 <head>
-<link href="/static/css/custom_styles.css" rel="stylesheet"/>
+<link href="../css/custom_styles.css" rel="stylesheet"/>
 </head>
 <body>
 

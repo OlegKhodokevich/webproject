@@ -2,7 +2,7 @@ package by.khodokevich.web.command.impl;
 
 import by.khodokevich.web.command.*;
 import by.khodokevich.web.exception.ServiceException;
-import by.khodokevich.web.service.CheckingResultType;
+import by.khodokevich.web.service.CheckingResult;
 import by.khodokevich.web.service.UserService;
 import by.khodokevich.web.service.UserServiceImpl.ServiceProvider;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,9 +19,9 @@ public class ActivateUserCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
         Router router;
-        CheckingResultType resultOperation;
+        CheckingResult resultOperation;
 
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession();             //TODO
         String eMail = request.getParameter(E_MAIL);
         String token = request.getParameter(TOKEN);
         UserService userService = ServiceProvider.USER_SERVICE;
@@ -29,7 +29,7 @@ public class ActivateUserCommand implements Command {
             resultOperation = userService.activateUser(eMail, token);
         } catch (ServiceException e) {
             logger.error("Can't activate user. Email = " + eMail);
-            resultOperation = CheckingResultType.ERROR;
+            resultOperation = CheckingResult.ERROR;
         }
         switch (resultOperation) {
             case SUCCESS:
@@ -48,7 +48,8 @@ public class ActivateUserCommand implements Command {
                 router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
                 break;
             default:
-                throw new UnsupportedOperationException();
+                logger.error("That CheckingResult not exist.");
+                throw new EnumConstantNotPresentException(CheckingResult.class, resultOperation.name());
         }
         return router;
     }

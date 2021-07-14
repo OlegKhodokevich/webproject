@@ -3,11 +3,12 @@ package by.khodokevich.web.util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class RegexpManager {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(RegexpManager.class);
     private static final ResourceBundle resourceBundle;
     private static final String FILE_PROPERTIES_NAME = "regexp";
 
@@ -23,4 +24,5 @@ public class RegexpManager {
     public static String getRegexp(String key) {
         return resourceBundle.getString(key);
     }
+
 }

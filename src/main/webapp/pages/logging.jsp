@@ -1,8 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="mes" uri="custom tag message writer" %>
 
-    <fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setLocale value="${sessionScope.locale}"/>
 
 <fmt:setBundle basename="text"/>
 
@@ -20,17 +21,17 @@
 <fmt:message key="logging.title" var="text_logging_title"/>
 <fmt:message key="logging.sign_in" var="text_logging_sign_in"/>
 
-<c:if test="${not empty param['message']}">
-    <fmt:message key="${param['message']}" var="text_message"/>
-</c:if>
+<%--<c:if test="${not empty param['message']}">--%>
+<%--    <fmt:message key="${param['message']}" var="text_message"/>--%>
+<%--</c:if>--%>
 
 <html>
 <head>
     <title>${text_logging_title}</title>
-    <link href="/static/css/custom_styles.css" rel="stylesheet"/>
-    <link href="/static/css/styles1.css" rel="stylesheet"/>
+    <link href="../css/custom_styles.css" rel="stylesheet"/>
+    <link href="../css/styles1.css" rel="stylesheet"/>
 </head>
-<body style="background-image: url(../static/image/building_3_c1.jpg);
+<body style="background-image: url(../image/building_3_c1.jpg);
 background-repeat: no-repeat;
 background-position: center center;
 background-size: cover">
@@ -38,15 +39,23 @@ background-size: cover">
     <jsp:include page="header.jsp"/>
 </header>
 
-<c:if test="${not empty param['message']}">
-    <div class="container">
-        <div class="container payment_window mb-5 pt-3 pb-5">
-            <div class="container mt-5">
-                <h2 class="mt-5">${text_message}</h2>
-            </div>
+<%--<c:if test="${not empty param['message']}">--%>
+<%--    <div class="container">--%>
+<%--        <div class="container payment_window mb-5 pt-3 pb-5">--%>
+<%--            <div class="container mt-5">--%>
+<%--                <h2 class="mt-5">${text_message}</h2>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</c:if>--%>
+
+<div class="container">
+    <div class="container payment_window mb-5 pt-3 pb-5">
+        <div class="container mt-5">
+            <h2 class="mt-5"><mes:messageTag keyMessage="${sessionScope.message}"/></h2>
         </div>
     </div>
-</c:if>
+</div>
 
 <form action="${pageContext.request.contextPath}/controller" method="post" class="registration_form">
     <h1 style="text-align: center">${text_logging_title}</h1>

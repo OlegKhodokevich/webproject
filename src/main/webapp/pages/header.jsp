@@ -101,7 +101,7 @@
             </li>
             <ul class="navbar-nav border-right">
                 <li class="nav-link active">
-                    <a class="nav-link" href="/controller?command=go_to_order_page"
+                    <a class="nav-link" href="/controller?command=all_orders"
                        style="color: black;">${text_project_orders}</a>
                 </li>
                 <li class="nav-link active">
@@ -133,7 +133,7 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="/controller?command=go_to_my_orders">${text_profile_my_orders}</a></li>
+                            <li><a class="dropdown-item" href="/controller?command=find_my_orders">${text_profile_my_orders}</a></li>
 
                             <li><a class="dropdown-item" href="#">${text_profile_my_contracts}</a></li>
                             <li>

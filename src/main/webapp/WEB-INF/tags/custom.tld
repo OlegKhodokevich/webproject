@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee ">
+    <tlib-version>1.0</tlib-version>
+    <short-name>ctg</short-name>
+    <uri>customtags</uri>
+    <tag>
+        <name>welcome</name>
+        <tag-class>by.khodokevich.web.tags.WelcomeMessageTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>role</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>firstName</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>lastName</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>

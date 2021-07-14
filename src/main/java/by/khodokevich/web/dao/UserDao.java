@@ -1,6 +1,5 @@
 package by.khodokevich.web.dao;
 
-import by.khodokevich.web.service.CheckingResultType;
 import by.khodokevich.web.entity.User;
 import by.khodokevich.web.entity.UserStatus;
 import by.khodokevich.web.exception.DaoException;

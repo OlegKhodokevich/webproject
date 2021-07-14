@@ -17,7 +17,7 @@
 <head>
     <title>${text_error_404_title}</title>
 </head>
-<body style="background-image: url(../static/image/building_3_c1.jpg);
+<body style="background-image: url(../image/building_3_c1.jpg);
 background-repeat: no-repeat;
 background-position: center center;
 background-size: cover">

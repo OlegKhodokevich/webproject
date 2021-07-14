@@ -3,7 +3,7 @@ package by.khodokevich.web.service.UserServiceImpl;
 import by.khodokevich.web.dao.AbstractDao;
 import by.khodokevich.web.dao.EntityTransaction;
 import by.khodokevich.web.dao.UserDao;
-import by.khodokevich.web.service.CheckingResultType;
+import by.khodokevich.web.service.CheckingResult;
 import by.khodokevich.web.dao.impl.UserDaoImpl;
 import by.khodokevich.web.entity.RegionBelarus;
 import by.khodokevich.web.entity.User;
@@ -25,7 +25,7 @@ import java.util.Optional;
 
 import static by.khodokevich.web.command.ParameterAttributeType.*;
 import static by.khodokevich.web.command.ParameterAttributeType.CITY;
-import static by.khodokevich.web.service.CheckingResultType.*;
+import static by.khodokevich.web.service.CheckingResult.*;
 
 public class UserServiceImpl implements UserService {
     private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
         if (result.equals(SUCCESS.name())) {
             UserDaoImpl userDao = new UserDaoImpl();
 
-            CheckingResultType resultType = SUCCESS;
+            CheckingResult resultType = SUCCESS;
             try (EntityTransaction entityTransaction = new EntityTransaction()) {
                 entityTransaction.beginSingleQuery(userDao);
 
@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
     public Map<String, String> logOn(Map<String, String> userData) throws ServiceException {
         logger.info("Start logIn(Map<String, String> userData). User data = " + userData);
         Map<String, String> answerMap = new HashMap<>();
-        CheckingResultType resultType;
+        CheckingResult resultType;
         Optional<User> user = Optional.empty();
         String eMail = userData.get(E_MAIL);
         String password = userData.get(PASSWORD);
@@ -140,8 +140,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public CheckingResultType activateUser(String eMail, String token) throws ServiceException {
-        CheckingResultType answer;
+    public CheckingResult activateUser(String eMail, String token) throws ServiceException {
+        CheckingResult answer;
         if (BCrypt.checkpw(eMail, token)) {
             AbstractDao userDao = new UserDaoImpl();
 

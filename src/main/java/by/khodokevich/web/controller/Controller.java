@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-@WebServlet
+@WebServlet(name = "Controller", urlPatterns = {"/controller"})
 public class Controller extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger(Controller.class);
@@ -29,6 +29,8 @@ public class Controller extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        logger.debug("start controller");
+        logger.debug(request.getParameter(ParameterAttributeType.COMMAND));
 
         String commandName = request.getParameter(ParameterAttributeType.COMMAND);
 

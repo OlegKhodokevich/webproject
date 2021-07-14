@@ -6,6 +6,7 @@
          version="5.0">
 
 <!--        <display-name> Forward Vs SendRedirect</display-name>-->
+
         <servlet>
             <servlet-name>Controller</servlet-name>
             <servlet-class>by.khodokevich.web.controller.Controller</servlet-class>
@@ -15,14 +16,15 @@
             <url-pattern>/controller</url-pattern>
         </servlet-mapping>
 
-<!--    <filter>-->
-<!--        <filter-name>PageNotFoundFilter</filter-name>-->
-<!--        <filter-class>by.khodokevich.web.controller.filter.PageNotFoundFilter</filter-class>-->
-<!--    </filter>-->
-<!--    <filter-mapping>-->
-<!--        <filter-name>PageNotFoundFilter</filter-name>-->
-<!--        <url-pattern>/*</url-pattern>-->
-<!--    </filter-mapping>-->
+    <filter>
+        <filter-name>PageNotFoundFilter</filter-name>
+        <filter-class>by.khodokevich.web.controller.filter.PageNotFoundFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>PageNotFoundFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <filter>
         <filter-name>XSSFilter</filter-name>
         <filter-class>by.khodokevich.web.controller.filter.XSSFilter</filter-class>
@@ -40,4 +42,30 @@
         <filter-name>CharsetFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <filter>
+        <filter-name>CurrentPageFilter</filter-name>
+        <filter-class>by.khodokevich.web.controller.filter.CurrentPageFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CurrentPageFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <jsp-config>
+        <taglib>
+            <taglib-uri>customtags</taglib-uri>
+            <taglib-location>/WEB-INF/tags/custom.tld</taglib-location>
+        </taglib>
+        <taglib>
+            <taglib-uri>custom tag message writer</taglib-uri>
+            <taglib-location>/WEB-INF/tags/custom_message_writer.tld</taglib-location>
+        </taglib>
+    </jsp-config>
+
 </web-app>

@@ -28,10 +28,10 @@ public class CommandProvider {
         commandMap.put(GO_TO_REGISTRATION, new GoToRegistrationCommand());
         commandMap.put(GO_TO_SIGN_IN, new GoToSignInCommand());
         commandMap.put(GO_TO_ERROR404, new GoToErrorUndefinedPageCommand());
-        commandMap.put(GO_TO_ORDER_PAGE, new GoToOrderPageCommand());
+        commandMap.put(ALL_ORDERS, new AllOrdersCommand());
         commandMap.put(FIND_ORDERS_BY_SPECIALIZATIONS, new FindOrdersBySpecializationCommand());
-        commandMap.put(GO_TO_ORDER_INFO, new GoToOrderInfoPage());
-        commandMap.put(GO_TO_MY_ORDERS, new GoToMyOrdersCommand());
+        commandMap.put(FIND_ORDER_INFO_DETAILS, new FindOrderInfoDetails());
+        commandMap.put(FIND_MY_ORDERS, new FindMyOrdersCommand());
     }
 
     public static CommandProvider getInstance() {

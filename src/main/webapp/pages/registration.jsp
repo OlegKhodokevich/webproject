@@ -38,10 +38,10 @@
 <html>
 <head>
     <title>${text_registration_title}</title>
-    <link href="/static/css/custom_styles.css" rel="stylesheet"/>
-    <link href="/static/css/styles1.css" rel="stylesheet" media="all"/>
+    <link href="../css/custom_styles.css" rel="stylesheet"/>
+    <link href="../css/styles1.css" rel="stylesheet" media="all"/>
 </head>
-<body  style="background-image: url(../static/image/building_3_c1.jpg);
+<body  style="background-image: url(../image/building_3_c1.jpg);
 background-repeat: no-repeat;
 background-position: center center;
 background-size: cover">

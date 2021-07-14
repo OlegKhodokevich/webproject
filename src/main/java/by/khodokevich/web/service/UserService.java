@@ -12,7 +12,7 @@ public interface UserService {
 
     Map<String,String> logOn(Map<String, String> userData) throws ServiceException;
 
-    CheckingResultType activateUser(String eMail, String token) throws ServiceException;
+    CheckingResult activateUser(String eMail, String token) throws ServiceException;
 
     Optional<User> findDefineUser(long userId) throws ServiceException;
 

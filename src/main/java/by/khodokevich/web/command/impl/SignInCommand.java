@@ -9,7 +9,7 @@ import by.khodokevich.web.entity.User;
 import by.khodokevich.web.entity.UserRole;
 import by.khodokevich.web.entity.UserStatus;
 import by.khodokevich.web.exception.ServiceException;
-import by.khodokevich.web.service.CheckingResultType;
+import by.khodokevich.web.service.CheckingResult;
 import by.khodokevich.web.service.UserService;
 import by.khodokevich.web.service.UserServiceImpl.ServiceProvider;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,6 +33,7 @@ public class SignInCommand implements Command {
 
     @Override
     public Router execute(HttpServletRequest request) {
+        logger.info("Start sign in.");
         Router router;
         String eMail = request.getParameter(E_MAIL);
         String password = request.getParameter(PASSWORD);
@@ -41,10 +42,11 @@ public class SignInCommand implements Command {
         userData.put(PASSWORD, password);
         userData.put(URL, request.getRequestURL().toString());
         UserService userService = ServiceProvider.USER_SERVICE;
-        Map<String, String> answerMap = new HashMap<>();
+        Map<String, String> answerMap;
+        HttpSession session = request.getSession();
         try {
             answerMap = userService.logOn(userData);
-            CheckingResultType resultType = CheckingResultType.valueOf(answerMap.get(RESULT));
+            CheckingResult resultType = CheckingResult.valueOf(answerMap.get(RESULT));
             switch (resultType) {
                 case SUCCESS:
                     long userId = Long.valueOf(answerMap.get(USER_ID));
@@ -58,9 +60,9 @@ public class SignInCommand implements Command {
                     UserRole role = UserRole.valueOf(roleString);
                     String statusString = answerMap.get(STATUS);
                     UserStatus status = UserStatus.valueOf(statusString);
+
                     switch (status) {
                         case CONFIRMED:
-                            HttpSession session = request.getSession();
                             User user = new UserBuilder()
                                     .userId(userId)
                                     .firstName(firstName)
@@ -71,32 +73,33 @@ public class SignInCommand implements Command {
                                     .status(status)
                                     .role(role)
                                     .buildUser();
-                            // ToDo: Add Builder Pattern
                             session.setAttribute(ACTIVE_USER, user);
                             session.setAttribute(ACTIVE_USER_ROLE, user.getRole().name());
                             session.setAttribute(ACTIVE_USER_STATUS, user.getStatus().name());
                             String messege = firstName + " " + lastName + " ";
-//                            request.setAttribute(MESSAGE, messege);
-                            router = new Router(PagePath.MAIN_PAGE + "?message=" + messege, Router.RouterType.REDIRECT);
+                            session.setAttribute(MESSAGE, messege);       //todo
+                            router = new Router(PagePath.MAIN_PAGE, Router.RouterType.REDIRECT);
 
                             break;
                         case DECLARED:
-                            router = new Router(PagePath.LOGIN_PAGE + "?message=" + KEY_USER_NOT_CONFIRMED, Router.RouterType.REDIRECT);
+                            session.setAttribute(MESSAGE, KEY_USER_NOT_CONFIRMED);       //todo
+                            router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
                             break;
                         case ARCHIVED:
-                            router = new Router(PagePath.LOGIN_PAGE + "?message=" + KEY_STATUS_ARCHIVED, Router.RouterType.REDIRECT);
+                            session.setAttribute(MESSAGE, KEY_STATUS_ARCHIVED);       //todo
+                            router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
                             break;
                         default:
-                            throw new UnsupportedOperationException();
+                            throw new EnumConstantNotPresentException(UserStatus.class, status.name());
                     }
                     break;
                 case USER_UNKNOWN:
-                    router = new Router(PagePath.LOGIN_PAGE + "?message=" + KEY_USER_UNKNOWN, Router.RouterType.FORWARD);
-//                    request.setAttribute(MESSAGE, KEY_USER_UNKNOWN);
+                    router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);      //todo
+                    session.setAttribute(MESSAGE, KEY_USER_UNKNOWN);
                     break;
                 case NOT_VALID:
-                    router = new Router(PagePath.LOGIN_PAGE + "?message=" + KEY_DATA_NOT_VALID, Router.RouterType.FORWARD);
-//                    request.setAttribute(MESSAGE, KEY_DATA_NOT_VALID);
+                    router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
+                    session.setAttribute(MESSAGE, KEY_DATA_NOT_VALID);        //todo
                     break;
                 default:
                     throw new UnsupportedOperationException();
@@ -105,6 +108,7 @@ public class SignInCommand implements Command {
             logger.error("Log In Error", e);
             router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
         }
+        logger.info("End sign in.");
         return router;
     }
 }

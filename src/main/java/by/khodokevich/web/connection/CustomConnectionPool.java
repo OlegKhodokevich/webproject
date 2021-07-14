@@ -88,10 +88,10 @@ public class CustomConnectionPool {
     public void releaseConnection(Connection connection) {
         logger.debug("Start releaseConnection(Connection connection).");
         stopGiveTakeConnectionWhenConnectionProviderRun();
-        if (connection instanceof ProxyConnection) {
+        if (connection instanceof ProxyConnection proxyConnection) {
             try {
-                if (busyConnections.remove(connection)) {
-                    freeConnections.put((ProxyConnection) connection);
+                if (busyConnections.remove(proxyConnection)) {
+                    freeConnections.put(proxyConnection);
                 } else {
                     logger.error("Can't put in pool connection because connection is't valid.");
                 }

@@ -1,6 +1,6 @@
 package by.khodokevich.web.service;
 
-public enum CheckingResultType {
+public enum CheckingResult {
     DUPLICATE_PHONE,
     DUPLICATE_EMAIL,
     DUPLICATE_EMAIL_AND_PHONE,

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 
@@ -12,9 +13,9 @@
 <html>
 <head>
     <title>main</title>
-    <link href="/static/css/custom_styles.css" rel="stylesheet"/>
+    <link href="../css/custom_styles.css" rel="stylesheet"/>
 </head>
-<body style="background-image: url(../static/image/building_3_c1.jpg);
+<body style="background-image: url(../image/building_3_c1.jpg);
 background-repeat: no-repeat;
 background-position: center center;
 background-size: cover">
@@ -40,15 +41,24 @@ background-size: cover">
 <%--    var body = document.body;--%>
 <%--    body.appendChild(element);--%>
 <%--</script>--%>
-<c:if test="${not empty param['message']}">
-    <div class="container">
-        <div class="container payment_window mb-5 pt-3 pb-5">
-            <div class="container mt-5">
-                <h2 class="mt-5">${param['message']} ${text_welcome_user}</h2>
-            </div>
+<%--<c:if test="${not empty param['message']}">--%>
+<%--    <div class="container">--%>
+<%--        <div class="container payment_window mb-5 pt-3 pb-5">--%>
+<%--            <div class="container mt-5">--%>
+<%--                <h2 class="mt-5">${param['message']} ${text_welcome_user}</h2>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</c:if>--%>
+<div class="container">
+    <div class="container payment_window mb-5 pt-3 pb-5">
+        <div class="container mt-5">
+            <h2 class="mt-5"><ctg:welcome firstName="${sessionScope.activeUser.getfirstName()}" lastName="${sessionScope.activeUser.getlastName()}" role="${sessionScope.activeUser.role}"/></h2>
         </div>
     </div>
-</c:if>
+</div>
+
+
 <li class="nav-link active text-md-center">
     <a class="nav-link" href="/controller?command=go_to_order_page" style="color: black">Orders</a>
 </li>

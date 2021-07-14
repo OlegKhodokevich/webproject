@@ -5,10 +5,11 @@ import static by.khodokevich.web.command.ParameterAttributeType.*;
 import by.khodokevich.web.command.Command;
 import by.khodokevich.web.command.PagePath;
 import by.khodokevich.web.command.Router;
-import by.khodokevich.web.service.CheckingResultType;
+import by.khodokevich.web.service.CheckingResult;
 import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.service.UserService;
 import by.khodokevich.web.service.UserServiceImpl.ServiceProvider;
+import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -49,16 +50,17 @@ public class RegisterUserCommand implements Command {
         userData.put(URL, request.getRequestURL().toString());
         UserService userService = ServiceProvider.USER_SERVICE;
         Map<String, String> answerMap;
-        CheckingResultType resultType;
+        CheckingResult resultOperation;
+        HttpSession session = request.getSession();
         try {
             answerMap = userService.register(userData);
             String result = answerMap.get(RESULT);
             if (result != null) {
-                resultType = CheckingResultType.valueOf(result);
-                switch (resultType) {
+                resultOperation = CheckingResult.valueOf(result);
+                switch (resultOperation) {
                     case SUCCESS:
                         router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
-                        request.setAttribute(MESSAGE, KEY_SENT_MASSAGE);
+                        session.setAttribute(MESSAGE, KEY_SENT_MASSAGE);
                         break;
                     case NOT_VALID:
                         request.setAttribute(MESSAGE, KEY_MESSAGE_DATA_NOT_CORRECT);
@@ -108,8 +110,8 @@ public class RegisterUserCommand implements Command {
                         router = new Router(PagePath.REGISTER_PAGE, Router.RouterType.FORWARD);
                         break;
                     default:
-                        router = new Router(PagePath.REGISTER_PAGE, Router.RouterType.FORWARD);
-                        logger.error("Result check data is incorrect." + answerMap);
+                        logger.error("That CheckingResult not exist.");
+                        throw new EnumConstantNotPresentException(CheckingResult.class, resultOperation.name());
                 }
             } else {
                 logger.error("Result check data is incorrect." + answerMap);

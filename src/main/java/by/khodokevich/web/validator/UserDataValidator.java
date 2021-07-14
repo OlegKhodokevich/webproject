@@ -1,7 +1,7 @@
 package by.khodokevich.web.validator;
 
 import by.khodokevich.web.entity.RegionBelarus;
-import by.khodokevich.web.service.CheckingResultType;
+import by.khodokevich.web.service.CheckingResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -59,9 +59,9 @@ public class UserDataValidator {
             }
         }
         if (result) {
-            answerMap.put(RESULT, CheckingResultType.SUCCESS.name());
+            answerMap.put(RESULT, CheckingResult.SUCCESS.name());
         } else {
-            answerMap.put(RESULT, CheckingResultType.NOT_VALID.name());
+            answerMap.put(RESULT, CheckingResult.NOT_VALID.name());
         }
         return answerMap;
     }

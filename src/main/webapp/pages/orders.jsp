@@ -45,9 +45,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <link href="/static/css/custom_styles.css" rel="stylesheet"/>
+    <link href="../css/custom_styles.css" rel="stylesheet"/>
 </head>
-<body style="background-image: url(../static/image/building_3_c1.jpg);
+<body style="background-image: url(../image/building_3_c1.jpg);
 background-repeat: no-repeat;
 background-position: center center;
 background-size: cover">
@@ -191,7 +191,7 @@ background-size: cover">
                     <div class="list-group">
                         <c:forEach var="order" items="${sessionScope.orderList}">
                             <c:if test="${order != null}">
-                                <a href="/controller?command=go_to_order_info&orderId=${order.orderId}"
+                                <a href="/controller?command=find_order_info_details&orderId=${order.orderId}"
                                    class="list-group-item list-group-item-action flex-column align-items-start active border-dark mt-2">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1">${order.getTitle()}</h5>
