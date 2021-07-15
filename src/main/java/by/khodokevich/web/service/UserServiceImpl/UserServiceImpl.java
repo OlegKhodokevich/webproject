@@ -24,7 +24,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import static by.khodokevich.web.command.ParameterAttributeType.*;
-import static by.khodokevich.web.command.ParameterAttributeType.CITY;
 import static by.khodokevich.web.service.CheckingResult.*;
 
 public class UserServiceImpl implements UserService {

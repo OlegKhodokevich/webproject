@@ -16,15 +16,11 @@ public class LogOutCommand implements Command {
         String pagePath;
 
         HttpSession session = request.getSession(false);
-        try {
-            if (session != null) {
-                User user = (User) session.getAttribute("user");
-                String role = (String) session.getAttribute("role");
-                logger.info("User exited from account. User  = " + user + "  , role  = " + role);
-                session.invalidate();
-            }
-        } catch (Throwable e) {
-            logger.info(e);
+        if (session != null) {
+            User user = (User) session.getAttribute("user");
+            String role = (String) session.getAttribute("role");
+            logger.info("User exited from account. User  = " + user + "  , role  = " + role);
+            session.invalidate();
         }
         Router router = new Router(PagePath.TO_MAIN_PAGE, Router.RouterType.REDIRECT);
 

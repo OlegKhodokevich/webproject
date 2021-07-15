@@ -23,10 +23,13 @@
 
 <html>
 <head>
-<%--    <title>${locale_error_head}!</title>--%>
+    <title>${locale_error_head}!</title>
 </head>
 <body>
-<%--<jsp:include page="header.jsp"/>                --%>
+<header>
+    <jsp:include page="header.jsp"/>
+</header>
+
 <div class="container bg-dark py-2 mt-5 label_window">      <%--    //TODO add css library--%>
     <h3 class="mb-0 ml-3" style="color: white">${locale_error_error}!</h3>
 </div>
@@ -36,7 +39,9 @@
         <h2 class="mt-1">${text_error_tech_come_later}</h2>
     </div>
 </div>
+<footer class="custom-footer">
+    <jsp:include page="footer.jsp"/>
+</footer>
 
-<%--<jsp:include page="footer.jsp"/>                --%>
 </body>
 </html>

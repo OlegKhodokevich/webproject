@@ -22,9 +22,8 @@ background-size: cover">
     <jsp:include page="header.jsp"/>
 </header>
 
-<jsp:include page="header.jsp"/>
 <footer class="custom-footer">
-    <jsp:include page="footer1.jsp"/>
+    <jsp:include page="footer.jsp"/>
 </footer>
 </body>
 </html>

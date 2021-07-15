@@ -32,6 +32,11 @@ public class CommandProvider {
         commandMap.put(FIND_ORDERS_BY_SPECIALIZATIONS, new FindOrdersBySpecializationCommand());
         commandMap.put(FIND_ORDER_INFO_DETAILS, new FindOrderInfoDetails());
         commandMap.put(FIND_MY_ORDERS, new FindMyOrdersCommand());
+        commandMap.put(CREATE_ORDER, new CreateOrderCommand());
+        commandMap.put(GO_TO_CREATION_ORDER_PAGE, new CreateOrderCommand());
+
+
+
     }
 
     public static CommandProvider getInstance() {

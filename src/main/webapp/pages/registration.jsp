@@ -64,12 +64,12 @@ background-size: cover">
     <h1 style="text-align: center">${text_registration_title}</h1>
     <div>
         <input type="text" placeholder="${text_registration_ivan}" id="Firstname" name="firstName" maxlength="20"
-               required value="${requestScope.firstName}">
+               required value="${sessionScope.firstName}">
         <label for="Firstname">${text_registration_firstname}</label>
     </div>
     <div>
         <input type="text" placeholder="${text_registration_ivanov}" id="Lastname" name="lastName" maxlength="20"
-               required value="${requestScope.lastName}">
+               required value="${sessionScope.lastName}">
         <label for="Lastname">${text_registration_lastname}</label>
     </div>
     <div>
@@ -77,9 +77,9 @@ background-size: cover">
         <label for="Password">${text_registration_password}</label>
     </div>
     <div>
-        <input type="password" placeholder="${text_registration_repeat_password}" id="psw-repeat" name="psw-repeat"
+        <input type="password" placeholder="${text_registration_repeat_password}" id="Psw-repeat" name="psw-repeat"
                required minlength="6" maxlength="20">
-        <label for="psw-repeat">${text_registration_repeat_password}</label>
+        <label for="Psw-repeat">${text_registration_repeat_password}</label>
     </div>
 
     <%--    <fieldset>--%>
@@ -98,19 +98,19 @@ background-size: cover">
     <%--        <label for="Birth-date">Birth date</label>--%>
     <%--    </div>--%>
     <div>
-        <input type="email" placeholder="e-mail-adress@gmail.com" id="emailinput" name="eMail" required maxlength="45"
-               value="${requestScope.eMail}">
-        <label for="emailinput">E-mail</label>
+        <input type="email" placeholder="e-mail-adress@gmail.com" id="Emailinput" name="eMail" required maxlength="45"
+               value="${sessionScope.eMail}">
+        <label for="Emailinput">E-mail</label>
     </div>
     <div>
-        <label for="phone">${text_registration_phone}</label>
-        <input type="tel" id="phone" placeholder="+375293333333" name="phone" pattern="\+375[0-9]{9}" required   minlength="13" maxlength="13"
-               value="${requestScope.phone}">
+        <label for="Phone">${text_registration_phone}</label>
+        <input type="tel" id="Phone" placeholder="+375293333333" name="phone" pattern="\+375[0-9]{9}" required   minlength="13" maxlength="13"
+               value="${sessionScope.phone}">
     </div>
 
     <div>
         <label for="Region">${text_registration_region}</label>
-        <select name="region" id="Region" required value="${requestScope.region}">
+        <select name="region" id="Region" required value="${sessionScope.region}">
             <option value="MINSK_REGION">${text_region1}</option>
             <option value="HOMYEL_REGION">${text_region2}</option>
             <option value="MAHILOU_REGION">${text_region3}</option>
@@ -121,7 +121,7 @@ background-size: cover">
         </select>
     </div>
     <div>
-        <textarea id="City" name="city" required  minlength="2" maxlength="60" value="${requestScope.city}"></textarea>
+        <textarea id="City" name="city" required  minlength="2" maxlength="60" value="${sessionScope.city}"></textarea>
         <label for="City">${text_registration_city}</label>
     </div>
     <%--    <div class="checkbox">--%>
@@ -135,7 +135,7 @@ background-size: cover">
     </div>
 </form>
 <footer class="custom-footer">
-    <jsp:include page="footer1.jsp"/>
+    <jsp:include page="footer.jsp"/>
 </footer>
 </body>
 </html>

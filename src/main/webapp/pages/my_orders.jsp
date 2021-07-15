@@ -1,23 +1,25 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<c:if test="${not empty sessionScope.locale}">
-    <fmt:setLocale value="${sessionScope.locale}"/>
-</c:if>
-
+<fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="text"/>
-<c:if test="${not empty requestScope.message}">
-    <fmt:message key="logging.welcome_user" var="text_welcome_user"/>
-</c:if>
+<fmt:message key="order.create_order" var="text_order_create_order"/>
+<fmt:message key="order.my_order" var="text_order_my_order"/>
 
+
+
+
+
+<li class="nav-link active text-md-center">
+    <a class="nav-link" href="/controller?command=set_locale&locale=en_US" style="color: black">EN</a>
+</li>
 <html>
 <head>
-    <title>main</title>
+    <title>${text_order_my_order}</title>
     <link href="../css/custom_styles.css" rel="stylesheet"/>
 </head>
-<body  style="background-image: url(../image/building_3_c1.jpg);
+<body style="background-image: url(../image/building_3_c1.jpg);
 background-repeat: no-repeat;
 background-position: center center;
 background-size: cover">
@@ -25,7 +27,19 @@ background-size: cover">
     <jsp:include page="header.jsp"/>
 </header>
 
+<div class="container">
+    <div class="container payment_window mb-5 pt-3 pb-5">
+        <div class="container mt-5">
+            <h2 class="mt-5"><ctg:welcome firstName="${sessionScope.activeUser.getfirstName()}"
+                                          lastName="${sessionScope.activeUser.getlastName()}"
+                                          role="${sessionScope.activeUser.role}"/></h2>
+        </div>
+    </div>
+</div>
 
+
+<a class="btn  btn-success" href="/controller?command=go_to_creation_order_page"
+   role="button">${text_order_create_order}</a>
 <div class="col">
     <c:choose>
         <c:when test="${requestScope.empty_list.booleanValue() == true}">
@@ -43,7 +57,7 @@ background-size: cover">
                            class="list-group-item list-group-item-action flex-column align-items-start active border-dark mt-2">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">${order.getTitle()}</h5>
-                                <small>${order.creationDate}</small>           <%--    //TODO data format--%>
+                                <small>${order.creationDate}</small> <%--    //TODO data format--%>
                             </div>
                             <p class="mb-1">${order.description}</p>
                             <small>${order.completionDate}</small>
@@ -57,7 +71,7 @@ background-size: cover">
 </div>
 
 <footer class="custom-footer">
-    <jsp:include page="footer1.jsp"/>
+    <jsp:include page="footer.jsp"/>
 </footer>
 </body>
 </html>

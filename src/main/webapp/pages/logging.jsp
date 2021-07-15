@@ -60,12 +60,12 @@ background-size: cover">
 <form action="${pageContext.request.contextPath}/controller" method="post" class="registration_form">
     <h1 style="text-align: center">${text_logging_title}</h1>
     <div>
-        <input type="email" placeholder="e-mail-adress@gmail.com" id="emailinput" name="eMail" required>
-        <label for="emailinput">E-mail</label>
+        <input type="email" placeholder="e-mail-adress@gmail.com" id="Emailinput" name="eMail" required>
+        <label for="Emailinput">E-mail</label>
     </div>
     <div>
-        <input type="password" placeholder="Пароль" id="password" name="password" required>
-        <label for="password">${text_registration_password}</label>
+        <input type="password" placeholder="Пароль" id="Password" name="password" required>
+        <label for="Password">${text_registration_password}</label>
     </div>
 
     <div>
@@ -92,7 +92,7 @@ background-size: cover">
     </div>
 </form>
 <footer class="custom-footer">
-    <jsp:include page="footer1.jsp"/>
+    <jsp:include page="footer.jsp"/>
 </footer>
 </body>
 </html>

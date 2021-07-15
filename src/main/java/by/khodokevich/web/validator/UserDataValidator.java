@@ -16,12 +16,12 @@ import static by.khodokevich.web.command.ParameterAttributeType.*;
 
 public class UserDataValidator {
     private static final Logger logger = LogManager.getLogger(UserDataValidator.class);
-    private static final String KEY_REGEXP_FIRSTNAME = "regexp.firstName";
-    private static final String KEY_REGEXP_LASTNAME = "regexp.lastName";
-    private static final String KEY_REGEXP_EMAIL = "regexp.eMail";
-    private static final String KEY_REGEXP_PHONE = "regexp.phone";
-    private static final String KEY_REGEXP_CITY = "regexp.city";
-    private static final String KEY_REGEXP_PASSWORD = "regexp.password";
+    private static final String KEY_REGEXP_FIRSTNAME = "regexp.user.firstName";
+    private static final String KEY_REGEXP_LASTNAME = "regexp.user.lastName";
+    private static final String KEY_REGEXP_EMAIL = "regexp.user.eMail";
+    private static final String KEY_REGEXP_PHONE = "regexp.user.phone";
+    private static final String KEY_REGEXP_CITY = "regexp.user.city";
+    private static final String KEY_REGEXP_PASSWORD = "regexp.user.password";
 
     public static Map<String, String> checkUserData(Map<String, String> userData) {
         String firstName = userData.get(FIRST_NAME);
@@ -38,7 +38,9 @@ public class UserDataValidator {
         boolean result = isFirstNameValid(firstName) && isLastNameValid(lastName) && isEMailValid(eMail)
                 && isCityValid(city) && isPhoneValid(phone) && isPasswordValid(password)
                 && isRepeatedPasswordValid(password, repeated_password) && isRegionValid(region);
-        if (!result) {
+        if (result) {
+            answerMap.put(RESULT, CheckingResult.SUCCESS.name());
+        } else {
             if (isFirstNameValid(firstName)) {
                 answerMap.put(FIRST_NAME, firstName);
             }
@@ -57,10 +59,6 @@ public class UserDataValidator {
             if (isRegionValid(region)) {
                 answerMap.put(REGION, region);
             }
-        }
-        if (result) {
-            answerMap.put(RESULT, CheckingResult.SUCCESS.name());
-        } else {
             answerMap.put(RESULT, CheckingResult.NOT_VALID.name());
         }
         return answerMap;
@@ -68,13 +66,11 @@ public class UserDataValidator {
 
     public static boolean isFirstNameValid(String firstName) {
         String regexp = getRegexp(KEY_REGEXP_FIRSTNAME);
-        boolean result = firstName.matches(regexp);
         return firstName.matches(regexp);
     }
 
     public static boolean isLastNameValid(String lastName) {
         String regexp = getRegexp(KEY_REGEXP_LASTNAME);
-        boolean result = lastName.matches(regexp);
         return lastName.matches(regexp);
     }
 
@@ -104,7 +100,7 @@ public class UserDataValidator {
 
     public static boolean isRegionValid(String region) {
         RegionBelarus[] regions = RegionBelarus.values();
-        Optional<String> optionalRegion = Arrays.stream(regions).map((s) -> s.name()).filter((s) -> s.equals(region.toUpperCase())).findAny();
-        return optionalRegion.isPresent();
+        boolean result = Arrays.stream(regions).anyMatch((s) -> s.name().equalsIgnoreCase(region));
+        return result;
     }
 }

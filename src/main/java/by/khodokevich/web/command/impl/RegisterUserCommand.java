@@ -70,44 +70,44 @@ public class RegisterUserCommand implements Command {
                         phone = answerMap.get(PHONE);
                         region = answerMap.get(REGION);
                         city = answerMap.get(CITY);
-                        request.setAttribute(FIRST_NAME, firstName);
-                        request.setAttribute(LAST_NAME, lastName);
-                        request.setAttribute(E_MAIL, eMail);
-                        request.setAttribute(PHONE, phone);
-                        request.setAttribute(REGION, region);
-                        request.setAttribute(CITY, city);
-                        router = new Router(PagePath.REGISTER_PAGE, Router.RouterType.FORWARD);
+                        session.setAttribute(FIRST_NAME, firstName);
+                        session.setAttribute(LAST_NAME, lastName);
+                        session.setAttribute(E_MAIL, eMail);
+                        session.setAttribute(PHONE, phone);
+                        session.setAttribute(REGION, region);
+                        session.setAttribute(CITY, city);
+                        router = new Router(PagePath.REGISTER_PAGE, Router.RouterType.REDIRECT);
                         break;
                     case DUPLICATE_EMAIL:
-                        request.setAttribute(MESSAGE, KEY_MESSAGE_DUPLICATE_EMAIL);
-                        request.setAttribute(FIRST_NAME, firstName);
-                        request.setAttribute(LAST_NAME, lastName);
-                        request.setAttribute(E_MAIL, EMPTY_VALUE);
-                        request.setAttribute(PHONE, phone);
-                        request.setAttribute(REGION, region);
-                        request.setAttribute(CITY, city);
-                        router = new Router(PagePath.REGISTER_PAGE, Router.RouterType.FORWARD);
+                        session.setAttribute(MESSAGE, KEY_MESSAGE_DUPLICATE_EMAIL);
+                        session.setAttribute(FIRST_NAME, firstName);
+                        session.setAttribute(LAST_NAME, lastName);
+                        session.setAttribute(E_MAIL, EMPTY_VALUE);
+                        session.setAttribute(PHONE, phone);
+                        session.setAttribute(REGION, region);
+                        session.setAttribute(CITY, city);
+                        router = new Router(PagePath.REGISTER_PAGE, Router.RouterType.REDIRECT);
                         break;
 
                     case DUPLICATE_PHONE:
-                        request.setAttribute(MESSAGE, KEY_MESSAGE_DUPLICATE_PHONE);
-                        request.setAttribute(FIRST_NAME, firstName);
-                        request.setAttribute(LAST_NAME, lastName);
-                        request.setAttribute(E_MAIL, eMail);
-                        request.setAttribute(PHONE, EMPTY_VALUE);
-                        request.setAttribute(REGION, region);
-                        request.setAttribute(CITY, city);
-                        router = new Router(PagePath.REGISTER_PAGE, Router.RouterType.FORWARD);
+                        session.setAttribute(MESSAGE, KEY_MESSAGE_DUPLICATE_PHONE);
+                        session.setAttribute(FIRST_NAME, firstName);
+                        session.setAttribute(LAST_NAME, lastName);
+                        session.setAttribute(E_MAIL, eMail);
+                        session.setAttribute(PHONE, EMPTY_VALUE);
+                        session.setAttribute(REGION, region);
+                        session.setAttribute(CITY, city);
+                        router = new Router(PagePath.REGISTER_PAGE, Router.RouterType.REDIRECT);
                         break;
                     case DUPLICATE_EMAIL_AND_PHONE:
-                        request.setAttribute(MESSAGE, KEY_MESSAGE_DUPLICATE_PHONE_AND_PHONE);
-                        request.setAttribute(FIRST_NAME, firstName);
-                        request.setAttribute(LAST_NAME, lastName);
-                        request.setAttribute(E_MAIL, EMPTY_VALUE);
-                        request.setAttribute(PHONE, EMPTY_VALUE);
-                        request.setAttribute(REGION, region);
-                        request.setAttribute(CITY, city);
-                        router = new Router(PagePath.REGISTER_PAGE, Router.RouterType.FORWARD);
+                        session.setAttribute(MESSAGE, KEY_MESSAGE_DUPLICATE_PHONE_AND_PHONE);
+                        session.setAttribute(FIRST_NAME, firstName);
+                        session.setAttribute(LAST_NAME, lastName);
+                        session.setAttribute(E_MAIL, EMPTY_VALUE);
+                        session.setAttribute(PHONE, EMPTY_VALUE);
+                        session.setAttribute(REGION, region);
+                        session.setAttribute(CITY, city);
+                        router = new Router(PagePath.REGISTER_PAGE, Router.RouterType.REDIRECT);
                         break;
                     default:
                         logger.error("That CheckingResult not exist.");
@@ -115,7 +115,7 @@ public class RegisterUserCommand implements Command {
                 }
             } else {
                 logger.error("Result check data is incorrect." + answerMap);
-                router = new Router(PagePath.REGISTER_PAGE, Router.RouterType.FORWARD);
+                router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
             }
         } catch (ServiceException e) {
             logger.error("User hasn't been registered", e);
