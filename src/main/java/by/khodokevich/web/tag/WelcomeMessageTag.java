@@ -1,4 +1,4 @@
-package by.khodokevich.web.tags;
+package by.khodokevich.web.tag;
 
 import by.khodokevich.web.command.ParameterAttributeType;
 import jakarta.servlet.http.HttpSession;

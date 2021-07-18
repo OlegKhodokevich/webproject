@@ -1,11 +1,9 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="mes" uri="custom tag message writer" %>
 
-<c:if test="${not empty sessionScope.locale}">
-    <fmt:setLocale value="${sessionScope.locale}"/>
-</c:if>
+<fmt:setLocale value="${sessionScope.locale}"/>
 
 <fmt:setBundle basename="text"/>
 
@@ -41,7 +39,7 @@
     <link href="../css/custom_styles.css" rel="stylesheet"/>
     <link href="../css/styles1.css" rel="stylesheet" media="all"/>
 </head>
-<body  style="background-image: url(../image/building_3_c1.jpg);
+<body style="background-image: url(../image/building_3_c1.jpg);
 background-repeat: no-repeat;
 background-position: center center;
 background-size: cover">
@@ -49,15 +47,14 @@ background-size: cover">
     <jsp:include page="header.jsp"/>
 </header>
 
-<c:if test="${not empty requestScope.message}">
-    <div class="container">
-        <div class="container payment_window mb-5 pt-3 pb-5">
-            <div class="container mt-5">
-                <h2 class="mt-5">${text_message}</h2>
-            </div>
+
+<div class="container">
+    <div class="container payment_window mb-5 pt-3 pb-5">
+        <div class="container mt-5">
+            <h2 class="mt-5"><mes:messageTag keyMessage="${sessionScope.message}"/></h2>
         </div>
     </div>
-</c:if>
+</div>
 
 <form action="${pageContext.request.contextPath}/controller" method="post" class="registration_form">
 
@@ -73,7 +70,8 @@ background-size: cover">
         <label for="Lastname">${text_registration_lastname}</label>
     </div>
     <div>
-        <input type="password" placeholder="${text_registration_password}" id="Password" name="password" required minlength="6" maxlength="20">
+        <input type="password" placeholder="${text_registration_password}" id="Password" name="password" required
+               minlength="6" maxlength="20">
         <label for="Password">${text_registration_password}</label>
     </div>
     <div>
@@ -104,7 +102,8 @@ background-size: cover">
     </div>
     <div>
         <label for="Phone">${text_registration_phone}</label>
-        <input type="tel" id="Phone" placeholder="+375293333333" name="phone" pattern="\+375[0-9]{9}" required   minlength="13" maxlength="13"
+        <input type="tel" id="Phone" placeholder="+375293333333" name="phone" pattern="\+375[0-9]{9}" required
+               minlength="13" maxlength="13"
                value="${sessionScope.phone}">
     </div>
 
@@ -121,7 +120,7 @@ background-size: cover">
         </select>
     </div>
     <div>
-        <textarea id="City" name="city" required  minlength="2" maxlength="60" value="${sessionScope.city}"></textarea>
+        <input type="text" id="City" name="city" required minlength="2" maxlength="60" value="${sessionScope.city}"></input>
         <label for="City">${text_registration_city}</label>
     </div>
     <%--    <div class="checkbox">--%>

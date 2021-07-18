@@ -33,9 +33,8 @@ public class CommandProvider {
         commandMap.put(FIND_ORDER_INFO_DETAILS, new FindOrderInfoDetails());
         commandMap.put(FIND_MY_ORDERS, new FindMyOrdersCommand());
         commandMap.put(CREATE_ORDER, new CreateOrderCommand());
-        commandMap.put(GO_TO_CREATION_ORDER_PAGE, new CreateOrderCommand());
-
-
+        commandMap.put(GO_TO_CREATION_ORDER_PAGE, new GoToCreationOrderPage());
+        commandMap.put(ALL_EXECUTORS, new AllExecutorCommand());
 
     }
 

@@ -1,49 +1,32 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 03.07.2021
-  Time: 9:33
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
         language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <fmt:setLocale value="${locale}" scope="session"/>
 <fmt:setBundle basename="text"/>
+<fmt:message key="header.home" var="text_header_home"/>
+<fmt:message key="project.executors" var="text_project_executors"/>
+<fmt:message key="project.customers" var="text_project_customers"/>
+<fmt:message key="header.admin" var="text_header_admin"/>
+<fmt:message key="project.orders" var="text_project_orders"/>
+<fmt:message key="profile.my_profile" var="text_profile_my_profile"/>
+<fmt:message key="profile.my_orders" var="text_profile_my_orders"/>
+<fmt:message key="profile.my_contracts" var="text_profile_my_contracts"/>
+<fmt:message key="profile.configuration" var="text_profile_configuration"/>
+<fmt:message key="profile.log_out" var="text_profile_log_out"/>
+
+<fmt:message key="profile.my_revokes" var="text_profile_my_revokes"/>
+<fmt:message key="header.logging" var="text_header_logging"/>
+<fmt:message key="header.registration" var="text_header_registration"/>
 
 <html>
 <head>
-    <c:if test="${not empty sessionScope.locale}">
-        <fmt:setLocale value="${sessionScope.locale}"/>
-    </c:if>
-    <fmt:setBundle basename="text"/>
-
-    <fmt:message key="header.home" var="text_header_home"/>
-    <fmt:message key="project.executors" var="text_project_executors"/>
-    <fmt:message key="project.customers" var="text_project_customers"/>
-    <fmt:message key="header.admin" var="text_header_admin"/>
-    <fmt:message key="project.orders" var="text_project_orders"/>
-    <fmt:message key="profile.my_profile" var="text_profile_my_profile"/>
-    <fmt:message key="profile.my_orders" var="text_profile_my_orders"/>
-    <fmt:message key="profile.my_contracts" var="text_profile_my_contracts"/>
-    <fmt:message key="profile.configuration" var="text_profile_configuration"/>
-    <fmt:message key="profile.log_out" var="text_profile_log_out"/>
-
-    <fmt:message key="profile.my_revokes" var="text_profile_my_revokes"/>
-    <fmt:message key="header.logging" var="text_header_logging"/>
-    <fmt:message key="header.registration" var="text_header_registration"/>
-
-
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-
 </head>
 <body style="height: 100px">
-
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
@@ -105,7 +88,7 @@
                        style="color: black;">${text_project_orders}</a>
                 </li>
                 <li class="nav-link active">
-                    <a class="nav-link" href="/controller?command=go_to_error404"
+                    <a class="nav-link" href="/controller?command=all_executors"
                        style="color: black">${text_project_executors}</a>
                 </li>
             </ul>

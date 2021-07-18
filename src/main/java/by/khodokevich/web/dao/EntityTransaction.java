@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class EntityTransaction implements AutoCloseable {
     private static final Logger logger = LogManager.getLogger();
     private Connection connection;
-    boolean singleTransaction;
+    private boolean singleTransaction;
 
     public void begin(AbstractDao... daos) throws DaoException {
         singleTransaction = false;

@@ -9,8 +9,8 @@ public class UserColumnName {
     protected static final String PHONE = "Phone";
     protected static final String REGION = "Region";
     protected static final String CITY = "City";
-    protected static final String STATUS = "Status";
-    protected static final String ROLE_STATUS = "RoleUser";
+    protected static final String STATUS = "UserStatus";
+    protected static final String ROLE_STATUS = "UserRole";
 
     private UserColumnName() {
     }

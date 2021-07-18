@@ -12,6 +12,7 @@ public enum CommandType {
     FIND_ORDER_INFO_DETAILS,
     ALL_ORDERS,
     CREATE_ORDER,
+    ALL_EXECUTORS,
 
 
     GO_TO_MAIN,

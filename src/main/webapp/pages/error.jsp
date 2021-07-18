@@ -25,14 +25,15 @@
 <head>
     <title>${locale_error_head}!</title>
 </head>
-<body>
+<body style="background-image: url(../image/building_3_c1.jpg);
+background-repeat: no-repeat;
+background-position: center center;
+background-size: cover">
 <header>
     <jsp:include page="header.jsp"/>
 </header>
 
-<div class="container bg-dark py-2 mt-5 label_window">      <%--    //TODO add css library--%>
-    <h3 class="mb-0 ml-3" style="color: white">${locale_error_error}!</h3>
-</div>
+
 <div class="container payment_window mb-5 pt-3 pb-5">
     <div class="container mt-5">
         <h2 class="mt-5">${text_error_tech_problems}</h2>

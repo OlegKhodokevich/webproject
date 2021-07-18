@@ -24,15 +24,15 @@ import java.util.Optional;
 public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     private static final Logger logger = LogManager.getLogger(UserDaoImpl.class);
-    private static final String SQL_SELECT_ALL_USER = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, Status, RoleUser FROM users JOIN Regions ON Users.IdRegion = Regions.IdRegion;";  //TODO password?
-    private static final String SQL_SELECT_DEFINED_USER = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, Status, RoleUser FROM users JOIN Regions ON Users.IdRegion = Regions.IdRegion WHERE IdUser = ?;";
-    private static final String SQL_SELECT_DEFINED_USER_BY_EMAIL = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, Status, RoleUser FROM users JOIN Regions  WHERE EMail = ?;";
+    private static final String SQL_SELECT_ALL_USER = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN Regions ON Users.IdRegion = Regions.IdRegion;";  //TODO password?
+    private static final String SQL_SELECT_DEFINED_USER = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN Regions ON Users.IdRegion = Regions.IdRegion WHERE IdUser = ?;";
+    private static final String SQL_SELECT_DEFINED_USER_BY_EMAIL = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN Regions  WHERE EMail = ?;";
     private static final String SQL_SELECT_DEFINED_USER_BY_PHONE = "SELECT IdUser FROM users WHERE Phone = ?;";
     private static final String SQL_SELECT_USER_PASSWORD = "SELECT EncodedPassword FROM users WHERE IdUser = ?;";
     private static final String SQL_DELETE_DEFINED_USER_BY_ID = "DELETE FROM users WHERE IdUser = ?;";
     private static final String SQL_DELETE_DEFINED_USER_BY_EMAIL = "DELETE FROM users WHERE EMail = ?;";
-    private static final String SQL_REGISTER_USER = "INSERT INTO users(FirstName, LastName, EMail, Phone, IdRegion, City, Status, RoleUser, EncodedPassword) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE_USER = "UPDATE users SET FirstName = ?, LastName = ?, EMail = ?, Phone = ?, IdRegion = ?, City = ?, Status = ?, RoleUser = ? WHERE IdUser = ?;";
+    private static final String SQL_REGISTER_USER = "INSERT INTO users(FirstName, LastName, EMail, Phone, IdRegion, City, UserStatus, UserRole, EncodedPassword) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE_USER = "UPDATE users SET FirstName = ?, LastName = ?, EMail = ?, Phone = ?, IdRegion = ?, City = ?, UserStatus = ?, UserRole = ? WHERE IdUser = ?;";
     private static final String SQL_SET_USER_STATUS = "UPDATE users SET Status = ? WHERE IdUser = ?;";
     private static final String SQL_GET_USER_STATUS = "SELECT Status FROM users WHERE IdUser = ?;";
 
@@ -136,7 +136,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
         int numberUpdatedRows;
 
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_DELETE_DEFINED_USER_BY_EMAIL)) {
-            statement.setString(1, entity.geteMail());
+            statement.setString(1, entity.getEMail());
             numberUpdatedRows = statement.executeUpdate();
         } catch (SQLException e) {
             logger.error("Prepare statement can't be take from connection." + e.getMessage());
@@ -160,9 +160,9 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
         }
         int numberUpdatedRows;
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_UPDATE_USER)) {
-            statement.setString(1, entity.getfirstName());
-            statement.setString(2, entity.getlastName());
-            statement.setString(3, entity.geteMail());
+            statement.setString(1, entity.getFirstName());
+            statement.setString(2, entity.getLastName());
+            statement.setString(3, entity.getEMail());
             statement.setString(4, entity.getPhone());
             statement.setInt(5, entity.getRegion().getId());
             statement.setString(6, entity.getCity());
@@ -227,9 +227,9 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
         }
         int numberUpdatedRows;
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_REGISTER_USER)) {
-            statement.setString(1, entity.getfirstName());
-            statement.setString(2, entity.getlastName());
-            statement.setString(3, entity.geteMail());
+            statement.setString(1, entity.getFirstName());
+            statement.setString(2, entity.getLastName());
+            statement.setString(3, entity.getEMail());
             statement.setString(4, entity.getPhone());
             statement.setInt(5, entity.getRegion().getId());
             statement.setString(6, entity.getCity());

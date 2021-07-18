@@ -60,38 +60,23 @@ public class SignInCommand implements Command {
                     UserRole role = UserRole.valueOf(roleString);
                     String statusString = answerMap.get(STATUS);
                     UserStatus status = UserStatus.valueOf(statusString);
-
-                    switch (status) {
-                        case CONFIRMED:
-                            User user = new UserBuilder()
-                                    .userId(userId)
-                                    .firstName(firstName)
-                                    .lastName(lastName)
-                                    .eMail(eMail)
-                                    .region(regionBelarus)
-                                    .city(city)
-                                    .status(status)
-                                    .role(role)
-                                    .buildUser();
-                            session.setAttribute(ACTIVE_USER, user);
-                            session.setAttribute(ACTIVE_USER_ROLE, user.getRole().name());
-                            session.setAttribute(ACTIVE_USER_STATUS, user.getStatus().name());
-                            String messege = firstName + " " + lastName + " ";
-                            session.setAttribute(MESSAGE, messege);       //todo
-                            router = new Router(PagePath.MAIN_PAGE, Router.RouterType.REDIRECT);
-
-                            break;
-                        case DECLARED:
-                            session.setAttribute(MESSAGE, KEY_USER_NOT_CONFIRMED);       //todo
-                            router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
-                            break;
-                        case ARCHIVED:
-                            session.setAttribute(MESSAGE, KEY_STATUS_ARCHIVED);       //todo
-                            router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
-                            break;
-                        default:
-                            throw new EnumConstantNotPresentException(UserStatus.class, status.name());
-                    }
+                    User user = new UserBuilder()
+                            .userId(userId)
+                            .firstName(firstName)
+                            .lastName(lastName)
+                            .eMail(eMail)
+                            .phone(phone)
+                            .region(regionBelarus)
+                            .city(city)
+                            .status(status)
+                            .role(role)
+                            .buildUser();
+                    session.setAttribute(ACTIVE_USER, user);
+                    session.setAttribute(ACTIVE_USER_ROLE, user.getRole().name());
+                    session.setAttribute(ACTIVE_USER_STATUS, user.getStatus().name());
+                    String messege = firstName + " " + lastName + " ";
+                    session.setAttribute(MESSAGE, messege);       //todo
+                    router = new Router(PagePath.MAIN_PAGE, Router.RouterType.REDIRECT);
                     break;
                 case USER_UNKNOWN:
                     router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);      //todo
@@ -100,6 +85,14 @@ public class SignInCommand implements Command {
                 case NOT_VALID:
                     router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
                     session.setAttribute(MESSAGE, KEY_DATA_NOT_VALID);        //todo
+                    break;
+                case USER_STATUS_NOT_CONFIRM:
+                    session.setAttribute(MESSAGE, KEY_USER_NOT_CONFIRMED);       //todo
+                    router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
+                    break;
+                case USER_STATUS_IS_ARCHIVED:
+                    session.setAttribute(MESSAGE, KEY_STATUS_ARCHIVED);       //todo
+                    router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
                     break;
                 default:
                     throw new UnsupportedOperationException();

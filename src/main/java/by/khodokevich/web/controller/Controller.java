@@ -1,6 +1,7 @@
 package by.khodokevich.web.controller;
 
 import by.khodokevich.web.command.*;
+import by.khodokevich.web.connection.CustomConnectionPool;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 @WebServlet(name = "Controller", urlPatterns = {"/controller"})
 public class Controller extends HttpServlet {
@@ -29,11 +31,11 @@ public class Controller extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        logger.debug("start controller");
+        logger.debug("Start controller.");
         logger.debug(request.getParameter(ParameterAttributeType.COMMAND));
 
         String commandName = request.getParameter(ParameterAttributeType.COMMAND);
-
+        logger.debug("commandName = " + commandName);
         Command command = commandProvider.getCommand(commandName);
 
         Router router = command.execute(request);
@@ -51,4 +53,14 @@ public class Controller extends HttpServlet {
         }
     }
 
+    @Override
+    public void destroy() {
+        CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
+        connectionPool.destroyPool();
+    }
+
+    @Override
+    public void init() throws ServletException {
+        CustomConnectionPool.getInstance();
+    }
 }

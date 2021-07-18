@@ -9,13 +9,19 @@ public class Executor extends User {
     public Executor() {
     }
 
-    public Executor(String login, String encryptedPassword, String eMail, String phone, RegionBelarus region, String city, UserStatus status, ExecutorOption executorOption) {
-        super(login, encryptedPassword, eMail, phone, region, city, status, UserRole.EXECUTOR);
+    public Executor(User user, ExecutorOption executorOption) {
+
+        super(user.getIdUser(), user.getFirstName(), user.getLastName(), user.getEMail(), user.getPhone(), user.getRegion(), user.getCity(), user.getStatus(), user.getRole());
         this.executorOption = executorOption;
     }
 
-    public Executor(long idUser, String login, String encryptedPassword, String eMail, String phone, RegionBelarus region, String city, UserStatus status, ExecutorOption executorOption) {
-        super(idUser, login, encryptedPassword, eMail, phone, region, city, status, UserRole.EXECUTOR);
+    public Executor(String firstName, String lastName, String eMail, String phone, RegionBelarus region, String city, UserStatus status, UserRole role, ExecutorOption executorOption) {
+        super(firstName, lastName, eMail, phone, region, city, status, role);
+        this.executorOption = executorOption;
+    }
+
+    public Executor(long idUser, String firstName, String lastName, String eMail, String phone, RegionBelarus region, String city, UserStatus status, UserRole role, ExecutorOption executorOption) {
+        super(idUser, firstName, lastName, eMail, phone, region, city, status, role);
         this.executorOption = executorOption;
     }
 
@@ -26,6 +32,9 @@ public class Executor extends User {
     public void setExecutorOption(ExecutorOption executorOption) {
         this.executorOption = executorOption;
     }
+
+
+
 
     @Override
     public boolean equals(Object o) {                   //TODO change implementation

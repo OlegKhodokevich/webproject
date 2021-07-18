@@ -7,13 +7,6 @@
 <fmt:message key="order.create_order" var="text_order_create_order"/>
 <fmt:message key="order.my_order" var="text_order_my_order"/>
 
-
-
-
-
-<li class="nav-link active text-md-center">
-    <a class="nav-link" href="/controller?command=set_locale&locale=en_US" style="color: black">EN</a>
-</li>
 <html>
 <head>
     <title>${text_order_my_order}</title>

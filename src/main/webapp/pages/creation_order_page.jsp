@@ -45,6 +45,7 @@
 <head>
     <title>${text_order_create_order}</title>
     <link href="../css/custom_styles.css" rel="stylesheet"/>
+    <link href="../css/styles_create_order_page.css" rel="stylesheet"/>
 </head>
 <body style="background-image: url(../image/building_3_c1.jpg);
 background-repeat: no-repeat;
@@ -54,7 +55,7 @@ background-size: cover">
     <jsp:include page="header.jsp"/>
 </header>
 
-<form action="${pageContext.request.contextPath}/controller" method="post" class="registration_form">
+<form action="${pageContext.request.contextPath}/controller" method="post" class="creation_order_page">
 
     <h1 style="text-align: center">${text_order_create_order}</h1>
     <div>
@@ -73,7 +74,7 @@ background-size: cover">
         <label for="Address">${text_order_address}</label>
     </div>
     <div>
-        <input type="date" id="CompletionDate" name="lastName" required value="${sessionScope.completionDate}">
+        <input type="date" id="CompletionDate" name="completionDate" required value="${sessionScope.completionDate}">
         <label for="CompletionDate">${text_order_completion_date}</label>
     </div>
 

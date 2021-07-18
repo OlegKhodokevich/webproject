@@ -57,11 +57,17 @@ public class UserServiceImpl implements UserService {
                 Optional<User> checkedUser = userDao.findUserByEMail(eMail);
                 if (checkedUser.isPresent()) {
                     resultType = DUPLICATE_EMAIL;
+                    if (checkedUser.get().getPhone().equals(phone)) {
+                        resultType = DUPLICATE_EMAIL_AND_PHONE;
+                    }
                 }
-                checkedUser = userDao.findUserByPhone(phone);
-                if (checkedUser.isPresent()) {
-                    resultType = (resultType == DUPLICATE_EMAIL) ? DUPLICATE_EMAIL_AND_PHONE : DUPLICATE_PHONE;
+                if (resultType != DUPLICATE_EMAIL_AND_PHONE) {
+                    checkedUser = userDao.findUserByPhone(phone);
+                    if (checkedUser.isPresent()) {
+                        resultType = (resultType == DUPLICATE_EMAIL) ? DUPLICATE_EMAIL_AND_PHONE : DUPLICATE_PHONE;
+                    }
                 }
+
                 if (resultType == SUCCESS) {
                     User userForRegistration = new User(firstName, lastName, eMail, phone, RegionBelarus.valueOf(region.toUpperCase()), city, UserStatus.DECLARED, UserRole.CUSTOMER);
                     String encodedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
@@ -88,7 +94,6 @@ public class UserServiceImpl implements UserService {
         logger.info("Start logIn(Map<String, String> userData). User data = " + userData);
         Map<String, String> answerMap = new HashMap<>();
         CheckingResult resultType;
-        Optional<User> user = Optional.empty();
         String eMail = userData.get(E_MAIL);
         String password = userData.get(PASSWORD);
         if (UserDataValidator.isEMailValid(eMail) && UserDataValidator.isPasswordValid(password)) {
@@ -99,26 +104,34 @@ public class UserServiceImpl implements UserService {
                 if (foundUser.isPresent()) {
                     String encodedPassword = userDao.findUserPasswordById(foundUser.get().getIdUser());
                     if (BCrypt.checkpw(password, encodedPassword)) {
-                        if (foundUser.get().getStatus() == UserStatus.DECLARED) {
-
-                            String encodedEMail = BCrypt.hashpw(eMail, BCrypt.gensalt());
-                            String urlPage = userData.get(URL);
-                            String url = urlPage + "?command=activate&token=" + encodedEMail + "&eMail=" + eMail;
-                            String activatingMessage = WELCOME + url;
-                            MailAuthenticator.sendEmail(eMail, E_MAIL_CONFIRMATION, activatingMessage);
-                            resultType = USER_STATUS_NOT_CONFIRM;
-                        } else {
-                            user = foundUser;
-                            resultType = SUCCESS;
-                            answerMap.put(USER_ID, String.valueOf(user.get().getIdUser()));
-                            answerMap.put(FIRST_NAME, user.get().getfirstName());
-                            answerMap.put(LAST_NAME, user.get().getlastName());
-                            answerMap.put(E_MAIL, user.get().geteMail());
-                            answerMap.put(PHONE, user.get().getPhone());
-                            answerMap.put(REGION, user.get().getRegion().name());
-                            answerMap.put(CITY, user.get().getCity());
-                            answerMap.put(ROLE, user.get().getRole().name());
-                            answerMap.put(STATUS, user.get().getStatus().name());
+                        UserStatus status = foundUser.get().getStatus();
+                        switch (status) {
+                            case CONFIRMED:
+                                User user = foundUser.get();
+                                resultType = SUCCESS;
+                                answerMap.put(USER_ID, String.valueOf(user.getIdUser()));
+                                answerMap.put(FIRST_NAME, user.getFirstName());
+                                answerMap.put(LAST_NAME, user.getLastName());
+                                answerMap.put(E_MAIL, user.getEMail());
+                                answerMap.put(PHONE, user.getPhone());
+                                answerMap.put(REGION, user.getRegion().name());
+                                answerMap.put(CITY, user.getCity());
+                                answerMap.put(ROLE, user.getRole().name());
+                                answerMap.put(STATUS, user.getStatus().name());
+                                break;
+                            case DECLARED:
+                                String encodedEMail = BCrypt.hashpw(eMail, BCrypt.gensalt());
+                                String urlPage = userData.get(URL);
+                                String url = urlPage + "?command=activate&token=" + encodedEMail + "&eMail=" + eMail;
+                                String activatingMessage = WELCOME + url;
+                                MailAuthenticator.sendEmail(eMail, E_MAIL_CONFIRMATION, activatingMessage);
+                                resultType = USER_STATUS_NOT_CONFIRM;
+                                break;
+                            case ARCHIVED:
+                                resultType = USER_STATUS_IS_ARCHIVED;
+                                break;
+                            default:
+                                throw new EnumConstantNotPresentException(CheckingResult.class, status.name());
                         }
                     } else {
                         resultType = USER_UNKNOWN;

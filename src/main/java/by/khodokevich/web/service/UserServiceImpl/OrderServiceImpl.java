@@ -136,6 +136,7 @@ public class OrderServiceImpl implements OrderService {
                     Date creationDate = new Date();
                     OrderStatus status = OrderStatus.OPEN;
                     Order order = new OrderBuilder()
+                            .userId(userId)
                             .title(title)
                             .description(description)
                             .address(address)

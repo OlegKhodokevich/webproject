@@ -63,7 +63,7 @@ public class RegisterUserCommand implements Command {
                         session.setAttribute(MESSAGE, KEY_SENT_MASSAGE);
                         break;
                     case NOT_VALID:
-                        request.setAttribute(MESSAGE, KEY_MESSAGE_DATA_NOT_CORRECT);
+                        session.setAttribute(MESSAGE, KEY_MESSAGE_DATA_NOT_CORRECT);
                         firstName = answerMap.get(FIRST_NAME);
                         lastName = answerMap.get(LAST_NAME);
                         eMail = answerMap.get(E_MAIL);
@@ -88,7 +88,6 @@ public class RegisterUserCommand implements Command {
                         session.setAttribute(CITY, city);
                         router = new Router(PagePath.REGISTER_PAGE, Router.RouterType.REDIRECT);
                         break;
-
                     case DUPLICATE_PHONE:
                         session.setAttribute(MESSAGE, KEY_MESSAGE_DUPLICATE_PHONE);
                         session.setAttribute(FIRST_NAME, firstName);

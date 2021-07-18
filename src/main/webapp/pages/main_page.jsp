@@ -53,23 +53,13 @@ background-size: cover">
 <div class="container">
     <div class="container payment_window mb-5 pt-3 pb-5">
         <div class="container mt-5">
-            <h2 class="mt-5"><ctg:welcome firstName="${sessionScope.activeUser.getfirstName()}" lastName="${sessionScope.activeUser.getlastName()}" role="${sessionScope.activeUser.role}"/></h2>
+            <h2 class="mt-5"><ctg:welcome firstName="${sessionScope.activeUser.firstName}" lastName="${sessionScope.activeUser.lastName}" role="${sessionScope.activeUser.role}"/></h2>
         </div>
     </div>
 </div>
 
 
-<li class="nav-link active text-md-center">
-    <a class="nav-link" href="/controller?command=go_to_order_page" style="color: black">Orders</a>
-</li>
-<li class="nav-link active text-md-center">
-    <a class="header_button" href="/controller?command=log_out">exit</a>
-</li>
-<li class="nav-link active text-md-center">
-    <a class="header_button" href="order_info.jsp">Order Info</a>
-</li>
 <footer class="custom-footer">
-
     <jsp:include page="footer.jsp"/>
 </footer>
 </body>

@@ -99,6 +99,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
                     OrderStatus status = OrderStatus.valueOf(resultSet.getString(ORDER_STATUS).toUpperCase());
                     order = new OrderBuilder()
                             .orderId(orderId)
+                            .userId(userId)
                             .title(title)
                             .description(description)
                             .address(address)

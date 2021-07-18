@@ -2,6 +2,8 @@ package by.khodokevich.web.dao.impl;
 
 import static by.khodokevich.web.dao.impl.ExecutorColumnName.*;
 
+import by.khodokevich.web.builder.ExecutorBuilder;
+import by.khodokevich.web.builder.ExecutorOptionBuilder;
 import by.khodokevich.web.dao.AbstractDao;
 import by.khodokevich.web.entity.*;
 import by.khodokevich.web.exception.DaoException;
@@ -16,21 +18,21 @@ import java.util.Optional;
 public class ExecutorDaoImpl extends AbstractDao<Executor> { // TODO add implementation
     private static final Logger logger = LogManager.getLogger(ExecutorDaoImpl.class);
 
-    private static final String SQL_SELECT_ALL_EXECUTORS = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, Status, RoleUser FROM users JOIN regions ON users.IdRegion = regions.IdRegion WHERE RoleUser = \"executor\";";  //TODO password?
-    private static final String SQL_SELECT_DEFINED_EXECUTORS = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, Status, RoleUser FROM users JOIN regions ON users.IdRegion = regions.IdRegion WHERE RoleUser = \"executor\" AND IdUser = ?;";
-    private static final String SQL_DELETE_DEFINED_EXECUTORS_BY_ID = "DELETE users  FROM users WHERE RoleUser = \"executor\" AND IdUser = ?;";
-    private static final String SQL_DELETE_DEFINED_EXECUTORS_BY_EMAIL = "DELETE users FROM users WHERE RoleUser = \"executor\" AND EMail = ?;";
-    private static final String SQL_INSERT_EXECUTORS = "INSERT INTO users(FirstName, LastName, EMail, Phone, IdRegion, City, Status, RoleUser) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE_EXECUTORS = "UPDATE users SET FirstName = ?, LastName = ?, EMail = ?, Phone = ?, IdRegion = ?, City = ?, Status = ?, RoleUser = ? WHERE RoleUser = \"executor\" AND IdUser = ?;";
+    private static final String SQL_SELECT_ALL_EXECUTORS = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN regions ON users.IdRegion = regions.IdRegion WHERE UserRole = \"executor\";";  //TODO password?
+    private static final String SQL_SELECT_DEFINED_EXECUTORS = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN regions ON users.IdRegion = regions.IdRegion WHERE RoleUser = \"executor\" AND IdUser = ?;";
+    private static final String SQL_DELETE_DEFINED_EXECUTORS_BY_ID = "DELETE FROM users WHERE RoleUser = \"executor\" AND IdUser = ?;";
+    private static final String SQL_DELETE_DEFINED_EXECUTORS_BY_EMAIL = "DELETE FROM users WHERE RoleUser = \"executor\" AND EMail = ?;";
+    private static final String SQL_INSERT_EXECUTORS = "INSERT INTO users(FirstName, LastName, EMail, Phone, IdRegion, City, UserStatus, UserRole, EncodedPassword) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE_EXECUTORS = "UPDATE users SET FirstName = ?, LastName = ?, EMail = ?, Phone = ?, IdRegion = ?, City = ?, UserStatus = ?, UserRole = ?, EncodedPassword = ? WHERE RoleUser = \"executor\" AND IdUser = ?;";
 
-    private static final String SQL_SELECT_EXECUTOROPTION = "SELECT PersonalFoto, UNP, AverageMark, NumberCompletionContracts, NumberContractsInProgress FROM executors WHERE IdUserExecutor = ?;";
-    private static final String SQL_INSERT_EXECUTOROPTION = "INSERT INTO executors(IdUserExecutor, PersonalFoto, UNP, AverageMark, NumberCompletionContracts, NumberContractsInProgress) VALUES ((SELECT IdUser FROM users WHERE EMail = ?),?, ?, ?, ?, ?)";
+    private static final String SQL_SELECT_EXECUTOR_OPTION = "SELECT PersonalFoto, UNP, AverageMark, NumberCompletionContracts, NumberContractsInProgress, DescriptionExecutor FROM executors WHERE IdUserExecutor = ?;";
+    private static final String SQL_INSERT_EXECUTOR_OPTION = "INSERT INTO executors(IdUserExecutor, PersonalFoto, UNP, AverageMark, NumberCompletionContracts, NumberContractsInProgress, DescriptionExecutor) VALUES ((SELECT IdUser FROM users WHERE EMail = ?),?, ?, ?, ?, ?, ?)";
 
-    private static final String SQL_UPDATE_EXECUTOROPTION = "UPDATE executors SET PersonalFoto = ?, UNP = ?, AverageMark = ?, NumberCompletionContracts = ?, NumberContractsInProgress = ? WHERE IdUserExecutor = ?;";
+    private static final String SQL_UPDATE_EXECUTOR_OPTION = "UPDATE executors SET PersonalFoto = ?, UNP = ?, AverageMark = ?, NumberCompletionContracts = ?, NumberContractsInProgress = ?, DescriptionExecutor = ? WHERE IdUserExecutor = ?;";
 
     private static final String SQL_SELECT_SKILLS = "SELECT Specialization, Cost, Measure FROM skills JOIN specializations ON skills.IdSpecialization = specializations.IdSpecialization WHERE IdUserExecutor = ?;";
     private static final String SQL_INSERT_SKILL = "INSERT INTO skills(IdUserExecutor, IdSpecialization, Cost, Measure) VALUES ((SELECT IdUser FROM users JOIN executors ON IdUser = IdUserExecutor WHERE EMail = ?), (SELECT IdSpecialization FROM specializations WHERE Specialization = ?), ?, ?)";
-    private static final String SQL_DELETE_SKILL = "DELETE skills FROM skills WHERE IdUserExecutor = ?;";
+    private static final String SQL_DELETE_SKILL = "DELETE FROM skills WHERE IdUserExecutor = ?;";
 
     @Override
     public List<Executor> findAll() throws DaoException {
@@ -40,19 +42,33 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> { // TODO add impleme
         try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_EXECUTORS);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                long idUser = resultSet.getLong(ID_USER);
-                String login = resultSet.getString(LOGIN);
-                String password = resultSet.getString(PASSWORD);
+                long userId = resultSet.getLong(ID_USER);
+                String firstName = resultSet.getString(FIRSTNAME);
+                String lastName = resultSet.getString(LASTNAME);
                 String eMail = resultSet.getString(E_MAIL);
                 String phone = resultSet.getString(PHONE);
                 RegionBelarus region = RegionBelarus.valueOf(resultSet.getString(REGION).toUpperCase());
                 String city = resultSet.getString(CITY);
                 UserStatus status = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
 
-                ExecutorOption executorOption = findExecutorOption(idUser);
-                Executor executor = new Executor(idUser, login, password, eMail, phone, region, city, status, executorOption);
-                logger.info("Has found next executor = " + executor);
-                executors.add(executor);
+                Optional<ExecutorOption> executorOption = findExecutorOption(userId);
+
+                if (executorOption.isPresent()) {
+                    Executor executor = new ExecutorBuilder()
+                            .userId(userId)
+                            .firstName(firstName)
+                            .lastName(lastName)
+                            .eMail(eMail)
+                            .phone(phone)
+                            .region(region)
+                            .city(city)
+                            .status(status)
+                            .executorOption(executorOption.get())
+                            .buildExecutor();
+
+                    logger.info("Has found next executor = " + executor);
+                    executors.add(executor);
+                }
             }
         } catch (SQLException e) {
             logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
@@ -71,16 +87,30 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> { // TODO add impleme
             statement.setLong(1, idExecutor);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    long idUser = resultSet.getLong(ID_USER);
-                    String login = resultSet.getString(LOGIN);
-                    String password = resultSet.getString(PASSWORD);
+                    long userId = resultSet.getLong(ID_USER);
+                    String firstName = resultSet.getString(FIRSTNAME);
+                    String lastName = resultSet.getString(LASTNAME);
                     String eMail = resultSet.getString(E_MAIL);
                     String phone = resultSet.getString(PHONE);
                     RegionBelarus region = RegionBelarus.valueOf(resultSet.getString(REGION).toUpperCase());
                     String city = resultSet.getString(CITY);
                     UserStatus status = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
-                    ExecutorOption executorOption = findExecutorOption(idUser);
-                    executor = new Executor(idUser, login, password, eMail, phone, region, city, status, executorOption);
+                    Optional<ExecutorOption> executorOption = findExecutorOption(userId);
+                    if (executorOption.isPresent()) {
+                        executor = new ExecutorBuilder()
+                                .userId(userId)
+                                .firstName(firstName)
+                                .lastName(lastName)
+                                .eMail(eMail)
+                                .phone(phone)
+                                .region(region)
+                                .city(city)
+                                .status(status)
+                                .executorOption(executorOption.get())
+                                .buildExecutor();
+
+                        logger.info("Has found next executor = " + executor);
+                    }
                 }
             }
         } catch (SQLException e) {
@@ -112,7 +142,7 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> { // TODO add impleme
         logger.info("Start delete(Executor entity)." + entity);
         int numberUpdatedRows;
         try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_DEFINED_EXECUTORS_BY_EMAIL)) {
-            statement.setString(1, entity.geteMail());
+            statement.setString(1, entity.getEMail());
             numberUpdatedRows = statement.executeUpdate();
         } catch (SQLException e) {
             logger.error("Prepare statement can't be take from connection." + e.getMessage());
@@ -132,9 +162,9 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> { // TODO add impleme
         }
         int numberUpdatedRows;
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_INSERT_EXECUTORS)) {
-            statement.setString(1, entity.getfirstName());
-            statement.setString(2, entity.getlastName());
-            statement.setString(3, entity.geteMail());
+            statement.setString(1, entity.getFirstName());
+            statement.setString(2, entity.getLastName());
+            statement.setString(3, entity.getEMail());
             statement.setString(4, entity.getPhone());
             statement.setInt(5, entity.getRegion().ordinal());
             statement.setString(6, entity.getCity());
@@ -164,9 +194,9 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> { // TODO add impleme
         }
         int numberUpdatedRows;
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_UPDATE_EXECUTORS)) {
-            statement.setString(1, entity.getfirstName());
-            statement.setString(2, entity.getlastName());
-            statement.setString(3, entity.geteMail());
+            statement.setString(1, entity.getFirstName());
+            statement.setString(2, entity.getLastName());
+            statement.setString(3, entity.getEMail());
             statement.setString(4, entity.getPhone());
             statement.setInt(5, entity.getRegion().ordinal());
             statement.setString(6, entity.getCity());
@@ -187,27 +217,40 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> { // TODO add impleme
 
     }
 
-    private ExecutorOption findExecutorOption(long idUserExecutor) throws DaoException {
-        ExecutorOption exetutorOption = null;
-        try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_EXECUTOROPTION)) {
+    private Optional<ExecutorOption> findExecutorOption(long idUserExecutor) throws DaoException {
+        Optional<ExecutorOption> executorOption;
+        try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_EXECUTOR_OPTION)) {
+            statement.setLong(1, idUserExecutor);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     String urlPersonalFoto = resultSet.getString(PERSONAL_FOTO);
                     String unp = resultSet.getString(UNP);
+                    String description = resultSet.getString(DESCRIPTION);
                     double averageMark = resultSet.getFloat(AVERAGE_MARK);
                     int numberCompletionContracts = resultSet.getInt(NUMBER_COMPLETION_CONTRACTS);
                     int numberContractsInProgress = resultSet.getInt(NUMBER_CONTRACTS_PROGRESS);
 
                     List<Skill> skills = findExecutorSkills(idUserExecutor);
-                    exetutorOption = new ExecutorOption(Optional.ofNullable(unp), skills, averageMark, numberCompletionContracts, numberContractsInProgress, urlPersonalFoto);
+
+                    executorOption = Optional.of(new ExecutorOptionBuilder()
+                            .unp(unp)
+                            .description(description)
+                            .skills(skills)
+                            .averageMark(averageMark)
+                            .numberCompletionContracts(numberCompletionContracts)
+                            .numberContractsInProgress(numberContractsInProgress)
+                            .urlPersonalFoto(urlPersonalFoto)
+                            .buildExecutorOption());
+                } else {
+                    executorOption = Optional.empty();
                 }
             }
         } catch (SQLException e) {
             logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
             throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
         }
-        logger.info("Has found exetutorOption = " + exetutorOption);
-        return exetutorOption;
+        logger.info("Has found exetutorOption = " + executorOption);
+        return executorOption;
     }
 
     private List<Skill> findExecutorSkills(long IdUserExecutor) throws DaoException {
@@ -239,19 +282,14 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> { // TODO add impleme
         ExecutorOption executorOption = entity.getExecutorOption();
         logger.info("Start createExecutorOption(Connection connection, Executor entity)." + entity);
         int numberUpdatedRows;
-        try (PreparedStatement statement = super.connection.prepareStatement(SQL_INSERT_EXECUTOROPTION)) {
-            statement.setString(1, entity.geteMail());
-
+        try (PreparedStatement statement = super.connection.prepareStatement(SQL_INSERT_EXECUTOR_OPTION)) {
+            statement.setString(1, entity.getEMail());
             statement.setString(2, executorOption.getUrlPersonalFoto());
-            Optional<String> unpOptional = executorOption.getUNP();
-            if (unpOptional.isPresent()) {
-                statement.setString(3, unpOptional.get());
-            } else {
-                statement.setNull(3, Types.VARCHAR);
-            }
+            statement.setString(3, executorOption.getUnp());
             statement.setFloat(4, (float) executorOption.getAverageMark());
             statement.setInt(5, executorOption.getNumberCompletionContracts());
             statement.setInt(6, executorOption.getNumberContractsInProgress());
+            statement.setString(7, executorOption.getDescription());
 
             numberUpdatedRows = statement.executeUpdate();
             result = createExecutorSkills(entity);
@@ -273,7 +311,7 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> { // TODO add impleme
         for (int i = 0; i < skills.size(); i++) {
             try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_SKILL)) {
                 Skill skill = skills.get(i);
-                statement.setString(1, entity.geteMail());
+                statement.setString(1, entity.getEMail());
                 statement.setString(2, skill.getSpecialization().name().toLowerCase());
                 statement.setString(3, skill.getCost());
                 statement.setString(4, skill.getMeasure().name().toLowerCase());
@@ -292,18 +330,14 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> { // TODO add impleme
         logger.info("Start updateExecutorOption(Connection connection, Executor entity)." + entity);
         ExecutorOption executorOption = entity.getExecutorOption();
         int numberUpdatedRows;
-        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_EXECUTOROPTION)) {
+        try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_EXECUTOR_OPTION)) {
             statement.setString(1, executorOption.getUrlPersonalFoto());
-            Optional<String> unpOptional = executorOption.getUNP();
-            if (unpOptional.isPresent()) {
-                statement.setString(2, unpOptional.get());
-            } else {
-                statement.setNull(2, Types.VARCHAR);
-            }
+            statement.setString(2, executorOption.getUnp());
             statement.setFloat(3, (float) executorOption.getAverageMark());
             statement.setInt(4, executorOption.getNumberCompletionContracts());
             statement.setInt(5, executorOption.getNumberContractsInProgress());
-            statement.setLong(6, entity.getIdUser());
+            statement.setString(6, executorOption.getDescription());
+            statement.setLong(7, entity.getIdUser());
 
             numberUpdatedRows = statement.executeUpdate();
             updateExecutorSkills(entity);

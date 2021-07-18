@@ -9,6 +9,7 @@ public enum CheckingResult {
     USER_UNKNOWN,
     USER_STATUS_NOT_DECLARED,
     USER_STATUS_NOT_CONFIRM,
+    USER_STATUS_IS_ARCHIVED,
     NOT_VALID
 
 }

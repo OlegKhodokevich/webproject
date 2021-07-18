@@ -3,10 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="abs_path">${pageContext.request.contextPath}</c:set>
 
-<c:if test="${not empty sessionScope.locale}">
-    <fmt:setLocale value="${sessionScope.locale}"/>
-</c:if>
-
+<fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="text"/>
 
 
@@ -32,11 +29,6 @@
 <fmt:message key="project.orders" var="text_project_orders"/>
 
 
-
-<c:if test="${not empty requestScope.message}">
-    <fmt:message key="logging.welcome_user" var="text_welcome_user"/>
-</c:if>
-
 <html>
 <head>
     <title>${text_project_orders}</title>
@@ -54,32 +46,18 @@ background-size: cover">
 <header>
     <jsp:include page="header.jsp"/>
 </header>
-<c:if test="${not empty requestScope.message}">
-    <div class="container">
-        <div class="container payment_window mb-5 pt-3 pb-5">
-            <div class="container mt-5">
-                <h2 class="mt-5">${requestScope.message}</h2>
-            </div>
-        </div>
-    </div>
-</c:if>
 <h1 class="display-4 fw-normal" style="text-align: center">${text_order_orders}</h1>
 
 <div class="container">
     <div class="row">
-
-
-
         <div class="col">
-
             <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
-
                 <p class="fs-5 fw-semibold">${text_order_specializations}</p>
 
                 <form action="/controller" method="post" class="list-group list-group-flush border-bottom scrollarea">
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="spec1" value="on"   id="spec1">
+                        <input class="form-check-input" type="checkbox" name="spec1" value="on" id="spec1">
                         <label class="form-check-label" for="spec1">
                             ${text_specialization_electrical}
                         </label>
@@ -115,7 +93,7 @@ background-size: cover">
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="spec7" value="on"id="spec7">
+                        <input class="form-check-input" type="checkbox" name="spec7" value="on" id="spec7">
                         <label class="form-check-label" for="spec7">
                             ${text_specialization_cement_floor}
                         </label>
@@ -170,12 +148,12 @@ background-size: cover">
                     </div>
                     <div>
                         <input type="hidden" name="command" value="find_orders_by_specializations">
-                        <input type="submit" value="${text_order_search}" style="background-color: #71dd8a; width: 150px">
+                        <input type="submit" value="${text_order_search}"
+                               style="background-color: #71dd8a; width: 150px">
                     </div>
                 </form>
             </div>
         </div>
-
 
 
         <div class="col">
@@ -192,10 +170,10 @@ background-size: cover">
                         <c:forEach var="order" items="${sessionScope.orderList}">
                             <c:if test="${order != null}">
                                 <a href="/controller?command=find_order_info_details&orderId=${order.orderId}"
-                                   class="list-group-item list-group-item-action flex-column align-items-start active border-dark mt-2">
+                                   class="list-group-item list-group-item-action flex-column align-items-start border-dark mt-2">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1">${order.getTitle()}</h5>
-                                        <small>${order.creationDate}</small>           <%--    //TODO data format--%>
+                                        <small>${order.creationDate}</small> <%--    //TODO data format--%>
                                     </div>
                                     <p class="mb-1">${order.description}</p>
                                     <small>${order.completionDate}</small>
@@ -207,8 +185,6 @@ background-size: cover">
                 </c:when>
             </c:choose>
         </div>
-
-
 
 
     </div>
