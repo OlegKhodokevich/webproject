@@ -14,10 +14,9 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+
+import static by.khodokevich.web.command.ParameterAttributeType.*;
 
 public class FindOrdersBySpecializationCommand implements Command {
     private static final Logger logger = LogManager.getLogger(FindOrdersBySpecializationCommand.class);
@@ -27,35 +26,43 @@ public class FindOrdersBySpecializationCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
         logger.info("Start FindOrdersBySpecializationCommand.");
+        List<Order> orderList;
         List<Specialization> specializations = new ArrayList<>();
         Router router;
-        logger.info(request.getParameter("spec3"));
-        logger.info(request.getAttributeNames());
-        logger.info("key = spec3 ,value =" + request.getAttribute("spec3"));
         OrderService orderService = ServiceProvider.ORDER_SERVICE;
+        HttpSession session = request.getSession();
         try {
 
             Map<String, Specialization> specializationMap = Specialization.getSpecializationMap();
             Set<String> keys = specializationMap.keySet();
             for (String key : keys) {
-                logger.info("key = |" + key + "| ,value =" + request.getParameter(key));
+                logger.debug("key = |" + key + "| ,value =" + request.getParameter(key));
                 String value = request.getParameter(key);
                 if (value != null && value.equals(CHECKBOX_VALUE)) {
                     specializations.add(specializationMap.get(key));
+                    session.setAttribute(key, "on");
+                } else {
+                    session.setAttribute(key, "");
                 }
             }
             logger.debug("Specs = " + specializations);
-            List<Order> orderList = orderService.findOrdersBySpecializations(specializations);
+            if (!specializations.isEmpty()) {
+                orderList = orderService.findOrdersBySpecializations(specializations);
+            } else {
+                orderList = orderService.findAllOrder();
+            }
             logger.info("Orders = " + orderList);
             if (!orderList.isEmpty()) {
 //                request.setAttribute(ParameterAndAttributeType.ORDER_LIST, orderList);
-                HttpSession session = request.getSession();
+
                 session.setAttribute(ParameterAttributeType.ORDER_LIST, orderList);
+                router = new Router(PagePath.ORDERS, Router.RouterType.REDIRECT);
             } else {
-                request.setAttribute(ParameterAttributeType.MESSAGE, ORDERS_NOT_FOUND);
-                request.setAttribute(ParameterAttributeType.EMPTY_LIST, Boolean.valueOf(true));
+                orderList = Collections.EMPTY_LIST;
+                session.setAttribute(ParameterAttributeType.MESSAGE, ORDERS_NOT_FOUND);
+                router = new Router(PagePath.ORDERS, Router.RouterType.REDIRECT);
+                session.setAttribute(ParameterAttributeType.ORDER_LIST, orderList);
             }
-            router = new Router(PagePath.ORDERS, Router.RouterType.REDIRECT);
 
         } catch (ServiceException e) {
             logger.error("Error during query", e);

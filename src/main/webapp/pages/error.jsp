@@ -19,11 +19,12 @@
 
 <fmt:message key="error.tech_problems" var="text_error_tech_problems"/>
 <fmt:message key="error.tech_come_later" var="text_error_tech_come_later"/>
+<fmt:message key="error.error" var="text_error_error"/>
 
 
 <html>
 <head>
-    <title>${locale_error_head}!</title>
+    <title>${text_error_error}</title>
 </head>
 <body style="background-image: url(../image/building_3_c1.jpg);
 background-repeat: no-repeat;

@@ -163,7 +163,7 @@ public class OrderServiceImpl implements OrderService {
                 logger.error("Can't find enum element specialization" + specializationString,e);
             } catch (DaoException e) {
                 answerMap.put(RESULT, CheckingResult.ERROR.toString());
-                logger.error("Can't creat order.",e);
+                logger.error("Can't create order.",e);
             } catch (Exception e) {
                 answerMap.put(RESULT, CheckingResult.ERROR.toString());
                 logger.error("Can't make transaction.",e);
@@ -172,5 +172,23 @@ public class OrderServiceImpl implements OrderService {
             answerMap.put(RESULT, CheckingResult.NOT_VALID.toString());
         }
         return answerMap;
+    }
+
+    @Override
+    public boolean setStatus(long orderId, OrderStatus status) throws ServiceException {
+        logger.info("Start setStatus()");
+        boolean resultOperation;
+        OrderDaoImpl orderDao = new OrderDaoImpl();
+        try (EntityTransaction transaction = new EntityTransaction()) {
+            transaction.beginSingleQuery(orderDao);
+            resultOperation = orderDao.setOrderStatus(orderId, status);
+
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        } catch (Exception e) {
+            logger.error("Can't creat order.",e);
+            throw new ServiceException("Error of closing transaction.", e);
+        }
+        return resultOperation;
     }
 }

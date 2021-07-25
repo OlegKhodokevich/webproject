@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<fmt:setLocale value="${locale}" scope="session"/>
+<fmt:setLocale value="${sessionScope.locale}" scope="session"/>
 <fmt:setBundle basename="text"/>
 
 <fmt:message key="header.home" var="text_header_home"/>
@@ -25,5 +25,6 @@
         </div>
     </div>
 </nav>
+<script src="../js/date_formatter.js"></script>
 </body>
 </html>

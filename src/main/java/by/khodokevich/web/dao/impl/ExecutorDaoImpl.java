@@ -19,11 +19,11 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> { // TODO add impleme
     private static final Logger logger = LogManager.getLogger(ExecutorDaoImpl.class);
 
     private static final String SQL_SELECT_ALL_EXECUTORS = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN regions ON users.IdRegion = regions.IdRegion WHERE UserRole = \"executor\";";  //TODO password?
-    private static final String SQL_SELECT_DEFINED_EXECUTORS = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN regions ON users.IdRegion = regions.IdRegion WHERE RoleUser = \"executor\" AND IdUser = ?;";
-    private static final String SQL_DELETE_DEFINED_EXECUTORS_BY_ID = "DELETE FROM users WHERE RoleUser = \"executor\" AND IdUser = ?;";
-    private static final String SQL_DELETE_DEFINED_EXECUTORS_BY_EMAIL = "DELETE FROM users WHERE RoleUser = \"executor\" AND EMail = ?;";
+    private static final String SQL_SELECT_DEFINED_EXECUTORS = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN regions ON users.IdRegion = regions.IdRegion WHERE UserRole = \"executor\" AND IdUser = ?;";
+    private static final String SQL_DELETE_DEFINED_EXECUTORS_BY_ID = "DELETE FROM users WHERE UserRole = \"executor\" AND IdUser = ?;";
+    private static final String SQL_DELETE_DEFINED_EXECUTORS_BY_EMAIL = "DELETE FROM users WHERE UserRole = \"executor\" AND EMail = ?;";
     private static final String SQL_INSERT_EXECUTORS = "INSERT INTO users(FirstName, LastName, EMail, Phone, IdRegion, City, UserStatus, UserRole, EncodedPassword) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE_EXECUTORS = "UPDATE users SET FirstName = ?, LastName = ?, EMail = ?, Phone = ?, IdRegion = ?, City = ?, UserStatus = ?, UserRole = ?, EncodedPassword = ? WHERE RoleUser = \"executor\" AND IdUser = ?;";
+    private static final String SQL_UPDATE_EXECUTORS = "UPDATE users SET FirstName = ?, LastName = ?, EMail = ?, Phone = ?, IdRegion = ?, City = ?, UserStatus = ?, UserRole = ?, EncodedPassword = ? WHERE UserRole = \"executor\" AND IdUser = ?;";
 
     private static final String SQL_SELECT_EXECUTOR_OPTION = "SELECT PersonalFoto, UNP, AverageMark, NumberCompletionContracts, NumberContractsInProgress, DescriptionExecutor FROM executors WHERE IdUserExecutor = ?;";
     private static final String SQL_INSERT_EXECUTOR_OPTION = "INSERT INTO executors(IdUserExecutor, PersonalFoto, UNP, AverageMark, NumberCompletionContracts, NumberContractsInProgress, DescriptionExecutor) VALUES ((SELECT IdUser FROM users WHERE EMail = ?),?, ?, ?, ?, ?, ?)";

@@ -23,6 +23,7 @@ background-size: cover">
     <jsp:include page="header.jsp"/>
 </header>
 
+
 <%--<script>--%>
 <%--    var params = window--%>
 <%--        .location--%>

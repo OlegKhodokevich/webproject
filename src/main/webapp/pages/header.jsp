@@ -3,7 +3,7 @@
         language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<fmt:setLocale value="${locale}" scope="session"/>
+<fmt:setLocale value="${sessionScope.locale}" scope="session"/>
 <fmt:setBundle basename="text"/>
 <fmt:message key="header.home" var="text_header_home"/>
 <fmt:message key="project.executors" var="text_project_executors"/>
@@ -25,21 +25,22 @@
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="../css/custom_card.css" rel="stylesheet" type="text/css" />
 </head>
 <body style="height: 100px">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 100px">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 100px;">
+    <div class="container-fluid bg-light">
         <a class="navbar-brand" href="/controller?command=go_to_main">${text_header_home}</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: space-between;">
+            <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
@@ -64,11 +65,6 @@
                 </li>
 
 
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-
-
             </ul>
             <ul class="navbar-nav border-right">
 
@@ -79,9 +75,6 @@
                     <a class="nav-link" href="/controller?command=set_locale&locale=en_US" style="color: black">EN</a>
                 </li>
             </ul>
-            <li class="nav border-right">
-                <a class="nav" style="width: 100px" aria-disabled="true"></a>
-            </li>
             <ul class="navbar-nav border-right">
                 <li class="nav-link active">
                     <a class="nav-link" href="/controller?command=all_orders"
@@ -106,7 +99,7 @@
                     </li>
                 </c:when>
                 <c:when test="${sessionScope.activeUserRole == 'CUSTOMER'}">
-                    <li class="nav-item dropdown navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown navbar-nav mb-2 mb-lg-0">
                         <a class="nav-link dropdown-toggle" href="#" id="profileCustomer" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                                 ${text_profile_my_profile}
@@ -128,7 +121,7 @@
 
                 </c:when>
                 <c:when test="${sessionScope.activeUserRole == 'EXECUTOR'}">
-                    <li class="nav-item dropdown navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown navbar-nav mb-2 mb-lg-0">
                         <a class="nav-link dropdown-toggle" href="#" id="profileExecutor" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                                 ${text_profile_my_profile}
@@ -145,13 +138,13 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">${text_profile_log_out}</a></li>
+                            <li><a class="dropdown-item" href=/controller?command=log_out">${text_profile_log_out}</a></li>
                         </ul>
                     </li>
                 </c:when>
 
                 <c:when test="${sessionScope.activeUserRole == 'ADMIN'}">
-                    <li class="nav-item dropdown navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown navbar-nav mb-2 mb-lg-0">
                         <a class="nav-link dropdown-toggle" href="#" id="profileAdmin" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                                 ${text_profile_my_profile}
@@ -165,7 +158,7 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="nav-link" href=#>${text_profile_log_out}</a></li>
+                            <li><a class="nav-link" href=/controller?command=log_out>${text_profile_log_out}</a></li>
 
                         </ul>
                     </li>

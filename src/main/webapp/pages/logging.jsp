@@ -30,6 +30,7 @@
     <title>${text_logging_title}</title>
     <link href="../css/custom_styles.css" rel="stylesheet"/>
     <link href="../css/styles1.css" rel="stylesheet"/>
+    <link href="../css/custom_button.css" rel="stylesheet" media="all"/>
 </head>
 <body style="background-image: url(../image/building_3_c1.jpg);
 background-repeat: no-repeat;
@@ -50,7 +51,7 @@ background-size: cover">
 <%--</c:if>--%>
 
 <div class="container">
-    <div class="container payment_window mb-5 pt-3 pb-5">
+    <div class="container payment_window pt-3 pb-5">
         <div class="container mt-5">
             <h2 class="mt-5"><mes:messageTag keyMessage="${sessionScope.message}"/></h2>
         </div>
@@ -72,25 +73,18 @@ background-size: cover">
         <input type="hidden" name="command" value="sign_in">
         <input type="submit" value="${text_logging_sign_in}">
     </div>
-
-    <c:if test="${not empty requestScope.error}">
-        <div>
-            <div class="container payment_window mb-5 pt-3 pb-5">
-                <div class="container mt-5">
-                    <h2 class="mt-5">${text_error}</h2>
-                </div>
-            </div>
-        </div>
-    </c:if>
-
+    <a class="custom-button-register" href="/controller?command=go_to_registration" id="Button">${text_registration_title}</a>
+    <br/>
+    <br/>
 </form>
 
-<form action="/controller" method="post" class="registration_form">
-    <div>
-        <input type="hidden" name="command" value="go_to_registration"/>
-        <input type="submit" value="${text_registration_title}">
-    </div>
-</form>
+<%--<form action="/controller" method="post" class="registration_form">--%>
+<%--    --%>
+<%--<div>--%>
+<%--    <input type="hidden" name="command" value="go_to_registration"/>--%>
+<%--    <input type="submit" value="${text_registration_title}">--%>
+<%--</div>--%>
+<%--</form>--%>
 <footer class="custom-footer">
     <jsp:include page="footer.jsp"/>
 </footer>

@@ -318,4 +318,5 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
         logger.info("Has found next orders : " + orders);
         return orders;
     }
+
 }

@@ -1,6 +1,7 @@
 package by.khodokevich.web.service;
 
 import by.khodokevich.web.entity.Order;
+import by.khodokevich.web.entity.OrderStatus;
 import by.khodokevich.web.entity.Specialization;
 import by.khodokevich.web.exception.ServiceException;
 import com.oracle.wls.shaded.org.apache.xpath.operations.Or;
@@ -19,4 +20,6 @@ public interface OrderService {
     List<Order> findOrdersBySpecializations(List<Specialization> specializationsString) throws ServiceException;
 
     Map<String, String> createOrder(Map<String,String> orderData);
+
+    boolean setStatus(long orderId, OrderStatus status) throws ServiceException;
 }

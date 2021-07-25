@@ -11,6 +11,7 @@ public class PagePath {
     public static final String MY_ORDERS = "/pages/my_orders.jsp";
     public static final String CREATION_ORDER_PAGE = "/pages/creation_order_page.jsp";
     public static final String EXECUTORS = "/pages/executors.jsp";
+    public static final String EXECUTOR_INFO = "/pages/executor_info.jsp";
 
 
     public static final String TO_MAIN_PAGE = "?command=go_to_main";
@@ -20,6 +21,7 @@ public class PagePath {
     public static final String TO_ERROR404_PAGE = "?command=go_to_error404";
     public static final String TO_ORDERS = "?command=go_to_order_page";
     public static final String TO_ORDER_INFO = "?command=go_to_order_page";
+    public static final String TO_MY_ORDERS = "?command=find_my_orders";
 
     public static final String COMMAND_MY_ORDERS = "?command=find_my_orders";
 //    public static final String MY_ORDERS = "/pages/my_orders.jsp";

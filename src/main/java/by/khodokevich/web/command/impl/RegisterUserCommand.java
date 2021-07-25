@@ -5,6 +5,7 @@ import static by.khodokevich.web.command.ParameterAttributeType.*;
 import by.khodokevich.web.command.Command;
 import by.khodokevich.web.command.PagePath;
 import by.khodokevich.web.command.Router;
+import by.khodokevich.web.entity.RegionBelarus;
 import by.khodokevich.web.service.CheckingResult;
 import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.service.UserService;
@@ -16,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class RegisterUserCommand implements Command {
@@ -35,7 +37,8 @@ public class RegisterUserCommand implements Command {
         String lastName = request.getParameter(LAST_NAME);
         String eMail = request.getParameter(E_MAIL);
         String phone = request.getParameter(PHONE);
-        String region = request.getParameter(REGION);
+        String regionString = request.getParameter(REGION);
+        RegionBelarus region = RegionBelarus.valueOf(regionString.toUpperCase());
         String city = request.getParameter(CITY);
         String password = request.getParameter(PASSWORD);
         Map<String, String> userData = new HashMap<>();
@@ -43,7 +46,7 @@ public class RegisterUserCommand implements Command {
         userData.put(LAST_NAME, lastName);
         userData.put(E_MAIL, eMail);
         userData.put(PHONE, phone);
-        userData.put(REGION, region);
+        userData.put(REGION, regionString);
         userData.put(CITY, city);
         userData.put(PASSWORD, password);
         userData.put(REPEATED_PASSWORD, password);
@@ -52,6 +55,7 @@ public class RegisterUserCommand implements Command {
         Map<String, String> answerMap;
         CheckingResult resultOperation;
         HttpSession session = request.getSession();
+        session.setAttribute(REGIONS, RegionBelarus.getRegions());
         try {
             answerMap = userService.register(userData);
             String result = answerMap.get(RESULT);
@@ -68,13 +72,14 @@ public class RegisterUserCommand implements Command {
                         lastName = answerMap.get(LAST_NAME);
                         eMail = answerMap.get(E_MAIL);
                         phone = answerMap.get(PHONE);
-                        region = answerMap.get(REGION);
+                        regionString = answerMap.get(REGION);
+                        region = RegionBelarus.valueOf(regionString.toUpperCase());
                         city = answerMap.get(CITY);
                         session.setAttribute(FIRST_NAME, firstName);
                         session.setAttribute(LAST_NAME, lastName);
                         session.setAttribute(E_MAIL, eMail);
                         session.setAttribute(PHONE, phone);
-                        session.setAttribute(REGION, region);
+                        session.setAttribute(REGION,region);
                         session.setAttribute(CITY, city);
                         router = new Router(PagePath.REGISTER_PAGE, Router.RouterType.REDIRECT);
                         break;

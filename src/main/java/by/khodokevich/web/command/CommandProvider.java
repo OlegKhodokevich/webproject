@@ -35,7 +35,9 @@ public class CommandProvider {
         commandMap.put(CREATE_ORDER, new CreateOrderCommand());
         commandMap.put(GO_TO_CREATION_ORDER_PAGE, new GoToCreationOrderPage());
         commandMap.put(ALL_EXECUTORS, new AllExecutorCommand());
-
+        commandMap.put(FIND_EXECUTOR_INFO_DETAILS, new FindExecutorInfoCommand());
+        commandMap.put(ARCHIVED_ORDER, new ArchiveOrderCommand());
+        commandMap.put(FIND_EXECUTORS_BY_SPECIALIZATIONS, new FindExecutorBySpecializationCommand());
     }
 
     public static CommandProvider getInstance() {

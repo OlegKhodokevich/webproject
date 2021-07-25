@@ -10,5 +10,5 @@ import java.util.List;
 public interface OrderDao {
     boolean setOrderStatus(long idOrder, OrderStatus orderStatus) throws DaoException;
     List<Order> findUserOrders(long idUser) throws DaoException;
-    List<Order> findOrdersBySpecialization(Specialization specialization) throws DaoException;
+    List<Order> findOrdersBySpecialization(Specialization specialization) throws DaoException;;
 }

@@ -22,7 +22,7 @@ public class LogOutCommand implements Command {
             logger.info("User exited from account. User  = " + user + "  , role  = " + role);
             session.invalidate();
         }
-        Router router = new Router(PagePath.TO_MAIN_PAGE, Router.RouterType.REDIRECT);
+        Router router = new Router(PagePath.MAIN_PAGE, Router.RouterType.REDIRECT);
 
         return router;
     }

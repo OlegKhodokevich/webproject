@@ -109,18 +109,22 @@ background-size: cover">
 
     <div>
         <label for="Region">${text_registration_region}</label>
-        <select name="region" id="Region" required value="${sessionScope.region}">
-            <option value="MINSK_REGION">${text_region1}</option>
-            <option value="HOMYEL_REGION">${text_region2}</option>
-            <option value="MAHILOU_REGION">${text_region3}</option>
-            <option value="VITEBSK_REGION">${text_region4}</option>
-            <option value="HRODNA_REGION">${text_region5}</option>
-            <option value="BREST_REGION">${text_region6}</option>
+        <select name="region" id="Region" required>
+            <c:forEach var="reginType" items="${sessionScope.regions}">
+                <fmt:message key="${reginType.key}" var="text_region"/>
+                <option value="${reginType.name()}" ${sessionScope.region eq reginType ? 'selected' : null}>${text_region}</option>
+            </c:forEach>
+<%--            <option value="MINSK_REGION" ${sessionScope.region == 'MINSK_REGION' ? 'selected' : null}>${text_region1}</option>--%>
+<%--            <option value="HOMYEL_REGION" ${sessionScope.region == 'HOMYEL_REGION' ? 'selected' : null}>${text_region2}</option>--%>
+<%--            <option value="MAHILOU_REGION">${text_region3}</option>--%>
+<%--            <option value="VITEBSK_REGION">${text_region4}</option>--%>
+<%--            <option value="HRODNA_REGION">${text_region5}</option>--%>
+<%--            <option value="BREST_REGION">${text_region6}</option>--%>
 
         </select>
     </div>
     <div>
-        <input type="text" id="City" name="city" required minlength="2" maxlength="60" value="${sessionScope.city}"></input>
+        <input type="text" id="City" name="city" required minlength="2" maxlength="60" value="${sessionScope.city}">
         <label for="City">${text_registration_city}</label>
     </div>
     <%--    <div class="checkbox">--%>

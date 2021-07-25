@@ -4,23 +4,27 @@ package by.khodokevich.web.entity;
 import java.util.*;
 
 public enum Specialization {
-    ELECTRICAL,
-    PLUMBING,
-    PLASTERING,
-    LAYING_TILES,
-    PAINTING,
-    WALLPAPERING,
-    CEMENT_FLOOR,
-    FLOOR_COVERING,
-    CARPENTRY_WORK,
-    TURNKEY_HOUSE,
-    ROOF,
-    MONOLITE,
-    BRICKLAYING,
-    FASAD,
-    LANDSCAPING;
+    ELECTRICAL("specialization.electrical", "spec1"),
+    PLUMBING("specialization.plumbing", "spec2"),
+    PLASTERING("specialization.plastering", "spec3"),
+    LAYING_TILES("specialization.laying_tiles", "spec4"),
+    PAINTING("specialization.painting", "spec5"),
+    WALLPAPERING("specialization.wallpapering", "spec6"),
+    CEMENT_FLOOR("specialization.cement_floor", "spec7"),
+    FLOOR_COVERING("specialization.floor_covering", "spec8"),
+    CARPENTRY_WORK("specialization.carpentry_work", "spec9"),
+    TURNKEY_HOUSE("specialization.turkey_house", "spec10"),
+    ROOF("specialization.roof", "spec11"),
+    MONOLITE("specialization.monolite", "spec12"),
+    BRICKLAYING("specialization.bricklaying", "spec13"),
+    FASAD("specialization.fasad", "spec14"),
+    LANDSCAPING("specialization.landscaping", "spec15");
 
     private static final Map<String, Specialization> specializationMap = new HashMap<>();
+
+    private static final List<Specialization> specializationList = new ArrayList<>();
+    private String key;
+    private String id;
 
     static {
         specializationMap.put("spec1", ELECTRICAL);
@@ -39,7 +43,26 @@ public enum Specialization {
         specializationMap.put("spec14", FASAD);
         specializationMap.put("spec15", LANDSCAPING);
 
+        specializationList.add(ELECTRICAL);
+        specializationList.add(PLUMBING);
+        specializationList.add(PLASTERING);
+        specializationList.add(LAYING_TILES);
+        specializationList.add(PAINTING);
+        specializationList.add(WALLPAPERING);
+        specializationList.add(CEMENT_FLOOR);
+        specializationList.add(FLOOR_COVERING);
+        specializationList.add(CARPENTRY_WORK);
+        specializationList.add(TURNKEY_HOUSE);
+        specializationList.add(ROOF);
+        specializationList.add(MONOLITE);
+        specializationList.add(BRICKLAYING);
+        specializationList.add(FASAD);
+        specializationList.add(LANDSCAPING);
+    }
 
+    Specialization(String key, String id) {
+        this.key = key;
+        this.id = id;
     }
 
     public static Map<String, Specialization> getSpecializationMap() {
@@ -47,4 +70,22 @@ public enum Specialization {
         destinationMap.putAll(specializationMap);
         return specializationMap;
     }
+
+
+    public static List<Specialization> getSpecializationList() {
+        List<Specialization> copySpecializationList = new ArrayList<>(specializationList.size());
+        for (int i = 0; i < specializationList.size(); i++) {
+            copySpecializationList.add(specializationList.get(i));
+        }
+        return copySpecializationList;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public String getId() {
+        return id;
+    }
+
 }

@@ -33,8 +33,8 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     private static final String SQL_DELETE_DEFINED_USER_BY_EMAIL = "DELETE FROM users WHERE EMail = ?;";
     private static final String SQL_REGISTER_USER = "INSERT INTO users(FirstName, LastName, EMail, Phone, IdRegion, City, UserStatus, UserRole, EncodedPassword) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE_USER = "UPDATE users SET FirstName = ?, LastName = ?, EMail = ?, Phone = ?, IdRegion = ?, City = ?, UserStatus = ?, UserRole = ? WHERE IdUser = ?;";
-    private static final String SQL_SET_USER_STATUS = "UPDATE users SET Status = ? WHERE IdUser = ?;";
-    private static final String SQL_GET_USER_STATUS = "SELECT Status FROM users WHERE IdUser = ?;";
+    private static final String SQL_SET_USER_STATUS = "UPDATE users SET UserStatus = ? WHERE IdUser = ?;";
+    private static final String SQL_GET_USER_STATUS = "SELECT UserStatus FROM users WHERE IdUser = ?;";
 
     @Override
     public List<User> findAll() throws DaoException {

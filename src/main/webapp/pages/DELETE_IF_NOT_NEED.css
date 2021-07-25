@@ -36,7 +36,7 @@
 .registration_form fieldset>div {
     margin: 12px 0;
 }
-.registration_form input[type="text"], #Birth-date, #emailinput, #phone, #country, #Adress {
+.registration_form input[type="text"], #Birth-date, #emailinput, #Phone, #country, #Adress {
     border: none;
     border-bottom: 2px solid #ccc;
     flex: 0 1 65%;
@@ -46,7 +46,7 @@
     padding: 1px 0;
     box-sizing: inherit;
 }
-.registration_form input[type="text"]:focus, #Birth-date:focus, #emailinput:focus, #phone:focus, #country:focus, #Adress:focus {
+.registration_form input[type="text"]:focus, #Birth-date:focus, #emailinput:focus, #Phone:focus, #country:focus, #Adress:focus {
     outline: none;
     border-bottom: 2px solid blue;
 }
@@ -132,12 +132,12 @@
     .registration_form fieldset>div {
         flex-direction: row;
     }
-    .registration_form input[type="text"], #Birth-date, #emailinput, #phone, #country, #Adress {
+    .registration_form input[type="text"], #Birth-date, #emailinput, #Phone, #country, #Adress {
         border: 2px solid #ccc;
         width: 100%;
         margin-left: 0;
     }
-    .registration_form input[type="text"]:focus, #Birth-date:focus, #emailinput:focus, #phone:focus, #country:focus, #Adress:focus {
+    .registration_form input[type="text"]:focus, #Birth-date:focus, #emailinput:focus, #Phone:focus, #country:focus, #Adress:focus {
         border: 2px solid blue;
     }
     .registration_form .checkbox {
