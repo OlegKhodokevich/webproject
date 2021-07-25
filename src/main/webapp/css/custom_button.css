@@ -1,0 +1,86 @@
+.custom-button-register {
+    background-color: #34ce57;
+    border: 1px solid black;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    margin: 43.9%;
+    width: 250px;
+    height: 50px;
+    font-size: 16px;
+    flex: 0 1 100px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background-color .3s linear, color .3s linear, box-shadow .5s ease-in, transform .5s linear;
+    text-decoration: none;
+}
+.custom-button-register #Button:hover {
+    background-color: #34ce57;
+    color: #FFF;
+    transform: scale(1.2)
+}
+.custom-button-register #Button:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3)
+}
+.custom-button-register #Button:active {
+    border-color: #34ce57;
+    box-shadow: inset 0 1px 6px #000;
+}
+@media all and (max-width:560px) {
+    .custom-button-register #Button {
+        width: 100%;
+        flex-basis: 60px;
+    }
+    .custom-button-register #Button:hover {
+        transform: scale(1)
+    }
+}
+
+.custom-button-order-search {
+    background-color: #34ce57;
+    border: 1px solid rgba(0,0,0,.125);
+    color: #495057;
+    font-weight: bold;
+    margin: 10px;
+    width: 100px;
+    height: 32px;
+    font-size: 18px;
+    flex: 0 1 100px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background-color .3s linear, color .3s linear, box-shadow .5s ease-in, transform .5s linear;
+    text-decoration: none;
+}
+.custom-button-order-search #Button:hover {
+    background-color: #34ce57;
+    color: #FFF;
+    transform: scale(1.2)
+}
+.custom-button-order-search #Button:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3)
+}
+.custom-button-order-search #Button:active {
+    border-color: #34ce57;
+    box-shadow: inset 0 1px 6px #000;
+}
+@media all and (max-width:560px) {
+    .custom-button-order-search #Button {
+        width: 100%;
+        flex-basis: 60px;
+    }
+    .custom-button-order-search #Button:hover {
+        transform: scale(1)
+    }
+}
+
+.custom-button-operation-my-order{
+    width: 140px;
+    height: 36px;
+    font-size: 12px;
+    margin: 2px;
+    color: #fff;
+    background-color: #198754;
+    border-color: #198754;
+}

@@ -1,0 +1,164 @@
+
+/*body {*/
+/*    margin: 0;*/
+/*    width: 100%;*/
+/*    min-height: 100vh;*/
+/*}*/
+/*body, form, h1, label, input, option, select, textarea {*/
+/*    font-family: "Segoe UI", sans-serif;*/
+/*    font-size: 13pt;*/
+/*}*/
+.creation_order_page {
+    box-shadow: 0 2px 20px #ccc;
+    background-color: white;
+    width: 100%;
+}
+.creation_order_page h1 {
+    margin: 0;
+    font-size: 16pt;
+    padding: 30px 30px 10px;
+}
+.creation_order_page div {
+    display: flex;
+    margin-top: 20px;
+    align-items: baseline;
+}
+.creation_order_page label {
+    text-align: right;
+    flex: 0 0 30%;
+}
+.creation_order_page fieldset {
+    margin-left: 30%;
+    width: 65%;
+    max-width: 600px;
+    padding: 0;
+    height: 110px;
+}
+.creation_order_page fieldset>div {
+    margin: 12px 0;
+}
+.creation_order_page input[type="text"], #Title, #Description, #Address, #Region, #CompletionDate, #Specialization {
+    border: none;
+    border-bottom: 2px solid #ccc;
+    flex: 0 1 65%;
+    max-width: 600px;
+    height: 25px;
+    margin-left: 5px;
+    padding: 1px 0;
+    box-sizing: inherit;
+}
+.creation_order_page input[type="text"]:focus, #Title:focus, #Description:focus, #Address:focus, #Region:focus, #CompletionDate:focus, #Specialization:focus {
+    outline: none;
+    border-bottom: 2px solid blue;
+}
+.creation_order_page input:not([type='checkbox']):not([type='radio']), .creation_order_page textarea {
+    order: 1;
+}
+.creation_order_page input[type="radio"] {
+    flex-basis: 20px;
+    margin: 5px;
+}
+.creation_order_page input[type="radio"] + label {
+    text-align: left;
+    margin-left: 5px;
+    height: 100%;
+    flex: 0 0 80%;
+}
+.creation_order_page input::-webkit-inner-spin-button {
+    display: none;
+}
+.creation_order_page input::-webkit-inner-spin-button {
+    display: none;
+}
+.creation_order_page input:required + label::after, .creation_order_page textarea:required + label::after {
+    content: '*';
+    color: red;
+}
+.creation_order_page select {
+    width: 100%;
+}
+.creation_order_page .checkbox::before {
+    content: " ";
+    flex: 0 0 30%;
+}
+.creation_order_page #agree+label {
+    text-align: left;
+    height: 25px;
+    max-width: 570px;
+    flex: 0 1 65%;
+}
+.creation_order_page input[type="submit"] {
+    background-color: #FFF;
+    border: 2px solid #6398FF;
+    color: #6398FF;
+    font-weight: bold;
+    padding: 10px;
+    margin: auto;
+    margin-bottom: 20px;
+    font-size: 16px;
+    flex: 0 1 100px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background-color .3s linear, color .3s linear, box-shadow .5s ease-in, transform .5s linear;
+}
+.creation_order_page input[type="submit"]:hover {
+    background-color: #6398FF;
+    color: #FFF;
+    transform: scale(1.2)
+}
+.creation_order_page input[type="submit"]:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3)
+}
+.creation_order_page input[type="submit"]:active {
+    border-color: #1e51b1;
+    box-shadow: inset 0 1px 6px #000;
+}
+@media all and (max-width:560px) {
+    .creation_order_page {
+        margin: 0;
+        box-shadow: none;
+    }
+    .creation_order_page div {
+        flex-direction: column;
+        padding: 0 5%;
+    }
+    .creation_order_page h1 {
+        padding-left: 5%;
+    }
+    .creation_order_page fieldset {
+        margin: 0 5%;
+        width: 90%;
+    }
+    .creation_order_page fieldset>div {
+        flex-direction: row;
+    }
+    .creation_order_page input[type="text"], #Title, #Description, #Address, #Region, #CompletionDate, #Specialization {
+        border: 2px solid #ccc;
+        width: 100%;
+        margin-left: 0;
+    }
+    .creation_order_page input[type="text"]:focus, #Title:focus, #Description:focus, #Address:focus, #Region:focus, #CompletionDate:focus, #Specialization:focus {
+        border: 2px solid blue;
+    }
+    .creation_order_page .checkbox {
+        display: inline-block;
+    }
+    .creation_order_page input[type="submit"] {
+        width: 100%;
+        flex-basis: 60px;
+    }
+    .creation_order_page input[type="submit"]:hover {
+        transform: scale(1)
+    }
+    .creation_order_page #Title, #Address {
+        min-height: 100px;
+        width: 100%;
+        max-width: 100%;
+    }
+    .creation_order_page #Description {
+        min-height: 200px;
+        width: 100%;
+        max-width: 100%;
+    }
+}

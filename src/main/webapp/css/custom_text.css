@@ -1,0 +1,13 @@
+.text-title{
+    text-align: center;
+    text-shadow: 2px 2px 9px grey, 0 0 6em grey;
+    font-weight: 400!important;
+    font-size: 60px;
+    line-height: 1.2;
+}
+.text-message{
+    font-size: 30px;
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.2;
+}
