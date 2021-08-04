@@ -55,3 +55,58 @@
     word-wrap: break-word;
     max-width: 850px;
 }
+
+
+.custom-card-executor-main {
+    --card-height: 300px;
+    min-width: 300px;
+    min-height: var(--card-height);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 20px black;
+    text-decoration: none;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,.125);
+    color: #495057;
+    border-color: #212529!important;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+    max-width: 850px;
+    margin-top: 50px;
+}
+
+.custom-card-executor-additional {
+    --card-height: 800px;
+    min-width: 800px;
+    min-height: var(--card-height);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 20px black;
+    text-decoration: none;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,.125);
+    color: #495057;
+    border-color: #212529!important;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+    max-width: 850px;
+    margin-top: 50px;
+}
+
+.custom-card-user {
+    --card-height: 400px;
+    min-width: 400px;
+    min-height: var(--card-height);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 20px black;
+    text-decoration: none;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,.125);
+    color: #495057;
+    border-color: #212529!important;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+    max-width: 600px;
+    margin-top: 50px;
+}

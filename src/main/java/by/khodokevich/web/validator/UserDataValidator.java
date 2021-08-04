@@ -31,13 +31,13 @@ public class UserDataValidator {
         String region = userData.get(REGION);
         String city = userData.get(CITY);
         String password = userData.get(PASSWORD);
-        String repeated_password = userData.get(REPEATED_PASSWORD);
+        String repeatedPassword = userData.get(REPEATED_PASSWORD);
 
         Map<String, String> answerMap = new HashMap<>();
 
         boolean result = isFirstNameValid(firstName) && isLastNameValid(lastName) && isEMailValid(eMail)
                 && isCityValid(city) && isPhoneValid(phone) && isPasswordValid(password)
-                && isRepeatedPasswordValid(password, repeated_password) && isRegionValid(region);
+                && isRepeatedPasswordValid(password, repeatedPassword) && isRegionValid(region);
         if (result) {
             answerMap.put(RESULT, CheckingResult.SUCCESS.name());
         } else {

@@ -32,11 +32,6 @@ public class CharsetFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         logger.debug("Start Charset filter");
-//        HttpSession session = ((HttpServletRequest)request).getSession();         TODO delet if unnecessary
-//        Locale locale = (Locale) session.getAttribute(ParameterAttributeType.LOCALE);
-//        if (locale == null) {
-//            session.setAttribute(ParameterAttributeType.LOCALE, Locale.getDefault());
-//        }
         request.setCharacterEncoding(encoding);
         response.setCharacterEncoding(encoding);
         filterChain.doFilter(request, response);

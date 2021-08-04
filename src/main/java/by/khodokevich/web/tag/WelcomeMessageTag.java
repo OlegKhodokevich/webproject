@@ -1,6 +1,8 @@
 package by.khodokevich.web.tag;
 
 import by.khodokevich.web.command.ParameterAttributeType;
+import by.khodokevich.web.entity.User;
+import by.khodokevich.web.entity.UserRole;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.tagext.TagSupport;
@@ -25,31 +27,20 @@ public class WelcomeMessageTag extends TagSupport {
     private static final String REGEXP_LANGUAGE = "\\p{Alpha}{2}";
 
     private static final String FILE_RESOURCE_NAME = "text";
-    private String firstName;
-    private String lastName;
-    private String role;
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     @Override
     public int doStartTag() {
-        logger.debug("Start doStartTag(). FirstName = " + firstName + " ,lastName = " + lastName + " ,role = " + role);
+        logger.debug("Start doStartTag().");
         StringBuffer stringBuffer = new StringBuffer();
 
         HttpSession session = pageContext.getSession();
+        User activeUser = (User) session.getAttribute("activeUser");
         String isFirstCustomTag = (String) session.getAttribute("isFirstCustomTag");
-
-        if (role != null && !role.isEmpty() && isFirstCustomTag == null) {
+        if (isFirstCustomTag == null && activeUser != null) {
+            String firstName = activeUser.getFirstName();
+            String lastName = activeUser.getLastName();
+            UserRole role = activeUser.getRole();
             String localeString = (String) session.getAttribute(ParameterAttributeType.LOCALE);
             if (localeString != null) {
                 Locale currentLocal = parseString(localeString);
@@ -58,7 +49,7 @@ public class WelcomeMessageTag extends TagSupport {
                 resourceBundle = ResourceBundle.getBundle(FILE_RESOURCE_NAME, DEFAULT_LOCALE);
             }
             try {
-                if (role.equalsIgnoreCase("admin")) {
+                if (role == UserRole.ADMIN) {
                     stringBuffer.append(firstName).append(" ")
                             .append(lastName).append(" ")
                             .append(resourceBundle.getString(WELCOME_ADMIN_MESSAGE));

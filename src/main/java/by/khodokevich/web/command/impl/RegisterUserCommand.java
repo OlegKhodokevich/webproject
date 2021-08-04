@@ -41,6 +41,7 @@ public class RegisterUserCommand implements Command {
         RegionBelarus region = RegionBelarus.valueOf(regionString.toUpperCase());
         String city = request.getParameter(CITY);
         String password = request.getParameter(PASSWORD);
+        String repeatedPassword = request.getParameter(REPEATED_PASSWORD);
         Map<String, String> userData = new HashMap<>();
         userData.put(FIRST_NAME, firstName);
         userData.put(LAST_NAME, lastName);
@@ -49,7 +50,7 @@ public class RegisterUserCommand implements Command {
         userData.put(REGION, regionString);
         userData.put(CITY, city);
         userData.put(PASSWORD, password);
-        userData.put(REPEATED_PASSWORD, password);
+        userData.put(REPEATED_PASSWORD, repeatedPassword);
         userData.put(URL, request.getRequestURL().toString());
         UserService userService = ServiceProvider.USER_SERVICE;
         Map<String, String> answerMap;

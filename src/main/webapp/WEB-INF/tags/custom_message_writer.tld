@@ -9,10 +9,5 @@
         <name>messageTag</name>
         <tag-class>by.khodokevich.web.tag.AllMessageTag</tag-class>
         <body-content>empty</body-content>
-        <attribute>
-            <name>keyMessage</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
     </tag>
 </taglib>

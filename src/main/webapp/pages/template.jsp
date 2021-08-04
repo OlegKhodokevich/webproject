@@ -3,11 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
-
 <fmt:setBundle basename="text"/>
-<c:if test="${not empty requestScope.message}">
-    <fmt:message key="logging.welcome_user" var="text_welcome_user"/>
-</c:if>
+
+<fmt:message key="logging.welcome_user" var="text_welcome_user"/>
 
 <html>
 <head>

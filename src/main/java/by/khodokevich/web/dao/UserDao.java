@@ -18,4 +18,8 @@ public interface UserDao {
     Optional<User> findUserByPhone(String eMail) throws DaoException;
 
     String findUserPasswordById(long idUser) throws DaoException;
+
+    boolean updateUserWithChangEMail(User entity, String password) throws DaoException;
+
+    boolean updateUserWithoutChangEMail(User entity, String password) throws DaoException;
 }

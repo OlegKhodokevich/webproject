@@ -17,4 +17,7 @@ public interface UserService {
     Optional<User> findDefineUser(long userId) throws ServiceException;
 
     UserStatus getUserStatus(long userId) throws ServiceException;
+
+    Map<String, String> updateUser(Map<String, String> userData) throws ServiceException;
+
 }

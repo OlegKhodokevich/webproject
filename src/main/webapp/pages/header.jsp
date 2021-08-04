@@ -1,10 +1,11 @@
-
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
         language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
 <fmt:setBundle basename="text"/>
+
 <fmt:message key="header.home" var="text_header_home"/>
 <fmt:message key="project.executors" var="text_project_executors"/>
 <fmt:message key="project.customers" var="text_project_customers"/>
@@ -22,10 +23,9 @@
 
 <html>
 <head>
-    <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="../css/custom_card.css" rel="stylesheet" type="text/css" />
+    <link href="../css/custom_card.css" rel="stylesheet" type="text/css"/>
 </head>
 <body style="height: 100px">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -98,36 +98,42 @@
                            style="color: black">${text_header_logging}</a>
                     </li>
                 </c:when>
-                <c:when test="${sessionScope.activeUserRole == 'CUSTOMER'}">
+                <c:when test="${sessionScope.activeUser != null && sessionScope.activeUser.role eq 'CUSTOMER'}">
                     <li class="nav-item dropdown navbar-nav mb-2 mb-lg-0">
                         <a class="nav-link dropdown-toggle" href="#" id="profileCustomer" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                                 ${text_profile_my_profile}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="profileCustomer">
-                            <li><a class="dropdown-item" href="#">${text_profile_configuration}</a></li>
+                            <li><a class="dropdown-item"
+                                   href="/controller?command=find_user_info_details&userId=${sessionScope.activeUser.idUser}">${text_profile_configuration}</a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="/controller?command=find_my_orders">${text_profile_my_orders}</a></li>
+                            <li><a class="dropdown-item"
+                                   href="/controller?command=find_my_orders">${text_profile_my_orders}</a></li>
 
                             <li><a class="dropdown-item" href="#">${text_profile_my_contracts}</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="/controller?command=log_out">${text_profile_log_out}</a></li>
+                            <li><a class="dropdown-item" href="/controller?command=log_out">${text_profile_log_out}</a>
+                            </li>
                         </ul>
                     </li>
 
                 </c:when>
-                <c:when test="${sessionScope.activeUserRole == 'EXECUTOR'}">
+                <c:when test="${sessionScope.activeUser != null && sessionScope.activeUser.role eq 'EXECUTOR'}">
                     <li class="nav-item dropdown navbar-nav mb-2 mb-lg-0">
                         <a class="nav-link dropdown-toggle" href="#" id="profileExecutor" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                                 ${text_profile_my_profile}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="profileExecutor">
-                            <li><a class="dropdown-item" href="#">${text_profile_configuration}</a></li>
+                            <li><a class="dropdown-item"
+                                   href="/controller?command=find_executor_info_details&executorId=${sessionScope.activeUser.idUser}">${text_profile_configuration}</a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -138,12 +144,13 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href=/controller?command=log_out">${text_profile_log_out}</a></li>
+                            <li><a class="dropdown-item" href=/controller?command=log_out">${text_profile_log_out}</a>
+                            </li>
                         </ul>
                     </li>
                 </c:when>
 
-                <c:when test="${sessionScope.activeUserRole == 'ADMIN'}">
+                <c:when test="${sessionScope.activeUser != null && sessionScope.activeUser.role eq 'ADMIN'}">
                     <li class="nav-item dropdown navbar-nav mb-2 mb-lg-0">
                         <a class="nav-link dropdown-toggle" href="#" id="profileAdmin" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -158,7 +165,7 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="nav-link" href=/controller?command=log_out>${text_profile_log_out}</a></li>
+                            <li><a class="nav-link" href="/controller?command=log_out">${text_profile_log_out}</a></li>
 
                         </ul>
                     </li>
@@ -167,6 +174,5 @@
         </div>
     </div>
 </nav>
-
 </body>
 </html>

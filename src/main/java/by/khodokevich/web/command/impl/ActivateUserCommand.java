@@ -21,7 +21,6 @@ public class ActivateUserCommand implements Command {
         Router router;
         CheckingResult resultOperation;
 
-        HttpSession session = request.getSession();             //TODO
         String eMail = request.getParameter(E_MAIL);
         String token = request.getParameter(TOKEN);
         UserService userService = ServiceProvider.USER_SERVICE;

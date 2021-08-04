@@ -12,6 +12,8 @@ public class PagePath {
     public static final String CREATION_ORDER_PAGE = "/pages/creation_order_page.jsp";
     public static final String EXECUTORS = "/pages/executors.jsp";
     public static final String EXECUTOR_INFO = "/pages/executor_info.jsp";
+    public static final String USER_INFO = "/pages/user_info.jsp";
+
 
 
     public static final String TO_MAIN_PAGE = "?command=go_to_main";

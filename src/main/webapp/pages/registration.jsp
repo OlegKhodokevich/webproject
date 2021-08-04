@@ -4,7 +4,6 @@
 <%@ taglib prefix="mes" uri="custom tag message writer" %>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
-
 <fmt:setBundle basename="text"/>
 
 <fmt:message key="registration.title" var="text_registration_title"/>
@@ -17,9 +16,10 @@
 <fmt:message key="registration.firstname" var="text_registration_firstname"/>
 <fmt:message key="registration.lastname" var="text_registration_lastname"/>
 <fmt:message key="registration.phone" var="text_registration_phone"/>
-
 <fmt:message key="registration.ivan" var="text_registration_ivan"/>
 <fmt:message key="registration.ivanov" var="text_registration_ivanov"/>
+
+<fmt:message key="user.old_password" var="text_user_old_password"/>
 
 <fmt:message key="region1" var="text_region1"/>
 <fmt:message key="region2" var="text_region2"/>
@@ -27,11 +27,7 @@
 <fmt:message key="region4" var="text_region4"/>
 <fmt:message key="region5" var="text_region5"/>
 <fmt:message key="region6" var="text_region6"/>
-<fmt:message key="registration.message_data_not_correct" var="test"/>
-
-<c:if test="${not empty requestScope.message}">
-    <fmt:message key="${requestScope.message}" var="text_message"/>
-</c:if>
+<fmt:message key="user.confirm_changes" var="user_confirm_changes"/>
 
 <html>
 <head>
@@ -47,11 +43,10 @@ background-size: cover">
     <jsp:include page="header.jsp"/>
 </header>
 
-
 <div class="container">
     <div class="container payment_window mb-5 pt-3 pb-5">
         <div class="container mt-5">
-            <h2 class="mt-5"><mes:messageTag keyMessage="${sessionScope.message}"/></h2>
+            <h2 class="mt-5"><mes:messageTag/></h2>
         </div>
     </div>
 </div>
@@ -69,6 +64,13 @@ background-size: cover">
                required value="${sessionScope.lastName}">
         <label for="Lastname">${text_registration_lastname}</label>
     </div>
+    <c:if test="${sessionScope.activeUserRole eq 'ADMIN' or sessionScope.activeUser.idUser eq sessionScope.userId}">
+        <div>
+            <input type="password" placeholder="" id="OldPassword" name="oldPassword" required
+                   minlength="6" maxlength="20">
+            <label for="OldPassword">${text_user_old_password}</label>
+        </div>
+    </c:if>
     <div>
         <input type="password" placeholder="${text_registration_password}" id="Password" name="password" required
                minlength="6" maxlength="20">
@@ -80,21 +82,6 @@ background-size: cover">
         <label for="Psw-repeat">${text_registration_repeat_password}</label>
     </div>
 
-    <%--    <fieldset>--%>
-    <%--        <legend>Gender</legend>--%>
-    <%--        <div>--%>
-    <%--            <input type="radio" name="gender" value="male" id="gendermale">--%>
-    <%--            <label for="gendermale"> Male</label>--%>
-    <%--        </div>--%>
-    <%--        <div>--%>
-    <%--            <input type="radio" name="gender" value="female" id="genderfemale" checked>--%>
-    <%--            <label for="genderFemale"> Female</label>--%>
-    <%--        </div>--%>
-    <%--    </fieldset>--%>
-    <%--    <div>--%>
-    <%--        <input type="date" id="Birth-date" name="Birth-date" required>--%>
-    <%--        <label for="Birth-date">Birth date</label>--%>
-    <%--    </div>--%>
     <div>
         <input type="email" placeholder="e-mail-adress@gmail.com" id="Emailinput" name="eMail" required maxlength="45"
                value="${sessionScope.eMail}">
@@ -114,12 +101,6 @@ background-size: cover">
                 <fmt:message key="${reginType.key}" var="text_region"/>
                 <option value="${reginType.name()}" ${sessionScope.region eq reginType ? 'selected' : null}>${text_region}</option>
             </c:forEach>
-<%--            <option value="MINSK_REGION" ${sessionScope.region == 'MINSK_REGION' ? 'selected' : null}>${text_region1}</option>--%>
-<%--            <option value="HOMYEL_REGION" ${sessionScope.region == 'HOMYEL_REGION' ? 'selected' : null}>${text_region2}</option>--%>
-<%--            <option value="MAHILOU_REGION">${text_region3}</option>--%>
-<%--            <option value="VITEBSK_REGION">${text_region4}</option>--%>
-<%--            <option value="HRODNA_REGION">${text_region5}</option>--%>
-<%--            <option value="BREST_REGION">${text_region6}</option>--%>
 
         </select>
     </div>
@@ -127,15 +108,22 @@ background-size: cover">
         <input type="text" id="City" name="city" required minlength="2" maxlength="60" value="${sessionScope.city}">
         <label for="City">${text_registration_city}</label>
     </div>
-    <%--    <div class="checkbox">--%>
-    <%--        <input type="checkbox" name="agreement" id="agree" required>--%>
-    <%--        <label for="agree"> I accept the terms in the <a href="https://www.google.com"> license agreement </a> </label>--%>
-    <%--    </div>--%>
+    <c:choose>
+        <c:when test="${sessionScope.activeUserRole eq 'ADMIN' or sessionScope.activeUser.idUser eq sessionScope.userId}">
+            <div>
+                <input type="hidden" name="command" value="edit_user">
+                <input type="hidden" name="userId" value="${sessionScope.userId}">
+                <input type="submit" value="${user_confirm_changes}">
+            </div>
+        </c:when>
+        <c:when test="${!(sessionScope.activeUserRole eq 'ADMIN' or  sessionScope.activeUserRole eq 'CUSTOMER' or sessionScope.activeUserRole eq 'EXECUTOR')}">
+            <div>
+                <input type="hidden" name="command" value="register">
+                <input type="submit" value="${text_registration_register}">
+            </div>
+        </c:when>
+    </c:choose>
 
-    <div>
-        <input type="hidden" name="command" value="register">
-        <input type="submit" value="${text_registration_register}">
-    </div>
 </form>
 <footer class="custom-footer">
     <jsp:include page="footer.jsp"/>

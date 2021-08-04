@@ -32,7 +32,8 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     private static final String SQL_DELETE_DEFINED_USER_BY_ID = "DELETE FROM users WHERE IdUser = ?;";
     private static final String SQL_DELETE_DEFINED_USER_BY_EMAIL = "DELETE FROM users WHERE EMail = ?;";
     private static final String SQL_REGISTER_USER = "INSERT INTO users(FirstName, LastName, EMail, Phone, IdRegion, City, UserStatus, UserRole, EncodedPassword) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE_USER = "UPDATE users SET FirstName = ?, LastName = ?, EMail = ?, Phone = ?, IdRegion = ?, City = ?, UserStatus = ?, UserRole = ? WHERE IdUser = ?;";
+    private static final String SQL_UPDATE_USER_WITH_CHANGE_EMAIL = "UPDATE users SET FirstName = ?, LastName = ?, EMail = ?, Phone = ?, IdRegion = ?, City = ?, EncodedPassword = ?, UserStatus = ? WHERE IdUser = ?;";
+    private static final String SQL_UPDATE_USER_WITHOUT_CHANGE_EMAIL = "UPDATE users SET FirstName = ?, LastName = ?, Phone = ?, IdRegion = ?, City = ?, EncodedPassword = ? WHERE IdUser = ?;";
     private static final String SQL_SET_USER_STATUS = "UPDATE users SET UserStatus = ? WHERE IdUser = ?;";
     private static final String SQL_GET_USER_STATUS = "SELECT UserStatus FROM users WHERE IdUser = ?;";
 
@@ -154,20 +155,50 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public boolean update(User entity) throws DaoException {
+//        logger.info("Start update(User entity)." + entity);
+//        if (entity.getIdUser() == 0) {
+//            throw new DaoException("User's id = 0. User can't be updated.");
+//        }
+//        int numberUpdatedRows;
+//        try (PreparedStatement statement = super.connection.prepareStatement(SQL_UPDATE_USER)) {
+//            statement.setString(1, entity.getFirstName());
+//            statement.setString(2, entity.getLastName());
+//            statement.setString(3, entity.getEMail());
+//            statement.setString(4, entity.getPhone());
+//            statement.setInt(5, entity.getRegion().getId());
+//            statement.setString(6, entity.getCity());
+//            statement.setString(7, entity.getStatus().name().toLowerCase());
+//            statement.setString(8, entity.getRole().name().toLowerCase());
+//
+//            statement.setLong(8, entity.getIdUser());
+//            numberUpdatedRows = statement.executeUpdate();
+//        } catch (SQLException e) {
+//            logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
+//            throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
+//        }
+//        boolean result = numberUpdatedRows == 1;
+//        logger.info(() -> result ? "Operation was successful. " : " Operation was failed");
+//        return result;
+        throw new UnsupportedOperationException();
+    }
+
+
+    @Override
+    public boolean updateUserWithChangEMail(User entity, String password) throws DaoException {
         logger.info("Start update(User entity)." + entity);
         if (entity.getIdUser() == 0) {
             throw new DaoException("User's id = 0. User can't be updated.");
         }
         int numberUpdatedRows;
-        try (PreparedStatement statement = super.connection.prepareStatement(SQL_UPDATE_USER)) {
+        try (PreparedStatement statement = super.connection.prepareStatement(SQL_UPDATE_USER_WITH_CHANGE_EMAIL)) {
             statement.setString(1, entity.getFirstName());
             statement.setString(2, entity.getLastName());
             statement.setString(3, entity.getEMail());
             statement.setString(4, entity.getPhone());
             statement.setInt(5, entity.getRegion().getId());
             statement.setString(6, entity.getCity());
-            statement.setString(7, entity.getStatus().name().toLowerCase());
-            statement.setString(8, entity.getRole().name().toLowerCase());
+            statement.setString(7, password);
+            statement.setString(8, UserStatus.DECLARED.name().toLowerCase());
             statement.setLong(9, entity.getIdUser());
             numberUpdatedRows = statement.executeUpdate();
         } catch (SQLException e) {
@@ -178,6 +209,32 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
         logger.info(() -> result ? "Operation was successful. " : " Operation was failed");
         return result;
     }
+
+    @Override
+    public boolean updateUserWithoutChangEMail(User entity, String password) throws DaoException {
+        logger.info("Start update(User entity)." + entity);
+        if (entity.getIdUser() == 0) {
+            throw new DaoException("User's id = 0. User can't be updated.");
+        }
+        int numberUpdatedRows;
+        try (PreparedStatement statement = super.connection.prepareStatement(SQL_UPDATE_USER_WITHOUT_CHANGE_EMAIL)) {
+            statement.setString(1, entity.getFirstName());
+            statement.setString(2, entity.getLastName());
+            statement.setString(3, entity.getPhone());
+            statement.setInt(4, entity.getRegion().getId());
+            statement.setString(5, entity.getCity());
+            statement.setString(6, password);
+            statement.setLong(7, entity.getIdUser());
+            numberUpdatedRows = statement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
+            throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
+        }
+        boolean result = numberUpdatedRows == 1;
+        logger.info(() -> result ? "Operation was successful. " : " Operation was failed");
+        return result;
+    }
+
 
     @Override
     public boolean setUserStatus(long idUser, UserStatus userStatus) throws DaoException {

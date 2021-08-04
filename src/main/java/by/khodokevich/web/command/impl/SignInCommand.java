@@ -72,26 +72,25 @@ public class SignInCommand implements Command {
                             .role(role)
                             .buildUser();
                     session.setAttribute(ACTIVE_USER, user);
-                    session.setAttribute(ACTIVE_USER_ROLE, user.getRole().name());
-                    session.setAttribute(ACTIVE_USER_STATUS, user.getStatus().name());
+                    session.setAttribute(ACTIVE_USER_ID, user.getIdUser());
                     String messege = firstName + " " + lastName + " ";
-                    session.setAttribute(MESSAGE, messege);       //todo
+                    session.setAttribute(MESSAGE, messege);
                     router = new Router(PagePath.MAIN_PAGE, Router.RouterType.REDIRECT);
                     break;
                 case USER_UNKNOWN:
-                    router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);      //todo
+                    router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
                     session.setAttribute(MESSAGE, KEY_USER_UNKNOWN);
                     break;
                 case NOT_VALID:
                     router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
-                    session.setAttribute(MESSAGE, KEY_DATA_NOT_VALID);        //todo
+                    session.setAttribute(MESSAGE, KEY_DATA_NOT_VALID);
                     break;
                 case USER_STATUS_NOT_CONFIRM:
-                    session.setAttribute(MESSAGE, KEY_USER_NOT_CONFIRMED);       //todo
+                    session.setAttribute(MESSAGE, KEY_USER_NOT_CONFIRMED);
                     router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
                     break;
                 case USER_STATUS_IS_ARCHIVED:
-                    session.setAttribute(MESSAGE, KEY_STATUS_ARCHIVED);       //todo
+                    session.setAttribute(MESSAGE, KEY_STATUS_ARCHIVED);
                     router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
                     break;
                 default:

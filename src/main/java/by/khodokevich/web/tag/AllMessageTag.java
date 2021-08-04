@@ -21,18 +21,17 @@ public class AllMessageTag extends TagSupport {
     private static final Locale DEFAULT_LOCALE = new Locale("ru", "RU");
     private static final String REGEXP_LANGUAGE = "\\p{Alpha}{2}";
     private static final String FILE_RESOURCE_NAME = "text";
-    private String keyMessage;
 
-    public void setKeyMessage(String keyMessage) {
-        this.keyMessage = keyMessage;
+    public void setKeyMessage() {
     }
 
     @Override
     public int doStartTag() {
-        logger.debug("Start doStartTag(). message = " + keyMessage);
+        logger.debug("Start doStartTag(). message = ");
         StringBuffer stringBuffer = new StringBuffer();
 
         HttpSession session = pageContext.getSession();
+        String keyMessage = (String) session.getAttribute("message");
         if (keyMessage != null) {
             String localeString = (String) session.getAttribute(ParameterAttributeType.LOCALE);
             if (localeString != null) {

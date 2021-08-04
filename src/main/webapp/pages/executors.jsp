@@ -6,7 +6,6 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="text"/>
 
-
 <fmt:message key="specialization.electrical" var="text_specialization_electrical"/>
 <fmt:message key="specialization.plumbing" var="text_specialization_plumbing"/>
 <fmt:message key="specialization.plastering" var="text_specialization_plastering"/>
@@ -32,8 +31,6 @@
 <html>
 <head>
     <title>${text_project_executors}</title>
-
-    <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -50,18 +47,12 @@ background-size: cover">
 </header>
 
 <h1 class="text-title">${text_executor_executors}</h1>
-
 <div class="container">
     <div class="row">
         <div class="col" style="max-width: 300px">
-
             <div class="flex-column custom-card" style="width: 300px;">
-
                 <p class="fs-5 fw-semibold">${text_executor_specializations}</p>
-
                 <form action="/controller" method="post" class="list-group list-group-flush border-bottom scrollarea">
-
-
                     <c:forEach var="specialization" items="${sessionScope.specializationList}">
                         <c:if test="${specialization != null}">
                             <fmt:message key="${specialization.key}" var="text_specialization"/>
@@ -74,97 +65,6 @@ background-size: cover">
                             </div>
                         </c:if>
                     </c:forEach>
-
-<%--                    <div class="form-check">--%>
-<%--                        <input class="form-check-input" type="checkbox" name="spec1" value="on" id="spec1">--%>
-<%--                        <label class="form-check-label" for="spec1">--%>
-<%--                            ${text_specialization_electrical}--%>
-<%--                        </label>--%>
-<%--                    </div>--%>
-<%--                    <div class="form-check">--%>
-<%--                        <input class="form-check-input" type="checkbox" name="spec2" value="on" id="spec2">--%>
-<%--                        <label class="form-check-label" for="spec2">--%>
-<%--                            ${text_specialization_plumbing}--%>
-<%--                        </label>--%>
-<%--                    </div>--%>
-<%--                    <div class="form-check">--%>
-<%--                        <input class="form-check-input" type="checkbox" name="spec3" value="on" id="spec3">--%>
-<%--                        <label class="form-check-label" for="spec3">--%>
-<%--                            ${text_specialization_plastering}--%>
-<%--                        </label>--%>
-<%--                    </div>--%>
-<%--                    <div class="form-check">--%>
-<%--                        <input class="form-check-input" type="checkbox" name="spec4" value="on" id="spec4">--%>
-<%--                        <label class="form-check-label" for="spec4">--%>
-<%--                            ${text_specialization_laying_tiles}--%>
-<%--                        </label>--%>
-<%--                    </div>--%>
-<%--                    <div class="form-check">--%>
-<%--                        <input class="form-check-input" type="checkbox" name="spec5" value="on" id="spec5">--%>
-<%--                        <label class="form-check-label" for="spec5">--%>
-<%--                            ${text_specialization_painting}--%>
-<%--                        </label>--%>
-<%--                    </div>--%>
-<%--                    <div class="form-check">--%>
-<%--                        <input class="form-check-input" type="checkbox" name="spec6" value="on" id="spec6">--%>
-<%--                        <label class="form-check-label" for="spec6">--%>
-<%--                            ${text_specialization_wallpapering}--%>
-<%--                        </label>--%>
-<%--                    </div>--%>
-<%--                    <div class="form-check">--%>
-<%--                        <input class="form-check-input" type="checkbox" name="spec7" value="on" id="spec7">--%>
-<%--                        <label class="form-check-label" for="spec7">--%>
-<%--                            ${text_specialization_cement_floor}--%>
-<%--                        </label>--%>
-<%--                    </div>--%>
-<%--                    <div class="form-check">--%>
-<%--                        <input class="form-check-input" type="checkbox" name="spec8" value="on" id="spec8">--%>
-<%--                        <label class="form-check-label" for="spec8">--%>
-<%--                            ${text_specialization_floor_covering}--%>
-<%--                        </label>--%>
-<%--                    </div>--%>
-<%--                    <div class="form-check">--%>
-<%--                        <input class="form-check-input" type="checkbox" name="spec9" value="on" id="spec9">--%>
-<%--                        <label class="form-check-label" for="spec9">--%>
-<%--                            ${text_specialization_carpentry_work}--%>
-<%--                        </label>--%>
-<%--                    </div>--%>
-<%--                    <div class="form-check">--%>
-<%--                        <input class="form-check-input" type="checkbox" name="spec10" value="on" id="spec10">--%>
-<%--                        <label class="form-check-label" for="spec10">--%>
-<%--                            ${text_specialization_turkey_house}--%>
-<%--                        </label>--%>
-<%--                    </div>--%>
-<%--                    <div class="form-check">--%>
-<%--                        <input class="form-check-input" type="checkbox" name="spec11" value="on" id="spec11">--%>
-<%--                        <label class="form-check-label" for="spec11">--%>
-<%--                            ${text_specialization_roof}--%>
-<%--                        </label>--%>
-<%--                    </div>--%>
-<%--                    <div class="form-check">--%>
-<%--                        <input class="form-check-input" type="checkbox" name="spec12" value="on" id="spec12">--%>
-<%--                        <label class="form-check-label" for="spec12">--%>
-<%--                            ${text_specialization_monolite}--%>
-<%--                        </label>--%>
-<%--                    </div>--%>
-<%--                    <div class="form-check">--%>
-<%--                        <input class="form-check-input" type="checkbox" name="spec13" value="on" id="spec13">--%>
-<%--                        <label class="form-check-label" for="spec13">--%>
-<%--                            ${text_specialization_bricklaying}--%>
-<%--                        </label>--%>
-<%--                    </div>--%>
-<%--                    <div class="form-check">--%>
-<%--                        <input class="form-check-input" type="checkbox" name="spec14" value="on" id="spec14">--%>
-<%--                        <label class="form-check-label" for="spec14">--%>
-<%--                            ${text_specialization_fasad}--%>
-<%--                        </label>--%>
-<%--                    </div>--%>
-<%--                    <div class="form-check">--%>
-<%--                        <input class="form-check-input" type="checkbox" name="spec15" value="on" id="spec15">--%>
-<%--                        <label class="form-check-label" for="spec15">--%>
-<%--                            ${text_specialization_landscaping}--%>
-<%--                        </label>--%>
-<%--                    </div>--%>
                     <div>
                         <input type="hidden" name="command" value="find_executors_by_specializations">
                         <input type="submit" value="${text_executor_search}"
@@ -174,12 +74,11 @@ background-size: cover">
             </div>
         </div>
 
-
         <div class="col">
             <c:choose>
                 <c:when test="${sessionScope.executorList.size() eq 0}">
 
-                    <div class="container py-2 mt-5 label_window">      <%--    //TODO add css library--%>
+                    <div class="container py-2 mt-5 label_window">
                         <h3 class="mb-0 ml-3" style="color: black">${text_executor_empty_list}</h3>
                     </div>
 
@@ -188,51 +87,31 @@ background-size: cover">
                     <div class="list-group">
                         <c:forEach var="executor" items="${sessionScope.executorList}">
                             <c:if test="${executor != null}">
-                            <div class="container custom-card mb-2">
-                                <div class="row">
-                                    <div class="col custom-card-image" style="--background: url('${executor.executorOption.urlPersonalFoto}')"></div>
-                                    <a class="col custom-card-link" href="/controller?command=find_executor_info_details&executorId=${executor.idUser}">
-                                        <div>
-                                            <h5>${executor.firstName} ${executor.lastName}</h5>
-<%--                                                <small>${order.creationDate}</small> &lt;%&ndash;    //TODO data format&ndash;%&gt;--%>
-                                        </div>
-                                        <p>${executor.executorOption.description}</p>
-<%--                                            <small>${order.completionDate}</small>--%>
-                                        <input type="hidden" name="executorId" id="ExecutorId" value="${executor.idUser}">
-                                    </a>
+                                <div class="container custom-card mb-2">
+                                    <div class="row">
+                                        <div class="col custom-card-image"
+                                             style="--background: url('${executor.executorOption.urlPersonalFoto}')"></div>
+                                        <a class="col custom-card-link"
+                                           href="/controller?command=find_executor_info_details&executorId=${executor.idUser}">
+                                            <div>
+                                                <h5>${executor.firstName} ${executor.lastName}</h5>
+                                            </div>
+                                            <p>${executor.executorOption.description}</p>
+                                            <input type="hidden" name="executorId" id="ExecutorId"
+                                                   value="${executor.idUser}">
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-
                             </c:if>
                         </c:forEach>
                     </div>
                 </c:when>
             </c:choose>
         </div>
-
-
     </div>
-
 </div>
 
-
-<%--<script LANGUAGE="JavaScript">--%>
-<%--    function f_date(temp_date){--%>
-<%--        day = temp_date.getDate();--%>
-<%--        month = temp_date.getMonth() + 1;--%>
-<%--        year = temp_date.getFullYear();--%>
-<%--        if (day < 10) {--%>
-<%--            day = "0" + day;--%>
-<%--        }--%>
-<%--        if (month <10) {--%>
-<%--            month = "0" + month;--%>
-<%--        }--%>
-<%--        document.getElementById('dateFolder').innerHTML = day + "." + month + "." + year;--%>
-<%--    }--%>
-<%--</SCRIPT>--%>
-
 <footer class="custom-footer">
-
     <jsp:include page="footer.jsp"/>
 </footer>
 </body>

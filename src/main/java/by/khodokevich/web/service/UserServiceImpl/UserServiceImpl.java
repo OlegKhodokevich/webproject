@@ -1,5 +1,6 @@
 package by.khodokevich.web.service.UserServiceImpl;
 
+import by.khodokevich.web.builder.UserBuilder;
 import by.khodokevich.web.dao.AbstractDao;
 import by.khodokevich.web.dao.EntityTransaction;
 import by.khodokevich.web.dao.UserDao;
@@ -224,5 +225,94 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("Error of closing transaction.", e);
         }
         return userStatus;
+    }
+
+    @Override
+    public Map<String, String> updateUser(Map<String, String> userData) throws ServiceException {
+        logger.info("Start updateUser(Map<String, String> userData). User data = " + userData);
+        String userIdString = userData.get(USER_ID);
+        long userId = Long.valueOf(userIdString);
+        String firstName = userData.get(FIRST_NAME);
+        String lastName = userData.get(LAST_NAME);
+        String eMail = userData.get(E_MAIL);
+        String phone = userData.get(PHONE);
+        String region = userData.get(REGION);
+        String city = userData.get(CITY);
+        String password = userData.get(PASSWORD);
+        String oldPassword = userData.get(OLD_PASSWORD);
+
+        Map<String, String> answerMap = UserDataValidator.checkUserData(userData);
+        String result = answerMap.get(RESULT);
+        if (result.equals(SUCCESS.name())) {
+            UserDaoImpl userDao = new UserDaoImpl();
+            CheckingResult resultType = SUCCESS;
+            try (EntityTransaction entityTransaction = new EntityTransaction()) {
+                entityTransaction.beginSingleQuery(userDao);
+                Optional<User> optionalUser = userDao.findEntityById(userId);
+                if (UserDataValidator.isPasswordValid(oldPassword)) {
+                    String encodedPassword = userDao.findUserPasswordById(userId);
+                    if (BCrypt.checkpw(oldPassword, encodedPassword)) {
+                        Optional<User> checkedUser;
+                        if (optionalUser.isPresent() && !optionalUser.get().getEMail().equalsIgnoreCase(eMail)) {
+                            checkedUser = userDao.findUserByEMail(eMail);
+                            if (checkedUser.isPresent()) {
+                                resultType = DUPLICATE_EMAIL;
+                                if (checkedUser.get().getPhone().equals(phone)) {
+                                    resultType = DUPLICATE_EMAIL_AND_PHONE;
+                                }
+                            }
+                        }
+                        if (optionalUser.isPresent() && !optionalUser.get().getPhone().equalsIgnoreCase(phone)) {
+                            if (resultType != DUPLICATE_EMAIL_AND_PHONE) {
+                                checkedUser = userDao.findUserByPhone(phone);
+                                if (checkedUser.isPresent()) {
+                                    resultType = (resultType == DUPLICATE_EMAIL) ? DUPLICATE_EMAIL_AND_PHONE : DUPLICATE_PHONE;
+                                }
+                            }
+                        }
+                        boolean resultOperation = true;
+                        if (resultType == SUCCESS) {
+                            User userForUpdate = new UserBuilder()
+                                    .userId(userId)
+                                    .firstName(firstName)
+                                    .lastName(lastName)
+                                    .eMail(eMail)
+                                    .phone(phone)
+                                    .region(RegionBelarus.valueOf(region.toUpperCase()))
+                                    .city(city)
+                                    .buildUser();
+                            String newEncodedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
+                            if (optionalUser.isPresent() && !optionalUser.get().getEMail().equalsIgnoreCase(eMail)) {
+                                resultOperation = userDao.updateUserWithChangEMail(userForUpdate, newEncodedPassword);
+                                String encodedEMail = BCrypt.hashpw(eMail, BCrypt.gensalt());
+                                String urlPage = userData.get(URL);
+                                String url = urlPage + "?command=activate&token=" + encodedEMail + "&eMail=" + eMail;
+                                String activatingMessage = WELCOME + url;
+                                MailAuthenticator.sendEmail(eMail, E_MAIL_CONFIRMATION, activatingMessage);
+                            } else {
+                                resultOperation = userDao.updateUserWithoutChangEMail(userForUpdate, newEncodedPassword);
+                                resultType = SUCCESS_WITHOUT_SEND_EMAIL;
+                                answerMap.put(ROLE, optionalUser.get().getRole().name());
+                                answerMap.put(STATUS, optionalUser.get().getStatus().name());
+                            }
+                            if (!resultOperation) {
+                                resultType = CheckingResult.ERROR;
+                            }
+                        }
+                    } else {
+                        resultType = USER_UNKNOWN;
+                    }
+                } else {
+                    resultType = USER_UNKNOWN;
+                }
+                answerMap.put(RESULT, resultType.name());
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            } catch (Exception e) {
+                throw new ServiceException("Error of closing transaction.", e);
+            }
+        }
+        return answerMap;
     }
 }

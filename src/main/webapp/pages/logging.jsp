@@ -4,7 +4,6 @@
 <%@ taglib prefix="mes" uri="custom tag message writer" %>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
-
 <fmt:setBundle basename="text"/>
 
 <fmt:message key="header.home" var="text_header_home"/>
@@ -21,10 +20,6 @@
 <fmt:message key="logging.title" var="text_logging_title"/>
 <fmt:message key="logging.sign_in" var="text_logging_sign_in"/>
 
-<%--<c:if test="${not empty param['message']}">--%>
-<%--    <fmt:message key="${param['message']}" var="text_message"/>--%>
-<%--</c:if>--%>
-
 <html>
 <head>
     <title>${text_logging_title}</title>
@@ -40,20 +35,10 @@ background-size: cover">
     <jsp:include page="header.jsp"/>
 </header>
 
-<%--<c:if test="${not empty param['message']}">--%>
-<%--    <div class="container">--%>
-<%--        <div class="container payment_window mb-5 pt-3 pb-5">--%>
-<%--            <div class="container mt-5">--%>
-<%--                <h2 class="mt-5">${text_message}</h2>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</c:if>--%>
-
 <div class="container">
-    <div class="container payment_window pt-3 pb-5">
-        <div class="container mt-5">
-            <h2 class="mt-5"><mes:messageTag keyMessage="${sessionScope.message}"/></h2>
+    <div class="container payment_window pt-1 pb-1">
+        <div class="container">
+            <h2 class="mt-1"><mes:messageTag/></h2>
         </div>
     </div>
 </div>
@@ -78,13 +63,6 @@ background-size: cover">
     <br/>
 </form>
 
-<%--<form action="/controller" method="post" class="registration_form">--%>
-<%--    --%>
-<%--<div>--%>
-<%--    <input type="hidden" name="command" value="go_to_registration"/>--%>
-<%--    <input type="submit" value="${text_registration_title}">--%>
-<%--</div>--%>
-<%--</form>--%>
 <footer class="custom-footer">
     <jsp:include page="footer.jsp"/>
 </footer>

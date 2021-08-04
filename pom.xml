@@ -9,10 +9,23 @@
     <version>1.0-SNAPSHOT</version>
     <name>webproject</name>
     <packaging>war</packaging>
+    <description>Project at the course "JAVA programming EPAM"</description>
+    <url>http://localhost:8080/</url>
+    <developers>
+        <developer>
+            <name>Oleg</name>
+            <email>oleg.khodokevich@gmail.com</email>
+            <organization>HTP-16</organization>
+        </developer>
+    </developers>
 
     <properties>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.tomcat.port>8080</maven.tomcat.port>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
+        <maven.project.info.reports.plugin.version>3.1.2</maven.project.info.reports.plugin.version>
+        <java.version>16</java.version>
     </properties>
 
     <dependencies>
@@ -112,7 +125,22 @@
             <artifactId>commons-text</artifactId>
             <version>1.9</version>
         </dependency>
-
+        <dependency>
+            <groupId>jakarta.servlet.jsp</groupId>
+            <artifactId>jakarta.servlet.jsp-api</artifactId>
+            <version>3.0.0-RC2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
+            <version>3.8.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-project-info-reports-plugin</artifactId>
+            <version>3.1.2</version>
+            <type>maven-plugin</type>
+        </dependency>
     </dependencies>
 
     <build>
@@ -124,7 +152,13 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.1.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
                     <source>16</source>
                     <target>16</target>

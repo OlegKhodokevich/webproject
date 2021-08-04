@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ExecutorDaoImpl extends AbstractDao<Executor> { // TODO add implementation
+public class ExecutorDaoImpl extends AbstractDao<Executor> {
     private static final Logger logger = LogManager.getLogger(ExecutorDaoImpl.class);
 
     private static final String SQL_SELECT_ALL_EXECUTORS = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN regions ON users.IdRegion = regions.IdRegion WHERE UserRole = \"executor\";";  //TODO password?

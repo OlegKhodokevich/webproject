@@ -13,6 +13,8 @@ import java.util.Optional;
 public interface OrderService {
     List<Order> findAllOrder() throws ServiceException;
 
+    List<Order> findOpenOrder() throws ServiceException;
+
     Optional<Order> findDefineOrder(long orderId) throws ServiceException;
 
     List<Order> findUsersOrders(long idUser) throws ServiceException;
@@ -20,6 +22,8 @@ public interface OrderService {
     List<Order> findOrdersBySpecializations(List<Specialization> specializationsString) throws ServiceException;
 
     Map<String, String> createOrder(Map<String,String> orderData);
+
+    Map<String, String> updateOrder(Map<String,String> orderData);
 
     boolean setStatus(long orderId, OrderStatus status) throws ServiceException;
 }

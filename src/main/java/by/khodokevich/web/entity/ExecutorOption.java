@@ -83,16 +83,24 @@ public class ExecutorOption extends Entity {
     }
 
     @Override
-    public boolean equals(Object o) {           //TODO change implementation
+    public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ExecutorOption that = (ExecutorOption) o;
-        return Double.compare(that.averageMark, averageMark) == 0 && numberContractsInProgress == that.numberContractsInProgress && numberCompletionContracts == that.numberCompletionContracts && Objects.equals(unp, that.unp) && Objects.equals(skills, that.skills) && Objects.equals(urlPersonalFoto, that.urlPersonalFoto);
+        if (!(o instanceof ExecutorOption executorOption)) return false;
+        return Double.compare(executorOption.averageMark, averageMark) == 0 && numberContractsInProgress == executorOption.numberContractsInProgress
+                && numberCompletionContracts == executorOption.numberCompletionContracts && unp.equals(executorOption.unp)
+                && skills.containsAll(executorOption.skills) && executorOption.skills.containsAll(skills)
+                && description.equalsIgnoreCase(executorOption.description) && urlPersonalFoto.equals(executorOption.urlPersonalFoto);
     }
 
     @Override
-    public int hashCode() {                 //TODO change implementation
-        return Objects.hash(unp, skills, averageMark, numberContractsInProgress, numberCompletionContracts, urlPersonalFoto);
+    public int hashCode() {
+        int result = unp.hashCode() * 31 + skills.hashCode();
+        result = result * 31 + (int) averageMark * 100;
+        result = result * 31 + description.hashCode();
+        result = result * 31 + numberCompletionContracts;
+        result = result * 31 + numberContractsInProgress;
+        result = result * 31 + urlPersonalFoto.hashCode();
+        return result;
     }
 
     @Override

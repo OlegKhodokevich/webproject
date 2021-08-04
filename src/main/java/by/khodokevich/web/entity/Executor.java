@@ -33,27 +33,29 @@ public class Executor extends User {
         this.executorOption = executorOption;
     }
 
-
-
-
     @Override
-    public boolean equals(Object o) {                   //TODO change implementation
+    public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Executor executor)) return false;
         if (!super.equals(o)) return false;
-        Executor executor = (Executor) o;
-        return Objects.equals(executorOption, executor.executorOption);
+        return super.getEMail().equals(executor.getEMail()) && super.getFirstName().equals(getFirstName())
+                && super.getLastName().equals(executor.getLastName()) && super.getPhone().equals(executor.getPhone())
+                && super.getRegion().equals(executor.getRegion()) && super.getRole().equals(executor.getRole())
+                && super.getStatus().equals(executor.getStatus()) && super.getCity().equals(executor.getCity())
+                && executorOption.equals(executor.executorOption);
     }
 
     @Override
-    public int hashCode() {                    //TODO change implementation
-        return Objects.hash(super.hashCode(), executorOption);
+    public int hashCode() {
+        return super.hashCode() * 31 + executorOption.hashCode();
     }
 
     @Override
-    public String toString() {                                  //TODO change implementation
-        return "Executor{" + super.toString() +
-                "executorOption=" + executorOption +
-                '}';
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Executor{");
+        sb.append(super.toString());
+        sb.append("executorOption=").append(executorOption);
+        sb.append('}');
+        return sb.toString();
     }
 }

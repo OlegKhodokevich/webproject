@@ -3,14 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<c:if test="${not empty sessionScope.locale}">
     <fmt:setLocale value="${sessionScope.locale}"/>
-</c:if>
 <fmt:setBundle basename="text"/>
 
 <fmt:message key="error.error404.title" var="text_error_404_title"/>
 <fmt:message key="error.error404" var="text_error_404"/>
-<%--<fmt:message key="error_error" var="locale_error_error"/>--%>
 
 
 <html>

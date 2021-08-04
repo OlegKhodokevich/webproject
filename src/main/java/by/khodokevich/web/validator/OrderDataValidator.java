@@ -31,6 +31,7 @@ public class OrderDataValidator {
         String specializationString = orderData.get(SPECIALIZATION);
 
         Map<String, String> answerMap = new HashMap<>();
+
         boolean result = isTitleValid(title) && isDescriptionValid(description) && isAddressValid(address)
                 && isCompletionDateValid(completionDateString) && isSpecializationValid(specializationString);
 

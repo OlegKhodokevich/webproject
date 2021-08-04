@@ -9,20 +9,5 @@
         <name>welcome</name>
         <tag-class>by.khodokevich.web.tag.WelcomeMessageTag</tag-class>
         <body-content>empty</body-content>
-        <attribute>
-            <name>role</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>firstName</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>lastName</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
     </tag>
 </taglib>

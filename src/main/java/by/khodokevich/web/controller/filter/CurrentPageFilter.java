@@ -28,6 +28,7 @@ public class CurrentPageFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         logger.debug("Start CurrentPageFilter");
+        logger.debug("command = " + servletRequest.getParameter("command"));
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession(true);
         String url = request.getHeader(REFERER);

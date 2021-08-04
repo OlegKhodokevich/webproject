@@ -70,7 +70,5 @@ public class WebMain {
 
 
         customConnectionPool.destroyPool();
-
-        // TODO
     }
 }

@@ -181,7 +181,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
             throw new DaoException("Prepare statement can't be take from connection." + e.getMessage());
         }
         boolean result = numberUpdatedRows == 1;
-        logger.info(() -> result ? "Operation was successful. " : " Operation was failed"); // TODO Do I have to push Exception if false?
+        logger.info(() -> result ? "Operation was successful. " : " Operation was failed");
         return result;
     }
 
@@ -221,8 +221,8 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
         logger.info("Start setOrderStatus(long idOrder, OrderStatus orderStatus). idOrder = " + idOrder + " , status = " + orderStatus);
         int numberUpdatedRows;
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SET_ORDER_STATUS)) {
-            statement.setString(1, orderStatus.name().toLowerCase());
-
+            statement.setString(1, orderStatus.name().toLowerCase().toLowerCase());
+            statement.setLong(2, idOrder);
             numberUpdatedRows = statement.executeUpdate();
         } catch (SQLException e) {
             logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
@@ -253,6 +253,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
                     OrderStatus status = OrderStatus.valueOf(resultSet.getString(ORDER_STATUS).toUpperCase());
                     Order order = new OrderBuilder()
                             .orderId(orderId)
+                            .userId(userId)
                             .title(title)
                             .description(description)
                             .address(address)
