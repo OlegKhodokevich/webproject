@@ -1,22 +1,74 @@
-13:30:43.456 [main] INFO  by.khodokevich.web.connection.ConnectionFactory - Driver has been loaded : com.mysql.cj.jdbc.Driver
-13:30:43.649 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Pool connection was created successfully. Size = 8
-13:30:43.651 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 8   busyConnections.size() 0
-13:30:43.651 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection has given.
-13:30:43.652 [main] INFO  by.khodokevich.web.dao.impl.ExecutorDaoImpl - Start findAll().
-13:51:08.776 [main] ERROR by.khodokevich.web.dao.impl.ExecutorDaoImpl - Prepare statement can't be take from connection or unknown field.No value specified for parameter 1
-13:51:56.514 [main] INFO  by.khodokevich.web.connection.ConnectionFactory - Driver has been loaded : com.mysql.cj.jdbc.Driver
-13:51:56.675 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Pool connection was created successfully. Size = 8
-13:51:56.676 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 8   busyConnections.size() 0
-13:51:56.677 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection has given.
-13:51:56.677 [main] INFO  by.khodokevich.web.dao.impl.ExecutorDaoImpl - Start findAll().
-13:51:56.699 [main] ERROR by.khodokevich.web.dao.impl.ExecutorDaoImpl - Prepare statement can't be take from connection or unknown field.No value specified for parameter 1
-13:53:08.491 [main] INFO  by.khodokevich.web.connection.ConnectionFactory - Driver has been loaded : com.mysql.cj.jdbc.Driver
-13:53:08.641 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Pool connection was created successfully. Size = 8
-13:53:08.643 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 8   busyConnections.size() 0
-13:53:08.643 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection has given.
-13:53:08.643 [main] INFO  by.khodokevich.web.dao.impl.ExecutorDaoImpl - Start findAll().
-13:53:08.673 [main] INFO  by.khodokevich.web.dao.impl.ExecutorDaoImpl - Has found next skills : []
-13:53:08.675 [main] INFO  by.khodokevich.web.dao.impl.ExecutorDaoImpl - Has found exetutorOption = Optional[ExecutorOption{UNP= 100008858, description = Выполняю качественно и быстро, стоимость всех работ оговаривается заранее., skills= [], averageMark= 0.0, numberContractsInProgress= 0, numberCompletionContracts= 0, urlPersonalFoto= https://drive.google.com/file/d/1xYkWd-LQHtEQYcETSaEFXr5L3cHXAWUV/view?usp=sharing}]
-13:53:08.677 [main] INFO  by.khodokevich.web.dao.impl.ExecutorDaoImpl - Has found next executor = Executor{Executor {idUser=33, firstName= f, lastName= f, eMail= ExecutorUser@gmail.com, phone= +375293112211, region= MINSK_REGION, city= d, status= ARCHIVED, role= null}executorOption=ExecutorOption{UNP= 100008858, description = Выполняю качественно и быстро, стоимость всех работ оговаривается заранее., skills= [], averageMark= 0.0, numberContractsInProgress= 0, numberCompletionContracts= 0, urlPersonalFoto= https://drive.google.com/file/d/1xYkWd-LQHtEQYcETSaEFXr5L3cHXAWUV/view?usp=sharing}}
-13:53:08.678 [main] INFO  by.khodokevich.web.dao.impl.ExecutorDaoImpl - Has found exetutorOption = Optional.empty
-13:53:08.678 [main] INFO  by.khodokevich.web.dao.impl.ExecutorDaoImpl - Has found next executors : [Executor{Executor {idUser=33, firstName= f, lastName= f, eMail= ExecutorUser@gmail.com, phone= +375293112211, region= MINSK_REGION, city= d, status= ARCHIVED, role= null}executorOption=ExecutorOption{UNP= 100008858, description = Выполняю качественно и быстро, стоимость всех работ оговаривается заранее., skills= [], averageMark= 0.0, numberContractsInProgress= 0, numberCompletionContracts= 0, urlPersonalFoto= https://drive.google.com/file/d/1xYkWd-LQHtEQYcETSaEFXr5L3cHXAWUV/view?usp=sharing}}]
+17:34:46.547 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start destroyPool(). freeConnections.size(). Size free = 7 Size busy = 1
+17:34:46.553 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - busy = 0
+17:34:46.553 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - busy = 0
+17:34:46.554 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free before = 8
+17:34:46.554 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 0
+17:34:46.554 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 8
+17:34:46.554 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 7
+17:34:46.555 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 1
+17:34:46.577 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 7
+17:34:46.577 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 6
+17:34:46.577 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 2
+17:34:46.577 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 6
+17:34:46.578 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 5
+17:34:46.578 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 3
+17:34:46.578 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 5
+17:34:46.578 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 4
+17:34:46.578 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 4
+17:34:46.578 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 4
+17:34:46.579 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 3
+17:34:46.579 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 5
+17:34:46.579 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 3
+17:34:46.579 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 2
+17:34:46.579 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 6
+17:34:46.579 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 2
+17:34:46.579 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 1
+17:34:46.580 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 7
+17:34:46.580 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 1
+17:34:46.580 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 0
+17:34:46.581 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - End destroyPool(). Size free = 0
+17:34:46.583 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection can't be created.
+17:34:46.588 [main] INFO  by.khodokevich.web.connection.CustomConnectionPoolTest - Start before method.
+17:34:46.589 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection can't be created.
+17:34:46.599 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection can't be created.
+17:34:46.600 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection can't be created.
+17:34:46.601 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection can't be created.
+17:34:46.602 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection can't be created.
+17:34:49.585 [main] INFO  by.khodokevich.web.connection.CustomConnectionPoolTest - Start before method.
+17:34:49.594 [main] INFO  by.khodokevich.web.connection.ConnectionFactory - Driver has been loaded : com.mysql.cj.jdbc.Driver
+17:34:49.728 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Pool connection was created successfully. Size = 8
+17:34:49.728 [main] INFO  by.khodokevich.web.connection.CustomConnectionPoolTest - Pool = CustomConnectionPool{freeConnections.size=8, busyConnections.size=0}
+17:34:49.730 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPoolTest - Start testIsFull1().
+17:34:49.730 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
+17:34:49.730 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
+17:34:49.731 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
+17:34:49.734 [main] INFO  by.khodokevich.web.connection.CustomConnectionPoolTest - Start after method.
+17:34:49.736 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start destroyPool(). freeConnections.size(). Size free = 8 Size busy = 0
+17:34:49.737 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free before = 8
+17:34:49.737 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 0
+17:34:49.737 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 8
+17:34:49.738 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 7
+17:34:49.738 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 1
+17:34:49.738 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 7
+17:34:49.738 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 6
+17:34:49.738 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 2
+17:34:49.738 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 6
+17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 5
+17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 3
+17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 5
+17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 4
+17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 4
+17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 4
+17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 3
+17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 5
+17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 3
+17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 2
+17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 6
+17:34:49.740 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 2
+17:34:49.740 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 1
+17:34:49.740 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 7
+17:34:49.740 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 1
+17:34:49.740 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 0
+17:34:49.741 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - End destroyPool(). Size free = 0
+17:34:49.742 [main] INFO  by.khodokevich.web.connection.CustomConnectionPoolTest - Start before method.
+17:34:49.743 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection can't be created.

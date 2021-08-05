@@ -26,7 +26,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     private static final Logger logger = LogManager.getLogger(UserDaoImpl.class);
     private static final String SQL_SELECT_ALL_USER = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN Regions ON Users.IdRegion = Regions.IdRegion;";  //TODO password?
     private static final String SQL_SELECT_DEFINED_USER = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN Regions ON Users.IdRegion = Regions.IdRegion WHERE IdUser = ?;";
-    private static final String SQL_SELECT_DEFINED_USER_BY_EMAIL = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN Regions  WHERE EMail = ?;";
+    private static final String SQL_SELECT_DEFINED_USER_BY_EMAIL = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN Regions ON Users.IdRegion = Regions.IdRegion WHERE EMail = ?;";
     private static final String SQL_SELECT_DEFINED_USER_BY_PHONE = "SELECT IdUser FROM users WHERE Phone = ?;";
     private static final String SQL_SELECT_USER_PASSWORD = "SELECT EncodedPassword FROM users WHERE IdUser = ?;";
     private static final String SQL_DELETE_DEFINED_USER_BY_ID = "DELETE FROM users WHERE IdUser = ?;";

@@ -2,6 +2,7 @@ package by.khodokevich.web.controller;
 
 import by.khodokevich.web.command.*;
 import by.khodokevich.web.connection.CustomConnectionPool;
+import by.khodokevich.web.exception.PoolConnectionException;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -56,7 +57,11 @@ public class Controller extends HttpServlet {
     @Override
     public void destroy() {
         CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
-        connectionPool.destroyPool();
+        try {
+            connectionPool.destroyPool();
+        } catch (PoolConnectionException e) {
+            logger.error("Can't destroy connection's pool.", e);
+        }
     }
 
     @Override

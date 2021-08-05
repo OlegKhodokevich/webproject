@@ -4,6 +4,7 @@ import by.khodokevich.web.builder.UserBuilder;
 import by.khodokevich.web.dao.AbstractDao;
 import by.khodokevich.web.dao.EntityTransaction;
 import by.khodokevich.web.dao.UserDao;
+import by.khodokevich.web.exception.MailException;
 import by.khodokevich.web.service.CheckingResult;
 import by.khodokevich.web.dao.impl.UserDaoImpl;
 import by.khodokevich.web.entity.RegionBelarus;
@@ -83,6 +84,9 @@ public class UserServiceImpl implements UserService {
                 answerMap.put(RESULT, resultType.name());
             } catch (DaoException e) {
                 throw new ServiceException(e);
+            } catch (MailException e) {
+                resultType = LETTER_NOT_SENT;
+                answerMap.put(RESULT, resultType.name());
             } catch (Exception e) {
                 throw new ServiceException("Error of closing transaction.", e);
             }
@@ -142,6 +146,9 @@ public class UserServiceImpl implements UserService {
                 }
             } catch (DaoException e) {
                 throw new ServiceException(e);
+            } catch (MailException e) {
+                resultType = LETTER_NOT_SENT;
+                answerMap.put(RESULT, resultType.name());
             } catch (Exception e) {
                 throw new ServiceException("Error of closing transaction.", e);
             }
@@ -309,6 +316,9 @@ public class UserServiceImpl implements UserService {
                 answerMap.put(RESULT, resultType.name());
             } catch (DaoException e) {
                 throw new ServiceException(e);
+            } catch (MailException e) {
+                resultType = LETTER_NOT_SENT;
+                answerMap.put(RESULT, resultType.name());
             } catch (Exception e) {
                 throw new ServiceException("Error of closing transaction.", e);
             }

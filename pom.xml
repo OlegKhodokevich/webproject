@@ -101,11 +101,11 @@
             <version>2.0.0</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>jakarta.servlet.jsp.jstl</groupId>-->
-<!--            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>-->
-<!--            <version>2.0.0</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>jakarta.servlet.jsp.jstl</groupId>-->
+        <!--            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>-->
+        <!--            <version>2.0.0</version>-->
+        <!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/com.sun.mail/jakarta.mail -->
         <dependency>
             <groupId>com.sun.mail</groupId>
@@ -141,6 +141,12 @@
             <version>3.1.2</version>
             <type>maven-plugin</type>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>2.0.2-beta</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -164,7 +170,14 @@
                     <target>16</target>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

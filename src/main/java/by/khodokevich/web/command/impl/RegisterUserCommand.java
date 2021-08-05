@@ -29,6 +29,7 @@ public class RegisterUserCommand implements Command {
     private static final String KEY_MESSAGE_DUPLICATE_PHONE = "registration.message_duplicate_phone";
     private static final String KEY_MESSAGE_DUPLICATE_PHONE_AND_PHONE = "registration.message_duplicate_email_and_phone";
     private static final String EMPTY_VALUE = "";
+    private static final String MASSAGE_LETTER_NOT_SENT = "mail_sender.letter_not_send";
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -110,6 +111,16 @@ public class RegisterUserCommand implements Command {
                         session.setAttribute(LAST_NAME, lastName);
                         session.setAttribute(E_MAIL, EMPTY_VALUE);
                         session.setAttribute(PHONE, EMPTY_VALUE);
+                        session.setAttribute(REGION, region);
+                        session.setAttribute(CITY, city);
+                        router = new Router(PagePath.REGISTER_PAGE, Router.RouterType.REDIRECT);
+                        break;
+                    case LETTER_NOT_SENT:
+                        session.setAttribute(MESSAGE, MASSAGE_LETTER_NOT_SENT);
+                        session.setAttribute(FIRST_NAME, firstName);
+                        session.setAttribute(LAST_NAME, lastName);
+                        session.setAttribute(E_MAIL, EMPTY_VALUE);
+                        session.setAttribute(PHONE, phone);
                         session.setAttribute(REGION, region);
                         session.setAttribute(CITY, city);
                         router = new Router(PagePath.REGISTER_PAGE, Router.RouterType.REDIRECT);

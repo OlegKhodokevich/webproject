@@ -29,6 +29,7 @@ public class SignInCommand implements Command {
     public static final String KEY_DATA_NOT_VALID = "registration.message_data_not_correct";
     public static final String KEY_USER_UNKNOWN = "error.user_unknown";
     public static final String KEY_USER_NOT_CONFIRMED = "error.user_not_confirmed";
+    private static final String MASSAGE_LETTER_NOT_SENT = "mail_sender.letter_not_send";
 
 
     @Override
@@ -91,6 +92,10 @@ public class SignInCommand implements Command {
                     break;
                 case USER_STATUS_IS_ARCHIVED:
                     session.setAttribute(MESSAGE, KEY_STATUS_ARCHIVED);
+                    router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
+                    break;
+                case LETTER_NOT_SENT:
+                    session.setAttribute(MESSAGE, MASSAGE_LETTER_NOT_SENT);
                     router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
                     break;
                 default:

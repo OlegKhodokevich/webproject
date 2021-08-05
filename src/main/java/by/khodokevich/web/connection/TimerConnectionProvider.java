@@ -1,5 +1,6 @@
 package by.khodokevich.web.connection;
 
+import by.khodokevich.web.exception.PoolConnectionException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.TimerTask;
@@ -31,8 +32,12 @@ public class TimerConnectionProvider extends TimerTask {
             logger.info("TimerConnectionProvider start check pool.");
             CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
 
-            if (!connectionPool.isFull()) {
-                connectionPool.addConnectionsToPool();
+            try {
+                if (!connectionPool.isFull()) {
+                    connectionPool.addConnectionsToPool();
+                }
+            } catch (PoolConnectionException e) {
+                e.printStackTrace();
             }
         } finally {
             isConnectionProviderRun.set(false);
