@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="mes" uri="custom tag message writer" %>
@@ -18,8 +18,12 @@
 <fmt:message key="registration.phone" var="text_registration_phone"/>
 <fmt:message key="registration.ivan" var="text_registration_ivan"/>
 <fmt:message key="registration.ivanov" var="text_registration_ivanov"/>
+<fmt:message key="registration.admin_password" var="text_registration_admin_password"/>
+<fmt:message key="registration.change_password" var="text_registration_change_password"/>
 
 <fmt:message key="user.old_password" var="text_user_old_password"/>
+<fmt:message key="user.confirm_changes" var="user_confirm_changes"/>
+<fmt:message key="profile.edit_info" var="user_profile_edit_info"/>
 
 <fmt:message key="region1" var="text_region1"/>
 <fmt:message key="region2" var="text_region2"/>
@@ -27,7 +31,6 @@
 <fmt:message key="region4" var="text_region4"/>
 <fmt:message key="region5" var="text_region5"/>
 <fmt:message key="region6" var="text_region6"/>
-<fmt:message key="user.confirm_changes" var="user_confirm_changes"/>
 
 <html>
 <head>
@@ -44,16 +47,21 @@ background-size: cover">
 </header>
 
 <div class="container">
-    <div class="container payment_window mb-5 pt-3 pb-5">
-        <div class="container mt-5">
+    <div class="container payment_window mb-1 pt-1 pb-1">
+        <div class="container mt-1">
             <h2 class="mt-5"><mes:messageTag/></h2>
         </div>
     </div>
 </div>
-
 <form action="${pageContext.request.contextPath}/controller" method="post" class="registration_form">
-
-    <h1 style="text-align: center">${text_registration_title}</h1>
+    <c:choose>
+        <c:when test="${sessionScope.activeUserRole eq 'ADMIN' or sessionScope.activeUser.idUser eq sessionScope.userId}">
+            <h1 style="text-align: center">${user_profile_edit_info}</h1>
+        </c:when>
+        <c:when test="${sessionScope.activeUserRole eq 'GUEST'}">
+            <h1 style="text-align: center">${text_registration_title}</h1>
+        </c:when>
+    </c:choose>
     <div>
         <input type="text" placeholder="${text_registration_ivan}" id="Firstname" name="firstName" maxlength="20"
                required value="${sessionScope.firstName}">
@@ -64,24 +72,38 @@ background-size: cover">
                required value="${sessionScope.lastName}">
         <label for="Lastname">${text_registration_lastname}</label>
     </div>
-    <c:if test="${sessionScope.activeUserRole eq 'ADMIN' or sessionScope.activeUser.idUser eq sessionScope.userId}">
+    <c:if test="${sessionScope.activeUserRole ne 'GUEST'}">
         <div>
-            <input type="password" placeholder="" id="OldPassword" name="oldPassword" required
+            <input type="password" placeholder="" id="ConfirmedPassword" name="confirmedPassword" required
                    minlength="6" maxlength="20">
-            <label for="OldPassword">${text_user_old_password}</label>
+            <c:choose>
+                <c:when test="${sessionScope.activeUserRole eq 'ADMIN'}">
+                    <label for="ConfirmedPassword">${text_registration_admin_password}</label>
+                </c:when>
+
+                <c:when test="${sessionScope.activeUserRole ne 'ADMIN'}">
+                    <label for="ConfirmedPassword">${text_user_old_password}</label>
+                </c:when>
+            </c:choose>
+        </div>
+    </c:if>
+
+    <c:if test="${sessionScope.activeUserRole ne 'GUEST'}">
+        <div>
+            <input type="checkbox" id="ChangePassword" name="changePassword" value="on">
+            <label for="ChangePassword">${text_registration_change_password}</label>
         </div>
     </c:if>
     <div>
-        <input type="password" placeholder="${text_registration_password}" id="Password" name="password" required
+        <input type="password" placeholder="${text_registration_password}" id="Password" name="password" ${sessionScope.activeUserRole eq 'GUEST' ? 'required' : null}
                minlength="6" maxlength="20">
         <label for="Password">${text_registration_password}</label>
     </div>
     <div>
         <input type="password" placeholder="${text_registration_repeat_password}" id="Psw-repeat" name="psw-repeat"
-               required minlength="6" maxlength="20">
+        ${sessionScope.activeUserRole eq 'GUEST' ? 'required' : null} minlength="6" maxlength="20">
         <label for="Psw-repeat">${text_registration_repeat_password}</label>
     </div>
-
     <div>
         <input type="email" placeholder="e-mail-adress@gmail.com" id="Emailinput" name="eMail" required maxlength="45"
                value="${sessionScope.eMail}">
@@ -93,15 +115,13 @@ background-size: cover">
                minlength="13" maxlength="13"
                value="${sessionScope.phone}">
     </div>
-
     <div>
         <label for="Region">${text_registration_region}</label>
         <select name="region" id="Region" required>
-            <c:forEach var="reginType" items="${sessionScope.regions}">
+            <c:forEach var="reginType" items="${applicationScope.regionList}">
                 <fmt:message key="${reginType.key}" var="text_region"/>
                 <option value="${reginType.name()}" ${sessionScope.region eq reginType ? 'selected' : null}>${text_region}</option>
             </c:forEach>
-
         </select>
     </div>
     <div>
@@ -109,21 +129,20 @@ background-size: cover">
         <label for="City">${text_registration_city}</label>
     </div>
     <c:choose>
-        <c:when test="${sessionScope.activeUserRole eq 'ADMIN' or sessionScope.activeUser.idUser eq sessionScope.userId}">
+        <c:when test="${sessionScope.activeUserRole ne 'GUEST'}">
             <div>
                 <input type="hidden" name="command" value="edit_user">
                 <input type="hidden" name="userId" value="${sessionScope.userId}">
                 <input type="submit" value="${user_confirm_changes}">
             </div>
         </c:when>
-        <c:when test="${!(sessionScope.activeUserRole eq 'ADMIN' or  sessionScope.activeUserRole eq 'CUSTOMER' or sessionScope.activeUserRole eq 'EXECUTOR')}">
+        <c:when test="${sessionScope.activeUserRole eq 'GUEST'}">
             <div>
                 <input type="hidden" name="command" value="register">
                 <input type="submit" value="${text_registration_register}">
             </div>
         </c:when>
     </c:choose>
-
 </form>
 <footer class="custom-footer">
     <jsp:include page="footer.jsp"/>

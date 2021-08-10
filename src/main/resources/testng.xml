@@ -34,17 +34,4 @@
             <class name="by.khodokevich.web.validator.OrderDataValidator"/>
         </classes>
     </test>
-
-<!--    -->
-<!--    <test name="ChekGroup_2">-->
-<!--        <groups>-->
-<!--            <run>-->
-<!--                <include name="function_min_max_condition"/>-->
-<!--                <include name="function_count_elements"/>-->
-<!--            </run>-->
-<!--        </groups>-->
-<!--        <classes>-->
-<!--            <class name="by.khodokevich.task.service.ArrayServiceTest"></class>-->
-<!--        </classes>-->
-<!--    </test>-->
 </suite>

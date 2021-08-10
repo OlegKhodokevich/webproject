@@ -1,16 +1,12 @@
 package by.khodokevich.web.controller.filter;
 
-import by.khodokevich.web.command.ParameterAttributeType;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.annotation.WebInitParam;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.util.Locale;
 
 
 @WebFilter(urlPatterns = {"/controller"}, initParams = {

@@ -1,17 +1,14 @@
 package by.khodokevich.web.validator;
 
-import by.khodokevich.web.service.CheckingResult;
+import by.khodokevich.web.model.service.CheckingResult;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static by.khodokevich.web.command.ParameterAttributeType.*;
-import static by.khodokevich.web.command.ParameterAttributeType.REPEATED_PASSWORD;
-import static org.testng.Assert.*;
+import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
+import static by.khodokevich.web.controller.command.ParameterAttributeType.REPEATED_PASSWORD;
 
 public class UserDataValidatorTest {
 

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
@@ -47,7 +47,7 @@ background-size: cover">
                 <div class="card-body">
                     <h1 class="card-title">${sessionScope.order.title}</h1>
                     <p class="date-to-format"
-                       style="text-align: right; font-size: 14px; margin-bottom: 0px">${sessionScope.order.creationDate.time}</p>
+                       style="text-align: right; font-size: 14px; margin-bottom: 0">${sessionScope.order.creationDate.time}</p>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">${text_order_description} : ${sessionScope.order.description}</li>
                         <li class="list-group-item">${text_order_address} : ${sessionScope.order.address}</li>

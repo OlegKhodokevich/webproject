@@ -1,7 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib prefix="mes" uri="custom tag message writer" %>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="text"/>
@@ -14,8 +15,8 @@
 <html>
 <head>
     <title>main</title>
-    <link href="../css/custom_styles.css" rel="stylesheet"/>
-    <link href="../css/custom_image.css" rel="stylesheet"/>
+    <link href="${pageContext.request.contextPath}../css/custom_styles.css" rel="stylesheet"/>
+    <link href="${pageContext.request.contextPath}../css/custom_image.css" rel="stylesheet"/>
 </head>
 <body style="background-image: url(../image/building_3_c1.jpg);
 background-repeat: no-repeat;
@@ -28,9 +29,12 @@ background-size: cover">
     <div class="position-relative overflow-hidden text-center bg-light">
         <div class="p-lg-5 mx-auto">
             <h1 class="display-4 fw-normal"><ctg:welcome/></h1>
+            <h1 class="display-4 fw-normal"><mes:messageTag/></h1>
             <h1 class="display-4 fw-normal">${text_header_home}</h1>
             <p class="lead fw-normal">${text_main_description}</p>
-            <a class="btn btn-outline-secondary" href="/controller?command=go_to_sign_in">${text_header_logging}</a>
+            <c:if test="${sessionScope.activeUserRole ne 'GUEST'}">
+                <a class="btn btn-outline-secondary" href="/controller?command=go_to_sign_in">${text_header_logging}</a>
+            </c:if>
         </div>
         <div class="product-device shadow-sm d-none d-md-block"></div>
         <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
@@ -53,11 +57,10 @@ background-size: cover">
             </div>
         </div>
     </div>
-    </div>
 </main>
 
-    <footer class="custom-footer">
-        <jsp:include page="footer.jsp"/>
-    </footer>
+<footer class="custom-footer">
+    <jsp:include page="footer.jsp"/>
+</footer>
 </body>
 </html>

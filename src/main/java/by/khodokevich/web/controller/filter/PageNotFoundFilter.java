@@ -1,7 +1,7 @@
 package by.khodokevich.web.controller.filter;
 
-import by.khodokevich.web.command.PagePath;
-import by.khodokevich.web.command.ParameterAttributeType;
+import by.khodokevich.web.controller.command.PagePath;
+import by.khodokevich.web.controller.command.ParameterAttributeType;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,10 +27,8 @@ public class PageNotFoundFilter implements Filter {
         PageNotFoundResponse pageNotFoundResponse = new PageNotFoundResponse(httpServletResponse);
         filterChain.doFilter(servletRequest, pageNotFoundResponse);
         if (pageNotFoundResponse.getStatus() == 404) {
-            httpServletResponse.sendRedirect("/pages/error404.jsp");
+            httpServletResponse.sendRedirect(PagePath.ERROR404_PAGE);
             httpServletResponse.setStatus(HttpServletResponse.SC_OK);
-            HttpSession session = ((HttpServletRequest) servletRequest).getSession();
-            session.setAttribute(ParameterAttributeType.CURRENT_PAGE, PagePath.ERROR404_PAGE);
         }
     }
 

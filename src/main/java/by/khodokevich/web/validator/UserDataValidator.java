@@ -1,21 +1,17 @@
 package by.khodokevich.web.validator;
 
-import by.khodokevich.web.entity.RegionBelarus;
-import by.khodokevich.web.service.CheckingResult;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import by.khodokevich.web.model.entity.RegionBelarus;
+import by.khodokevich.web.model.service.CheckingResult;
 
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import static by.khodokevich.web.util.RegexpManager.*;
-import static by.khodokevich.web.command.ParameterAttributeType.*;
+import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
 public class UserDataValidator {
-    private static final Logger logger = LogManager.getLogger(UserDataValidator.class);
     private static final String KEY_REGEXP_FIRSTNAME = "regexp.user.firstName";
     private static final String KEY_REGEXP_LASTNAME = "regexp.user.lastName";
     private static final String KEY_REGEXP_EMAIL = "regexp.user.eMail";
@@ -24,20 +20,26 @@ public class UserDataValidator {
     private static final String KEY_REGEXP_PASSWORD = "regexp.user.password";
 
     public static Map<String, String> checkUserData(Map<String, String> userData) {
+
+        Map<String, String> answerMap = checkUserDataWithoutPassword(userData);
+        if (!isPasswordValid(userData.get(PASSWORD)) && isRepeatedPasswordValid(userData.get(PASSWORD),userData.get(REPEATED_PASSWORD))) {
+            answerMap = userData;
+        }
+        return answerMap;
+    }
+
+    public static Map<String, String> checkUserDataWithoutPassword(Map<String, String> userData) {
         String firstName = userData.get(FIRST_NAME);
         String lastName = userData.get(LAST_NAME);
         String eMail = userData.get(E_MAIL);
         String phone = userData.get(PHONE);
         String region = userData.get(REGION);
         String city = userData.get(CITY);
-        String password = userData.get(PASSWORD);
-        String repeatedPassword = userData.get(REPEATED_PASSWORD);
 
         Map<String, String> answerMap = new HashMap<>();
 
         boolean result = isFirstNameValid(firstName) && isLastNameValid(lastName) && isEMailValid(eMail)
-                && isCityValid(city) && isPhoneValid(phone) && isPasswordValid(password)
-                && isRepeatedPasswordValid(password, repeatedPassword) && isRegionValid(region);
+                && isCityValid(city) && isPhoneValid(phone) && isRegionValid(region);
         if (result) {
             answerMap.put(RESULT, CheckingResult.SUCCESS.name());
         } else {
@@ -95,7 +97,8 @@ public class UserDataValidator {
     }
 
     public static boolean isRepeatedPasswordValid(String password, String repeatedPassword) {
-        return password.equals(repeatedPassword);
+        boolean result = password.equals(repeatedPassword);
+        return result;
     }
 
     public static boolean isRegionValid(String region) {

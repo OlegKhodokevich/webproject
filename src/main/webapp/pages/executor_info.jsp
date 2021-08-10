@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="ftm" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -107,7 +107,8 @@ background-size: cover">
                                 <h6 class="mb-0">${text_registration_region}</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                ${sessionScope.executor.region}
+                                <fmt:message key="${applicationScope.regionMap.get(sessionScope.executor.region)}" var="text_region"/>
+                                ${text_region}
                             </div>
                         </div>
                         <hr>

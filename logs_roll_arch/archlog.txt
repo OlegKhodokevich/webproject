@@ -1,74 +1,234 @@
-17:34:46.547 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start destroyPool(). freeConnections.size(). Size free = 7 Size busy = 1
-17:34:46.553 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - busy = 0
-17:34:46.553 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - busy = 0
-17:34:46.554 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free before = 8
-17:34:46.554 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 0
-17:34:46.554 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 8
-17:34:46.554 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 7
-17:34:46.555 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 1
-17:34:46.577 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 7
-17:34:46.577 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 6
-17:34:46.577 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 2
-17:34:46.577 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 6
-17:34:46.578 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 5
-17:34:46.578 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 3
-17:34:46.578 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 5
-17:34:46.578 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 4
-17:34:46.578 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 4
-17:34:46.578 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 4
-17:34:46.579 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 3
-17:34:46.579 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 5
-17:34:46.579 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 3
-17:34:46.579 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 2
-17:34:46.579 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 6
-17:34:46.579 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 2
-17:34:46.579 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 1
-17:34:46.580 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 7
-17:34:46.580 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 1
-17:34:46.580 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 0
-17:34:46.581 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - End destroyPool(). Size free = 0
-17:34:46.583 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection can't be created.
-17:34:46.588 [main] INFO  by.khodokevich.web.connection.CustomConnectionPoolTest - Start before method.
-17:34:46.589 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection can't be created.
-17:34:46.599 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection can't be created.
-17:34:46.600 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection can't be created.
-17:34:46.601 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection can't be created.
-17:34:46.602 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection can't be created.
-17:34:49.585 [main] INFO  by.khodokevich.web.connection.CustomConnectionPoolTest - Start before method.
-17:34:49.594 [main] INFO  by.khodokevich.web.connection.ConnectionFactory - Driver has been loaded : com.mysql.cj.jdbc.Driver
-17:34:49.728 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Pool connection was created successfully. Size = 8
-17:34:49.728 [main] INFO  by.khodokevich.web.connection.CustomConnectionPoolTest - Pool = CustomConnectionPool{freeConnections.size=8, busyConnections.size=0}
-17:34:49.730 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPoolTest - Start testIsFull1().
-17:34:49.730 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start check pool isFull().
-17:34:49.730 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Number connections in pool = 8
-17:34:49.731 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - End isFull(). Number connections in pool = 8
-17:34:49.734 [main] INFO  by.khodokevich.web.connection.CustomConnectionPoolTest - Start after method.
-17:34:49.736 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Start destroyPool(). freeConnections.size(). Size free = 8 Size busy = 0
-17:34:49.737 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free before = 8
-17:34:49.737 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 0
-17:34:49.737 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 8
-17:34:49.738 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 7
-17:34:49.738 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 1
-17:34:49.738 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 7
-17:34:49.738 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 6
-17:34:49.738 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 2
-17:34:49.738 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 6
-17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 5
-17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 3
-17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 5
-17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 4
-17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 4
-17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 4
-17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 3
-17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 5
-17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 3
-17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 2
-17:34:49.739 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 6
-17:34:49.740 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 2
-17:34:49.740 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 1
-17:34:49.740 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - i = 7
-17:34:49.740 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 1
-17:34:49.740 [main] DEBUG by.khodokevich.web.connection.CustomConnectionPool - free = 0
-17:34:49.741 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - End destroyPool(). Size free = 0
-17:34:49.742 [main] INFO  by.khodokevich.web.connection.CustomConnectionPoolTest - Start before method.
-17:34:49.743 [main] INFO  by.khodokevich.web.connection.CustomConnectionPool - Connection can't be created.
+21:38:35.491 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
+21:38:35.496 [main] ERROR by.khodokevich.web.model.dao.EntityTransaction - Can't get connection
+by.khodokevich.web.exception.PoolConnectionException: Time out for getting connection.
+	at by.khodokevich.web.model.connection.CustomConnectionPool.getConnection(CustomConnectionPool.java:85) ~[classes/:?]
+	at by.khodokevich.web.model.dao.EntityTransaction.beginSingleQuery(EntityTransaction.java:44) ~[classes/:?]
+	at by.khodokevich.web.model.dao.impl.UserDaoImplFindDefineUserByIdTest.testFindEntityById3(UserDaoImplFindDefineUserByIdTest.java:48) ~[test-classes/:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:134) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:597) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:816) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.1.0.jar:?]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:766) [testng-7.1.0.jar:?]
+	at org.testng.TestRunner.run(TestRunner.java:587) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:384) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:286) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1109) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.runSuites(TestNG.java:1039) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.run(TestNG.java:1007) [testng-7.1.0.jar:?]
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:132) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.executeMulti(TestNGDirectoryTestSuite.java:193) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.execute(TestNGDirectoryTestSuite.java:94) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:147) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:290) [surefire-booter-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:242) [surefire-booter-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:121) [surefire-booter-2.19.1.jar:2.19.1]
+21:38:35.498 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
+21:38:35.498 [main] ERROR by.khodokevich.web.model.dao.EntityTransaction - Can't get connection
+by.khodokevich.web.exception.PoolConnectionException: Time out for getting connection.
+	at by.khodokevich.web.model.connection.CustomConnectionPool.getConnection(CustomConnectionPool.java:85) ~[classes/:?]
+	at by.khodokevich.web.model.dao.EntityTransaction.beginSingleQuery(EntityTransaction.java:44) ~[classes/:?]
+	at by.khodokevich.web.model.dao.impl.UserDaoImplFindUserByEmailTest.testFindUserByEMail(UserDaoImplFindUserByEmailTest.java:20) ~[test-classes/:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:134) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:597) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:816) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.1.0.jar:?]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:766) [testng-7.1.0.jar:?]
+	at org.testng.TestRunner.run(TestRunner.java:587) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:384) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:286) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1109) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.runSuites(TestNG.java:1039) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.run(TestNG.java:1007) [testng-7.1.0.jar:?]
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:132) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.executeMulti(TestNGDirectoryTestSuite.java:193) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.execute(TestNGDirectoryTestSuite.java:94) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:147) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:290) [surefire-booter-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:242) [surefire-booter-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:121) [surefire-booter-2.19.1.jar:2.19.1]
+21:38:35.500 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
+21:38:35.501 [main] ERROR by.khodokevich.web.model.dao.EntityTransaction - Can't get connection
+by.khodokevich.web.exception.PoolConnectionException: Time out for getting connection.
+	at by.khodokevich.web.model.connection.CustomConnectionPool.getConnection(CustomConnectionPool.java:85) ~[classes/:?]
+	at by.khodokevich.web.model.dao.EntityTransaction.beginSingleQuery(EntityTransaction.java:44) ~[classes/:?]
+	at by.khodokevich.web.model.dao.impl.UserDaoImplGetUserStatusTest.testGetUserStatus1(UserDaoImplGetUserStatusTest.java:15) ~[test-classes/:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:134) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:597) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:816) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.1.0.jar:?]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:766) [testng-7.1.0.jar:?]
+	at org.testng.TestRunner.run(TestRunner.java:587) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:384) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:286) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1109) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.runSuites(TestNG.java:1039) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.run(TestNG.java:1007) [testng-7.1.0.jar:?]
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:132) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.executeMulti(TestNGDirectoryTestSuite.java:193) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.execute(TestNGDirectoryTestSuite.java:94) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:147) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:290) [surefire-booter-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:242) [surefire-booter-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:121) [surefire-booter-2.19.1.jar:2.19.1]
+21:38:35.503 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
+21:38:35.503 [main] ERROR by.khodokevich.web.model.dao.EntityTransaction - Can't get connection
+by.khodokevich.web.exception.PoolConnectionException: Time out for getting connection.
+	at by.khodokevich.web.model.connection.CustomConnectionPool.getConnection(CustomConnectionPool.java:85) ~[classes/:?]
+	at by.khodokevich.web.model.dao.EntityTransaction.beginSingleQuery(EntityTransaction.java:44) ~[classes/:?]
+	at by.khodokevich.web.model.dao.impl.UserDaoImplGetUserStatusTest.testGetUserStatus2(UserDaoImplGetUserStatusTest.java:28) ~[test-classes/:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:134) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:597) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:816) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.1.0.jar:?]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:766) [testng-7.1.0.jar:?]
+	at org.testng.TestRunner.run(TestRunner.java:587) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:384) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:286) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1109) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.runSuites(TestNG.java:1039) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.run(TestNG.java:1007) [testng-7.1.0.jar:?]
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:132) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.executeMulti(TestNGDirectoryTestSuite.java:193) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.execute(TestNGDirectoryTestSuite.java:94) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:147) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:290) [surefire-booter-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:242) [surefire-booter-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:121) [surefire-booter-2.19.1.jar:2.19.1]
+21:38:36.419 [main] INFO  by.khodokevich.web.model.service.Impl.UserServiceImpl - Start logIn(Map<String, String> userData). User data = {password=Password1!, isTest=true, url=http://localhost:8080/, eMail=ivanov@gmail.com}
+21:38:36.426 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
+21:38:36.426 [main] ERROR by.khodokevich.web.model.dao.EntityTransaction - Can't get connection
+by.khodokevich.web.exception.PoolConnectionException: Time out for getting connection.
+	at by.khodokevich.web.model.connection.CustomConnectionPool.getConnection(CustomConnectionPool.java:85) ~[classes/:?]
+	at by.khodokevich.web.model.dao.EntityTransaction.beginSingleQuery(EntityTransaction.java:44) ~[classes/:?]
+	at by.khodokevich.web.model.service.Impl.UserServiceImpl.logOn(UserServiceImpl.java:108) ~[classes/:?]
+	at by.khodokevich.web.model.service.Impl.UserServiceImplLogOnTest.testLogOn(UserServiceImplLogOnTest.java:112) ~[test-classes/:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:134) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:597) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:816) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.1.0.jar:?]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:766) [testng-7.1.0.jar:?]
+	at org.testng.TestRunner.run(TestRunner.java:587) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:384) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:286) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1109) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.runSuites(TestNG.java:1039) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.run(TestNG.java:1007) [testng-7.1.0.jar:?]
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:132) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.executeMulti(TestNGDirectoryTestSuite.java:193) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.execute(TestNGDirectoryTestSuite.java:94) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:147) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:290) [surefire-booter-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:242) [surefire-booter-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:121) [surefire-booter-2.19.1.jar:2.19.1]
+21:38:36.436 [main] INFO  by.khodokevich.web.model.service.Impl.UserServiceImpl - Start register(Map<String, String> userData). User data = {firstName=Ivan, lastName=Ivanov, password=Password1, phone=+375293372547, city=Minsk, isTest=true, psw-repeat=Password1, region=MINSK_REGION, url=http://localhost:8080/, eMail=ivanov@gmail.com}
+21:38:36.438 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
+21:38:36.438 [main] ERROR by.khodokevich.web.model.dao.EntityTransaction - Can't get connection
+by.khodokevich.web.exception.PoolConnectionException: Time out for getting connection.
+	at by.khodokevich.web.model.connection.CustomConnectionPool.getConnection(CustomConnectionPool.java:85) ~[classes/:?]
+	at by.khodokevich.web.model.dao.EntityTransaction.beginSingleQuery(EntityTransaction.java:44) ~[classes/:?]
+	at by.khodokevich.web.model.service.Impl.UserServiceImpl.register(UserServiceImpl.java:64) ~[classes/:?]
+	at by.khodokevich.web.model.service.Impl.UserServiceImplRegistrationTest.testRegister(UserServiceImplRegistrationTest.java:86) ~[test-classes/:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78) ~[?:?]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567) ~[?:?]
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:134) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:597) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:816) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.1.0.jar:?]
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.1.0.jar:?]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
+	at org.testng.TestRunner.privateRun(TestRunner.java:766) [testng-7.1.0.jar:?]
+	at org.testng.TestRunner.run(TestRunner.java:587) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:384) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunner.run(SuiteRunner.java:286) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.1.0.jar:?]
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1109) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.runSuites(TestNG.java:1039) [testng-7.1.0.jar:?]
+	at org.testng.TestNG.run(TestNG.java:1007) [testng-7.1.0.jar:?]
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:132) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.executeMulti(TestNGDirectoryTestSuite.java:193) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.execute(TestNGDirectoryTestSuite.java:94) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:147) [surefire-testng-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:290) [surefire-booter-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:242) [surefire-booter-2.19.1.jar:2.19.1]
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:121) [surefire-booter-2.19.1.jar:2.19.1]
+21:38:36.446 [main] INFO  by.khodokevich.web.model.service.Impl.UserServiceImpl - Start register(Map<String, String> userData). User data = {firstName=Ivan1, lastName=Ivanov, password=Password1, phone=+375293372547, city=Minsk, isTest=true, psw-repeat=Password1, region=MINSK_REGION, url=http://localhost:8080/, eMail=ivanov@gmail.com}
+21:38:36.455 [main] INFO  by.khodokevich.web.model.service.Impl.UserServiceImpl - Start register(Map<String, String> userData). User data = {firstName=Ivan, lastName=Ivanov, password=Password, phone=+375293372547, city=Minsk, isTest=true, psw-repeat=Password, region=MINSK_REGION, url=http://localhost:8080/, eMail=ivanov@gmail.com}

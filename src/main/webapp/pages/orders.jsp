@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="abs_path">${pageContext.request.contextPath}</c:set>
@@ -43,7 +43,7 @@ flex-direction: column;">
             <div class="flex-column custom-card" style="width: 380px;">
                 <p class="fs-5 fw-semibold">${text_order_specializations}</p>
                 <form action="/controller" method="post" class="list-group list-group-flush border-bottom scrollarea">
-                    <c:forEach var="specialization" items="${sessionScope.specializationList}">
+                    <c:forEach var="specialization" items="${applicationScope.specializationList}">
                         <c:if test="${specialization != null}">
                             <fmt:message key="${specialization.key}" var="text_specialization"/>
                             <div class="form-check">
@@ -71,12 +71,12 @@ flex-direction: column;">
                     </div>
                 </c:when>
                 <c:when test="${sessionScope.orderList.size() gt 0}">
-                    <div class="list-group">
+                    <div  id="listElement" class="list-group">
                         <c:forEach var="order" items="${sessionScope.orderList}">
                             <c:if test="${order != null}">
                                 <a href="/controller?command=find_order_info_details&orderId=${order.orderId}"
                                    class="flex-column custom-card mb-2">
-                                    <p class="date-to-format" style="text-align: right; font-size: 14px; margin-bottom: 0px">${order.creationDate.time}</p>
+                                    <p class="date-to-format" style="text-align: right; font-size: 14px; margin-bottom: 0">${order.creationDate.time}</p>
                                     <div class="d-flex w-100 justify-content-between">
                                         <p class="mb-1 " style="font-weight: bold">${order.title}</p>
                                     </div>
@@ -90,8 +90,51 @@ flex-direction: column;">
                 </c:when>
             </c:choose>
         </div>
+        <nav aria-label="...">
+            <ul id="pagination" class="pagination">
+                <li class="page-item disabled">
+                    <span class="page-link">Previous</span>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item active" aria-current="page">
+                    <span class="page-link">2</span>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
+
+<%--<script>--%>
+<%--    let dataOrders = [${sessionScope.orderList}];--%>
+<%--    let  listElements = document.querySelector('#table');--%>
+<%--    let  items = document.querySelectorAll('#pagination li');--%>
+
+<%--    let  notesOnPage = 3;--%>
+
+<%--    for (let item of items) {--%>
+<%--        item.addEventListener('click', function () {--%>
+<%--            let  pageNum = +this.innerHTML;--%>
+<%--            /*--%>
+
+<%--             */--%>
+
+<%--            let startIndex = notesOnPage * (pageNum - 1);--%>
+<%--            let endIndex = startIndex + notesOnPage;--%>
+<%--            let notes = dataOrders.slice(startIndex, endIndex);--%>
+
+<%--            for (let note of notes) {--%>
+<%--                let  tr = document.createElement('')--%>
+<%--            }--%>
+<%--        });--%>
+<%--    }--%>
+<%--    function createCell(text, tr) {--%>
+<%--        let td = document.createElement('div')--%>
+<%--    }--%>
+<%--</script>--%>
 
 <footer class="custom-footer">
     <jsp:include page="footer.jsp"/>

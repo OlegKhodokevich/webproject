@@ -1,14 +1,13 @@
 package by.khodokevich.web.validator;
 
-import by.khodokevich.web.service.CheckingResult;
+import by.khodokevich.web.model.service.CheckingResult;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static by.khodokevich.web.command.ParameterAttributeType.*;
-import static org.testng.Assert.*;
+import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
 public class OrderDataValidatorTest {
 

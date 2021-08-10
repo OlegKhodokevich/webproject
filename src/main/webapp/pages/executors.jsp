@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="abs_path">${pageContext.request.contextPath}</c:set>
@@ -53,7 +53,7 @@ background-size: cover">
             <div class="flex-column custom-card" style="width: 300px;">
                 <p class="fs-5 fw-semibold">${text_executor_specializations}</p>
                 <form action="/controller" method="post" class="list-group list-group-flush border-bottom scrollarea">
-                    <c:forEach var="specialization" items="${sessionScope.specializationList}">
+                    <c:forEach var="specialization" items="${applicationScope.specializationList}">
                         <c:if test="${specialization != null}">
                             <fmt:message key="${specialization.key}" var="text_specialization"/>
                             <div class="form-check">

@@ -1,10 +1,9 @@
 package by.khodokevich.web.tag;
 
-import by.khodokevich.web.command.ParameterAttributeType;
-import by.khodokevich.web.entity.User;
-import by.khodokevich.web.entity.UserRole;
+import by.khodokevich.web.controller.command.ParameterAttributeType;
+import by.khodokevich.web.model.entity.User;
+import by.khodokevich.web.model.entity.UserRole;
 import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.tagext.TagSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,11 +15,9 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@SuppressWarnings("serial")
 public class WelcomeMessageTag extends TagSupport {
     public static final boolean isFirst = true;
     private static final Logger logger = LogManager.getLogger(WelcomeMessageTag.class);
-    private ResourceBundle resourceBundle;
     private static final String WELCOME_USER_MESSAGE = "logging.welcome_user";
     private static final Locale DEFAULT_LOCALE = new Locale("ru", "RU");
     private static final String WELCOME_ADMIN_MESSAGE = "logging.welcome_admin";
@@ -32,8 +29,7 @@ public class WelcomeMessageTag extends TagSupport {
     @Override
     public int doStartTag() {
         logger.debug("Start doStartTag().");
-        StringBuffer stringBuffer = new StringBuffer();
-
+        StringBuilder stringBuilder = new StringBuilder();
         HttpSession session = pageContext.getSession();
         User activeUser = (User) session.getAttribute("activeUser");
         String isFirstCustomTag = (String) session.getAttribute("isFirstCustomTag");
@@ -42,6 +38,7 @@ public class WelcomeMessageTag extends TagSupport {
             String lastName = activeUser.getLastName();
             UserRole role = activeUser.getRole();
             String localeString = (String) session.getAttribute(ParameterAttributeType.LOCALE);
+            ResourceBundle resourceBundle;
             if (localeString != null) {
                 Locale currentLocal = parseString(localeString);
                 resourceBundle = ResourceBundle.getBundle(FILE_RESOURCE_NAME, currentLocal);
@@ -50,20 +47,20 @@ public class WelcomeMessageTag extends TagSupport {
             }
             try {
                 if (role == UserRole.ADMIN) {
-                    stringBuffer.append(firstName).append(" ")
+                    stringBuilder.append(firstName).append(" ")
                             .append(lastName).append(" ")
                             .append(resourceBundle.getString(WELCOME_ADMIN_MESSAGE));
                 } else {
-                    stringBuffer.append(firstName).append(" ")
+                    stringBuilder.append(firstName).append(" ")
                             .append(lastName).append(" ")
                             .append(resourceBundle.getString(WELCOME_USER_MESSAGE));
                 }
-                logger.debug("message " + stringBuffer);
-                pageContext.getOut().write("<h1>" + stringBuffer + "<h1>");
+                logger.debug("message " + stringBuilder);
+                pageContext.getOut().write("<h1>" + stringBuilder + "<h1>");
 
                 session.setAttribute("isFirstCustomTag", "false");
             } catch (IOException e) {
-                logger.error("Can't write the message : " + stringBuffer);
+                logger.error("Can't write the message : " + stringBuilder);
             } catch (MissingResourceException e) {
                 logger.error("Wrong property file or localeString");
             }
@@ -72,7 +69,7 @@ public class WelcomeMessageTag extends TagSupport {
     }
 
     @Override
-    public int doEndTag() throws JspException {
+    public int doEndTag() {
         return EVAL_PAGE;
     }
 

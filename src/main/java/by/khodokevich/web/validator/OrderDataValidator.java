@@ -1,7 +1,7 @@
 package by.khodokevich.web.validator;
 
-import by.khodokevich.web.entity.Specialization;
-import by.khodokevich.web.service.CheckingResult;
+import by.khodokevich.web.model.entity.Specialization;
+import by.khodokevich.web.model.service.CheckingResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static by.khodokevich.web.command.ParameterAttributeType.*;
+import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.util.RegexpManager.getRegexp;
 
 public class OrderDataValidator {

@@ -1,7 +1,7 @@
 package by.khodokevich.web.controller.filter;
 
-import by.khodokevich.web.command.PagePath;
-import by.khodokevich.web.command.ParameterAttributeType;
+import by.khodokevich.web.controller.command.PagePath;
+import by.khodokevich.web.controller.command.ParameterAttributeType;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;

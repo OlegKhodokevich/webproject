@@ -1,6 +1,5 @@
 package by.khodokevich.web.util;
 
-import by.khodokevich.web.exception.MailException;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
@@ -30,23 +29,19 @@ public class MailAuthenticator {
         }
     }
 
-    public static void sendEmail(String eMail, String theme, String text) throws MailException {
+    public static void sendEmail(String eMail, String theme, String text) throws MessagingException {
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(properties.getProperty(AGENT_NAME), properties.getProperty(SPECIFY_PASSWORD_NAME_PROPERTIES));
             }
         });
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(properties.getProperty(SPECIFY_E_MAIL_NAME_PROPERTIES)));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(eMail));
-            message.setSubject(theme);
-            message.setText(text);
-            Transport.send(message);
-        } catch (MessagingException e) {
-            logger.error("Can't send ,message to e-mail = " + eMail, e);
-            throw new MailException("Letter hasn't been sent.");
-        }
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(properties.getProperty(SPECIFY_E_MAIL_NAME_PROPERTIES)));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(eMail));
+        message.setSubject(theme);
+        message.setText(text);
+        Transport.send(message);
+
     }
 }
