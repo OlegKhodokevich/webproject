@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="abs_path">${pageContext.request.contextPath}</c:set>
+<%@ taglib prefix="mes" uri="custom tag message writer" %>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="text"/>
@@ -36,6 +37,15 @@ flex-direction: column;">
 </header>
 
 <h1 class="text-title" >${text_order_orders}</h1>
+
+
+<div class="container">
+    <div class="container payment_window pt-1 pb-1">
+        <div class="container">
+            <h2 class="mt-1"><mes:messageTag/></h2>
+        </div>
+    </div>
+</div>
 
 <div class="container">
     <div class="row">
@@ -90,18 +100,19 @@ flex-direction: column;">
                 </c:when>
             </c:choose>
         </div>
-        <nav aria-label="...">
-            <ul id="pagination" class="pagination">
-                <li class="page-item disabled">
-                    <span class="page-link">Previous</span>
+        <nav aria-label="Page navigation area">
+            <ul class="pagination justify-content-center">
+                <li class="page-item ${pageable.isFirstPage() ? 'disabled': ''}">
+                    <a class="page-link"
+                       href="${abs_path}/controller?command=show_all_users&page=${pageable.currentPage - 1}" tabindex="-1">Previous</a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active" aria-current="page">
-                    <span class="page-link">2</span>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
+                <c:forEach var="i" begin="1" end="${pageable.pageCount()}">
+                    <li class="page-item ${pageable.currentPage eq i ? 'active': ''}">
+                        <a class="page-link" href="${abs_path}/controller?command=show_all_users&page=${i}">${i}</a></li>
+                </c:forEach>
+                <li class="page-item ${pageable.isLastPage() ? 'disabled': ''}">
+                    <a class="page-link"
+                       href="${abs_path}/controller?command=show_all_users&page=${pageable.currentPage + 1}">Next</a>
                 </li>
             </ul>
         </nav>
@@ -136,7 +147,7 @@ flex-direction: column;">
 <%--    }--%>
 <%--</script>--%>
 
-<footer class="custom-footer">
+<footer>
     <jsp:include page="footer.jsp"/>
 </footer>
 </body>

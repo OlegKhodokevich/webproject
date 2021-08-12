@@ -20,6 +20,8 @@ public class AccessAdminPageFilter implements Filter {
         HttpSession session = ((HttpServletRequest) servletRequest).getSession();
         if (!((String) session.getAttribute(ACTIVE_USER_ROLE)).equalsIgnoreCase(UserRole.ADMIN.name())){
             ((HttpServletResponse)servletResponse).sendRedirect(PagePath.MAIN_PAGE);
+        } else {
+            filterChain.doFilter(servletRequest, servletResponse);
         }
     }
 }

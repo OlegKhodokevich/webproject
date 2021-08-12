@@ -23,6 +23,10 @@
 <fmt:message key="registration.lastname" var="text_registration_lastname"/>
 <fmt:message key="registration.phone" var="text_registration_phone"/>
 
+<fmt:message key="contract.make_offer" var="text_contract_make_offer"/>
+
+
+
 <html>
 <head>
     <title>${text_order_order_info}</title>
@@ -37,6 +41,8 @@ background-size: cover">
 </header>
 
 <main>
+
+    <form action="${pageContext.request.contextPath}/controller" method="post" class="creation_order_page">
     <div class="row row-cols-1 row-cols-md-3 mb-3 text-left  mt-5">
 
         <div class="col-md-5 offset-md-1">
@@ -59,12 +65,21 @@ background-size: cover">
                         <li class="list-group-item">e-mail : ${sessionScope.eMail}</li>
                     </ul>
                 </div>
+                <c:if test="${sessionScope.activeUserRole eq 'EXECUTOR'}">
+                    <input type="hidden" name="orderId" value="${sessionScope.order.orderId}" style="background-color: #1e7e34">
+                    <input type="hidden" name="command" value="create_offer" >
+                    <%--                <input type="hidden" name="userId" value="${sessionScope.userId}" >--%>
+                    <input type="submit" value="${text_contract_make_offer}">
+
+                </c:if>
             </div>
         </div>
     </div>
+
+    </form>
 </main>
 
-<footer class="custom-footer">
+<footer >
     <jsp:include page="footer.jsp"/>
 </footer>
 </body>

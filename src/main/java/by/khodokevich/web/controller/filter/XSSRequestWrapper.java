@@ -16,14 +16,14 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
     @Override
     public String[] getParameterValues(String name) {
         String[] values = super.getParameterValues(name);
-        if (values == null) {
-            return null;
-        }
-        int length = values.length;
-        String[] encodedValues = new String[length];
-        logger.debug("Encoded values = " + encodedValues);
-        for (int i = 0; i < length; i++) {
-            encodedValues[i] = stripXSS(values[i]);
+        String[] encodedValues = null;
+        if (values != null) {
+            int length = values.length;
+            encodedValues = new String[length];
+            logger.debug("Encoded values = " + encodedValues);
+            for (int i = 0; i < length; i++) {
+                encodedValues[i] = stripXSS(values[i]);
+            }
         }
         return encodedValues;
     }

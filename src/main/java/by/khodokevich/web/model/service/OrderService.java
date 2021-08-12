@@ -21,6 +21,8 @@ public interface OrderService {
 
     void archiveExpiredUsersOrders(List<Order> initialList) throws ServiceException;
 
+    void archiveExpiredUsersOrders(Order order) throws ServiceException;
+
     List<Order> findOrdersBySpecializations(List<Specialization> specializationsString) throws ServiceException;
 
     Map<String, String> createOrder(Map<String, String> orderData) throws ServiceException;

@@ -19,6 +19,10 @@
 <fmt:message key="user.status" var="text_user_status"/>
 <fmt:message key="user.detail" var="text_user_detail"/>
 
+
+<fmt:message key="order.orders" var="text_order_orders"/>
+<fmt:message key="contract.contracts" var="text_contract_contracts"/>
+
 <html>
 <head>
     <title>${text_user_admin_all_user_title}</title>
@@ -42,6 +46,8 @@
         <th scope="col">${text_user_role}</th>
         <th scope="col">${text_user_status}</th>
         <th scope="col">${text_user_detail}</th>
+        <th scope="col">${text_order_orders}</th>
+        <th scope="col">${text_contract_contracts}</th>
     </tr>
     </thead>
     <tbody>
@@ -88,6 +94,27 @@
                     </c:when>
                 </c:choose>
             </td>
+            <td>
+                <c:choose>
+                    <c:when test="${user.role eq 'CUSTOMER'}">
+                        <a class="btn btn-info"
+                           href="/controller?command=find_user_orders&userId=${user.idUser}">${text_order_orders}</a>
+                    </c:when>
+                </c:choose>
+            </td>
+            <td>
+                <c:choose>
+                    <c:when test="${user.role eq 'CUSTOMER'}">
+                        <a class="btn btn-info"
+                           href="/controller?command=find_contract_by_customer_id&userId=${user.idUser}">${text_contract_contracts}</a>
+                    </c:when>
+                    <c:when test="${user.role eq 'EXECUTOR'}">
+                        <a class="btn btn-info"
+                           href="/controller?command=find_contract_by_executor_id&executorId=${user.idUser}">${text_contract_contracts}</a>
+                    </c:when>
+                </c:choose>
+            </td>
+
         </tr>
     </c:forEach>
     <%--    --%>
@@ -160,13 +187,12 @@
 <%--    }--%>
 
 
-
 <%--    function createCell(text, tr) {--%>
 <%--        let td = document.createElement('div')--%>
 <%--    }--%>
 <%--</script>--%>
 
-<footer class="custom-footer">
+<footer>
     <jsp:include page="../footer.jsp"/>
 </footer>
 </body>

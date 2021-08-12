@@ -96,27 +96,29 @@ background-size: cover">
     <c:choose>
         <c:when test="${sessionScope.reason eq 'create'}">
             <div>
-                <input type="hidden" name="command" value="create_order" style="background-color: #1e7e34">
+                <input type="hidden" name="command" value="create_order">
                 <input type="submit" value="${text_order_create}">
             </div>
         </c:when>
         <c:when test="${sessionScope.reason eq 'activate'}">
             <div>
-                <input type="hidden" name="orderId" value="${sessionScope.orderId}" style="background-color: #1e7e34">
-                <input type="hidden" name="command" value="activate_order" style="background-color: #1e7e34">
+                <input type="hidden" name="orderId" value="${sessionScope.orderId}">
+                <input type="hidden" name="command" value="activate_order">
+<%--                <input type="hidden" name="userId" value="${sessionScope.userId}" >--%>
                 <input type="submit" value="${text_order_confirm}">
             </div>
         </c:when>
         <c:when test="${sessionScope.reason eq 'edit'}">
             <div>
                 <input type="hidden" name="orderId" value="${sessionScope.orderId}" style="background-color: #1e7e34">
-                <input type="hidden" name="command" value="edit_order" style="background-color: #1e7e34">
+                <input type="hidden" name="command" value="edit_order" >
+<%--                <input type="hidden" name="userId" value="${sessionScope.userId}" >--%>
                 <input type="submit" value="${text_order_confirm}">
             </div>
         </c:when>
     </c:choose>
 </form>
-<footer class="custom-footer">
+<footer>
     <jsp:include page="../footer.jsp"/>
 </footer>
 </body>

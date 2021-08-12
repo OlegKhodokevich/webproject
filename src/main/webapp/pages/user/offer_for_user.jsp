@@ -64,7 +64,7 @@ background-size: cover">
                                             </p>
                                             <p>
                                                 <a href="/controller?command=find_executor_info_details&executorId=${contract.user.idUser}">
-                                                        ${text_contract_executor}${contract.user.firstName} ${contract.user.lastName}
+                                                        ${text_contract_executor} : ${contract.user.firstName} ${contract.user.lastName}
                                                 </a>
                                             </p>
                                         </div>
@@ -101,7 +101,7 @@ background-size: cover">
 </div>
 
 
-<footer class="custom-footer">
+<footer>
     <jsp:include page="../footer.jsp"/>
 </footer>
 </body>

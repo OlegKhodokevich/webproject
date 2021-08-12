@@ -72,10 +72,10 @@ background-size: cover">
                                         <p class="mb-1">${text_contract_concluded_status}
                                             : ${text_contract_concludedContractStatus}</p>
 
-<%--                                        <fmt:message key="${contract.completionContractStatus.key}"--%>
-<%--                                                     var="text_contract_completionContractStatus"/>--%>
-<%--                                        <p class="mb-1">${text_contract_completion_status}--%>
-<%--                                            : ${text_contract_completionContractStatus}</p>--%>
+                                        <fmt:message key="${contract.completionContractStatus.key}"
+                                                     var="text_contract_completionContractStatus"/>
+                                        <p class="mb-1">${text_contract_completion_status}
+                                            : ${text_contract_completionContractStatus}</p>
                                     </div>
                                     <div class="col wi">
                                         <div class="container">
@@ -107,7 +107,7 @@ background-size: cover">
 </div>
 
 
-<footer class="custom-footer">
+<footer>
     <jsp:include page="../footer.jsp"/>
 </footer>
 </body>

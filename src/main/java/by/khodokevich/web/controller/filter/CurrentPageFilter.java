@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 @WebFilter
 public class CurrentPageFilter implements Filter {
-    private static final Logger logger = LogManager.getLogger(XSSFilter.class);
+    private static final Logger logger = LogManager.getLogger(CurrentPageFilter.class);
     private static final String REFERER = "referer";
     private static final String PATH_REGEX = "/pages.+";
 

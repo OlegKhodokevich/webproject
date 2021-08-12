@@ -78,19 +78,15 @@ background-size: cover">
                                     <div class="col wi">
                                         <div class="container">
                                             <div class="list-group">
-                                                <c:choose>
-                                                    <c:when test="${contract.completionContractStatus eq 'NOT_COMPLETED'}">
-                                                        <a class="btn btn-success custom-button-operation-my-order"
-                                                           href="#"
-                                                           role="button">${text_contract_close_contract}</a>
-                                                    </c:when>
-
-                                                    <%--                                                    <c:when test="${order.status.name() == 'CLOSE'}">--%>
-                                                    <%--                                                        <a class="btn btn-info custom-button-operation-my-order"--%>
-                                                    <%--                                                           href="/controller?command=prepare_activate_order&orderId=${order.orderId}&reason=activate"--%>
-                                                    <%--                                                           role="button">${text_order_activate}</a>--%>
-                                                    <%--                                                    </c:when>--%>
-                                                </c:choose>
+                                                <c:if test="${sessionScope.activeUserId eq contract.user.idUser}">
+                                                    <c:choose>
+                                                        <c:when test="${(sessionScope.activeUserId eq contract.order.userId) && (contract.completionContractStatus eq 'NOT_COMPLETED')}">
+                                                            <a class="btn btn-success custom-button-operation-my-order"
+                                                               href="/controller?command=close_contract&contractId=${contract.idContract}&orderId=${contract.order.orderId}"
+                                                               role="button">${text_contract_close_contract}</a>
+                                                        </c:when>
+                                                    </c:choose>
+                                                </c:if>
                                             </div>
                                         </div>
                                     </div>
@@ -105,7 +101,7 @@ background-size: cover">
 </div>
 
 
-<footer class="custom-footer">
+<footer>
     <jsp:include page="../footer.jsp"/>
 </footer>
 </body>

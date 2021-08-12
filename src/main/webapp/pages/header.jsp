@@ -44,7 +44,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: space-between;">
-            <ul class="navbar-nav border-right ml-5">
+            <ul class="navbar-nav border-right" style="margin-left: 500px">
 
                 <li class="nav-link active text-md-center">
                     <a class="nav-link" href="/controller?command=set_locale&locale=ru_RU" style="color: black">RU</a>
@@ -85,7 +85,7 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li><a class="dropdown-item"
-                                   href="/controller?command=find_my_orders">${text_profile_my_orders}</a></li>
+                                   href="/controller?command=find_user_orders">${text_profile_my_orders}</a></li>
                             <li><a class="dropdown-item" href="/controller?command=find_offer_for_user&userId=${sessionScope.activeUserId}">${text_profile_offer}</a></li>
 
                             <li><a class="dropdown-item" href="/controller?command=find_contract_by_userid&userId=${sessionScope.activeUserId}">${text_profile_my_contracts}</a></li>
@@ -115,9 +115,7 @@
 
                             <li><a class="dropdown-item" href="/controller?command=find_my_offer&executorId=${sessionScope.activeUserId}">${text_profile_my_offer}</a></li>
 
-                            <li><a class="dropdown-item" href="/controller?command=find_contract_by_userid&executorId=${sessionScope.activeUserId}">${text_profile_my_contracts}</a></li>
-
-                            <li><a class="dropdown-item" href="#">${text_profile_my_revokes}</a></li>
+                            <li><a class="dropdown-item" href="/controller?command=find_contract_by_executor_id&executorId=${sessionScope.activeUserId}">${text_profile_my_contracts}</a></li>
 
                             <li>
                                 <hr class="dropdown-divider">

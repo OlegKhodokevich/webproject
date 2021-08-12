@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="mes" uri="custom tag message writer" %>
@@ -41,11 +41,13 @@ height: 100%">
     </div>
 </div>
 
-<a class="btn  btn-success align-content-center text-lg-center mb-2 p-0"
-   href="/controller?command=go_to_creation_order_page"
-   role="button" style="width: 300px; height: 50px; font-size: 22px; margin-left: 300px; padding: 0"> <span
-        style="font-size: 32px">+</span>${text_order_create_order}
-</a>
+<c:if test="${sessionScope.activeUser eq 'CUSTOMER'}">
+    <a class="btn  btn-success align-content-center text-lg-center mb-2 p-0"
+       href="/controller?command=go_to_creation_order_page"
+       role="button" style="width: 300px; height: 50px; font-size: 22px; margin-left: 300px; padding: 0"> <span
+            style="font-size: 32px">+</span>${text_order_create_order}
+    </a>
+</c:if>
 <div class="col">
     <div class="container" style="margin-bottom: 200px;">
         <c:choose>
@@ -59,7 +61,7 @@ height: 100%">
                 <div class="list-group">
                     <c:forEach var="order" items="${sessionScope.orderList}">
                         <c:if test="${order != null}">
-                            <div class="container  custom-card-my-order bg-white m-2">
+                            <div class="custom-card-my-order bg-white">
                                 <div class="row">
                                     <div class="col" style="min-width: 600px">
                                         <a href="/controller?command=find_order_info_details&orderId=${order.orderId}"
@@ -77,31 +79,49 @@ height: 100%">
                                             <input type="hidden" name="orderId" id="orderId" value="${order.orderId}">
                                         </a>
                                     </div>
-                                    <div class="col wi m-1">
-                                        <div class="container mt-4">
-                                            <div class="list-group">
-                                                <c:choose>
-                                                    <c:when test="${order.status.name() eq 'OPEN'}">
-                                                        <a class="btn btn-success custom-button-operation-my-order"
-                                                           href="/controller?command=prepare_activate_order&orderId=${order.orderId}&reason=edit"
-                                                           role="button">${text_order_edit}</a>
-                                                        <a class="btn btn-danger custom-button-operation-my-order"
-                                                           href="/controller?command=archive_order&orderId=${order.orderId}"
-                                                           role="button">${text_order_hide}</a>
-                                                    </c:when>
+                                    <c:if test="${order.status.name() ne 'IN_WORK'}">
 
-                                                    <c:when test="${order.status.name() == 'CLOSE'}">
-                                                        <a class="btn btn-info custom-button-operation-my-order"
-                                                           href="/controller?command=prepare_activate_order&orderId=${order.orderId}&reason=activate"
-                                                           role="button">${text_order_activate}</a>
-                                                    </c:when>
-                                                    <c:when test="${order.status.name() == 'UNDER_CONSIDERATION'}">
-                                                        <p class="text-center ">${text_order_message_go_to_admin}</p>
-                                                    </c:when>
-                                                </c:choose>
+                                        <div class="col wi m-1">
+                                            <div class="container mt-4">
+
+                                                <div class="list-group">
+                                                    <c:if test="${(sessionScope.activeUserRole eq 'ADMIN') || (sessionScope.activeUserId eq order.userId)}">
+
+                                                        <c:choose>
+                                                            <c:when test="${order.status.name() eq 'OPEN'}">
+                                                                <a class="btn btn-success custom-button-operation-my-order"
+                                                                   href="/controller?command=prepare_activate_order&orderId=${order.orderId}&reason=edit"
+                                                                   role="button">${text_order_edit}</a>
+                                                                <a class="btn btn-danger custom-button-operation-my-order"
+                                                                   href="/controller?command=archive_order&orderId=${order.orderId}&userId=${order.userId}"
+                                                                   role="button">${text_order_hide}</a>
+                                                            </c:when>
+                                                            <c:when test="${order.status.name() == 'CLOSE'}">
+                                                                <a class="btn btn-info custom-button-operation-my-order"
+                                                                   href="/controller?command=prepare_activate_order&orderId=${order.orderId}&reason=activate"
+                                                                   role="button">${text_order_activate}</a>
+                                                            </c:when>
+                                                            <c:when test="${order.status.name() == 'UNDER_CONSIDERATION'}">
+                                                                <c:choose>
+                                                                    <c:when test="${sessionScope.activeUserRole ne 'ADMIN'}">
+                                                                        <p class="text-center ">${text_order_message_go_to_admin}</p>
+                                                                    </c:when>
+                                                                    <c:when test="${sessionScope.activeUserRole eq 'ADMIN'}">
+                                                                        <a class="btn btn-info custom-button-operation-my-order"
+                                                                           href="/controller?command=prepare_activate_order&orderId=${order.orderId}&reason=activate"
+                                                                           role="button">${text_order_activate}</a>
+                                                                    </c:when>
+
+                                                                </c:choose>
+
+                                                            </c:when>
+                                                        </c:choose>
+                                                    </c:if>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+
+                                    </c:if>
                                 </div>
                             </div>
                         </c:if>
@@ -112,7 +132,7 @@ height: 100%">
     </div>
 </div>
 
-<footer class="container custom-footer">
+<footer>
     <jsp:include page="../footer.jsp"/>
 </footer>
 </body>

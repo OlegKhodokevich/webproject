@@ -20,7 +20,7 @@ import java.util.*;
 public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     private static final Logger logger = LogManager.getLogger(OrderDaoImpl.class);
 
-    private static final String SQL_SELECT_ALL_ORDER = "SELECT IdOrder, IdUserCustomer, Title, JobDescription, Address, CreationDate, CompletionDate, Specialization, OrderStatus FROM orders JOIN specializations ON orders.IdSpecialization = specializations.IdSpecialization;";
+    private static final String SQL_SELECT_ALL_ORDER_ON_PAGE = "SELECT IdOrder, IdUserCustomer, Title, JobDescription, Address, CreationDate, CompletionDate, Specialization, OrderStatus FROM orders JOIN specializations ON orders.IdSpecialization = specializations.IdSpecialization WHERE OrderStatus = 'open' ORDER BY CreationDate LIMIT ?;";
     private static final String SQL_SELECT_ORDER_ONLY_CONFIRMED_USERS = "SELECT IdOrder, IdUserCustomer, Title, JobDescription, Address, CreationDate, CompletionDate, Specialization, OrderStatus FROM orders JOIN specializations ON orders.IdSpecialization = specializations.IdSpecialization JOIN users ON users.IdUser = orders.IdUserCustomer WHERE users.UserStatus = \"confirmed\";";
     private static final String SQL_SELECT_DEFINED_ORDER = "SELECT IdOrder, IdUserCustomer, Title, JobDescription, Address, CreationDate, CompletionDate, Specialization, OrderStatus FROM orders JOIN specializations ON orders.IdSpecialization = specializations.IdSpecialization WHERE IdOrder = ?;";
     private static final String SQL_SELECT_USERS_ORDERS = "SELECT IdOrder, IdUserCustomer, Title, JobDescription, Address, CreationDate, CompletionDate, Specialization, OrderStatus FROM orders JOIN specializations ON orders.IdSpecialization = specializations.IdSpecialization WHERE IdUserCustomer = ?;";
@@ -35,35 +35,44 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
 
     @Override
     public List<Order> findAll() throws DaoException {
-        logger.info("Start findAll().");
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public List<Order> findAllOrdersOnPage(Pagination pagination) throws DaoException {
+        logger.info("Start findAllOrdersOnPage(Pagination pagination).");
         List<Order> orders = new ArrayList<>();
         SimpleDateFormat parser = new SimpleDateFormat(DATE_PATTERN);
-        try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_ALL_ORDER);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                long orderId = resultSet.getLong(ID_ORDER);
-                long userId = resultSet.getLong(ID_CUSTOMER);
-                String title = resultSet.getString(TITLE);
-                String description = resultSet.getString(JOB_DESCRIPTION);
-                String address = resultSet.getString(ADDRESS);
-                Date creationDate = parser.parse(resultSet.getString(CREATION_DATE));
-                Date completionDate = parser.parse(resultSet.getString(COMPLETION_DATE));
-                Specialization specialization = Specialization.valueOf(resultSet.getString(SPECIALIZATION).toUpperCase());
-                OrderStatus status = OrderStatus.valueOf(resultSet.getString(ORDER_STATUS).toUpperCase());
+        try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_ALL_ORDER_ON_PAGE)){
+//statement.setInt(1, pagination.);
+            try (ResultSet resultSet = statement.executeQuery()) {
 
-                Order order = new OrderBuilder()
-                        .userId(userId)
-                        .orderId(orderId)
-                        .title(title)
-                        .description(description)
-                        .address(address)
-                        .creationDate(creationDate)
-                        .completionDate(completionDate)
-                        .specialization(specialization)
-                        .status(status)
-                        .buildOrder();
-                logger.info("Has found next order = " + order);
-                orders.add(order);
+
+                while (resultSet.next()) {
+                    long orderId = resultSet.getLong(ID_ORDER);
+                    long userId = resultSet.getLong(ID_CUSTOMER);
+                    String title = resultSet.getString(TITLE);
+                    String description = resultSet.getString(JOB_DESCRIPTION);
+                    String address = resultSet.getString(ADDRESS);
+                    Date creationDate = parser.parse(resultSet.getString(CREATION_DATE));
+                    Date completionDate = parser.parse(resultSet.getString(COMPLETION_DATE));
+                    Specialization specialization = Specialization.valueOf(resultSet.getString(SPECIALIZATION).toUpperCase());
+                    OrderStatus status = OrderStatus.valueOf(resultSet.getString(ORDER_STATUS).toUpperCase());
+
+                    Order order = new OrderBuilder()
+                            .userId(userId)
+                            .orderId(orderId)
+                            .title(title)
+                            .description(description)
+                            .address(address)
+                            .creationDate(creationDate)
+                            .completionDate(completionDate)
+                            .specialization(specialization)
+                            .status(status)
+                            .buildOrder();
+                    logger.info("Has found next order = " + order);
+                    orders.add(order);
+                }
             }
         } catch (SQLException e) {
             logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
@@ -260,7 +269,6 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
         logger.info(() -> result ? "Operation was successful. " : " Operation was failed");
         return result;
     }
-
 
 
     @Override

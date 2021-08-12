@@ -32,7 +32,7 @@ background-size: cover">
             <h1 class="display-4 fw-normal"><mes:messageTag/></h1>
             <h1 class="display-4 fw-normal">${text_header_home}</h1>
             <p class="lead fw-normal">${text_main_description}</p>
-            <c:if test="${sessionScope.activeUserRole ne 'GUEST'}">
+            <c:if test="${sessionScope.activeUserRole eq 'GUEST'}">
                 <a class="btn btn-outline-secondary" href="/controller?command=go_to_sign_in">${text_header_logging}</a>
             </c:if>
         </div>
@@ -59,7 +59,7 @@ background-size: cover">
     </div>
 </main>
 
-<footer class="custom-footer">
+<footer>
     <jsp:include page="footer.jsp"/>
 </footer>
 </body>

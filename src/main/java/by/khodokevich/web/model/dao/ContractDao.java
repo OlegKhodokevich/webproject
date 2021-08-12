@@ -8,6 +8,8 @@ import java.util.List;
 public interface ContractDao { //TODO if it been needed
     List<Contract> findContractByIdUserCustomer(long userCustomerId) throws DaoException;
 
+    List<Contract> findContractByIdExecutor(long userExecutorId) throws DaoException;
+
     List<Contract> findOfferByIdExecutor(long executorId) throws DaoException;
 
     boolean setConcludedStatus(long contractId) throws DaoException;
@@ -17,4 +19,8 @@ public interface ContractDao { //TODO if it been needed
     boolean setNotConcludedStatusForDefineContract(long contractId) throws DaoException;
 
     List<Long> findAllContractByOrderId(long userCustomerId) throws DaoException;
+
+    boolean setCompletedStatus(long contractId) throws DaoException;
+
+    boolean createOffer(long orderId, long executorId) throws DaoException;
 }

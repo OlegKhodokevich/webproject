@@ -193,12 +193,12 @@ public class UserServiceImpl implements UserService {
             UserDaoImpl userDao = new UserDaoImpl();
             entityTransaction.beginSingleQuery(userDao);
             optionalUser = userDao.findEntityById(userId);
-            if (optionalUser.isPresent()) {
-                if (optionalUser.get().getStatus() == UserStatus.ARCHIVED) {
-                    optionalUser = Optional.empty();
-                    logger.error("Access error. User's status is archived. User id = " + userId);
-                }
-            }
+//            if (optionalUser.isPresent()) {
+//                if (optionalUser.get().getStatus() == UserStatus.ARCHIVED) {
+//                    optionalUser = Optional.empty();
+//                    logger.error("Access error. User's status is archived. User id = " + userId);
+//                }
+//            }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

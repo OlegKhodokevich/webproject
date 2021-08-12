@@ -62,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
             List<Order> foundedOrders = orderDao.findConfirmedUserOrders();
             Date currentDate = new Date();
             orders = foundedOrders.stream()
-                    .filter((s) -> s.getStatus() == OrderStatus.OPEN && s.getCompletionDate().after(currentDate))
+                    .filter((s) -> s.getStatus() == OrderStatus.OPEN && !s.getCompletionDate().before(currentDate))
                     .toList();
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -121,6 +121,24 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void archiveExpiredUsersOrders(Order order) throws ServiceException {
+        logger.info("Start archiveExpiredUsersOrders(Order order). Order  = " + order);
+        Date currentDate = new Date();
+        try (EntityTransaction transaction = new EntityTransaction()) {
+            OrderDaoImpl orderDao = new OrderDaoImpl();
+            transaction.beginSingleQuery(orderDao);
+            if (order.getStatus() == OrderStatus.OPEN && order.getCompletionDate().before(currentDate)) {
+                if (orderDao.setOrderStatus(order.getOrderId(), OrderStatus.CLOSE)) {
+                    order.setStatus(OrderStatus.CLOSE);
+                }
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+        logger.info("End archiveExpiredUsersOrders(Order order). Order = " + order);
+    }
+
+    @Override
     public List<Order> findOrdersBySpecializations(List<Specialization> specializations) throws ServiceException {
         logger.info("Start findOrdersBySpecializations(List<Specialization> specializations). Specializations = " + specializations);
         List<Order> orders = new ArrayList<>();
@@ -131,7 +149,7 @@ public class OrderServiceImpl implements OrderService {
                 List<Order> transferList = orderDao.findOrdersBySpecialization(specialization);
                 Date currentDate = new Date();
                 orders.addAll(transferList.stream()
-                        .filter((s) -> s.getStatus() == OrderStatus.OPEN && s.getCompletionDate().after(currentDate))
+                        .filter((s) -> s.getStatus() == OrderStatus.OPEN && !s.getCompletionDate().before(currentDate))
                         .toList());
             }
         } catch (DaoException e) {

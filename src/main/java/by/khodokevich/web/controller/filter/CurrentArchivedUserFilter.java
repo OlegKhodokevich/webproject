@@ -20,19 +20,14 @@ public class CurrentArchivedUserFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         Set<Long> archivedUserSet = (Set<Long>) servletRequest.getServletContext().getContext(SET_ARCHIVE_USERS);
-
-        if (!archivedUserSet.isEmpty()) {
-            if (servletRequest.getAttribute(ACTIVE_USER_ID) != null) {
-                long activeUserId = (Long) servletRequest.getAttribute(ACTIVE_USER_ID);
-                if (archivedUserSet.contains(activeUserId)) {
-                    HttpSession session = ((HttpServletRequest)servletRequest).getSession();
-                    session.invalidate();
-                    ((HttpServletResponse)servletResponse).sendRedirect(PagePath.TO_MAIN_PAGE + "?massage=" + MASSAGE_KEY);
-                    archivedUserSet.remove(activeUserId);
-                }
-            }
-
+        Long activeUserId = (Long) servletRequest.getAttribute(ACTIVE_USER_ID);
+        if (!archivedUserSet.isEmpty() && activeUserId != null && archivedUserSet.contains(activeUserId)) {
+            HttpSession session = ((HttpServletRequest) servletRequest).getSession();
+            session.invalidate();
+            archivedUserSet.remove(activeUserId);
+            ((HttpServletResponse) servletResponse).sendRedirect(PagePath.TO_MAIN_PAGE + "?massage=" + MASSAGE_KEY);
+        } else {
+            filterChain.doFilter(servletRequest, servletResponse);
         }
     }
-
 }

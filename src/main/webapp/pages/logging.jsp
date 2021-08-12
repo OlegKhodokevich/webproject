@@ -63,7 +63,7 @@ background-size: cover">
     <br/>
 </form>
 
-<footer class="custom-footer">
+<footer>
     <jsp:include page="footer.jsp"/>
 </footer>
 </body>

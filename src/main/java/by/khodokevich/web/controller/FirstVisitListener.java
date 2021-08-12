@@ -22,7 +22,7 @@ public class FirstVisitListener implements ServletRequestListener {
         if (!request.isRequestedSessionIdValid()) {
             HttpSession session = request.getSession();
             session.setAttribute(ACTIVE_USER_ROLE, UserRole.GUEST.name());
-            logger.debug("Has been st guest's role.");
+            logger.debug("Has been set guest's role.");
         }
     }
 }

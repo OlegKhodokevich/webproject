@@ -39,7 +39,7 @@ background-size: cover">
         <h2 class="mt-1">${text_error_tech_come_later}</h2>
     </div>
 </div>
-<footer class="custom-footer">
+<footer>
     <jsp:include page="footer.jsp"/>
 </footer>
 

@@ -25,7 +25,7 @@ background-size: cover">
 </div>
 
 
-<footer class="custom-footer">
+<footer>
     <jsp:include page="/pages/footer.jsp"/>
 </footer>
 </body>
