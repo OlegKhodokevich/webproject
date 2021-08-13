@@ -26,10 +26,19 @@ This web site helps people to find professional executor, and on the side on coi
 -	Edit personal information (except additional) in the profile
 -	Create orders and manage them (hide, activate and edit)
 -	View his orders and detail information about it
+-	manage offers(dimiss, conclude)
+-	close contract
 3)	Executor
 -	view all executors, and all orders
 -	Search for items by category 
 -	Edit personal information in the profile
+-	offer contract to customer
 4) Admin
 -	Manage users (archived, activate, edit) 
+-	manage orders (hide, activate, edit)
+-	![project_database2](https://user-images.githubusercontent.com/71207387/129384081-913492a2-7f14-4b53-b730-e6fca3bbdcab.png)
+
+
+
+
 
