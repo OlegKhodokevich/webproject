@@ -31,6 +31,7 @@ public class ConcludeContractCommand implements Command {
             contractId = Long.parseLong(contractIdString);
             orderId = Long.parseLong(orderIdString);
             if (contractService.setConcludedStatus(contractId, orderId)) {
+
                 HttpSession session = request.getSession();
                 long activeUser = (Long) session.getAttribute(ACTIVE_USER_ID);
                 router = new Router(PagePath.TO_OFFER + "&userId=" + activeUser, REDIRECT);
@@ -41,7 +42,7 @@ public class ConcludeContractCommand implements Command {
         } catch (NumberFormatException e) {
             logger.error("Can't parse contractId = " + contractIdString, e);
             router = new Router(PagePath.ERROR_PAGE, REDIRECT);
-        }catch (ServiceException e) {
+        } catch (ServiceException e) {
             logger.error("Can't set concludedStatus for contract with id = " + contractId, e);
             router = new Router(PagePath.ERROR_PAGE, REDIRECT);
         }

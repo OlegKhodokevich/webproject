@@ -1,5 +1,6 @@
 package by.khodokevich.web.validator;
 
+import by.khodokevich.web.exception.ServiceException;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -9,7 +10,7 @@ import static org.testng.Assert.*;
 public class OrderDataValidatorSpecializationTest {
 
     @Test(dataProvider = "validate_specialization", groups = {"order_validation"})
-    public void testIsSpecializationValid(String specialization, boolean expectedResult) {
+    public void testIsSpecializationValid(String specialization, boolean expectedResult) throws ServiceException {
         boolean actualResult = OrderDataValidator.isTitleValid(specialization);
 
         Assert.assertEquals(actualResult, expectedResult);

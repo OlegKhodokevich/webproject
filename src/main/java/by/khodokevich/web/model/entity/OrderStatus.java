@@ -7,15 +7,15 @@ public enum OrderStatus {
     IN_WORK(2, "order.in_work");
 
     private final int priority;
-    private  final String key;
+    private final String key;
 
     OrderStatus(int priority, String key) {
         this.priority = priority;
         this.key = key;
     }
 
-    public int getPriority(){
-         return priority;
+    public int getPriority() {
+        return priority;
     }
 
     public String getKey() {

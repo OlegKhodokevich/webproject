@@ -28,7 +28,7 @@ public class ContextListener implements ServletContextListener {
         sce.getServletContext().setAttribute(SPECIALIZATION_LIST, Specialization.getSpecializationList());
         sce.getServletContext().setAttribute(SPECIALIZATION_MAP, Specialization.getSpecializationMap());
         sce.getServletContext().setAttribute(STATUS_LIST, UserStatus.getStatusList());
-        sce.getServletContext().setAttribute(SET_ARCHIVE_USERS, new HashSet<>());
+        sce.getServletContext().setAttribute(SET_ARCHIVE_USERS, new HashSet<Long>());
     }
 
     @Override

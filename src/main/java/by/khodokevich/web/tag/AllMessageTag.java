@@ -27,12 +27,14 @@ public class AllMessageTag extends TagSupport {
         if (keyMessage != null) {
             String localeString = (String) session.getAttribute(ParameterAttributeType.LOCALE);
             ResourceBundle resourceBundle;
+
             if (localeString != null) {
                 Locale currentLocal = parseString(localeString);
                 resourceBundle = ResourceBundle.getBundle(FILE_RESOURCE_NAME, currentLocal);
             } else {
                 resourceBundle = ResourceBundle.getBundle(FILE_RESOURCE_NAME, DEFAULT_LOCALE);
             }
+
             String message = null;
             try {
                 message = resourceBundle.getString(keyMessage);
@@ -60,12 +62,14 @@ public class AllMessageTag extends TagSupport {
         String country;
         if (matcher.find()) {
             language = matcher.group();
+
             if (matcher.find()) {
                 country = matcher.group();
                 locale = new Locale(language, country);
             } else {
                 locale = DEFAULT_LOCALE;
             }
+
         } else {
             locale = DEFAULT_LOCALE;
         }

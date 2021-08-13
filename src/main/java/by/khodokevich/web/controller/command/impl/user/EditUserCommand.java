@@ -17,41 +17,38 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
+import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
+import static by.khodokevich.web.controller.command.Router.RouterType.REDIRECT;
 
-public class EditUserCommand implements Command { //TODO
-
+public class EditUserCommand implements Command {
     private static final Logger logger = LogManager.getLogger(EditUserCommand.class);
 
-    private static final String KEY_SENT_MASSAGE = "registration.message_send_link";
-    private static final String KEY_MESSAGE_DATA_NOT_CORRECT = "registration.message_data_not_correct";
-    private static final String KEY_MESSAGE_DUPLICATE_EMAIL = "registration.message_duplicate_email";
-    private static final String KEY_MESSAGE_DUPLICATE_PHONE = "registration.message_duplicate_phone";
-    private static final String KEY_MESSAGE_DUPLICATE_PHONE_AND_PHONE = "registration.message_duplicate_email_and_phone";
     private static final String EMPTY_VALUE = "";
-    private static final String MASSAGE_LETTER_NOT_SENT = "mail_sender.letter_not_send";
-    private static final String MASSAGE_USER_UNKNOWN = "error.user_unknown_old_password_wrong";
-    public static final String VALUE_CHANGE_PASSWORD = "on";
+    private static final String VALUE_CHANGE_PASSWORD = "on";
 
     @Override
     public Router execute(HttpServletRequest request) {
-
         logger.info("Start EditUserCommand.");
         Router router;
         Map<String, String> userData = RequestData.getRequestUserData(request);
-        UserService userService = ServiceProvider.USER_SERVICE;
         Map<String, String> answerMap;
         CheckingResult resultOperation;
         HttpSession session = request.getSession();
-        String changePassword = request.getParameter(CHANGE_PASSWORD);
+
         try {
+            UserService userService = ServiceProvider.USER_SERVICE;
+            String changePassword = request.getParameter(CHANGE_PASSWORD);
+
             if (changePassword == null || !changePassword.equalsIgnoreCase(VALUE_CHANGE_PASSWORD)) {
                 answerMap = userService.updateUserWithoutPassword(userData);
             } else {
                 answerMap = userService.updateUser(userData);
             }
+
             String result = answerMap.get(RESULT);
             if (result != null) {
+
                 resultOperation = CheckingResult.valueOf(result);
                 switch (resultOperation) {
                     case SUCCESS:
@@ -152,11 +149,14 @@ public class EditUserCommand implements Command { //TODO
                 logger.error("Result check data is incorrect." + answerMap);
                 router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
             }
+
         } catch (ServiceException e) {
             logger.error("User hasn't been updated", e);
             router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
+        } catch (NumberFormatException e) {
+            logger.error("Can't parse userId.");
+            router = new Router(PagePath.ERROR_PAGE, REDIRECT);
         }
-
         return router;
     }
 }

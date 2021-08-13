@@ -15,14 +15,13 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static by.khodokevich.web.controller.command.InformationMessage.*;
+
 public class WelcomeMessageTag extends TagSupport {
     public static final boolean isFirst = true;
     private static final Logger logger = LogManager.getLogger(WelcomeMessageTag.class);
-    private static final String WELCOME_USER_MESSAGE = "logging.welcome_user";
     private static final Locale DEFAULT_LOCALE = new Locale("ru", "RU");
-    private static final String WELCOME_ADMIN_MESSAGE = "logging.welcome_admin";
     private static final String REGEXP_LANGUAGE = "\\p{Alpha}{2}";
-
     private static final String FILE_RESOURCE_NAME = "text";
 
 

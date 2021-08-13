@@ -53,7 +53,7 @@
     <tbody>
     <c:forEach var="user" items="${sessionScope.userList}" varStatus="loop">
         <tr>
-            <th scope="row">${loop.index + 1}</th>
+            <th scope="row">${sessionScope.pagination.lastIndexBeforeFirstItemOnPage + 1 + loop.index}</th>
             <td>${user.idUser}</td>
             <td>${user.firstName}</td>
             <td>${user.lastName}</td>
@@ -117,26 +117,52 @@
 
         </tr>
     </c:forEach>
-    <%--    --%>
-    <%--    <tr>--%>
-    <%--        <th scope="row">1</th>--%>
-    <%--        <td>Mark</td>--%>
-    <%--        <td>Otto</td>--%>
-    <%--        <td>@mdo</td>--%>
-    <%--    </tr>--%>
-    <%--    <tr>--%>
-    <%--        <th scope="row">2</th>--%>
-    <%--        <td>Jacob</td>--%>
-    <%--        <td>Thornton</td>--%>
-    <%--        <td>@fat</td>--%>
-    <%--    </tr>--%>
-    <%--    <tr>--%>
-    <%--        <th scope="row">3</th>--%>
-    <%--        <td colspan="2">Larry the Bird</td>--%>
-    <%--        <td>@twitter</td>--%>
-    <%--    </tr>--%>
     </tbody>
 </table>
+
+<nav aria-label="Page navigation area">
+    <ul class="pagination justify-content-center">
+        <c:if test="${sessionScope.pagination.currentPage > 1}">
+            <li class="page-item ${sessionScope.pagination.currentPage eq 1 ? 'disabled': ''}">
+                <a class="page-link"
+                   href="/controller?command=all_users&indexPage=${sessionScope.pagination.currentPage - 1}"
+                   tabindex="-1"><<</a>
+            </li>
+        </c:if>
+        <li class="page-item ${sessionScope.pagination.currentPage eq 1 ? 'active': ''}">
+            <a class="page-link" href="/controller?command=all_users&indexPage=${1}">1</a>
+        </li>
+        <c:if test="${sessionScope.pagination.showLeftDivider()}">
+            <li class="page-item disabled}">
+                <a class="page-link disabled" href="">...</a>
+            </li>
+        </c:if>
+        <c:forEach var="i" items="${sessionScope.pagination.listVisiblePage}">
+            <li class="page-item ${sessionScope.pagination.currentPage eq i ? 'active': ''}">
+                <a class="page-link"
+                   href="/controller?command=all_users&indexPage=${i}">${i}</a>
+            </li>
+        </c:forEach>
+        <c:if test="${sessionScope.pagination.showRightDivider()}">
+            <li class="page-item disabled}">
+                <a class="page-link disabled" href="">...</a>
+            </li>
+        </c:if>
+        <c:if test="${sessionScope.pagination.lastPage > 1}">
+            <li class="page-item ${sessionScope.pagination.currentPage eq sessionScope.pagination.lastPage ? 'active': ''}">
+                <a class="page-link"
+                   href="/controller?command=all_users&indexPage=${sessionScope.pagination.lastPage}">${sessionScope.pagination.lastPage}</a>
+            </li>
+        </c:if>
+        <c:if test="${sessionScope.pagination.currentPage < sessionScope.pagination.lastPage}">
+            <li class="page-item ${sessionScope.pagination.currentPage eq sessionScope.pagination.lastPage ? 'disabled': ''}">
+                <a class="page-link"
+                   href="/controller?command=all_users&indexPage=${sessionScope.pagination.currentPage + 1}"
+                   tabindex="-1">>></a>
+            </li>
+        </c:if>
+    </ul>
+</nav>
 
 <%--<script>--%>
 <%--    let users = document.querySelector()${sessionScope.userList};--%>

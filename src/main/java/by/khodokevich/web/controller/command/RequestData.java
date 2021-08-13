@@ -1,8 +1,9 @@
 package by.khodokevich.web.controller.command;
 
-import by.khodokevich.web.model.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +11,10 @@ import java.util.Map;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
 public class RequestData {
+    private static final Logger logger = LogManager.getLogger(RequestData.class);
+
     public static Map<String, String> getRequestOrderData(HttpServletRequest request) {
+        logger.info("Start getRequestOrderData(HttpServletRequest request).");
         String orderId = request.getParameter(ORDER_ID);
         String title = request.getParameter(TITLE);
         String description = request.getParameter(DESCRIPTION);
@@ -19,7 +23,7 @@ public class RequestData {
         String specialization = request.getParameter(SPECIALIZATION);
         HttpSession session = request.getSession();
         String userIdString;
-        if (((String)session.getAttribute(ACTIVE_USER_ROLE)).equalsIgnoreCase("ADMIN")) {
+        if (((String) session.getAttribute(ACTIVE_USER_ROLE)).equalsIgnoreCase("ADMIN")) {
             userIdString = String.valueOf(session.getAttribute(USER_ID));
         } else {
             userIdString = String.valueOf(session.getAttribute(ACTIVE_USER_ID));
@@ -50,6 +54,8 @@ public class RequestData {
         String password = request.getParameter(PASSWORD);
         String repeatedPassword = request.getParameter(REPEATED_PASSWORD);
         String confirmedPassword = request.getParameter(CONFIRMED_PASSWORD);
+
+
         Map<String, String> userData = new HashMap<>();
         userData.put(ACTIVE_USER_ID, activeId);
         userData.put(ACTIVE_USER_ROLE, activeRole);

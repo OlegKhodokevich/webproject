@@ -19,10 +19,8 @@ public class CurrentPageFilter implements Filter {
     private static final String REFERER = "referer";
     private static final String PATH_REGEX = "/pages.+";
 
-
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
     }
 
     @Override
@@ -32,7 +30,7 @@ public class CurrentPageFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession(true);
         String url = request.getHeader(REFERER);
-        String path =substringPathWithRegex(url);
+        String path = substringPathWithRegex(url);
         session.setAttribute(ParameterAttributeType.CURRENT_PAGE, path);
         filterChain.doFilter(servletRequest, servletResponse);
     }
@@ -44,9 +42,11 @@ public class CurrentPageFilter implements Filter {
             Matcher matcher = pattern.matcher(url);
             if (matcher.find()) {
                 path = matcher.group();
-            }else {
+            } else {
                 path = PagePath.MAIN_PAGE;
             }
+        } else {
+            path = PagePath.MAIN_PAGE;
         }
         return path;
     }

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface OrderDao {
 
-    List<Order> findAllOrdersOnPage(Pagination pagination) throws DaoException;
+    List<Order> findAllOpenOrdersOnPage(Pagination pagination) throws DaoException;
 
     List<Order> findConfirmedUserOrders() throws DaoException;
 
@@ -19,5 +19,7 @@ public interface OrderDao {
     List<Order> findUserOrders(long idUser) throws DaoException;
 
     List<Order> findOrdersBySpecialization(Specialization specialization) throws DaoException;
+
+    int findNumberItems() throws DaoException;
 
 }

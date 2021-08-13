@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,12 +25,9 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
     private static final String SQL_DELETE_DEFINED_EXECUTORS_BY_EMAIL = "DELETE FROM users WHERE UserRole = \"executor\" AND EMail = ?;";
     private static final String SQL_INSERT_EXECUTORS = "INSERT INTO users(FirstName, LastName, EMail, Phone, IdRegion, City, UserStatus, UserRole, EncodedPassword) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE_EXECUTORS = "UPDATE users SET FirstName = ?, LastName = ?, EMail = ?, Phone = ?, IdRegion = ?, City = ?, UserStatus = ?, UserRole = ?, EncodedPassword = ? WHERE UserRole = \"executor\" AND IdUser = ?;";
-
     private static final String SQL_SELECT_EXECUTOR_OPTION = "SELECT PersonalFoto, UNP, AverageMark, NumberCompletionContracts, NumberContractsInProgress, DescriptionExecutor FROM executors WHERE IdUserExecutor = ?;";
     private static final String SQL_INSERT_EXECUTOR_OPTION = "INSERT INTO executors(IdUserExecutor, PersonalFoto, UNP, AverageMark, NumberCompletionContracts, NumberContractsInProgress, DescriptionExecutor) VALUES ((SELECT IdUser FROM users WHERE EMail = ?),?, ?, ?, ?, ?, ?)";
-
     private static final String SQL_UPDATE_EXECUTOR_OPTION = "UPDATE executors SET PersonalFoto = ?, UNP = ?, AverageMark = ?, NumberCompletionContracts = ?, NumberContractsInProgress = ?, DescriptionExecutor = ? WHERE IdUserExecutor = ?;";
-
     private static final String SQL_SELECT_SKILLS = "SELECT Specialization, Cost, Measure FROM skills JOIN specializations ON skills.IdSpecialization = specializations.IdSpecialization WHERE IdUserExecutor = ?;";
     private static final String SQL_INSERT_SKILL = "INSERT INTO skills(IdUserExecutor, IdSpecialization, Cost, Measure) VALUES ((SELECT IdUser FROM users JOIN executors ON IdUser = IdUserExecutor WHERE EMail = ?), (SELECT IdSpecialization FROM specializations WHERE Specialization = ?), ?, ?)";
     private static final String SQL_DELETE_SKILL = "DELETE FROM skills WHERE IdUserExecutor = ?;";
@@ -41,6 +39,7 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
 
         try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_EXECUTORS);
              ResultSet resultSet = statement.executeQuery()) {
+
             while (resultSet.next()) {
                 long userId = resultSet.getLong(ID_USER);
                 String firstName = resultSet.getString(FIRSTNAME);
@@ -86,6 +85,7 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
         try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_DEFINED_EXECUTORS)) {
             statement.setLong(1, idExecutor);
             try (ResultSet resultSet = statement.executeQuery()) {
+
                 if (resultSet.next()) {
                     long userId = resultSet.getLong(ID_USER);
                     String firstName = resultSet.getString(FIRSTNAME);
@@ -108,7 +108,6 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
                                 .status(status)
                                 .executorOption(executorOption.get())
                                 .buildExecutor();
-
                         logger.info("Has found next executor = " + executor);
                     }
                 }
@@ -206,13 +205,14 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
             numberUpdatedRows = statement.executeUpdate();
             result = numberUpdatedRows == 1;
             if (result) {
-                updateExecutorOption(entity);
+                result = updateExecutorOption(entity);
             }
         } catch (SQLException e) {
             logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
             throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
         }
-        logger.info(() -> result ? "Operation was successful. " : " Operation was failed");
+        boolean finalResult = result;
+        logger.info(() -> finalResult ? "Operation was successful. " : " Operation was failed");
         return result;
 
     }
@@ -222,6 +222,7 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_EXECUTOR_OPTION)) {
             statement.setLong(1, idUserExecutor);
             try (ResultSet resultSet = statement.executeQuery()) {
+
                 if (resultSet.next()) {
                     String urlPersonalFoto = resultSet.getString(PERSONAL_FOTO);
                     String unp = resultSet.getString(UNP);
@@ -245,6 +246,7 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
                     executorOption = Optional.empty();
                 }
             }
+
         } catch (SQLException e) {
             logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
             throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
@@ -258,6 +260,7 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
         try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_SKILLS)) {
             statement.setLong(1, IdUserExecutor);
             try (ResultSet resultSet = statement.executeQuery()) {
+
                 while (resultSet.next()) {
                     String specializationString = resultSet.getString(SPECIALIZATION);
                     Specialization specialization = Specialization.valueOf(specializationString.toUpperCase());
@@ -307,21 +310,23 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
     private boolean createExecutorSkills(Executor entity) throws DaoException {
         List<Skill> skills = entity.getExecutorOption().getSkills();
         logger.info("Start createExecutorSkills(Connection connection, Executor entity)." + entity);
-        int numberUpdatedRows = 0;
-        for (int i = 0; i < skills.size(); i++) {
+        int [] numberUpdatedRows;
+
             try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_SKILL)) {
-                Skill skill = skills.get(i);
-                statement.setString(1, entity.getEMail());
-                statement.setString(2, skill.getSpecialization().name().toLowerCase());
-                statement.setString(3, skill.getCost());
-                statement.setString(4, skill.getMeasure().name().toLowerCase());
-                numberUpdatedRows = numberUpdatedRows + statement.executeUpdate();
+                for (Skill skill : skills) {
+                    statement.setString(1, entity.getEMail());
+                    statement.setString(2, skill.getSpecialization().name().toLowerCase());
+                    statement.setString(3, skill.getCost());
+                    statement.setString(4, skill.getMeasure().name().toLowerCase());
+                    statement.addBatch();
+                }
+                numberUpdatedRows = statement.executeBatch();
             } catch (SQLException e) {
                 logger.error("Prepare statement can't be take from connection." + e.getMessage());
                 throw new DaoException("Prepare statement can't be take from connection." + e.getMessage());
             }
-        }
-        boolean result = numberUpdatedRows == skills.size();
+
+        boolean result = Arrays.stream(numberUpdatedRows).allMatch(s -> s == 1);
         logger.info(() -> result ? "Operation was successful. " : " Operation was failed.");
         return result;
     }
@@ -330,6 +335,7 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
         logger.info("Start updateExecutorOption(Connection connection, Executor entity)." + entity);
         ExecutorOption executorOption = entity.getExecutorOption();
         int numberUpdatedRows;
+        boolean result;
         try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_EXECUTOR_OPTION)) {
             statement.setString(1, executorOption.getUrlPersonalFoto());
             statement.setString(2, executorOption.getUnp());
@@ -345,7 +351,7 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
             logger.error("Prepare statement can't be take from connection." + e.getMessage());
             throw new DaoException("Prepare statement can't be take from connection." + e.getMessage());
         }
-        boolean result = numberUpdatedRows == 1;
+        result = numberUpdatedRows == 1;
         logger.info(() -> result ? "Operation was successful. " : " Operation was failed.");
         return result;
     }

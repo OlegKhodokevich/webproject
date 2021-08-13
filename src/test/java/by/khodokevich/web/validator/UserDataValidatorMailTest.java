@@ -1,5 +1,6 @@
 package by.khodokevich.web.validator;
 
+import by.khodokevich.web.exception.ServiceException;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -9,7 +10,7 @@ import static org.testng.Assert.*;
 public class UserDataValidatorMailTest {
 
     @Test(dataProvider = "validate_e_mail", groups = {"user_validation"})
-    public void testIsEMailValid(String eMail, boolean expectedResult) {
+    public void testIsEMailValid(String eMail, boolean expectedResult) throws ServiceException {
         boolean actualResult =  UserDataValidator.isEMailValid(eMail);
 
         Assert.assertEquals(actualResult, expectedResult);

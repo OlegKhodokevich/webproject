@@ -1,5 +1,6 @@
 package by.khodokevich.web.validator;
 
+import by.khodokevich.web.exception.ServiceException;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -9,7 +10,7 @@ import static org.testng.Assert.*;
 public class UserDataValidatorPasswordTest {
 
     @Test(dataProvider = "validate_password", groups = {"user_validation"})
-    public void testIsPasswordValid(String password, boolean expectedResult) {
+    public void testIsPasswordValid(String password, boolean expectedResult) throws ServiceException {
         boolean actualResult = UserDataValidator.isPasswordValid(password);
 
         Assert.assertEquals(actualResult, expectedResult);

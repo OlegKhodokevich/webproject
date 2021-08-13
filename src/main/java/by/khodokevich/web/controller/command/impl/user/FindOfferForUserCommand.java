@@ -25,11 +25,11 @@ public class FindOfferForUserCommand implements Command {
         logger.info("Start FindOfferForUserCommand;");
         Router router;
 
-        ContractService contractService = ServiceProvider.CONTRACT_SERVICE;
-        String userIdString = request.getParameter(USER_ID);
         HttpSession session = request.getSession();
         try {
+            String userIdString = request.getParameter(USER_ID);
             long userId = Long.parseLong(userIdString);
+            ContractService contractService = ServiceProvider.CONTRACT_SERVICE;
             List<Contract> contracts = contractService.findUnderConsiderationContractByUserCustomerId(userId);
             logger.info(" ContractList = " + contracts);
             session.setAttribute(CONTRACT_LIST, contracts);

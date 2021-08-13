@@ -22,7 +22,6 @@ public class CustomConnectionPool {
 
     private static final int DEFAULT_POOL_SIZE = 8;
     private static final int MAX_NUMBER_ADDITIONAL_CONNECTION_ATTEMPT = 3;
-    //    private static final int MAX_WAITING_TIME_GET_CONNECTION_SECONDS = 5;
     private static final int TIME_FOR_WAIT_WHEN_CONNECTION_PROVIDER_WORK_MICROSECONDS = 500;
     private static final AtomicBoolean isInitialized = new AtomicBoolean(false);
 
@@ -71,6 +70,7 @@ public class CustomConnectionPool {
         logger.info("Start getConnection(). freeConnections.size() = " + freeConnections.size() + "   busyConnections.size() " + busyConnections.size());
         stopGiveTakeConnectionWhenConnectionProviderRun();
         try {
+
             if (semaphore.tryAcquire()) {
                 logger.debug("After" + semaphore.availablePermits());
                 ProxyConnection connection = freeConnections.take();
@@ -78,6 +78,7 @@ public class CustomConnectionPool {
                 logger.info("Connection has given.");
                 return connection;
             }
+
         } catch (InterruptedException e) {
             logger.error("Cannot take or put connection" + e.getMessage());
             Thread.currentThread().interrupt();
@@ -90,12 +91,14 @@ public class CustomConnectionPool {
         stopGiveTakeConnectionWhenConnectionProviderRun();
         if (connection instanceof ProxyConnection proxyConnection) {
             try {
+
                 if (busyConnections.remove(proxyConnection)) {
                     freeConnections.put(proxyConnection);
                     semaphore.release();
                 } else {
                     logger.error("Can't put in pool connection because connection is't valid.");
                 }
+
             } catch (InterruptedException e) {
                 logger.error("Cannot put connection" + e.getMessage());
                 Thread.currentThread().interrupt();
@@ -112,6 +115,7 @@ public class CustomConnectionPool {
 
         int sizeBusyConnectionList = busyConnections.size();
         for (int i = 0; i < sizeBusyConnectionList; i++) {
+
             try {
                 ProxyConnection proxyConnection = busyConnections.take();
                 freeConnections.put(proxyConnection);
@@ -124,9 +128,11 @@ public class CustomConnectionPool {
         }
         logger.debug("free before = " + freeConnections.size());
         int sizeFreeConnectionList = freeConnections.size();
+
         for (int i = 0; i < sizeFreeConnectionList; i++) {
             logger.debug("i = " + i);
             logger.debug("free = " + freeConnections.size());
+
             try {
                 freeConnections.take().reallyClose();
                 logger.debug("free = " + freeConnections.size());
@@ -146,13 +152,17 @@ public class CustomConnectionPool {
         BlockingDeque<ProxyConnection> temptConnections = new LinkedBlockingDeque<>();
         int connectionPoolSize;
         connectionPoolSize = (freeConnections.size() + busyConnections.size());
+
         if (connectionPoolSize == 0) {
             logger.fatal("Connections pool is empty.");
             throw new RuntimeException("Connections pool is empty.");
         }
+
         logger.info("Number connections in pool = " + connectionPoolSize);
         int freeConnectionsSize = freeConnections.size();
+
         for (int i = 0; i < freeConnectionsSize; i++) {
+
             try {
                 ProxyConnection connection = freeConnections.take();
                 if (connection.isValid(1)) {
@@ -166,9 +176,11 @@ public class CustomConnectionPool {
             } catch (SQLException e) {
                 logger.error("Can't check connection." + e.getMessage());
             }
+
         }
         int temptConnectionsSize = temptConnections.size();
         for (int i = 0; i < temptConnectionsSize; i++) {
+
             try {
                 ProxyConnection connection = temptConnections.take();
                 freeConnections.put(connection);
@@ -183,7 +195,7 @@ public class CustomConnectionPool {
         int numberMissingPermits = freeConnections.size() - semaphore.availablePermits();
         if (numberMissingPermits > 0) {
             semaphore.release(numberMissingPermits);
-        } else if (!semaphore.tryAcquire(Math.abs(numberMissingPermits))){
+        } else if (!semaphore.tryAcquire(Math.abs(numberMissingPermits))) {
             logger.error("Can't acquire semaphore.");
         }
         return result;
@@ -197,6 +209,7 @@ public class CustomConnectionPool {
         logger.info("Start addConnectionsToPool(). Number connections in pool = " + connectionPoolSize);
 
         while (connectionPoolSize < DEFAULT_POOL_SIZE & count < MAX_NUMBER_ADDITIONAL_CONNECTION_ATTEMPT) {
+
             try {
                 Connection connection = ConnectionFactory.createConnection();
                 ProxyConnection proxyConnection = new ProxyConnection(connection);

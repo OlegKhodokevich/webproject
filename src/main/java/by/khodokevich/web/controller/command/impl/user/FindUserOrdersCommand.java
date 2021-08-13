@@ -5,11 +5,8 @@ import by.khodokevich.web.controller.command.PagePath;
 import by.khodokevich.web.controller.command.ParameterAttributeType;
 import by.khodokevich.web.controller.command.Router;
 import by.khodokevich.web.model.entity.Order;
-import by.khodokevich.web.model.entity.User;
-import by.khodokevich.web.model.entity.UserStatus;
 import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.model.service.OrderService;
-import by.khodokevich.web.model.service.UserService;
 import by.khodokevich.web.model.service.ServiceProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -24,22 +21,18 @@ import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 public class FindUserOrdersCommand implements Command {
     private static final Logger logger = LogManager.getLogger(FindUserOrdersCommand.class);
 
-
     @Override
     public Router execute(HttpServletRequest request) {
+        logger.info("Start FindUserOrdersCommand.");
         Router router;
-
-        OrderService orderService = ServiceProvider.ORDER_SERVICE;
-
-        HttpSession session = request.getSession();
-
-        String userIdString = request.getParameter(USER_ID);
-        if (userIdString == null || userIdString.isEmpty()) {
-            userIdString = String.valueOf(session.getAttribute(USER_ID));
-        }
-
         try {
+            String userIdString = request.getParameter(USER_ID);
+            HttpSession session = request.getSession();
+            if (userIdString == null || userIdString.isEmpty()) {
+                userIdString = String.valueOf(session.getAttribute(ACTIVE_USER_ID));
+            }
             long userId = Long.parseLong(userIdString);
+            OrderService orderService = ServiceProvider.ORDER_SERVICE;
             List<Order> orderList = orderService.findUsersOrders(userId);
             orderService.archiveExpiredUsersOrders(orderList);
             orderList.sort(Comparator.comparingInt(o -> o.getStatus().getPriority()));
@@ -50,9 +43,12 @@ public class FindUserOrdersCommand implements Command {
         } catch (NumberFormatException e) {
             logger.error("UserId has incorrect format", e);
             router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
+        } catch (NullPointerException e) {
+            logger.error("Active UserId is null", e);
+            router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
         } catch (ServiceException e) {
             logger.error("Can't find all orders", e);
-            router = new Router(PagePath.TO_ERROR_PAGE, Router.RouterType.REDIRECT);
+            router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
         }
         return router;
     }

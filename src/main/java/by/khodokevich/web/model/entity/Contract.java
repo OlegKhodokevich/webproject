@@ -2,6 +2,11 @@ package by.khodokevich.web.model.entity;
 
 import java.util.Objects;
 
+/**
+ * Contract is the main entity we'll be using to outlining contract between customer and executor
+ *
+ * @author Oleg Khodokevich
+ */
 public class Contract extends Entity {
     private long idContract;
     private Order order;
@@ -42,11 +47,13 @@ public class Contract extends Entity {
 
     public Contract() {
     }
+
     public Contract(long idContract, ConcludedContractStatus concludedContractStatus, CompletionContractStatus completionContractStatus) {
         this.idContract = idContract;
         this.concludedContractStatus = concludedContractStatus;
         this.completionContractStatus = completionContractStatus;
     }
+
     public Contract(long idContract, Order order, User user, ConcludedContractStatus concludedContractStatus, CompletionContractStatus completionContractStatus) {
         this.idContract = idContract;
         this.order = order;
@@ -92,22 +99,25 @@ public class Contract extends Entity {
     }
 
     @Override
-    public boolean equals(Object o) {       //TODO
+    public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Contract)) return false;
-        Contract contract = (Contract) o;
-        return getIdContract() == contract.getIdContract() && Objects.equals(getOrder(), contract.getOrder()) && Objects.equals(getUser(), contract.getUser()) && getConcludedContractStatus() == contract.getConcludedContractStatus() && getCompletionContractStatus() == contract.getCompletionContractStatus();
+        if (!(o instanceof Contract contract)) return false;
+        return getIdContract() == contract.getIdContract() && getOrder().equals(contract.getOrder()) && getUser().equals(contract.getUser()) && getConcludedContractStatus() == contract.getConcludedContractStatus() && getCompletionContractStatus() == contract.getCompletionContractStatus();
     }
 
     @Override
-    public int hashCode() {         //TODO
-        return Objects.hash(getIdContract(), getOrder(), getUser(), getConcludedContractStatus(), getCompletionContractStatus());
+    public int hashCode() {
+        int result = (int) getIdContract() * 31 + order.hashCode();
+        result = result * 31 + order.hashCode();
+        result = result * 31 + completionContractStatus.ordinal();
+        result = result * 31 + concludedContractStatus.ordinal();
+        return result;
     }
 
     @Override
-    public String toString() {      //TODO
-        final StringBuilder sb = new StringBuilder("Contract{");
-        sb.append("idContract=").append(idContract);
+    public String toString() {
+        final StringBuilder sb = new StringBuilder(getClass().getSimpleName());
+        sb.append("{idContract=").append(idContract);
         sb.append(", order=").append(order);
         sb.append(", user=").append(user);
         sb.append(", concludedContractStatus=").append(concludedContractStatus);

@@ -15,30 +15,28 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
+import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.MESSAGE;
 
 public class EditOrderCommand implements Command {
-
     private static final Logger logger = LogManager.getLogger(EditOrderCommand.class);
-
-    public static final String KEY_ORDER_EDIT = "order.message_edit";
-    public static final String KEY_DATA_INCORRECT = "order.message_data_incorrect";
-    public static final String KEY_UNKNOWN_USER = "order.message_user_unknown";
 
     @Override
     public Router execute(HttpServletRequest request) {
         logger.info("Start EditOrderCommand.");
         Router router;
-        OrderService orderService = ServiceProvider.ORDER_SERVICE;
         Map<String, String> orderData = RequestData.getRequestOrderData(request);
         HttpSession session = request.getSession();
 
         try {
+            OrderService orderService = ServiceProvider.ORDER_SERVICE;
             Map<String, String> answerMap = orderService.updateOrder(orderData);
             String operationResultString = answerMap.get(RESULT);
             CheckingResult resultOperation;
+
             if (operationResultString != null) {
+
                 resultOperation = CheckingResult.valueOf(operationResultString);
                 switch (resultOperation) {
                     case SUCCESS -> {
@@ -65,10 +63,12 @@ public class EditOrderCommand implements Command {
                         throw new EnumConstantNotPresentException(CheckingResult.class, resultOperation.name());
                     }
                 }
+
             } else {
                 logger.error("Result check data is incorrect." + answerMap);
                 router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
             }
+
         } catch (ServiceException e) {
             logger.error("Can't edit order", e);
             router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);

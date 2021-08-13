@@ -17,18 +17,25 @@ public class ActivateUserCommand implements Command {
 
     @Override
     public Router execute(HttpServletRequest request) {
+        logger.info("Start ActivateUserCommand.");
         Router router;
         CheckingResult resultOperation;
-
         String eMail = request.getParameter(E_MAIL);
         String token = request.getParameter(TOKEN);
-        UserService userService = ServiceProvider.USER_SERVICE;
+
         try {
-            resultOperation = userService.activateUser(eMail, token);
+            if (eMail != null && token != null) {
+                UserService userService = ServiceProvider.USER_SERVICE;
+                resultOperation = userService.activateUser(eMail, token);
+            } else {
+                logger.error("Parameter is null. Email = " + eMail + " , token = " + token);
+                resultOperation = CheckingResult.ERROR;
+            }
         } catch (ServiceException e) {
             logger.error("Can't activate user. Email = " + eMail);
             resultOperation = CheckingResult.ERROR;
         }
+
         switch (resultOperation) {
             case SUCCESS -> {
                 request.setAttribute(ParameterAttributeType.USER_MESSAGE, InformationMessage.USER_ACTIVATE);

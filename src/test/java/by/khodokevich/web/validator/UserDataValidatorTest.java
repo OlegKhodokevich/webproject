@@ -1,5 +1,6 @@
 package by.khodokevich.web.validator;
 
+import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.model.service.CheckingResult;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -13,7 +14,7 @@ import static by.khodokevich.web.controller.command.ParameterAttributeType.REPEA
 public class UserDataValidatorTest {
 
     @Test(groups = {"user_validation"})
-    public void testCheckUserData1() {
+    public void testCheckUserData1() throws ServiceException {
         Map<String,String> userData = new HashMap<>();
         userData.put(FIRST_NAME, "Ivan");
         userData.put(LAST_NAME, "Ivanov");
@@ -32,7 +33,7 @@ public class UserDataValidatorTest {
     }
 
     @Test(groups = {"user_validation"})
-    public void testCheckUserData2() {
+    public void testCheckUserData2() throws ServiceException {
         Map<String,String> userData = new HashMap<>();
         userData.put(FIRST_NAME, "Иван");
         userData.put(LAST_NAME, "Иванов");
@@ -51,7 +52,7 @@ public class UserDataValidatorTest {
     }
 
     @Test(groups = {"user_validation"})
-    public void testCheckUserData3() {
+    public void testCheckUserData3() throws ServiceException {
         Map<String,String> userData = new HashMap<>();
         userData.put(FIRST_NAME, "Иван1");
         userData.put(LAST_NAME, "Иванов");
@@ -75,7 +76,7 @@ public class UserDataValidatorTest {
     }
 
     @Test(groups = {"user_validation"})
-    public void testCheckUserData4() {
+    public void testCheckUserData4() throws ServiceException {
         Map<String,String> userData = new HashMap<>();
         userData.put(FIRST_NAME, "Иван1");
         userData.put(LAST_NAME, "Иванов1");
@@ -98,7 +99,7 @@ public class UserDataValidatorTest {
     }
 
     @Test(groups = {"user_validation"})
-    public void testCheckUserData5() {
+    public void testCheckUserData5() throws ServiceException {
         Map<String,String> userData = new HashMap<>();
         userData.put(FIRST_NAME, "Иван");
         userData.put(LAST_NAME, "Иванов1");
@@ -120,7 +121,7 @@ public class UserDataValidatorTest {
     }
 
     @Test(groups = {"user_validation"})
-    public void testCheckUserData6() {
+    public void testCheckUserData6() throws ServiceException {
         Map<String,String> userData = new HashMap<>();
         userData.put(FIRST_NAME, "Иван");
         userData.put(LAST_NAME, "Иванов");
@@ -144,7 +145,7 @@ public class UserDataValidatorTest {
     }
 
     @Test(groups = {"user_validation"})
-    public void testCheckUserData7() {
+    public void testCheckUserData7() throws ServiceException {
         Map<String,String> userData = new HashMap<>();
         userData.put(FIRST_NAME, "Иван");
         userData.put(LAST_NAME, "Иванов");
@@ -169,7 +170,7 @@ public class UserDataValidatorTest {
     }
 
     @Test(groups = {"user_validation"})
-    public void testCheckUserData8() {
+    public void testCheckUserData8() throws ServiceException {
         Map<String,String> userData = new HashMap<>();
         userData.put(FIRST_NAME, "Иван");
         userData.put(LAST_NAME, "Иванов");
@@ -194,7 +195,7 @@ public class UserDataValidatorTest {
     }
 
     @Test(groups = {"user_validation"})
-    public void testCheckUserData9() {
+    public void testCheckUserData9() throws ServiceException {
         Map<String,String> userData = new HashMap<>();
         userData.put(FIRST_NAME, "Иваннннннннннннннннннннннннннннннннннннннннннннн");
         userData.put(LAST_NAME, "Иванов");

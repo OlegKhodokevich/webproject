@@ -14,25 +14,23 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 
+import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
 public class PrepareEditUserCommand implements Command {
     private static final Logger logger = LogManager.getLogger(PrepareEditUserCommand.class);
-
-    private static final String USER_NOT_FOUND = "user.user_not_found";
-    private static final String EDIT_REST_DATA = "executor.edit_info";
-
 
     @Override
     public Router execute(HttpServletRequest request) {
         logger.info("Start PrepareEditUserCommand.");
         Router router;
 
-        long userId = Long.parseLong(request.getParameter(USER_ID));
-        UserService userService = ServiceProvider.USER_SERVICE;
         HttpSession session = request.getSession();
         try {
+            long userId = Long.parseLong(request.getParameter(USER_ID));
+            UserService userService = ServiceProvider.USER_SERVICE;
             Optional<User> optionalUser = userService.findDefineUser(userId);
+
             if (optionalUser.isPresent()) {
                 User user = optionalUser.get();
                 session.setAttribute(USER_ID, user.getIdUser());
@@ -51,8 +49,12 @@ public class PrepareEditUserCommand implements Command {
                 session.setAttribute(MESSAGE, USER_NOT_FOUND);
                 router = new Router(CURRENT_PAGE, Router.RouterType.REDIRECT);
             }
+
         } catch (ServiceException e) {
             logger.error("User can't be prepared for editing", e);
+            router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
+        } catch (NumberFormatException e) {
+            logger.error("UserId has incorrect format", e);
             router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
         }
 

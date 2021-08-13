@@ -2,16 +2,12 @@ package by.khodokevich.web.model.service.Impl;
 
 import by.khodokevich.web.exception.DaoException;
 import by.khodokevich.web.exception.ServiceException;
-import by.khodokevich.web.model.dao.AbstractDao;
-import by.khodokevich.web.model.dao.ContractDao;
 import by.khodokevich.web.model.dao.EntityTransaction;
 import by.khodokevich.web.model.dao.impl.ContractDaoImpl;
+import by.khodokevich.web.model.dao.impl.ExecutorDaoImpl;
 import by.khodokevich.web.model.dao.impl.OrderDaoImpl;
 import by.khodokevich.web.model.dao.impl.UserDaoImpl;
-import by.khodokevich.web.model.entity.Contract;
-import by.khodokevich.web.model.entity.Order;
-import by.khodokevich.web.model.entity.OrderStatus;
-import by.khodokevich.web.model.entity.User;
+import by.khodokevich.web.model.entity.*;
 import by.khodokevich.web.model.service.ContractService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,6 +41,7 @@ public class ContractServiceImpl implements ContractService {
             transaction.begin(contractDao, orderDao, userDao);
             List<Contract> allUserContracts = contractDao.findContractByIdUserCustomer(userCustomerId);
             contracts = allUserContracts.stream().filter(s -> s.getConcludedContractStatus() == Contract.ConcludedContractStatus.CONCLUDED).sorted((s1, s2) -> s2.getCompletionContractStatus().ordinal() - s1.getCompletionContractStatus().ordinal()).toList();
+
             for (Contract contract : contracts) {
                 Optional<Order> optionalOrder = orderDao.findEntityById(contract.getOrder().getOrderId());
                 if (optionalOrder.isPresent()) {
@@ -53,6 +50,7 @@ public class ContractServiceImpl implements ContractService {
                     logger.error("Can't find order. Order id = " + contract.getOrder().getOrderId());
                     throw new DaoException();
                 }
+
                 Optional<User> optionalUser = userDao.findEntityById(contract.getUser().getIdUser());
                 if (optionalUser.isPresent()) {
                     contract.setUser(optionalUser.get());
@@ -61,6 +59,7 @@ public class ContractServiceImpl implements ContractService {
                     throw new DaoException();
                 }
             }
+
             transaction.commit();
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -79,6 +78,7 @@ public class ContractServiceImpl implements ContractService {
             OrderDaoImpl orderDao = new OrderDaoImpl();
             UserDaoImpl userDao = new UserDaoImpl();
             transaction.begin(contractDao, orderDao, userDao);
+
             List<Contract> allUserContracts = contractDao.findContractByIdExecutor(executorId);
             contracts = allUserContracts.stream().filter(s -> s.getConcludedContractStatus() == Contract.ConcludedContractStatus.CONCLUDED).sorted((s1, s2) -> s2.getCompletionContractStatus().ordinal() - s1.getCompletionContractStatus().ordinal()).toList();
             for (Contract contract : contracts) {
@@ -89,6 +89,7 @@ public class ContractServiceImpl implements ContractService {
                     logger.error("Can't find order. Order id = " + contract.getOrder().getOrderId());
                     throw new DaoException();
                 }
+
                 Optional<User> optionalUser = userDao.findEntityById(contract.getUser().getIdUser());
                 if (optionalUser.isPresent()) {
                     contract.setUser(optionalUser.get());
@@ -124,6 +125,7 @@ public class ContractServiceImpl implements ContractService {
                     logger.error("Can't find order. Order id = " + contract.getOrder().getOrderId());
                     throw new DaoException();
                 }
+
                 Optional<User> optionalUser = userDao.findEntityById(contract.getUser().getIdUser());
                 if (optionalUser.isPresent()) {
                     contract.setUser(optionalUser.get());
@@ -159,6 +161,7 @@ public class ContractServiceImpl implements ContractService {
                     logger.error("Can't find order. Order id = " + contract.getOrder().getOrderId());
                     throw new DaoException();
                 }
+
                 Optional<User> optionalUser = userDao.findEntityById(contract.getUser().getIdUser());
                 if (optionalUser.isPresent()) {
                     contract.setUser(optionalUser.get());
@@ -195,6 +198,7 @@ public class ContractServiceImpl implements ContractService {
                     logger.error("Can't find order. Order id = " + contract.getOrder().getOrderId());
                     throw new DaoException();
                 }
+
                 Optional<User> optionalUser = userDao.findEntityById(contract.getUser().getIdUser());
                 if (optionalUser.isPresent()) {
                     contract.setUser(optionalUser.get());
@@ -230,6 +234,7 @@ public class ContractServiceImpl implements ContractService {
                     logger.error("Can't find order. Order id = " + contract.getOrder().getOrderId());
                     throw new DaoException();
                 }
+
                 Optional<User> optionalUser = userDao.findEntityById(contract.getUser().getIdUser());
                 if (optionalUser.isPresent()) {
                     contract.setUser(optionalUser.get());
@@ -252,14 +257,26 @@ public class ContractServiceImpl implements ContractService {
         boolean result = false;
         ContractDaoImpl contractDao = new ContractDaoImpl();
         OrderDaoImpl orderDao = new OrderDaoImpl();
+        ExecutorDaoImpl executorDao = new ExecutorDaoImpl();
         try (EntityTransaction transaction = new EntityTransaction()) {
-            transaction.begin(contractDao, orderDao);
-            List<Long> contractIdList = contractDao.findAllContractByOrderId(orderId);
-            contractIdList.remove(contractId);
-            if (contractDao.setConcludedStatus(contractId)) {
-                result = contractDao.setNotConcludedStatusForCompetitor(contractIdList);
+            transaction.begin(contractDao, orderDao, executorDao);
+            Optional<Contract> contractOptional = findContractInformationById(contractId);
+            if (contractOptional.isPresent()) {
+                List<Long> contractIdList = contractDao.findAllContractByOrderId(orderId);
+                contractIdList.remove(contractId);
+                if (contractDao.setConcludedStatus(contractId)) {
+                    result = contractDao.setNotConcludedStatusForCompetitor(contractIdList);
+                }
+
+                orderDao.setOrderStatus(orderId, OrderStatus.IN_WORK);
+                Optional<Executor> optionalExecutor = executorDao.findEntityById(contractOptional.get().getUser().getIdUser());
+                if (optionalExecutor.isPresent()) {
+                    ExecutorOption executorOption = optionalExecutor.get().getExecutorOption();
+                    int numberContractInProgress = executorOption.getNumberContractsInProgress();
+                    executorOption.setNumberContractsInProgress(numberContractInProgress + 1);
+                    executorDao.updateExecutorOption(optionalExecutor.get());
+                }
             }
-            orderDao.setOrderStatus(orderId, OrderStatus.IN_WORK);
             transaction.commit();
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -289,8 +306,21 @@ public class ContractServiceImpl implements ContractService {
         try (EntityTransaction transaction = new EntityTransaction()) {
             ContractDaoImpl contractDao = new ContractDaoImpl();
             OrderDaoImpl orderDao = new OrderDaoImpl();
-            transaction.begin(contractDao, orderDao);
-            if (contractDao.setCompletedStatus(contractId)) {
+            ExecutorDaoImpl executorDao = new ExecutorDaoImpl();
+            transaction.begin(contractDao, orderDao, executorDao);
+            Optional<Contract> contractOptional = findContractInformationById(contractId);
+            if (contractOptional.isPresent() && contractDao.setCompletedStatus(contractId)) {
+                Optional<Executor> optionalExecutor = executorDao.findEntityById(contractOptional.get().getUser().getIdUser());
+                if (optionalExecutor.isPresent()) {
+                    ExecutorOption executorOption = optionalExecutor.get().getExecutorOption();
+                    logger.debug("executor options before change= " + executorOption);
+                    int numberContractInProgress = executorOption.getNumberContractsInProgress();
+                    int numberCompletedContracts = executorOption.getNumberCompletionContracts();
+                    executorOption.setNumberContractsInProgress(numberContractInProgress - 1);
+                    executorOption.setNumberCompletionContracts(numberCompletedContracts + 1);
+                    logger.debug("executor options after change= " + executorOption);
+                    executorDao.updateExecutorOption(optionalExecutor.get());
+                }
                 result = orderDao.setOrderStatus(orderId, OrderStatus.CLOSE);
             }
             transaction.commit();
@@ -304,7 +334,7 @@ public class ContractServiceImpl implements ContractService {
     public boolean createOffer(long orderId, long executorId) throws ServiceException {
         logger.info("Start createOffer(long orderId, long executorId). Id order= " + orderId + " , executor id = " + executorId);
         boolean result;
-        try (EntityTransaction transaction = new EntityTransaction()){
+        try (EntityTransaction transaction = new EntityTransaction()) {
             ContractDaoImpl contractDao = new ContractDaoImpl();
             transaction.beginSingleQuery(contractDao);
             result = contractDao.createOffer(orderId, executorId);

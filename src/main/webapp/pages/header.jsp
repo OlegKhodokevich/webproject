@@ -1,4 +1,4 @@
-<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
@@ -22,7 +22,6 @@
 <fmt:message key="header.logging" var="text_header_logging"/>
 <fmt:message key="header.registration" var="text_header_registration"/>
 <fmt:message key="user.admin_all_user_title" var="text_user_admin_all_user_title"/>
-
 
 
 <html>
@@ -86,9 +85,13 @@
                             </li>
                             <li><a class="dropdown-item"
                                    href="/controller?command=find_user_orders">${text_profile_my_orders}</a></li>
-                            <li><a class="dropdown-item" href="/controller?command=find_offer_for_user&userId=${sessionScope.activeUserId}">${text_profile_offer}</a></li>
+                            <li><a class="dropdown-item"
+                                   href="/controller?command=find_offer_for_user&userId=${sessionScope.activeUserId}">${text_profile_offer}</a>
+                            </li>
 
-                            <li><a class="dropdown-item" href="/controller?command=find_contract_by_userid&userId=${sessionScope.activeUserId}">${text_profile_my_contracts}</a></li>
+                            <li><a class="dropdown-item"
+                                   href="/controller?command=find_contract_by_customer_id&userId=${sessionScope.activeUserId}">${text_profile_my_contracts}</a>
+                            </li>
 
                             <li>
                                 <hr class="dropdown-divider">
@@ -113,9 +116,13 @@
                                 <hr class="dropdown-divider">
                             </li>
 
-                            <li><a class="dropdown-item" href="/controller?command=find_my_offer&executorId=${sessionScope.activeUserId}">${text_profile_my_offer}</a></li>
+                            <li><a class="dropdown-item"
+                                   href="/controller?command=find_my_offer&executorId=${sessionScope.activeUserId}">${text_profile_my_offer}</a>
+                            </li>
 
-                            <li><a class="dropdown-item" href="/controller?command=find_contract_by_executor_id&executorId=${sessionScope.activeUserId}">${text_profile_my_contracts}</a></li>
+                            <li><a class="dropdown-item"
+                                   href="/controller?command=find_contract_by_executor_id&executorId=${sessionScope.activeUserId}">${text_profile_my_contracts}</a>
+                            </li>
 
                             <li>
                                 <hr class="dropdown-divider">
@@ -133,11 +140,14 @@
                                 ${text_profile_my_profile}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="profileAdmin">
-                            <li><a class="dropdown-item" href="/controller?command=find_user_info_details&userId=${sessionScope.activeUser.idUser}">${text_profile_configuration}</a></li>
+                            <li><a class="dropdown-item"
+                                   href="/controller?command=find_user_info_details&userId=${sessionScope.activeUser.idUser}">${text_profile_configuration}</a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="/controller?command=all_users">${text_user_admin_all_user_title}</a></li>
+                            <li><a class="dropdown-item"
+                                   href="/controller?command=all_users">${text_user_admin_all_user_title}</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

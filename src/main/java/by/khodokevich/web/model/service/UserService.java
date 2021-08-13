@@ -1,5 +1,6 @@
 package by.khodokevich.web.model.service;
 
+import by.khodokevich.web.model.entity.Pagination;
 import by.khodokevich.web.model.entity.User;
 import by.khodokevich.web.model.entity.UserStatus;
 import by.khodokevich.web.exception.ServiceException;
@@ -25,6 +26,6 @@ public interface UserService {
 
     Map<String, String> updateUserWithoutPassword(Map<String, String> userData) throws ServiceException;
 
-    List<User> findAllUser() throws ServiceException;
+    List<User> findAllUserOnPage(Pagination pagination) throws ServiceException;
 
 }

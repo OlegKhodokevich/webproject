@@ -1,5 +1,6 @@
 package by.khodokevich.web.validator;
 
+import by.khodokevich.web.exception.ServiceException;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -12,7 +13,7 @@ public class UserDataValidatorFirstNameTest {
 
 
     @Test(dataProvider = "validate_first_name", groups = {"user_validation"})
-    public void testIsFirstNameValid(String firstName, boolean expectedResult) {
+    public void testIsFirstNameValid(String firstName, boolean expectedResult) throws ServiceException {
         boolean actualResult =  UserDataValidator.isFirstNameValid(firstName);
 
         Assert.assertEquals(actualResult, expectedResult);

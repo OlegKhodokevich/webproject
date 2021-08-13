@@ -1,9 +1,11 @@
 package by.khodokevich.web.model.dao;
 
+import by.khodokevich.web.model.entity.Pagination;
 import by.khodokevich.web.model.entity.User;
 import by.khodokevich.web.model.entity.UserStatus;
 import by.khodokevich.web.exception.DaoException;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserDao {
@@ -30,4 +32,8 @@ public interface UserDao {
     boolean updateUserWithoutChangeEMail(User entity, String password) throws DaoException;
 
     boolean updateUserWithoutChangeEMailPassword(User entity) throws DaoException;
+
+    List<User> findAllOnPage(Pagination pagination) throws DaoException;
+
+    int findNumberItems() throws DaoException;
 }

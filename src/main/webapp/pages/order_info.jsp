@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
@@ -25,8 +25,6 @@
 
 <fmt:message key="contract.make_offer" var="text_contract_make_offer"/>
 
-
-
 <html>
 <head>
     <title>${text_order_order_info}</title>
@@ -43,43 +41,45 @@ background-size: cover">
 <main>
 
     <form action="${pageContext.request.contextPath}/controller" method="post" class="creation_order_page">
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-left  mt-5">
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-left  mt-5">
 
-        <div class="col-md-5 offset-md-1">
-            <div class="card mb-4 rounded-3 shadow-sm">
-                <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal">${text_order_order_number} : ${sessionScope.order.orderId}</h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title">${sessionScope.order.title}</h1>
-                    <p class="date-to-format"
-                       style="text-align: right; font-size: 14px; margin-bottom: 0">${sessionScope.order.creationDate.time}</p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">${text_order_description} : ${sessionScope.order.description}</li>
-                        <li class="list-group-item">${text_order_address} : ${sessionScope.order.address}</li>
-                        <li class="list-group-item">${text_order_completion_date} : <span
-                                class="date-to-format">${sessionScope.order.completionDate.time}</span></li>
-                        <li class="list-group-item">${text_order_customer}
-                            : ${sessionScope.firstName} ${sessionScope.lastName}</li>
-                        <li class="list-group-item">${text_registration_phone} : ${sessionScope.phone}</li>
-                        <li class="list-group-item">e-mail : ${sessionScope.eMail}</li>
-                    </ul>
-                </div>
-                <c:if test="${sessionScope.activeUserRole eq 'EXECUTOR'}">
-                    <input type="hidden" name="orderId" value="${sessionScope.order.orderId}" style="background-color: #1e7e34">
-                    <input type="hidden" name="command" value="create_offer" >
-                    <%--                <input type="hidden" name="userId" value="${sessionScope.userId}" >--%>
-                    <input type="submit" value="${text_contract_make_offer}">
+            <div class="col-md-5 offset-md-1">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">${text_order_order_number} : ${sessionScope.order.orderId}</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title">${sessionScope.order.title}</h1>
+                        <p class="date-to-format"
+                           style="text-align: right; font-size: 14px; margin-bottom: 0">${sessionScope.order.creationDate.time}</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">${text_order_description}
+                                : ${sessionScope.order.description}</li>
+                            <li class="list-group-item">${text_order_address} : ${sessionScope.order.address}</li>
+                            <li class="list-group-item">${text_order_completion_date} : <span
+                                    class="date-to-format">${sessionScope.order.completionDate.time}</span></li>
+                            <li class="list-group-item">${text_order_customer}
+                                : ${sessionScope.firstName} ${sessionScope.lastName}</li>
+                            <li class="list-group-item">${text_registration_phone} : ${sessionScope.phone}</li>
+                            <li class="list-group-item">e-mail : ${sessionScope.eMail}</li>
+                        </ul>
+                    </div>
+                    <c:if test="${sessionScope.activeUserRole eq 'EXECUTOR'}">
+                        <input type="hidden" name="orderId" value="${sessionScope.order.orderId}"
+                               style="background-color: #1e7e34">
+                        <input type="hidden" name="command" value="create_offer">
+                        <%--                <input type="hidden" name="userId" value="${sessionScope.userId}" >--%>
+                        <input type="submit" value="${text_contract_make_offer}">
 
-                </c:if>
+                    </c:if>
+                </div>
             </div>
         </div>
-    </div>
 
     </form>
 </main>
 
-<footer >
+<footer>
     <jsp:include page="footer.jsp"/>
 </footer>
 </body>

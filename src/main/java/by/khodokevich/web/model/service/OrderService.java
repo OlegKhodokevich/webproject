@@ -3,6 +3,7 @@ package by.khodokevich.web.model.service;
 import by.khodokevich.web.exception.DaoException;
 import by.khodokevich.web.model.entity.Order;
 import by.khodokevich.web.model.entity.OrderStatus;
+import by.khodokevich.web.model.entity.Pagination;
 import by.khodokevich.web.model.entity.Specialization;
 import by.khodokevich.web.exception.ServiceException;
 
@@ -11,7 +12,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface OrderService {
-    List<Order> findAllOrder() throws ServiceException;
+    List<Order> findAllOpenOrderOnPage(Pagination pagination) throws ServiceException;
 
     List<Order> findOpenOrderConfirmedUsers() throws ServiceException;
 

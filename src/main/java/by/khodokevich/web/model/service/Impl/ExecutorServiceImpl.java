@@ -1,6 +1,5 @@
 package by.khodokevich.web.model.service.Impl;
 
-import by.khodokevich.web.model.dao.AbstractDao;
 import by.khodokevich.web.model.dao.EntityTransaction;
 import by.khodokevich.web.model.dao.impl.ExecutorDaoImpl;
 import by.khodokevich.web.model.entity.Executor;
@@ -34,13 +33,13 @@ public class ExecutorServiceImpl implements ExecutorService {
     public List<Executor> findAllExecutors() throws ServiceException {
         logger.info("Start findAllExecutors().");
         List<Executor> executors;
-        try (EntityTransaction transaction = new EntityTransaction()){
+        try (EntityTransaction transaction = new EntityTransaction()) {
             ExecutorDaoImpl executorDao = new ExecutorDaoImpl();
             transaction.beginSingleQuery(executorDao);
             List<Executor> foundedExecutors = executorDao.findAll();
             logger.info("Has found next executors : " + foundedExecutors);
             executors = foundedExecutors.stream()
-                    .filter(s->s.getStatus() == UserStatus.CONFIRMED)
+                    .filter(s -> s.getStatus() == UserStatus.CONFIRMED)
                     .toList();
             logger.info("Has found next confirmed executors : " + executors);
         } catch (DaoException e) {
@@ -53,7 +52,7 @@ public class ExecutorServiceImpl implements ExecutorService {
     public Optional<Executor> findDefineExecutor(long executorId) throws ServiceException {
         logger.info("Start findDefineExecutor(long executorId). ExecutorId = " + executorId);
         Optional<Executor> optionalExecutor;
-        try (EntityTransaction transaction = new EntityTransaction()){
+        try (EntityTransaction transaction = new EntityTransaction()) {
             ExecutorDaoImpl executorDao = new ExecutorDaoImpl();
             transaction.beginSingleQuery(executorDao);
             optionalExecutor = executorDao.findEntityById(executorId);
@@ -65,6 +64,4 @@ public class ExecutorServiceImpl implements ExecutorService {
         }
         return optionalExecutor;
     }
-
-
 }

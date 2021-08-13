@@ -5,10 +5,7 @@ import static by.khodokevich.web.model.dao.impl.UserColumnName.*;
 import by.khodokevich.web.model.builder.UserBuilder;
 import by.khodokevich.web.model.dao.AbstractDao;
 import by.khodokevich.web.model.dao.UserDao;
-import by.khodokevich.web.model.entity.RegionBelarus;
-import by.khodokevich.web.model.entity.User;
-import by.khodokevich.web.model.entity.UserRole;
-import by.khodokevich.web.model.entity.UserStatus;
+import by.khodokevich.web.model.entity.*;
 import by.khodokevich.web.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +20,7 @@ import java.util.Optional;
 public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     private static final Logger logger = LogManager.getLogger(UserDaoImpl.class);
-    private static final String SQL_SELECT_ALL_USER = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN Regions ON Users.IdRegion = Regions.IdRegion;";
+    private static final String SQL_SELECT_ALL_USER_ON_PAGE = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN Regions ON Users.IdRegion = Regions.IdRegion ORDER BY IdUser LIMIT ?,?;";
     private static final String SQL_SELECT_DEFINED_USER = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN Regions ON Users.IdRegion = Regions.IdRegion WHERE IdUser = ?;";
     private static final String SQL_SELECT_DEFINED_USER_BY_EMAIL = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN Regions ON Users.IdRegion = Regions.IdRegion WHERE EMail = ?;";
     private static final String SQL_SELECT_DEFINED_USER_ID_BY_EMAIL = "SELECT IdUser FROM users WHERE EMail = ?;";
@@ -38,38 +35,46 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     private static final String SQL_UPDATE_USER_WITHOUT_CHANGE_EMAIL_PASSWORD = "UPDATE users SET FirstName = ?, LastName = ?, Phone = ?, IdRegion = ?, City = ? WHERE IdUser = ?;";
     private static final String SQL_SET_USER_STATUS = "UPDATE users SET UserStatus = ? WHERE IdUser = ?;";
     private static final String SQL_GET_USER_STATUS = "SELECT UserStatus FROM users WHERE IdUser = ?;";
+    private static final String SQL_SELECT_NUMBER_ITEMS = "SELECT COUNT(*) FROM users;";
 
     @Override
-    public List<User> findAll() throws DaoException {
-        logger.info("Start findAll().");
+    public List<User> findAll(){
+        throw new UnsupportedOperationException();
+    }
+
+    public List<User> findAllOnPage(Pagination pagination) throws DaoException {
+        logger.info("Start findAllOnPage(Pagination pagination). Pagination " + pagination);
         List<User> users = new ArrayList<>();
+        try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_ALL_USER_ON_PAGE)) {
+            statement.setInt(1, pagination.getLastIndexBeforeFirstItemOnPage());
+            statement.setInt(2, pagination.getOnePageNumberItems());
+            try (ResultSet resultSet = statement.executeQuery()) {
 
+                while (resultSet.next()) {
+                    long idUser = resultSet.getLong(ID_USER);
+                    String firstName = resultSet.getString(FIRSTNAME);
+                    String lastName = resultSet.getString(LASTNAME);
+                    String eMail = resultSet.getString(E_MAIL);
+                    String phone = resultSet.getString(PHONE);
+                    RegionBelarus region = RegionBelarus.valueOf(resultSet.getString(REGION).toUpperCase());
+                    String city = resultSet.getString(CITY);
+                    UserStatus status = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
+                    UserRole role = UserRole.valueOf(resultSet.getString(ROLE_STATUS).toUpperCase());
+                    User user = new UserBuilder()
+                            .userId(idUser)
+                            .firstName(firstName)
+                            .lastName(lastName)
+                            .eMail(eMail)
+                            .phone(phone)
+                            .region(region)
+                            .city(city)
+                            .status(status)
+                            .role(role)
+                            .buildUser();
 
-        try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_ALL_USER);
-             ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                long idUser = resultSet.getLong(ID_USER);
-                String firstName = resultSet.getString(FIRSTNAME);
-                String lastName = resultSet.getString(LASTNAME);
-                String eMail = resultSet.getString(E_MAIL);
-                String phone = resultSet.getString(PHONE);
-                RegionBelarus region = RegionBelarus.valueOf(resultSet.getString(REGION).toUpperCase());
-                String city = resultSet.getString(CITY);
-                UserStatus status = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
-                UserRole role = UserRole.valueOf(resultSet.getString(ROLE_STATUS).toUpperCase());
-                User user = new UserBuilder()
-                        .userId(idUser)
-                        .firstName(firstName)
-                        .lastName(lastName)
-                        .eMail(eMail)
-                        .phone(phone)
-                        .region(region)
-                        .city(city)
-                        .status(status)
-                        .role(role)
-                        .buildUser();
-                logger.info("Has found next user = " + user);
-                users.add(user);
+                    logger.info("Has found next user = " + user);
+                    users.add(user);
+                }
             }
         } catch (SQLException e) {
             logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
@@ -86,6 +91,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_DEFINED_USER)) {
             statement.setLong(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
+
                 if (resultSet.next()) {
                     long idUser = resultSet.getLong(ID_USER);
                     String firstName = resultSet.getString(FIRSTNAME);
@@ -157,30 +163,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public boolean update(User entity) throws DaoException {
-//        logger.info("Start update(User entity)." + entity);
-//        if (entity.getIdUser() == 0) {
-//            throw new DaoException("User's id = 0. User can't be updated.");
-//        }
-//        int numberUpdatedRows;
-//        try (PreparedStatement statement = super.connection.prepareStatement(SQL_UPDATE_USER)) {
-//            statement.setString(1, entity.getFirstName());
-//            statement.setString(2, entity.getLastName());
-//            statement.setString(3, entity.getEMail());
-//            statement.setString(4, entity.getPhone());
-//            statement.setInt(5, entity.getRegion().getId());
-//            statement.setString(6, entity.getCity());
-//            statement.setString(7, entity.getStatus().name().toLowerCase());
-//            statement.setString(8, entity.getRole().name().toLowerCase());
-//
-//            statement.setLong(8, entity.getIdUser());
-//            numberUpdatedRows = statement.executeUpdate();
-//        } catch (SQLException e) {
-//            logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
-//            throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
-//        }
-//        boolean result = numberUpdatedRows == 1;
-//        logger.info(() -> result ? "Operation was successful. " : " Operation was failed");
-//        return result;
         throw new UnsupportedOperationException();
     }
 
@@ -211,6 +193,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
         logger.info(() -> result ? "Operation was successful. " : " Operation was failed");
         return result;
     }
+
     @Override
     public boolean updateUserWithChangeEMailWithoutPassword(User entity) throws DaoException {
         logger.info("Start update(User entity)." + entity);
@@ -311,6 +294,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_GET_USER_STATUS)) {
             statement.setLong(1, idUser);
             try (ResultSet resultSet = statement.executeQuery()) {
+
                 if (resultSet.next()) {
                     userStatus = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
                 } else {
@@ -433,6 +417,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_USER_PASSWORD)) {
             statement.setLong(1, idUser);
             try (ResultSet resultSet = statement.executeQuery()) {
+
                 if (resultSet.next()) {
                     password = resultSet.getString(PASSWORD);
                 } else {
@@ -445,6 +430,25 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
             throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
         }
         return password;
+    }
+
+
+    @Override
+    public int findNumberItems() throws DaoException {
+        logger.info("Start findNumberItems().");
+        int numberItems = 0;
+        try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_NUMBER_ITEMS);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                numberItems = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
+            throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
+        }
+        logger.info("Has found next number of items : " + numberItems);
+        return numberItems;
     }
 
 }

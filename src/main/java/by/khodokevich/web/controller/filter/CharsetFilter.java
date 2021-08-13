@@ -20,7 +20,7 @@ public class CharsetFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         logger.info("Init FilterConfig filter");
         encoding = filterConfig.getInitParameter("characterEncoding");
-        if (encoding ==null) {
+        if (encoding == null) {
             encoding = "UTF-8";
         }
     }

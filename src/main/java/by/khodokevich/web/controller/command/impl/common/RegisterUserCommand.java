@@ -15,29 +15,26 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Map;
 
+import static by.khodokevich.web.controller.command.InformationMessage.*;
+
 public class RegisterUserCommand implements Command {
     private static final Logger logger = LogManager.getLogger(RegisterUserCommand.class);
 
-    private static final String KEY_SENT_MASSAGE = "registration.message_send_link";
-    private static final String KEY_MESSAGE_DATA_NOT_CORRECT = "registration.message_data_not_correct";
-    private static final String KEY_MESSAGE_DUPLICATE_EMAIL = "registration.message_duplicate_email";
-    private static final String KEY_MESSAGE_DUPLICATE_PHONE = "registration.message_duplicate_phone";
-    private static final String KEY_MESSAGE_DUPLICATE_PHONE_AND_PHONE = "registration.message_duplicate_email_and_phone";
     private static final String EMPTY_VALUE = "";
-    private static final String MASSAGE_LETTER_NOT_SENT = "mail_sender.letter_not_send";
 
     @Override
     public Router execute(HttpServletRequest request) {
         Router router;
-        UserService userService = ServiceProvider.USER_SERVICE;
-        Map<String,String> userData = RequestData.getRequestUserData(request);
+        Map<String, String> userData = RequestData.getRequestUserData(request);
         CheckingResult resultOperation;
-        HttpSession session = request.getSession();
         try {
+            UserService userService = ServiceProvider.USER_SERVICE;
             Map<String, String> answerMap = userService.register(userData);
+
             String result = answerMap.get(RESULT);
             if (result != null) {
                 resultOperation = CheckingResult.valueOf(result);
+                HttpSession session = request.getSession();
                 switch (resultOperation) {
                     case SUCCESS -> {
                         router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);

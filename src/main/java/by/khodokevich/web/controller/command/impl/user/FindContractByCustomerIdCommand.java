@@ -24,13 +24,13 @@ public class FindContractByCustomerIdCommand implements Command {
         logger.info("Start FindContractByCustomerIdCommand;");
         Router router;
 
-        ContractService contractService = ServiceProvider.CONTRACT_SERVICE;
-        String userIdString = request.getParameter(USER_ID);
-        HttpSession session = request.getSession();
         try {
+            String userIdString = request.getParameter(USER_ID);
             long userId = Long.parseLong(userIdString);
+            ContractService contractService = ServiceProvider.CONTRACT_SERVICE;
             List<Contract> contracts = contractService.findConcludedContractByUserCustomerId(userId);
             logger.info(" ContractList = " + contracts);
+            HttpSession session = request.getSession();
             session.setAttribute(CONTRACT_LIST, contracts);
             router = new Router(PagePath.MY_CONTRACTS, Router.RouterType.FORWARD);
         } catch (ServiceException e) {

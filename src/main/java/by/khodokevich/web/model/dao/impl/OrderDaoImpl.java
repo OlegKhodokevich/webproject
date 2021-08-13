@@ -20,7 +20,7 @@ import java.util.*;
 public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     private static final Logger logger = LogManager.getLogger(OrderDaoImpl.class);
 
-    private static final String SQL_SELECT_ALL_ORDER_ON_PAGE = "SELECT IdOrder, IdUserCustomer, Title, JobDescription, Address, CreationDate, CompletionDate, Specialization, OrderStatus FROM orders JOIN specializations ON orders.IdSpecialization = specializations.IdSpecialization WHERE OrderStatus = 'open' ORDER BY CreationDate LIMIT ?;";
+    private static final String SQL_SELECT_ALL_ORDER_ON_PAGE = "SELECT IdOrder, IdUserCustomer, Title, JobDescription, Address, CreationDate, CompletionDate, Specialization, OrderStatus FROM orders JOIN specializations ON orders.IdSpecialization = specializations.IdSpecialization  WHERE OrderStatus = 'open' ORDER BY CreationDate LIMIT ?,?;";
     private static final String SQL_SELECT_ORDER_ONLY_CONFIRMED_USERS = "SELECT IdOrder, IdUserCustomer, Title, JobDescription, Address, CreationDate, CompletionDate, Specialization, OrderStatus FROM orders JOIN specializations ON orders.IdSpecialization = specializations.IdSpecialization JOIN users ON users.IdUser = orders.IdUserCustomer WHERE users.UserStatus = \"confirmed\";";
     private static final String SQL_SELECT_DEFINED_ORDER = "SELECT IdOrder, IdUserCustomer, Title, JobDescription, Address, CreationDate, CompletionDate, Specialization, OrderStatus FROM orders JOIN specializations ON orders.IdSpecialization = specializations.IdSpecialization WHERE IdOrder = ?;";
     private static final String SQL_SELECT_USERS_ORDERS = "SELECT IdOrder, IdUserCustomer, Title, JobDescription, Address, CreationDate, CompletionDate, Specialization, OrderStatus FROM orders JOIN specializations ON orders.IdSpecialization = specializations.IdSpecialization WHERE IdUserCustomer = ?;";
@@ -30,6 +30,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     private static final String SQL_INSERT_ORDER = "INSERT INTO orders(IdUserCustomer, Title, JobDescription, Address, CreationDate, CompletionDate, IdSpecialization, OrderStatus ) VALUES (?, ?, ?, ?, ?, ?, (SELECT IdSpecialization FROM specializations WHERE Specialization = ?), ?);";
     private static final String SQL_UPDATE_ORDER = "UPDATE orders SET IdUserCustomer = ?, Title = ?, JobDescription = ?, Address = ?, CreationDate = ?, CompletionDate = ?, IdSpecialization = (SELECT IdSpecialization FROM specializations WHERE Specialization = ?), OrderStatus = ?  WHERE IdOrder = ?;";
     private static final String SQL_SET_ORDER_STATUS = "UPDATE orders SET OrderStatus = ?  WHERE IdOrder = ?;";
+    private static final String SQL_SELECT_NUMBER_ITEMS = "SELECT COUNT(*) FROM orders WHERE OrderStatus = 'open';";
 
     private static final String DATE_PATTERN = "yyyy-MM-dd";
 
@@ -39,14 +40,14 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     }
 
     @Override
-    public List<Order> findAllOrdersOnPage(Pagination pagination) throws DaoException {
+    public List<Order> findAllOpenOrdersOnPage(Pagination pagination) throws DaoException {
         logger.info("Start findAllOrdersOnPage(Pagination pagination).");
         List<Order> orders = new ArrayList<>();
         SimpleDateFormat parser = new SimpleDateFormat(DATE_PATTERN);
-        try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_ALL_ORDER_ON_PAGE)){
-//statement.setInt(1, pagination.);
+        try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_ALL_ORDER_ON_PAGE)) {
+            statement.setInt(1, pagination.getLastIndexBeforeFirstItemOnPage());
+            statement.setInt(2, pagination.getOnePageNumberItems());
             try (ResultSet resultSet = statement.executeQuery()) {
-
 
                 while (resultSet.next()) {
                     long orderId = resultSet.getLong(ID_ORDER);
@@ -70,6 +71,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
                             .specialization(specialization)
                             .status(status)
                             .buildOrder();
+
                     logger.info("Has found next order = " + order);
                     orders.add(order);
                 }
@@ -92,6 +94,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
         SimpleDateFormat parser = new SimpleDateFormat(DATE_PATTERN);
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_ORDER_ONLY_CONFIRMED_USERS);
              ResultSet resultSet = statement.executeQuery()) {
+
             while (resultSet.next()) {
                 long orderId = resultSet.getLong(ID_ORDER);
                 long userId = resultSet.getLong(ID_CUSTOMER);
@@ -114,6 +117,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
                         .specialization(specialization)
                         .status(status)
                         .buildOrder();
+
                 logger.info("Has found next order = " + order);
                 orders.add(order);
             }
@@ -139,6 +143,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_DEFINED_ORDER)) {
             statement.setLong(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
+
                 if (resultSet.next()) {
                     long orderId = resultSet.getLong(ID_ORDER);
                     long userId = resultSet.getLong(ID_CUSTOMER);
@@ -296,6 +301,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_USERS_ORDERS)) {
             statement.setLong(1, idUser);
             try (ResultSet resultSet = statement.executeQuery()) {
+
                 while (resultSet.next()) {
                     long orderId = resultSet.getLong(ID_ORDER);
                     long userId = resultSet.getLong(ID_CUSTOMER);
@@ -341,6 +347,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_ORDERS_BY_SPECIALIZATIONS)) {
             statement.setString(1, specialization.name().toLowerCase());
             try (ResultSet resultSet = statement.executeQuery()) {
+
                 while (resultSet.next()) {
                     long orderId = resultSet.getLong(ID_ORDER);
                     long userId = resultSet.getLong(ID_CUSTOMER);
@@ -361,6 +368,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
                             .specialization(specialization)
                             .status(status)
                             .buildOrder();
+
                     logger.info("Has found next order = " + order);
                     orders.add(order);
                 }
@@ -376,4 +384,21 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
         return orders;
     }
 
+    @Override
+    public int findNumberItems() throws DaoException {
+        logger.info("Start findNumberItems().");
+        int numberItems = 0;
+        try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_NUMBER_ITEMS);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                numberItems = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
+            throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
+        }
+        logger.info("Has found next number of items : " + numberItems);
+        return numberItems;
+    }
 }

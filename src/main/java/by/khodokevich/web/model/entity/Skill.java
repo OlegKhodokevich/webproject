@@ -1,6 +1,6 @@
 package by.khodokevich.web.model.entity;
 
-public class Skill extends Entity{
+public class Skill extends Entity {
     private Specialization specialization;
     private String cost;
     private UnitMeasure measure;
@@ -49,7 +49,7 @@ public class Skill extends Entity{
     public int hashCode() {
         int result = specialization.ordinal();
         result = result * 31 + cost.hashCode();
-        result = result *31 + measure.ordinal();
+        result = result * 31 + measure.ordinal();
         return result;
     }
 

@@ -3,8 +3,6 @@ package by.khodokevich.web.model.entity;
 import java.util.*;
 
 public enum RegionBelarus {
-
-
     MINSK_REGION(1, "region1"),
     HOMYEL_REGION(2, "region2"),
     MAHILOU_REGION(3, "region3"),
@@ -39,13 +37,7 @@ public enum RegionBelarus {
         this.key = key;
     }
 
-
     public static List<RegionBelarus> getRegionList() {
-//        List<RegionBelarus> transferList = new ArrayList<>(regionList.size());
-//        for (int i = 0; i < regionList.size(); i++) {
-//            transferList.add(regionList.get(i));
-//        }
-//        logger.debug(regionList.size() + "  " + transferList.size());
         return Collections.unmodifiableList(regionList);
     }
 

@@ -58,7 +58,8 @@ background-size: cover">
         <input type="hidden" name="command" value="sign_in">
         <input type="submit" value="${text_logging_sign_in}">
     </div>
-    <a class="custom-button-register" href="/controller?command=go_to_registration" id="Button">${text_registration_title}</a>
+    <a class="custom-button-register" href="/controller?command=go_to_registration"
+       id="Button">${text_registration_title}</a>
     <br/>
     <br/>
 </form>

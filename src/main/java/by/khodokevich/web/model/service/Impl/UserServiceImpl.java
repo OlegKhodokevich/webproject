@@ -1,15 +1,11 @@
 package by.khodokevich.web.model.service.Impl;
 
 import by.khodokevich.web.model.builder.UserBuilder;
-import by.khodokevich.web.model.dao.AbstractDao;
 import by.khodokevich.web.model.dao.EntityTransaction;
 import by.khodokevich.web.model.dao.UserDao;
+import by.khodokevich.web.model.entity.*;
 import by.khodokevich.web.model.service.CheckingResult;
 import by.khodokevich.web.model.dao.impl.UserDaoImpl;
-import by.khodokevich.web.model.entity.RegionBelarus;
-import by.khodokevich.web.model.entity.User;
-import by.khodokevich.web.model.entity.UserRole;
-import by.khodokevich.web.model.entity.UserStatus;
 import by.khodokevich.web.exception.DaoException;
 import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.model.service.UserService;
@@ -34,6 +30,7 @@ public class UserServiceImpl implements UserService {
     public static final String E_MAIL_CONFIRMATION = "Logging service. E-mail checking.";
     public static final String TEST = "isTest";
     public static final String TEST_TRUE = "true";
+    private static final int NUMBER_ITEMS_ON_PAGE = 3;
 
     private UserServiceImpl() {
     }
@@ -62,9 +59,11 @@ public class UserServiceImpl implements UserService {
             try (EntityTransaction entityTransaction = new EntityTransaction()) {
                 UserDaoImpl userDao = new UserDaoImpl();
                 entityTransaction.beginSingleQuery(userDao);
+
                 resultType = checkEMailPhoneForRegistration(eMail, phone, userDao);
                 if (resultType == SUCCESS) {
-                    User userForRegistration = new UserBuilder().firstName(firstName)
+                    User userForRegistration = new UserBuilder()
+                            .firstName(firstName)
                             .lastName(lastName)
                             .eMail(eMail)
                             .phone(phone)
@@ -72,10 +71,12 @@ public class UserServiceImpl implements UserService {
                             .city(city)
                             .status(UserStatus.DECLARED)
                             .role(UserRole.CUSTOMER)
-                            .buildUser();
+                            .buildUserWithoutId();
+
                     String encodedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
                     userDao.register(userForRegistration, encodedPassword);
                     String urlPage = userData.get(URL);
+
                     if (userData.get(TEST) == null || !userData.get(TEST).equalsIgnoreCase(TEST_TRUE)) {
                         sendLinkToEMail(eMail, urlPage);
                     }
@@ -108,9 +109,11 @@ public class UserServiceImpl implements UserService {
                 entityTransaction.beginSingleQuery(userDao);
                 Optional<User> foundUser = userDao.findUserByEMail(eMail);
                 if (foundUser.isPresent()) {
+
                     String encodedPassword = userDao.findUserPasswordById(foundUser.get().getIdUser());
                     if (BCrypt.checkpw(password, encodedPassword)) {
                         UserStatus status = foundUser.get().getStatus();
+
                         switch (status) {
                             case CONFIRMED -> {
                                 User user = foundUser.get();
@@ -132,6 +135,7 @@ public class UserServiceImpl implements UserService {
                             }
                             case ARCHIVED -> resultType = USER_STATUS_IS_ARCHIVED;
                             default -> throw new EnumConstantNotPresentException(CheckingResult.class, status.name());
+
                         }
                     } else {
                         resultType = USER_UNKNOWN;
@@ -156,12 +160,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public CheckingResult activateUser(String eMail, String token) throws ServiceException {
         CheckingResult resultType;
+
         if (BCrypt.checkpw(eMail, token)) {
             try (EntityTransaction transaction = new EntityTransaction()) {
                 UserDaoImpl userDao = new UserDaoImpl();
                 transaction.beginSingleQuery(userDao);
                 Optional<User> user = userDao.findUserByEMail(eMail);
                 if (user.isPresent()) {
+
                     if (user.get().getStatus() == UserStatus.DECLARED) {
                         long idUser = user.get().getIdUser();
                         ((UserDao) userDao).setUserStatus(idUser, UserStatus.CONFIRMED);
@@ -169,6 +175,7 @@ public class UserServiceImpl implements UserService {
                     } else {
                         resultType = USER_STATUS_NOT_DECLARED;
                     }
+
                 } else {
                     logger.error("Find user not registered. Email = " + eMail);
                     resultType = USER_UNKNOWN;
@@ -193,12 +200,6 @@ public class UserServiceImpl implements UserService {
             UserDaoImpl userDao = new UserDaoImpl();
             entityTransaction.beginSingleQuery(userDao);
             optionalUser = userDao.findEntityById(userId);
-//            if (optionalUser.isPresent()) {
-//                if (optionalUser.get().getStatus() == UserStatus.ARCHIVED) {
-//                    optionalUser = Optional.empty();
-//                    logger.error("Access error. User's status is archived. User id = " + userId);
-//                }
-//            }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -257,17 +258,20 @@ public class UserServiceImpl implements UserService {
                 entityTransaction.beginSingleQuery(userDao);
                 Optional<User> optionalUser = userDao.findEntityById(userId);
                 User user;
+
                 if (UserDataValidator.isPasswordValid(confirmedPassword) && optionalUser.isPresent()) {
                     user = optionalUser.get();
                     resultType = checkEMailPhoneForUpdate(eMail, phone, optionalUser.get(), userDao);
                     String encodedPassword = "";
 
                     long activeId = Long.parseLong(activeIdString);
+
                     if (activeRole.equalsIgnoreCase(UserRole.ADMIN.name())) {
                         encodedPassword = userDao.findUserPasswordById(activeId);
                     } else if (activeId == user.getIdUser()) {
                         encodedPassword = userDao.findUserPasswordById(userId);
                     }
+
                     if (BCrypt.checkpw(confirmedPassword, encodedPassword)) {
 
                         if (resultType == SUCCESS) {
@@ -283,6 +287,7 @@ public class UserServiceImpl implements UserService {
 
                             String newEncodedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
                             boolean resultOperation;
+
                             if (!user.getEMail().equalsIgnoreCase(eMail)) {
                                 resultOperation = userDao.updateUserWithChangeEMail(userForUpdate, newEncodedPassword);
                                 String urlPage = userData.get(URL);
@@ -293,10 +298,12 @@ public class UserServiceImpl implements UserService {
                                 answerMap.put(ROLE, optionalUser.get().getRole().name());
                                 answerMap.put(STATUS, optionalUser.get().getStatus().name());
                             }
+
                             if (!resultOperation) {
                                 logger.error("Can't update user with id = " + userId);
                                 resultType = CheckingResult.ERROR;
                             }
+
                         } else {
                             answerMap.put(FIRST_NAME, userData.get(FIRST_NAME));
                             answerMap.put(LAST_NAME, userData.get(LAST_NAME));
@@ -305,6 +312,7 @@ public class UserServiceImpl implements UserService {
                             answerMap.put(REGION, userData.get(REGION));
                             answerMap.put(CITY, userData.get(CITY));
                         }
+
                     } else {
                         resultType = USER_UNKNOWN;
                     }
@@ -359,11 +367,13 @@ public class UserServiceImpl implements UserService {
                     resultType = checkEMailPhoneForUpdate(eMail, phone, optionalUser.get(), userDao);
                     String encodedPassword = "";
                     long activeId = Long.parseLong(activeIdString);
+
                     if (activeRole.equalsIgnoreCase(UserRole.ADMIN.name())) {
                         encodedPassword = userDao.findUserPasswordById(activeId);
                     } else if (activeId == user.getIdUser()) {
                         encodedPassword = userDao.findUserPasswordById(userId);
                     }
+
                     if (BCrypt.checkpw(confirmedPassword, encodedPassword)) {
 
                         if (resultType == SUCCESS) {
@@ -378,6 +388,7 @@ public class UserServiceImpl implements UserService {
                                     .buildUser();
 
                             boolean resultOperation;
+
                             if (!user.getEMail().equalsIgnoreCase(eMail)) {
                                 resultOperation = userDao.updateUserWithChangeEMailWithoutPassword(userForUpdate);
                                 String urlPage = userData.get(URL);
@@ -388,6 +399,7 @@ public class UserServiceImpl implements UserService {
                                 answerMap.put(ROLE, optionalUser.get().getRole().name());
                                 answerMap.put(STATUS, optionalUser.get().getStatus().name());
                             }
+
                             if (!resultOperation) {
                                 logger.error("Can't update user with id = " + userId);
                                 resultType = CheckingResult.ERROR;
@@ -425,12 +437,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAllUser() throws ServiceException {
+    public List<User> findAllUserOnPage(Pagination pagination) throws ServiceException {
         List<User> users;
         try (EntityTransaction transaction = new EntityTransaction()) {
             UserDaoImpl userDao = new UserDaoImpl();
-            transaction.beginSingleQuery(userDao);
-            users = userDao.findAll();
+            transaction.begin(userDao);
+            int numberItems = userDao.findNumberItems();
+            pagination.setNumberItems(numberItems);
+            pagination.setOnePageNumberItems(NUMBER_ITEMS_ON_PAGE);
+            users = userDao.findAllOnPage(pagination);
+            transaction.commit();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -444,6 +460,7 @@ public class UserServiceImpl implements UserService {
             checkedUser = userDao.findUserByEMail(eMail);
             if (checkedUser.isPresent()) {
                 resultType = DUPLICATE_EMAIL;
+
                 if (checkedUser.get().getPhone().equals(phone)) {
                     resultType = DUPLICATE_EMAIL_AND_PHONE;
                 }
@@ -468,6 +485,7 @@ public class UserServiceImpl implements UserService {
                 resultType = DUPLICATE_EMAIL_AND_PHONE;
             }
         }
+
         boolean isUserExistWithSpecifyPhone;
         if (resultType != DUPLICATE_EMAIL_AND_PHONE) {
             isUserExistWithSpecifyPhone = userDao.checkIsUserExistByPhone(phone);

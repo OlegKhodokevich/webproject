@@ -3,9 +3,7 @@ package by.khodokevich.web.model.service.Impl;
 import by.khodokevich.web.model.builder.OrderBuilder;
 import by.khodokevich.web.controller.command.ParameterAttributeType;
 import by.khodokevich.web.model.dao.EntityTransaction;
-import by.khodokevich.web.model.dao.OrderDao;
 import by.khodokevich.web.model.dao.impl.OrderDaoImpl;
-import by.khodokevich.web.model.dao.impl.UserDaoImpl;
 import by.khodokevich.web.model.entity.*;
 import by.khodokevich.web.exception.DaoException;
 import by.khodokevich.web.exception.ServiceException;
@@ -26,6 +24,7 @@ public class OrderServiceImpl implements OrderService {
 
     private static OrderService instance;
 
+    private static final int NUMBER_ITEMS_ON_PAGE = 3;
     private static final String DATE_PATTERN = "yyyy-MM-dd";
 
     private OrderServiceImpl() {
@@ -39,13 +38,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findAllOrder() throws ServiceException {
-        logger.info("Start findAllOrder().");
+    public List<Order> findAllOpenOrderOnPage(Pagination pagination) throws ServiceException {
+        logger.info("Start findAllOrderOnPage(Pagination pagination).");
         List<Order> orders;
         try (EntityTransaction transaction = new EntityTransaction()) {
             OrderDaoImpl orderDao = new OrderDaoImpl();
-            transaction.beginSingleQuery(orderDao);
-            orders = orderDao.findAll();
+            transaction.begin(orderDao);
+            int numberItems = orderDao.findNumberItems();
+            pagination.setNumberItems(numberItems);
+            pagination.setOnePageNumberItems(NUMBER_ITEMS_ON_PAGE);
+            orders = orderDao.findAllOpenOrdersOnPage(pagination);
+            transaction.commit();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -109,6 +112,7 @@ public class OrderServiceImpl implements OrderService {
             transaction.beginSingleQuery(orderDao);
             for (Order order : orderlList) {
                 if (order.getCompletionDate().before(currentDate)) {
+
                     if (orderDao.setOrderStatus(order.getOrderId(), OrderStatus.CLOSE)) {
                         order.setStatus(OrderStatus.CLOSE);
                     }
@@ -128,6 +132,7 @@ public class OrderServiceImpl implements OrderService {
             OrderDaoImpl orderDao = new OrderDaoImpl();
             transaction.beginSingleQuery(orderDao);
             if (order.getStatus() == OrderStatus.OPEN && order.getCompletionDate().before(currentDate)) {
+
                 if (orderDao.setOrderStatus(order.getOrderId(), OrderStatus.CLOSE)) {
                     order.setStatus(OrderStatus.CLOSE);
                 }
@@ -145,6 +150,7 @@ public class OrderServiceImpl implements OrderService {
         try (EntityTransaction transaction = new EntityTransaction()) {
             OrderDaoImpl orderDao = new OrderDaoImpl();
             transaction.beginSingleQuery(orderDao);
+
             for (Specialization specialization : specializations) {
                 List<Order> transferList = orderDao.findOrdersBySpecialization(specialization);
                 Date currentDate = new Date();
@@ -190,7 +196,7 @@ public class OrderServiceImpl implements OrderService {
                         .completionDate(completionDate)
                         .specialization(specialization)
                         .status(status)
-                        .buildOrder();
+                        .buildOrderWithoutId();
                 logger.info("Prepare to create next order = " + order);
                 boolean isCreate = orderDao.create(order);
                 if (isCreate) {
@@ -252,6 +258,7 @@ public class OrderServiceImpl implements OrderService {
                         .specialization(specialization)
                         .status(status)
                         .buildOrder();
+
                 logger.info("Prepare to update next order = " + order);
                 boolean isUpdate = orderDao.update(order);
                 if (isUpdate) {

@@ -18,7 +18,6 @@ public final class ParameterAttributeType {
     public static final String CHANGE_PASSWORD = "changePassword";
     public static final String ACTIVE_USER = "activeUser";
     public static final String ACTIVE_USER_ROLE = "activeUserRole";
-    public static final String ACTIVE_USER_STATUS = "activeUserStatus";
     public static final String ACTIVE_USER_ID = "activeUserId";
 
     public static final String COMMAND = "command";
@@ -26,7 +25,6 @@ public final class ParameterAttributeType {
     public static final String TOKEN = "token";
     public static final String USER_MESSAGE = "user_message";
     public static final String LOCALE = "locale";
-    public static final String LANGUAGE = "language";
     public static final String CURRENT_PAGE = "current_page";
     public static final String MESSAGE = "message";
     public static final String ERROR = "error";
@@ -60,8 +58,8 @@ public final class ParameterAttributeType {
     public static final String CONTRACT_LIST = "contractList";
     public static final String CONTRACT_ID = "contractId";
     public static final String CONTRACT = "contact";
-    public static final String COMPLETION_CONTRACT_STATUS = "completionContractStatus";
-    public static final String CONCLUDED_CONTRACT_STATUS = "concludedContractStatus";
+    public static final String INDEX_PAGE = "indexPage";
+    public static final String PAGINATION = "pagination";
 
     private ParameterAttributeType() {
     }

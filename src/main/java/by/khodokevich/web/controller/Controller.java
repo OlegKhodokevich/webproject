@@ -37,10 +37,10 @@ public class Controller extends HttpServlet {
         Command command = commandProvider.getCommand(commandName);
 
         Router router = command.execute(request);
-        switch (router.getRouterType()) {
-            case REDIRECT -> response.sendRedirect(router.getPagePath());
+        switch (router.routerType()) {
+            case REDIRECT -> response.sendRedirect(router.pagePath());
             case FORWARD -> {
-                RequestDispatcher dispatcher = request.getRequestDispatcher(router.getPagePath());
+                RequestDispatcher dispatcher = request.getRequestDispatcher(router.pagePath());
                 dispatcher.forward(request, response);
             }
             default -> {

@@ -1,5 +1,6 @@
 package by.khodokevich.web.validator;
 
+import by.khodokevich.web.exception.ServiceException;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -9,7 +10,7 @@ import static org.testng.Assert.*;
 public class UserDataValidatorRegionTest {
 
     @Test(dataProvider = "validate_region", groups = {"user_validation"})
-    public void testIsRegionValid(String region, boolean expectedResult) {
+    public void testIsRegionValid(String region, boolean expectedResult) throws ServiceException {
         boolean actualResult = UserDataValidator.isRegionValid(region);
 
         Assert.assertEquals(actualResult, expectedResult);

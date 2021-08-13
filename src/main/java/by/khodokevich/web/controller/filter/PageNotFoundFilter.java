@@ -11,14 +11,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+
 @WebFilter(filterName = "PageNotFoundFilter", urlPatterns = {"/*"})
 public class PageNotFoundFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(PageNotFoundFilter.class);
-
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        logger.debug("Init filter for redirect to error 404 page.");
-    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -31,12 +27,5 @@ public class PageNotFoundFilter implements Filter {
         } else {
             filterChain.doFilter(servletRequest, pageNotFoundResponse);
         }
-
-
-    }
-
-    @Override
-    public void destroy() {
-
     }
 }

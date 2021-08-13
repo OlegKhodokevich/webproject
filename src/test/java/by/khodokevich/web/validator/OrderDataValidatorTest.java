@@ -1,5 +1,6 @@
 package by.khodokevich.web.validator;
 
+import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.model.service.CheckingResult;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,7 +13,7 @@ import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 public class OrderDataValidatorTest {
 
     @Test(groups = {"order_validation"})
-    public void testCheckOrderData1() {
+    public void testCheckOrderData1() throws ServiceException {
         Map<String, String> orderData = new HashMap<>();
         orderData.put(TITLE, "Painting walls in two rooms.");
         orderData.put(DESCRIPTION, "Painting walls in two rooms with preparing base and plastering.");
@@ -28,7 +29,7 @@ public class OrderDataValidatorTest {
     }
 
     @Test(groups = {"order_validation"})
-    public void testCheckOrderData2() {
+    public void testCheckOrderData2() throws ServiceException {
         Map<String, String> orderData = new HashMap<>();
         orderData.put(TITLE, "Покраска стен в 2 комнатах.");
         orderData.put(DESCRIPTION, "Покраска стен в 2 комнатах с подготовкой стен и стукатуркой.");
@@ -44,7 +45,7 @@ public class OrderDataValidatorTest {
     }
 
     @Test(groups = {"order_validation"})
-    public void testCheckOrderData3() {
+    public void testCheckOrderData3() throws ServiceException {
         Map<String, String> orderData = new HashMap<>();
         orderData.put(TITLE, "Painting walls in two rooms.");
         orderData.put(DESCRIPTION, "Покраска стен в 2 комнатах с подготовкой стен и стукатуркой.");
@@ -61,7 +62,7 @@ public class OrderDataValidatorTest {
     }
 
     @Test(groups = {"order_validation"})
-    public void testCheckOrderData4() {
+    public void testCheckOrderData4() throws ServiceException {
         Map<String, String> orderData = new HashMap<>();
         orderData.put(TITLE, "Painting walls in two rooms. Painting walls in two rooms. Painting walls in two rooms. Painting walls in two rooms. " +
                 "Painting walls in two rooms. Painting walls in two rooms. Painting walls in two rooms. ");
@@ -83,7 +84,7 @@ public class OrderDataValidatorTest {
     }
 
     @Test(groups = {"order_validation"})
-    public void testCheckOrderData5() {
+    public void testCheckOrderData5() throws ServiceException {
         Map<String, String> orderData = new HashMap<>();
         orderData.put(TITLE, "Painting walls in two rooms. Painting walls in two rooms. Painting walls in two rooms. Painting walls in two rooms. " +
                 "Painting walls in two rooms. Painting walls in two rooms. Painting walls in two rooms. ");
@@ -105,7 +106,7 @@ public class OrderDataValidatorTest {
     }
 
     @Test(groups = {"order_validation"})
-    public void testCheckOrderData6() {
+    public void testCheckOrderData6() throws ServiceException {
         Map<String, String> orderData = new HashMap<>();
         orderData.put(TITLE, "Painting walls in two rooms. Painting walls in two rooms. Painting walls in two rooms. Painting walls in two rooms. " +
                 "Painting walls in two rooms. Painting walls in two rooms. Painting walls in two rooms. ");
@@ -137,7 +138,7 @@ public class OrderDataValidatorTest {
 
 
     @Test(groups = {"order_validation"})
-    public void testCheckOrderData7() {
+    public void testCheckOrderData7() throws ServiceException {
         Map<String, String> orderData = new HashMap<>();
         orderData.put(TITLE, "Painting walls in two rooms.");
         orderData.put(DESCRIPTION, "Painting walls in two rooms with preparing base and plastering.");
@@ -158,7 +159,7 @@ public class OrderDataValidatorTest {
     }
 
     @Test(groups = {"order_validation"})
-    public void testCheckOrderData8() {
+    public void testCheckOrderData8() throws ServiceException {
         Map<String, String> orderData = new HashMap<>();
         orderData.put(TITLE, "Painting walls in two rooms.");
         orderData.put(DESCRIPTION, "Painting walls in two rooms with preparing base and plastering.");

@@ -1,5 +1,11 @@
 package by.khodokevich.web.model.entity;
 
+/**
+ * Contract is the main entity we'll be using to outlining contract between customer and executor
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public class Executor extends User {
 
     private ExecutorOption executorOption;
@@ -45,12 +51,13 @@ public class Executor extends User {
 
     @Override
     public int hashCode() {
-        return super.hashCode() * 31 + executorOption.hashCode();
+        return super.hashCode() + executorOption.hashCode();
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Executor{");
+        final StringBuilder sb = new StringBuilder(getClass().getSimpleName());
+        sb.append("{");
         sb.append(super.toString());
         sb.append("executorOption=").append(executorOption);
         sb.append('}');

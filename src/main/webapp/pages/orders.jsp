@@ -36,7 +36,7 @@ flex-direction: column;">
     <jsp:include page="header.jsp"/>
 </header>
 
-<h1 class="text-title" >${text_order_orders}</h1>
+<h1 class="text-title">${text_order_orders}</h1>
 
 
 <div class="container">
@@ -81,17 +81,19 @@ flex-direction: column;">
                     </div>
                 </c:when>
                 <c:when test="${sessionScope.orderList.size() gt 0}">
-                    <div  id="listElement" class="list-group">
+                    <div id="listElement" class="list-group">
                         <c:forEach var="order" items="${sessionScope.orderList}">
                             <c:if test="${order != null}">
                                 <a href="/controller?command=find_order_info_details&orderId=${order.orderId}"
                                    class="flex-column custom-card mb-2">
-                                    <p class="date-to-format" style="text-align: right; font-size: 14px; margin-bottom: 0">${order.creationDate.time}</p>
+                                    <p class="date-to-format"
+                                       style="text-align: right; font-size: 14px; margin-bottom: 0">${order.creationDate.time}</p>
                                     <div class="d-flex w-100 justify-content-between">
                                         <p class="mb-1 " style="font-weight: bold">${order.title}</p>
                                     </div>
                                     <p class="mb-1">${order.description}</p>
-                                    <span>${text_order_completion_date} : <span class="date-to-format">${order.completionDate.time}</span></span>
+                                    <span>${text_order_completion_date} : <span
+                                            class="date-to-format">${order.completionDate.time}</span></span>
                                     <input type="hidden" name="orderId" id="orderId" value="${order.orderId}">
                                 </a>
                             </c:if>
@@ -99,23 +101,51 @@ flex-direction: column;">
                     </div>
                 </c:when>
             </c:choose>
+            <nav aria-label="Page navigation area">
+                <ul class="pagination justify-content-center">
+                    <c:if test="${sessionScope.pagination.currentPage > 1}">
+                        <li class="page-item ${sessionScope.pagination.currentPage eq 1 ? 'disabled': ''}">
+                            <a class="page-link"
+                               href="${abs_path}/controller?command=all_orders&indexPage=${sessionScope.pagination.currentPage - 1}"
+                               tabindex="-1"><<</a>
+                        </li>
+                    </c:if>
+                    <li class="page-item ${sessionScope.pagination.currentPage eq 1 ? 'active': ''}">
+                        <a class="page-link" href="${abs_path}/controller?command=all_orders&indexPage=${1}">1</a>
+                    </li>
+                    <c:if test="${sessionScope.pagination.showLeftDivider()}">
+                        <li class="page-item disabled}">
+                            <a class="page-link disabled" href="">...</a>
+                        </li>
+                    </c:if>
+                    <c:forEach var="i" items="${sessionScope.pagination.listVisiblePage}">
+                        <li class="page-item ${sessionScope.pagination.currentPage eq i ? 'active': ''}">
+                            <a class="page-link"
+                               href="${abs_path}/controller?command=all_orders&indexPage=${i}">${i}</a>
+                        </li>
+                    </c:forEach>
+                    <c:if test="${sessionScope.pagination.showRightDivider()}">
+                        <li class="page-item disabled}">
+                            <a class="page-link disabled" href="">...</a>
+                        </li>
+                    </c:if>
+                    <c:if test="${sessionScope.pagination.lastPage > 1}">
+                        <li class="page-item ${sessionScope.pagination.currentPage eq sessionScope.pagination.lastPage ? 'active': ''}">
+                            <a class="page-link"
+                               href="${abs_path}/controller?command=all_orders&indexPage=${sessionScope.pagination.lastPage}">${sessionScope.pagination.lastPage}</a>
+                        </li>
+                    </c:if>
+                    <c:if test="${sessionScope.pagination.currentPage < sessionScope.pagination.lastPage}">
+                        <li class="page-item ${sessionScope.pagination.currentPage eq sessionScope.pagination.lastPage ? 'disabled': ''}">
+                            <a class="page-link"
+                               href="${abs_path}/controller?command=all_orders&indexPage=${sessionScope.pagination.currentPage + 1}"
+                               tabindex="-1">>></a>
+                        </li>
+                    </c:if>
+                </ul>
+            </nav>
         </div>
-        <nav aria-label="Page navigation area">
-            <ul class="pagination justify-content-center">
-                <li class="page-item ${pageable.isFirstPage() ? 'disabled': ''}">
-                    <a class="page-link"
-                       href="${abs_path}/controller?command=show_all_users&page=${pageable.currentPage - 1}" tabindex="-1">Previous</a>
-                </li>
-                <c:forEach var="i" begin="1" end="${pageable.pageCount()}">
-                    <li class="page-item ${pageable.currentPage eq i ? 'active': ''}">
-                        <a class="page-link" href="${abs_path}/controller?command=show_all_users&page=${i}">${i}</a></li>
-                </c:forEach>
-                <li class="page-item ${pageable.isLastPage() ? 'disabled': ''}">
-                    <a class="page-link"
-                       href="${abs_path}/controller?command=show_all_users&page=${pageable.currentPage + 1}">Next</a>
-                </li>
-            </ul>
-        </nav>
+
     </div>
 </div>
 

@@ -17,17 +17,12 @@ public final class PagePath {
     public static final String MY_CONTRACTS = "/pages/user/my_contract.jsp";
     public static final String OFFER = "/pages/user/offer_for_user.jsp";
 
-    public static final String TO_MAIN_PAGE = "?command=go_to_main";
-    public static final String TO_REGISTER_PAGE = "?command=go_to_registration";
-    public static final String TO_LOGIN_PAGE = "?command=go_to_sign_in";
     public static final String TO_ERROR_PAGE = "?command=go_to_error_page";
     public static final String TO_ERROR404_PAGE = "?command=go_to_error404";
     public static final String TO_ORDERS = "?command=all_orders";
-    public static final String TO_ORDER_INFO = "?command=go_to_order_page";
     public static final String TO_USERS_ORDERS = "?command=find_user_orders";
     public static final String TO_MY_CONTRACT = "?command=find_contract_by_customer_id";
     public static final String TO_OFFER = "?command=find_offer_for_user";
-//    public static final String MY_ORDERS = "/pages/my_orders.jsp";
 
     private PagePath() {
     }

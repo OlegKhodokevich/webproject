@@ -1,5 +1,6 @@
 package by.khodokevich.web.validator;
 
+import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.model.entity.Specialization;
 import by.khodokevich.web.model.service.CheckingResult;
 import org.apache.logging.log4j.LogManager;
@@ -23,7 +24,7 @@ public class OrderDataValidator {
 
     private static final String DATE_PATTERN = "yyyy-MM-dd";
 
-    public static Map<String, String> checkOrderData(Map<String, String> orderData) {
+    public static Map<String, String> checkOrderData(Map<String, String> orderData) throws ServiceException {
         String title = orderData.get(TITLE);
         String description = orderData.get(DESCRIPTION);
         String address = orderData.get(ADDRESS);
@@ -58,28 +59,48 @@ public class OrderDataValidator {
         return answerMap;
     }
 
-    public static boolean isTitleValid(String title) {
+    public static boolean isTitleValid(String title) throws ServiceException {
+        if (title == null) {
+            logger.error("Title = null.");
+            throw new ServiceException("Title = null.");
+        }
         String regexp = getRegexp(KEY_REGEXP_TITLE);
         return title.matches(regexp);
     }
 
-    public static boolean isDescriptionValid(String description) {
+    public static boolean isDescriptionValid(String description) throws ServiceException {
+        if (description == null) {
+            logger.error("Description = null.");
+            throw new ServiceException("Description = null.");
+        }
         String regexp = getRegexp(KEY_REGEXP_DESCRIPTION);
         return description.matches(regexp);
     }
 
-    public static boolean isAddressValid(String address) {
+    public static boolean isAddressValid(String address) throws ServiceException {
+        if (address == null) {
+            logger.error("Address = null.");
+            throw new ServiceException("Address = null.");
+        }
         String regexp = getRegexp(KEY_REGEXP_ADDRESS);
         return address.matches(regexp);
     }
 
-    public static boolean isSpecializationValid(String specialization) {
+    public static boolean isSpecializationValid(String specialization) throws ServiceException {
+        if (specialization == null) {
+            logger.error("Specialization = null.");
+            throw new ServiceException("Specialization = null.");
+        }
         Specialization[] specializations = Specialization.values();
         boolean result = Arrays.stream(specializations).anyMatch((s) -> s.name().equalsIgnoreCase(specialization));
         return result;
     }
 
-    public static boolean isCompletionDateValid(String completionDateString) {
+    public static boolean isCompletionDateValid(String completionDateString) throws ServiceException {
+        if (completionDateString == null) {
+            logger.error("completionDateString = null.");
+            throw new ServiceException("completionDateString = null.");
+        }
         boolean result;
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
         try {

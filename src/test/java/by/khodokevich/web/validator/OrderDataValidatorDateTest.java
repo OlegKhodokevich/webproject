@@ -1,5 +1,6 @@
 package by.khodokevich.web.validator;
 
+import by.khodokevich.web.exception.ServiceException;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -9,7 +10,7 @@ import static org.testng.Assert.*;
 public class OrderDataValidatorDateTest {
 
     @Test(dataProvider = "validate_date", groups = {"order_validation"})
-    public void testIsCompletionDateValid(String completionDate, boolean expectedResult) {
+    public void testIsCompletionDateValid(String completionDate, boolean expectedResult) throws ServiceException {
         boolean actualResult = OrderDataValidator.isCompletionDateValid(completionDate);
 
         Assert.assertEquals(actualResult, expectedResult);

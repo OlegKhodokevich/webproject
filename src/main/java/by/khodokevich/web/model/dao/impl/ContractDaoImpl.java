@@ -29,12 +29,11 @@ public class ContractDaoImpl extends AbstractDao<Contract> implements ContractDa
     private static final String SQL_SELECT_ALL_OFFER_BY_ID_EXECUTOR = "SELECT IdContract, IdOrder, IdUserExecutor, Conclude, Complete FROM contracts WHERE IdUserExecutor = ?;";
     private static final String SQL_SELECT_DEFINED_CONTRACT = "SELECT IdOrder, IdUserExecutor, Conclude, Complete FROM contracts WHERE IdContract = ?;";
     private static final String SQL_DELETE_DEFINED_CONTRACT_BY_ID = "DELETE FROM contracts WHERE IdContract = ?;";
-    private static final String SQL_DELETE_DEFINED_CONTRACT_BY_IDORDER_AND_IDEXECUTOR = "DELETE FROM contracts WHERE IdOrder = ? AND IdUserExecutor = ?;";
     private static final String SQL_INSERT_CONTRACT = "INSERT INTO contracts(IdOrder, IdUserExecutor, Conclude, Complete) VALUES (?, ?, ?, ?);";
     private static final String SQL_UPDATE_CONTRACT = "UPDATE contracts SET Conclude = ?, Complete = ?  WHERE IdContract = ?;";
     private static final String SQL_SET_CONCLUDED_STATUS = "UPDATE contracts SET Conclude = 'concluded'  WHERE IdContract = ?;";
-    private static final String SQL_SET_NOT_CONCLUDED_STATUS_FOR_DEFINE_CONTRACT="UPDATE contracts SET Conclude = 'not_concluded'  WHERE IdContract = ?;";
-    private static final String SQL_SET_COMPLETED_STATUS="UPDATE contracts SET Complete = 'completed'  WHERE IdContract = ?;";
+    private static final String SQL_SET_NOT_CONCLUDED_STATUS_FOR_DEFINE_CONTRACT = "UPDATE contracts SET Conclude = 'not_concluded'  WHERE IdContract = ?;";
+    private static final String SQL_SET_COMPLETED_STATUS = "UPDATE contracts SET Complete = 'completed'  WHERE IdContract = ?;";
 
 
     @Override
@@ -43,6 +42,7 @@ public class ContractDaoImpl extends AbstractDao<Contract> implements ContractDa
         List<Contract> contracts = new ArrayList<>();
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_ALL_CONTRACTS);
              ResultSet resultSet = statement.executeQuery()) {
+
             while (resultSet.next()) {
                 long contractId = resultSet.getLong(ID_CONTRACT);
                 long orderId = resultSet.getLong(ID_ORDER);
@@ -72,6 +72,7 @@ public class ContractDaoImpl extends AbstractDao<Contract> implements ContractDa
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_DEFINED_CONTRACT)) {
             statement.setLong(1, contractId);
             try (ResultSet resultSet = statement.executeQuery()) {
+
                 if (resultSet.next()) {
                     long orderId = resultSet.getLong(ID_ORDER);
                     long executorId = resultSet.getLong(ID_EXECUTOR);
@@ -94,11 +95,12 @@ public class ContractDaoImpl extends AbstractDao<Contract> implements ContractDa
 
     @Override
     public List<Contract> findContractByIdUserCustomer(long userCustomerId) throws DaoException {
-        logger.info("findContractByIdUser()");
+        logger.info("Start findContractByIdUserCustomer(long userCustomerId). Id = " + userCustomerId);
         List<Contract> contracts = new ArrayList<>();
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_ALL_CONTRACTS_BY_ID_CUSTOMER)) {
-            statement.setLong(1,userCustomerId);
-            try(ResultSet resultSet = statement.executeQuery()) {
+            statement.setLong(1, userCustomerId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+
                 while (resultSet.next()) {
                     long contractId = resultSet.getLong(ID_CONTRACT);
                     long orderId = resultSet.getLong(ID_ORDER);
@@ -113,7 +115,6 @@ public class ContractDaoImpl extends AbstractDao<Contract> implements ContractDa
                     contracts.add(contract);
                 }
             }
-
         } catch (SQLException e) {
             logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
             throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
@@ -127,8 +128,9 @@ public class ContractDaoImpl extends AbstractDao<Contract> implements ContractDa
         logger.info("Start findContractByIdExecutor(long userExecutorId). Id = " + userExecutorId);
         List<Contract> contracts = new ArrayList<>();
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_ALL_CONTRACTS_BY_ID_EXECUTOR)) {
-            statement.setLong(1,userExecutorId);
-            try(ResultSet resultSet = statement.executeQuery()) {
+            statement.setLong(1, userExecutorId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+
                 while (resultSet.next()) {
                     long contractId = resultSet.getLong(ID_CONTRACT);
                     long orderId = resultSet.getLong(ID_ORDER);
@@ -143,7 +145,6 @@ public class ContractDaoImpl extends AbstractDao<Contract> implements ContractDa
                     contracts.add(contract);
                 }
             }
-
         } catch (SQLException e) {
             logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
             throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
@@ -158,15 +159,15 @@ public class ContractDaoImpl extends AbstractDao<Contract> implements ContractDa
         logger.info("Start findAllContractByOrderId(long userCustomerId). Id = " + orderId);
         List<Long> contractIdList = new ArrayList<>();
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_ID_CONTRACTS_BY_ORDER_ID)) {
-            statement.setLong(1,orderId);
-            try(ResultSet resultSet = statement.executeQuery()) {
+            statement.setLong(1, orderId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+
                 while (resultSet.next()) {
                     long contractId = resultSet.getLong(ID_CONTRACT);
                     logger.info("Has found next contract = " + contractId);
                     contractIdList.add(contractId);
                 }
             }
-
         } catch (SQLException e) {
             logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
             throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
@@ -180,8 +181,9 @@ public class ContractDaoImpl extends AbstractDao<Contract> implements ContractDa
         logger.info("Start findOfferByIdExecutor(long userCustomerId). Id = " + executorId);
         List<Contract> contracts = new ArrayList<>();
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_ALL_OFFER_BY_ID_EXECUTOR)) {
-            statement.setLong(1,executorId);
-            try(ResultSet resultSet = statement.executeQuery()) {
+            statement.setLong(1, executorId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+
                 while (resultSet.next()) {
                     long contractId = resultSet.getLong(ID_CONTRACT);
                     long orderId = resultSet.getLong(ID_ORDER);
@@ -222,45 +224,11 @@ public class ContractDaoImpl extends AbstractDao<Contract> implements ContractDa
 
     @Override
     public boolean delete(Contract entity) throws DaoException {
-//        logger.info("Start delete(Contract entity). Contract = " + entity);
-//        int numberUpdatedRows;
-//        try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_DEFINED_CONTRACT_BY_IDORDER_AND_IDEXECUTOR)) {
-//            long orderId = entity.getIdOrder();
-//            statement.setLong(1, orderId);
-//            long executorId = entity.getIdExecutor();
-//            statement.setLong(2, executorId);
-//
-//            numberUpdatedRows = statement.executeUpdate();
-//        } catch (SQLException e) {
-//            logger.error("Prepare statement can't be take from connection." + e.getMessage());
-//            throw new DaoException("Prepare statement can't be take from connection." + e.getMessage());
-//        }
-//        boolean result = numberUpdatedRows >= 1;
-//        logger.info(() -> result ? "Operation was successful. Deleted " + numberUpdatedRows + " order." : " Contract hasn't been found");
         throw new UnsupportedOperationException();
-//        return result;
     }
 
     @Override
     public boolean create(Contract entity) throws DaoException {
-//        logger.info("Start create(Contract entity)." + entity);
-//        if (entity.getIdContract() != 0) {
-//            logger.warn("Warning: Contract's id is already define. Id = " + entity.getIdContract());
-//        }
-//        int numberUpdatedRows;
-//        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_CONTRACT)) {
-//            statement.setLong(1, entity.getOrder().getOrderId());
-//            statement.setLong(2, entity.getUser().getIdUser());
-//            statement.setString(3, entity.getConcludedContractStatus().name().toLowerCase());
-//            statement.setString(4, entity.getCompletionContractStatus().name().toLowerCase());
-//            numberUpdatedRows = statement.executeUpdate();
-//        } catch (SQLException e) {
-//            logger.error("Prepare statement can't be take from connection." + e.getMessage());
-//            throw new DaoException("Prepare statement can't be take from connection." + e.getMessage());
-//        }
-//        boolean result = numberUpdatedRows == 1;
-//        logger.info(() -> result ? "Operation was successful. " : " Operation was failed");
-//        return result;
         throw new UnsupportedOperationException();
     }
 
@@ -305,9 +273,9 @@ public class ContractDaoImpl extends AbstractDao<Contract> implements ContractDa
     @Override
     public boolean setNotConcludedStatusForCompetitor(List<Long> contractIdList) throws DaoException {
         logger.info("Start setNotConcludedStatusCompetitor(List<Long> contractIdList). contractIdList = " + contractIdList);
-        int [] numberUpdatedRows;
+        int[] numberUpdatedRows;
         try (PreparedStatement statement = connection.prepareStatement(SQL_SET_NOT_CONCLUDED_STATUS_FOR_DEFINE_CONTRACT)) {
-            for (Long element :contractIdList) {
+            for (Long element : contractIdList) {
                 statement.setLong(1, element);
                 statement.addBatch();
             }
@@ -316,7 +284,7 @@ public class ContractDaoImpl extends AbstractDao<Contract> implements ContractDa
             logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
             throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
         }
-        boolean result = Arrays.stream(numberUpdatedRows).allMatch(s->s==1);
+        boolean result = Arrays.stream(numberUpdatedRows).allMatch(s -> s == 1);
         logger.info(() -> result ? "Operation was successful. " : " Operation was failed");
         return result;
     }
@@ -332,15 +300,6 @@ public class ContractDaoImpl extends AbstractDao<Contract> implements ContractDa
             logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
             throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
         }
-//        boolean result = numberUpdatedRows == 1;
-//        numberUpdatedRows = 0;
-//        try (PreparedStatement statement = connection.prepareStatement(SQL_SET_NOT_CONCLUDED_STATUS_FOR_DEFINE_CONTRACT)) {
-//            statement.setLong(1, contractId);
-//            numberUpdatedRows = statement.executeUpdate();
-//        } catch (SQLException e) {
-//            logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
-//            throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
-//        }
         boolean result = numberUpdatedRows == 1;
         logger.info(() -> result ? "Operation was successful. " : " Operation was failed");
         return result;

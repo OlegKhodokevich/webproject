@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
+import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.Router.RouterType.*;
 
@@ -22,17 +23,13 @@ import static by.khodokevich.web.controller.command.Router.RouterType.*;
 public class ActivateOrderCommand implements Command {
     private static final Logger logger = LogManager.getLogger(ActivateOrderCommand.class);
 
-    public static final String KEY_ORDER_ACTIVATED = "order.message_activate";
-    public static final String KEY_DATA_INCORRECT = "order.message_data_incorrect";
-    public static final String KEY_UNKNOWN_USER = "order.message_user_unknown";
-
     @Override
     public Router execute(HttpServletRequest request) {
         logger.info("Start ActivateOrderCommand.");
         Router router;
         OrderService orderService = ServiceProvider.ORDER_SERVICE;
-        Map<String, String> orderData = RequestData.getRequestOrderData(request);
         try {
+            Map<String, String> orderData = RequestData.getRequestOrderData(request);
             Map<String, String> answerMap = orderService.updateOrder(orderData);
             String operationResultString = answerMap.get(RESULT);
             HttpSession session = request.getSession();

@@ -56,20 +56,18 @@ background-size: cover">
                                             <p class="mb-1" style="font-weight: bold ">${text_contract_contract}
                                                 № ${contract.idContract}</p>
                                             <br/>
-                                            <p><a href="/controller?command=find_order_info_details&orderId=${contract.order.orderId}">
-                                                    ${text_order_title} : ${contract.order.title}
-                                            </a>
+                                            <p>
+                                                <a href="/controller?command=find_order_info_details&orderId=${contract.order.orderId}">
+                                                        ${text_order_title} : ${contract.order.title}
+                                                </a>
                                             </p>
-                                            <p><a href="/controller?command=find_executor_info_details&executorId=${contract.user.idUser}">
-                                                    ${text_contract_executor}${contract.user.firstName} : ${contract.user.lastName}
-                                            </a>
+                                            <p>
+                                                <a href="/controller?command=find_executor_info_details&executorId=${contract.user.idUser}">
+                                                        ${text_contract_executor}${contract.user.firstName}
+                                                    : ${contract.user.lastName}
+                                                </a>
                                             </p>
                                         </div>
-<%--                                        <fmt:message key="${contract.concludedContractStatus.key}"--%>
-<%--                                                     var="text_contract_concludedContractStatus"/>--%>
-<%--                                        <p class="mb-1">${text_contract_concluded_status}--%>
-<%--                                            : ${text_contract_concludedContractStatus}</p>--%>
-
                                         <fmt:message key="${contract.completionContractStatus.key}"
                                                      var="text_contract_completionContractStatus"/>
                                         <p class="mb-1">${text_contract_completion_status}
@@ -78,14 +76,11 @@ background-size: cover">
                                     <div class="col wi">
                                         <div class="container">
                                             <div class="list-group">
-                                                <c:if test="${sessionScope.activeUserId eq contract.user.idUser}">
-                                                    <c:choose>
-                                                        <c:when test="${(sessionScope.activeUserId eq contract.order.userId) && (contract.completionContractStatus eq 'NOT_COMPLETED')}">
-                                                            <a class="btn btn-success custom-button-operation-my-order"
-                                                               href="/controller?command=close_contract&contractId=${contract.idContract}&orderId=${contract.order.orderId}"
-                                                               role="button">${text_contract_close_contract}</a>
-                                                        </c:when>
-                                                    </c:choose>
+                                                <c:if test="${(sessionScope.activeUserId eq contract.order.userId) && (contract.completionContractStatus eq 'NOT_COMPLETED')}">
+                                                    <a class="btn btn-success custom-button-operation-my-order"
+                                                       href="/controller?command=close_contract&contractId=${contract.idContract}&orderId=${contract.order.orderId}"
+                                                       role="button">${text_contract_close_contract}</a>
+
                                                 </c:if>
                                             </div>
                                         </div>
@@ -99,8 +94,6 @@ background-size: cover">
         </c:choose>
     </div>
 </div>
-
-
 <footer>
     <jsp:include page="../footer.jsp"/>
 </footer>

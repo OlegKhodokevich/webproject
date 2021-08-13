@@ -20,27 +20,24 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
+import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
+import static by.khodokevich.web.controller.command.Router.RouterType.*;
 
 public class SignInCommand implements Command {
     private static final Logger logger = LogManager.getLogger(SignInCommand.class);
-    public static final String KEY_STATUS_ARCHIVED = "error.status_archived";
-    public static final String KEY_DATA_NOT_VALID = "registration.message_data_not_correct";
-    public static final String KEY_USER_UNKNOWN = "error.user_unknown";
-    public static final String KEY_USER_NOT_CONFIRMED = "error.user_not_confirmed";
-    private static final String MASSAGE_LETTER_NOT_SENT = "mail_sender.letter_not_send";
 
     @Override
     public Router execute(HttpServletRequest request) {
         logger.info("Start sign in.");
         Router router;
         Map<String, String> userData = RequestData.getRequestUserData(request);
-        UserService userService = ServiceProvider.USER_SERVICE;
         Map<String, String> answerMap;
-        HttpSession session = request.getSession();
         try {
+            UserService userService = ServiceProvider.USER_SERVICE;
             answerMap = userService.logOn(userData);
             CheckingResult resultType = CheckingResult.valueOf(answerMap.get(RESULT));
+            HttpSession session = request.getSession();
             switch (resultType) {
                 case SUCCESS -> {
                     long userId = Long.parseLong(answerMap.get(USER_ID));
@@ -88,6 +85,9 @@ public class SignInCommand implements Command {
         } catch (ServiceException e) {
             logger.error("Log In Error", e);
             router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
+        } catch (NumberFormatException e) {
+            logger.error("UserId is incorrect. It isn't able to be parsed.", e);
+            router = new Router(PagePath.ERROR_PAGE, REDIRECT);
         }
         logger.info("End sign in.");
         return router;

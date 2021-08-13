@@ -40,8 +40,7 @@ height: 100%">
         </div>
     </div>
 </div>
-
-<c:if test="${sessionScope.activeUser eq 'CUSTOMER'}">
+<c:if test="${sessionScope.activeUserRole eq 'CUSTOMER'}">
     <a class="btn  btn-success align-content-center text-lg-center mb-2 p-0"
        href="/controller?command=go_to_creation_order_page"
        role="button" style="width: 300px; height: 50px; font-size: 22px; margin-left: 300px; padding: 0"> <span

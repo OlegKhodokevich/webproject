@@ -25,24 +25,32 @@ public class ArchiveOrderCommand implements Command {
         OrderService orderService = ServiceProvider.ORDER_SERVICE;
         HttpSession session = request.getSession();
         String userIdString;
-        if (((String)session.getAttribute(ACTIVE_USER_ROLE)).equalsIgnoreCase("ADMIN")) {
+        String activeUserRole = (String)session.getAttribute(ACTIVE_USER_ROLE);
+        if (activeUserRole != null && activeUserRole .equalsIgnoreCase("ADMIN")) {
             userIdString = request.getParameter(USER_ID);
         } else {
             userIdString = (String) session.getAttribute(ACTIVE_USER_ID);
         }
         try {
-            long orderId = Long.parseLong(request.getParameter(ORDER_ID));
-            if (!orderService.setStatus(orderId, OrderStatus.CLOSE)) {
-                logger.error("Can't change order's status.");
+            String orderIdString =  request.getParameter(ORDER_ID);
+            if (userIdString != null && orderIdString != null) {
+                long orderId = Long.parseLong(orderIdString);
+                if (!orderService.setStatus(orderId, OrderStatus.CLOSE)) {
+                    logger.error("User Id or Order Id is null. User Id = " + userIdString + " , order id = " + orderIdString);
+                    router = new Router(PagePath.ERROR_PAGE, REDIRECT);
+                } else {
+                    logger.error("Can't change order's status.");
+                    router = new Router(PagePath.TO_USERS_ORDERS + "&userId=" + userIdString, REDIRECT);
+                }
+            } else{
+                logger.error("User Id or Order Id is null. User Id = " + userIdString + " , order id = " + orderIdString);
+                router = new Router(PagePath.ERROR_PAGE, REDIRECT);
             }
-            router = new Router(PagePath.TO_USERS_ORDERS + "&userId=" + userIdString, REDIRECT);
-
-
         } catch (ServiceException e) {
-            logger.info("Can't change order's status.");
+            logger.error("Can't change order's status.");
             router = new Router(PagePath.ERROR_PAGE, REDIRECT);
         } catch (NumberFormatException e) {
-            logger.info("Can't parse id.");
+            logger.error("Can't parse id.");
             router = new Router(PagePath.ERROR_PAGE, REDIRECT);
         }
         return router;

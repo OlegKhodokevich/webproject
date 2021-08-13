@@ -5,6 +5,7 @@ import by.khodokevich.web.controller.command.PagePath;
 import by.khodokevich.web.controller.command.ParameterAttributeType;
 import by.khodokevich.web.controller.command.Router;
 import by.khodokevich.web.model.entity.Order;
+import by.khodokevich.web.model.entity.Pagination;
 import by.khodokevich.web.model.entity.Specialization;
 import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.model.service.OrderService;
@@ -16,9 +17,12 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
+import static by.khodokevich.web.controller.command.InformationMessage.*;
+import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
+import static by.khodokevich.web.controller.command.Router.RouterType.*;
+
 public class FindOrderBySpecializationCommand implements Command {
     private static final Logger logger = LogManager.getLogger(FindOrderBySpecializationCommand.class);
-    private static final String ORDERS_NOT_FOUND = "order.empty_list";
     private static final String CHECKBOX_VALUE = "on";
 
     @Override
@@ -27,7 +31,6 @@ public class FindOrderBySpecializationCommand implements Command {
         List<Order> orderList;
         List<Specialization> specializations = new ArrayList<>();
         Router router;
-        OrderService orderService = ServiceProvider.ORDER_SERVICE;
         HttpSession session = request.getSession();
         try {
             Map<String, Specialization> specializationMap = Specialization.getSpecializationMap();
@@ -42,12 +45,24 @@ public class FindOrderBySpecializationCommand implements Command {
                     session.setAttribute(key, "");
                 }
             }
+
+            int currentIndexPage;
+            String currentIndexPageString = request.getParameter(INDEX_PAGE);
+            if (currentIndexPageString == null || currentIndexPageString.isEmpty()) {
+                currentIndexPage = 1;
+            } else {
+                currentIndexPage = Integer.parseInt(currentIndexPageString);
+            }
+            Pagination pagination = new Pagination(currentIndexPage);
             logger.debug("Specs = " + specializations);
+            OrderService orderService = ServiceProvider.ORDER_SERVICE;
+
             if (!specializations.isEmpty()) {
                 orderList = orderService.findOrdersBySpecializations(specializations);
             } else {
-                orderList = orderService.findAllOrder();
+                orderList = orderService.findAllOpenOrderOnPage(pagination);
             }
+
             logger.info("Orders = " + orderList);
             if (orderList.isEmpty()) {
                 session.setAttribute(ParameterAttributeType.MESSAGE, ORDERS_NOT_FOUND);
@@ -58,6 +73,9 @@ public class FindOrderBySpecializationCommand implements Command {
         } catch (ServiceException e) {
             logger.error("Error during query", e);
             router = new Router(PagePath.TO_ERROR_PAGE, Router.RouterType.REDIRECT);
+        } catch (NumberFormatException e) {
+            logger.error("Can't parse id.");
+            router = new Router(PagePath.ERROR_PAGE, REDIRECT);
         }
 
         return router;

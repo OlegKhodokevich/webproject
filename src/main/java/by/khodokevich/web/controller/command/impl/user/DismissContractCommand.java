@@ -22,12 +22,14 @@ public class DismissContractCommand implements Command {
     public Router execute(HttpServletRequest request) {
         logger.info("Start DismissContractCommand.");
         Router router;
-        ContractService contractService = ServiceProvider.CONTRACT_SERVICE;
         String contractIdString = request.getParameter(CONTRACT_ID);
         long contractId = -1;
+
         try {
             contractId = Long.parseLong(contractIdString);
-            if (contractService.setNotConcludedStatus(contractId)) {
+            ContractService contractService = ServiceProvider.CONTRACT_SERVICE;
+            boolean result = contractService.setNotConcludedStatus(contractId);
+            if (result) {
                 HttpSession session = request.getSession();
                 long activeUser = (Long) session.getAttribute(ACTIVE_USER_ID);
                 router = new Router(PagePath.TO_OFFER + "&userId=" + activeUser, REDIRECT);
@@ -35,6 +37,7 @@ public class DismissContractCommand implements Command {
                 logger.error("Hasn't been set concluded status for contract with id = " + contractId);
                 router = new Router(PagePath.ERROR_PAGE, REDIRECT);
             }
+
         } catch (NumberFormatException e) {
             logger.error("Can't parse contractId = " + contractIdString, e);
             router = new Router(PagePath.ERROR_PAGE, REDIRECT);

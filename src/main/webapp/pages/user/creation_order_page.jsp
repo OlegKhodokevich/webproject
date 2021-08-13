@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="mes" uri="custom tag message writer" %>
@@ -104,15 +104,14 @@ background-size: cover">
             <div>
                 <input type="hidden" name="orderId" value="${sessionScope.orderId}">
                 <input type="hidden" name="command" value="activate_order">
-<%--                <input type="hidden" name="userId" value="${sessionScope.userId}" >--%>
+                    <%--                <input type="hidden" name="userId" value="${sessionScope.userId}" >--%>
                 <input type="submit" value="${text_order_confirm}">
             </div>
         </c:when>
         <c:when test="${sessionScope.reason eq 'edit'}">
             <div>
                 <input type="hidden" name="orderId" value="${sessionScope.orderId}" style="background-color: #1e7e34">
-                <input type="hidden" name="command" value="edit_order" >
-<%--                <input type="hidden" name="userId" value="${sessionScope.userId}" >--%>
+                <input type="hidden" name="command" value="edit_order">
                 <input type="submit" value="${text_order_confirm}">
             </div>
         </c:when>

@@ -16,16 +16,22 @@ public class SetLocaleCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
         logger.info("Set local command.");
-        HttpSession session = request.getSession();
-        logger.info("Old local = " + session.getAttribute(LOCALE));
-        String newLocal =  request.getParameter(LOCALE);
-        session.setAttribute(LOCALE, newLocal);
-        String pagePath = (String) session.getAttribute(CURRENT_PAGE);
-        if (pagePath == null) {
-            pagePath = PagePath.MAIN_PAGE;
+        Router router;
+        String newLocal = request.getParameter(LOCALE);
+        if (newLocal != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute(LOCALE, newLocal);
+            String pagePath = (String) session.getAttribute(CURRENT_PAGE);
+
+            if (pagePath == null) {
+                pagePath = PagePath.MAIN_PAGE;
+            }
+            router = new Router(pagePath, Router.RouterType.REDIRECT);
+            logger.debug("New local = " + newLocal);
+        } else {
+            router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
+            logger.error("locale is null.");
         }
-        Router router = new Router(pagePath, Router.RouterType.REDIRECT);
-        logger.info("New local = " + newLocal);
         return router;
     }
 }

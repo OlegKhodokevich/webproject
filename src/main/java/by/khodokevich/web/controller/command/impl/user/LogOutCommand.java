@@ -2,6 +2,7 @@ package by.khodokevich.web.controller.command.impl.user;
 
 import by.khodokevich.web.controller.command.*;
 import by.khodokevich.web.model.entity.User;
+import by.khodokevich.web.model.entity.UserRole;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
@@ -17,12 +18,13 @@ public class LogOutCommand implements Command {
         logger.info("Start log out. ");
         HttpSession session = request.getSession(false);
         if (session != null) {
-            User user = (User) session.getAttribute("user");
-            String role = (String) session.getAttribute("role");
+            User user = (User) session.getAttribute(ACTIVE_USER);
+            String role = (String) session.getAttribute(ACTIVE_USER_ROLE);
             logger.info("User exited from account. User  = " + user + "  , role  = " + role);
             String locale = (String) session.getAttribute(LOCALE);
             session.invalidate();
             session = request.getSession();
+            session.setAttribute(ACTIVE_USER_ROLE, UserRole.GUEST.name());
             session.setAttribute(LOCALE, locale);
         }
         return new Router(PagePath.MAIN_PAGE, Router.RouterType.REDIRECT);

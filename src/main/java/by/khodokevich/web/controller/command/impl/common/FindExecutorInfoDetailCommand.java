@@ -14,22 +14,23 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 
+import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.Router.RouterType.*;
 
 public class FindExecutorInfoDetailCommand implements Command {
     private static final Logger logger = LogManager.getLogger(FindExecutorInfoDetailCommand.class);
-    private static final String EXECUTOR_NOT_FOUND = "executor.executor_not_found";
 
     @Override
     public Router execute(HttpServletRequest request) {
-        logger.info("Start FindExecutorInfoCommand.");
-        HttpSession session = request.getSession();
-        ExecutorService executorService = ServiceProvider.EXECUTOR_SERVICE;
+        logger.info("Start FindExecutorInfoDetailCommand.");
         Router router;
         try {
             long executorId = Long.parseLong(request.getParameter(EXECUTOR_ID));
+            ExecutorService executorService = ServiceProvider.EXECUTOR_SERVICE;
             Optional<Executor> optionalExecutor = executorService.findDefineExecutor(executorId);
+
+            HttpSession session = request.getSession();
             if (optionalExecutor.isPresent()) {
                 session.setAttribute(EXECUTOR, optionalExecutor.get());
                 router = new Router(PagePath.EXECUTOR_INFO, REDIRECT);
@@ -38,6 +39,7 @@ public class FindExecutorInfoDetailCommand implements Command {
                 session.setAttribute(MESSAGE, EXECUTOR_NOT_FOUND);
                 router = new Router(PagePath.EXECUTORS, REDIRECT);
             }
+
         } catch (ServiceException e) {
             logger.error("Can't find executor.", e);
             router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);

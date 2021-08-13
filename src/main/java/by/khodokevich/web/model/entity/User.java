@@ -1,6 +1,6 @@
 package by.khodokevich.web.model.entity;
 
-public class User extends Entity{
+public class User extends Entity {
     private long userId;
     private String firstName;
     private String lastName;
@@ -113,12 +113,12 @@ public class User extends Entity{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User user)) return false;
-        return userId == user.userId && firstName.equals(user.firstName) && lastName.equals(user.lastName)&& eMail.equals(user.eMail) && phone.equals(user.phone) && region == user.region && city.equals(user.city) && status == user.status && role == user.role;
+        return userId == user.userId && firstName.equals(user.firstName) && lastName.equals(user.lastName) && eMail.equals(user.eMail) && phone.equals(user.phone) && region == user.region && city.equals(user.city) && status == user.status && role == user.role;
     }
 
     @Override
     public int hashCode() {
-        int result = (int)userId + 31 * firstName.hashCode();
+        int result = (int) userId + 31 * firstName.hashCode();
         result = result * 31 + lastName.hashCode();
         result = result * 31 + eMail.hashCode();
         result = result * 31 + phone.hashCode();

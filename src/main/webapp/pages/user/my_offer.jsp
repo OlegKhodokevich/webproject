@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="mes" uri="custom tag message writer" %>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="text"/>
@@ -17,7 +18,7 @@
 
 <html>
 <head>
-    <title>${text_contract_my_contracts}</title>
+    <title>${text_contract_my_offer}</title>
     <link href="../../css/custom_styles.css" rel="stylesheet"/>
 </head>
 <body style="background-image: url(../../image/building_3_c1.jpg);
@@ -86,12 +87,6 @@ background-size: cover">
                                                            href="#"
                                                            role="button">${text_contract_close_contract}</a>
                                                     </c:when>
-
-                                                    <%--                                                    <c:when test="${order.status.name() == 'CLOSE'}">--%>
-                                                    <%--                                                        <a class="btn btn-info custom-button-operation-my-order"--%>
-                                                    <%--                                                           href="/controller?command=prepare_activate_order&orderId=${order.orderId}&reason=activate"--%>
-                                                    <%--                                                           role="button">${text_order_activate}</a>--%>
-                                                    <%--                                                    </c:when>--%>
                                                 </c:choose>
                                             </div>
                                         </div>

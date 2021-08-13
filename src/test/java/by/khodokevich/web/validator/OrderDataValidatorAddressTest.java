@@ -1,5 +1,6 @@
 package by.khodokevich.web.validator;
 
+import by.khodokevich.web.exception.ServiceException;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -9,7 +10,7 @@ import static org.testng.Assert.*;
 public class OrderDataValidatorAddressTest {
 
     @Test(dataProvider = "validate_address", groups = {"order_validation"})
-    public void testIsAddressValid(String address, boolean expectedResult) {
+    public void testIsAddressValid(String address, boolean expectedResult) throws ServiceException {
         boolean actualResult = OrderDataValidator.isAddressValid(address);
 
         Assert.assertEquals(actualResult, expectedResult);

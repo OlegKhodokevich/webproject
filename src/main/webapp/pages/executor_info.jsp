@@ -51,8 +51,9 @@ background-size: cover">
                                 <h6 class="d-flex align-items-center mb-3">${text_executor_skills}</h6>
                                 <c:if test="${sessionScope.executor.executorOption.skills != null}">
                                     <c:forEach var="skill" items="${sessionScope.executor.executorOption.skills}">
+                                        <fmt:message key="${skill.specialization.key}" var="text_specialisation"/>
                                         <div>
-                                            <p style="text-align: left">${skill.specialization}
+                                            <p style="text-align: left">${text_specialisation}
                                                 <span> ${skill.cost} </span><span>${skill.measure}</span></p>
                                         </div>
                                     </c:forEach>
@@ -107,7 +108,8 @@ background-size: cover">
                                 <h6 class="mb-0">${text_registration_region}</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <fmt:message key="${applicationScope.regionMap.get(sessionScope.executor.region)}" var="text_region"/>
+                                <fmt:message key="${applicationScope.regionMap.get(sessionScope.executor.region)}"
+                                             var="text_region"/>
                                 ${text_region}
                             </div>
                         </div>
@@ -168,7 +170,8 @@ background-size: cover">
                         <hr>
                         <c:if test="${sessionScope.activeUser !=null and sessionScope.activeUser.idUser eq sessionScope.executor.idUser or sessionScope.activeUser.role eq 'ADMIN'}">
                             <div class="col-sm-12">
-                                <a class="btn btn-info " href="/controller?command=prepare_edit_user&userId=${sessionScope.executor.idUser}">${text_user_edit_user}</a>
+                                <a class="btn btn-info "
+                                   href="/controller?command=prepare_edit_user&userId=${sessionScope.executor.idUser}">${text_user_edit_user}</a>
                             </div>
                         </c:if>
                     </div>

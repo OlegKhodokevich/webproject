@@ -21,4 +21,5 @@ public enum UserStatus {
     public static List<UserStatus> getStatusList() {
         return Collections.unmodifiableList(statusList);
     }
+
 }

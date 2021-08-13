@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
+import static by.khodokevich.web.controller.command.Router.RouterType.REDIRECT;
 
 public class CloseContractCommand implements Command {
     private static final Logger logger = LogManager.getLogger(CloseContractCommand.class);
@@ -23,8 +24,8 @@ public class CloseContractCommand implements Command {
         ContractService contractService = ServiceProvider.CONTRACT_SERVICE;
         try {
             String contractIdString = request.getParameter(CONTRACT_ID);
-            long contractId = Long.parseLong(contractIdString);
             String orderIdString = request.getParameter(ORDER_ID);
+            long contractId = Long.parseLong(contractIdString);
             long orderId = Long.parseLong(orderIdString);
             boolean result = contractService.setCompletedStatus(contractId, orderId);
             HttpSession session = request.getSession();
@@ -35,7 +36,7 @@ public class CloseContractCommand implements Command {
                 logger.error("Can't complete contract");
                 router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
             }
-        }catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             logger.error("Incorrect format", e);
             router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
         } catch (ServiceException e) {

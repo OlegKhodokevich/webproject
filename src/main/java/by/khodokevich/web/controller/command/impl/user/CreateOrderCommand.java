@@ -15,27 +15,27 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
+import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
 public class CreateOrderCommand implements Command {
     private static final Logger logger = LogManager.getLogger(CreateOrderCommand.class);
 
-    public static final String KEY_ORDER_CREATED = "order.message_created";
-    public static final String KEY_DATA_INCORRECT = "order.message_data_incorrect";
-    public static final String KEY_UNKNOWN_USER = "order.message_user_unknown";
 
     @Override
     public Router execute(HttpServletRequest request) {
-        OrderService orderService = ServiceProvider.ORDER_SERVICE;
-        Map<String, String> orderData = RequestData.getRequestOrderData(request);
         Map<String, String> answerMap;
         Router router;
         try {
+            Map<String, String> orderData = RequestData.getRequestOrderData(request);
+            OrderService orderService = ServiceProvider.ORDER_SERVICE;
             answerMap = orderService.createOrder(orderData);
             String operationResultString = answerMap.get(RESULT);
             HttpSession session = request.getSession();
             CheckingResult resultOperation;
+
             if (operationResultString != null) {
+
                 resultOperation = CheckingResult.valueOf(operationResultString);
                 switch (resultOperation) {
                     case SUCCESS -> {
@@ -61,10 +61,12 @@ public class CreateOrderCommand implements Command {
                         throw new EnumConstantNotPresentException(CheckingResult.class, resultOperation.name());
                     }
                 }
+
             } else {
                 logger.error("Result check data is incorrect." + answerMap);
                 router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);
             }
+
         } catch (ServiceException e) {
             logger.error("Can't create order.", e);
             router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);

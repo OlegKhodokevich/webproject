@@ -3,6 +3,7 @@ package by.khodokevich.web.model.connection;
 import by.khodokevich.web.exception.PoolConnectionException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;

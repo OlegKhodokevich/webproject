@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="mes" uri="custom tag message writer" %>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="text"/>
@@ -64,19 +65,11 @@ background-size: cover">
                                             </p>
                                             <p>
                                                 <a href="/controller?command=find_executor_info_details&executorId=${contract.user.idUser}">
-                                                        ${text_contract_executor} : ${contract.user.firstName} ${contract.user.lastName}
+                                                        ${text_contract_executor}
+                                                    : ${contract.user.firstName} ${contract.user.lastName}
                                                 </a>
                                             </p>
                                         </div>
-                                            <%--                                        <fmt:message key="${contract.concludedContractStatus.key}"--%>
-                                            <%--                                                     var="text_contract_concludedContractStatus"/>--%>
-                                            <%--                                        <p class="mb-1">${text_contract_concluded_status}--%>
-                                            <%--                                            : ${text_contract_concludedContractStatus}</p>--%>
-
-                                            <%--                                        <fmt:message key="${contract.completionContractStatus.key}"--%>
-                                            <%--                                                     var="text_contract_completionContractStatus"/>--%>
-                                            <%--                                        <p class="mb-1">${text_contract_completion_status}--%>
-                                            <%--                                            : ${text_contract_completionContractStatus}</p>--%>
                                     </div>
                                     <div class="col wi">
                                         <div class="container">
@@ -99,7 +92,6 @@ background-size: cover">
         </c:choose>
     </div>
 </div>
-
 
 <footer>
     <jsp:include page="../footer.jsp"/>

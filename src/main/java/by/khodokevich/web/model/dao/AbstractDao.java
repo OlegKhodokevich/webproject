@@ -28,7 +28,11 @@ public abstract class AbstractDao<T extends Entity> {
 
     public abstract boolean update(T entity) throws DaoException;
 
-    void closeStatement(Statement statement) throws DaoException {
+    void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
+    void closeStatement(Statement statement) {
         try {
             if (statement != null) {
                 statement.close();
@@ -39,10 +43,6 @@ public abstract class AbstractDao<T extends Entity> {
         } catch (SQLException e) {
             logger.error("Statement can't be closed.", e);
         }
-    }
-
-    void setConnection(Connection connection) {
-        this.connection = connection;
     }
 
     void closeConnection() {
