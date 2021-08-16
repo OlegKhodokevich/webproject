@@ -6,6 +6,13 @@ import by.khodokevich.web.model.entity.Specialization;
 
 import java.util.Date;
 
+
+/**
+ * Class which help to create order.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public class OrderBuilder {
     private long orderId;
     private long userId;

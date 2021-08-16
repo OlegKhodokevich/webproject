@@ -16,6 +16,13 @@ import java.util.List;
 
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
+/**
+ * Filter which check if user is able to invoke command by his role.
+ * In case user's role isn't appropriate user will be redirected to main page.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 @WebFilter
 public class AccessRoleFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(AccessRoleFilter.class);

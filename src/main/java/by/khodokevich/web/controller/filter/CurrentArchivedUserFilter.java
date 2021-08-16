@@ -15,6 +15,14 @@ import java.util.Set;
 import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
+/**
+ * Filter which search user which was blocked by admin.
+ * If user is found he will be redirected to main page.
+ * If user is found his id remove from set of archived persons.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 @WebFilter
 public class CurrentArchivedUserFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(CurrentArchivedUserFilter.class);

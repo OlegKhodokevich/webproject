@@ -18,6 +18,13 @@ import java.util.List;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.ACTIVE_USER_ROLE;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.COMMAND;
 
+/**
+ * Filter which set to header Cache-Control param.
+ * If command isn't allowed for guest header won't cache.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 @WebFilter
 public class CacheFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(CacheFilter.class);

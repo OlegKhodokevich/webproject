@@ -14,7 +14,15 @@ import java.io.IOException;
 
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
-@WebFilter
+/**
+ * Filter which pass users except guest on specify page.
+ * We specify url pattern "/pages/user/*".
+ * In case users hasn't an access he will be redirected to main page.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
+@WebFilter("/pages/user/*")
 public class AccessUserPageFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(AccessUserPageFilter.class);
 

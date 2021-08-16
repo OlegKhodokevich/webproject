@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * UserStatus is state of user.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public enum UserStatus {
     DECLARED,
     CONFIRMED,

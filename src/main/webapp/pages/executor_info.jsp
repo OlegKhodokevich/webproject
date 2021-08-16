@@ -23,11 +23,17 @@
 
 <fmt:message key="user.edit_user" var="text_user_edit_user"/>
 
+<fmt:message key="revoke.title" var="text_revoke_title"/>
+<fmt:message key="revoke.executor_revoke" var="text_revoke_executor_revoke"/>
+
+<fmt:message key="revoke.rating" var="text_ravoke_reting"/>
 <html>
 <head>
     <title>${text_executor_executor_info}</title>
     <link href="../css/custom_styles.css" rel="stylesheet"/>
     <link href="../css/custom_card.css" rel="stylesheet"/>
+    <link href="../css/revoke_style.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body style="background-image: url(../image/building_3_c1.jpg);
 background-repeat: no-repeat;
@@ -164,7 +170,30 @@ background-size: cover">
                                 <h6 class="mb-0">${text_executor_average_mark}</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                ${sessionScope.executor.executorOption.averageMark}
+                                ${sessionScope.executor.executorOption.truncatedMark}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">${text_ravoke_reting}</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+
+                                    <c:forEach items="${applicationScope.markList}" varStatus="loop">
+                                        <c:choose>
+                                            <c:when test="${(loop.index + 1) <= sessionScope.executor.executorOption.averageMark}">
+                                                <span class="fa fa-star checked"></span>
+                                            </c:when>
+                                            <c:when test="${(loop.index + 1) > sessionScope.executor.executorOption.averageMark}">
+                                                <span class="fa fa-star"></span>
+                                            </c:when>
+                                        </c:choose>
+                                    </c:forEach>
+
+                                <a href="/controller?command=executor_revoke&executorId=${sessionScope.executor.idUser}">
+                                    ${text_revoke_title}
+                                </a>
                             </div>
                         </div>
                         <hr>

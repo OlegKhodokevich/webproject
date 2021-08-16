@@ -24,6 +24,11 @@ public class OrderDataValidator {
 
     private static final String DATE_PATTERN = "yyyy-MM-dd";
 
+    /**
+     * @param orderData is Map with param for validation order information.
+     * @return Map with result of validation. If one of param isn't valid will be returned all correct params without incorrect.
+     * @throws ServiceException if param is null
+     */
     public static Map<String, String> checkOrderData(Map<String, String> orderData) throws ServiceException {
         String title = orderData.get(TITLE);
         String description = orderData.get(DESCRIPTION);

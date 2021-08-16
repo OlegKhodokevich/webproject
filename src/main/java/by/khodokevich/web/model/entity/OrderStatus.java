@@ -1,5 +1,12 @@
 package by.khodokevich.web.model.entity;
 
+
+/**
+ * OrderStatus outline state of order.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public enum OrderStatus {
     OPEN(3, "order.open"),
     CLOSE(4, "order.close"),

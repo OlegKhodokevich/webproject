@@ -7,6 +7,6 @@ public class
 GoToSignInCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
-        return new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
+        return new Router(PagePath.LOGIN_PAGE, Router.RouterType.FORWARD);
     }
 }

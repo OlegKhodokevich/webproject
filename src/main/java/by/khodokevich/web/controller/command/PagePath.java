@@ -16,6 +16,8 @@ public final class PagePath {
     public static final String ALL_USERS = "/pages/admin/all_users_page.jsp";
     public static final String MY_CONTRACTS = "/pages/user/my_contract.jsp";
     public static final String OFFER = "/pages/user/offer_for_user.jsp";
+    public static final String REVOKE = "/pages/revokes.jsp";
+    public static final String CREATE_REVOKE = "/pages/user/create_revoke_page.jsp";
 
     public static final String TO_ERROR_PAGE = "?command=go_to_error_page";
     public static final String TO_ERROR404_PAGE = "?command=go_to_error404";

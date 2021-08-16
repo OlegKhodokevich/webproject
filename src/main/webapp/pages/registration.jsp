@@ -20,6 +20,8 @@
 <fmt:message key="registration.ivanov" var="text_registration_ivanov"/>
 <fmt:message key="registration.admin_password" var="text_registration_admin_password"/>
 <fmt:message key="registration.change_password" var="text_registration_change_password"/>
+<fmt:message key="registration.executor_registration" var="text_registration_executor_registration"/>
+<fmt:message key="registration.correct_password" var="text_registration_correct_password"/>
 
 <fmt:message key="user.old_password" var="text_user_old_password"/>
 <fmt:message key="user.confirm_changes" var="user_confirm_changes"/>
@@ -63,13 +65,13 @@ background-size: cover">
         </c:when>
     </c:choose>
     <div>
-        <input type="text" placeholder="${text_registration_ivan}" id="Firstname" name="firstName" maxlength="20"
-               required value="${sessionScope.firstName}">
+        <input type="text" placeholder="${text_registration_ivan}" id="Firstname" name="firstName" minlength="1"
+               maxlength="20" required value="${sessionScope.firstName}">
         <label for="Firstname">${text_registration_firstname}</label>
     </div>
     <div>
-        <input type="text" placeholder="${text_registration_ivanov}" id="Lastname" name="lastName" maxlength="20"
-               required value="${sessionScope.lastName}">
+        <input type="text" placeholder="${text_registration_ivanov}" id="Lastname" name="lastName" minlength="1"
+               maxlength="20" required value="${sessionScope.lastName}">
         <label for="Lastname">${text_registration_lastname}</label>
     </div>
     <c:if test="${sessionScope.activeUserRole ne 'GUEST'}">
@@ -95,17 +97,20 @@ background-size: cover">
         </div>
     </c:if>
     <div>
-        <input type="password" placeholder="${text_registration_password}" id="Password" name="password" ${sessionScope.activeUserRole eq 'GUEST' ? 'required' : null}
+        <input type="password" placeholder="${text_registration_password}" id="Password"
+               name="password" ${sessionScope.activeUserRole eq 'GUEST' ? 'required' : null}
                minlength="6" maxlength="20">
         <label for="Password">${text_registration_password}</label>
     </div>
+        <p style="margin-left: 300px; font-size: 12px;">${text_registration_correct_password}</p>
     <div>
         <input type="password" placeholder="${text_registration_repeat_password}" id="Psw-repeat" name="psw-repeat"
         ${sessionScope.activeUserRole eq 'GUEST' ? 'required' : null} minlength="6" maxlength="20">
         <label for="Psw-repeat">${text_registration_repeat_password}</label>
     </div>
     <div>
-        <input type="email" placeholder="e-mail-adress@gmail.com" id="Emailinput" name="eMail" required maxlength="45"
+        <input type="email" placeholder="e-mail-adress@gmail.com" id="Emailinput" name="eMail" required minlength="5"
+               maxlength="45"
                value="${sessionScope.eMail}">
         <label for="Emailinput">E-mail</label>
     </div>
@@ -143,6 +148,9 @@ background-size: cover">
             </div>
         </c:when>
     </c:choose>
+    <div>
+        <p style="margin-left: 100px; font-weight: bold; font-size: 20px;">${text_registration_executor_registration}</p>
+    </div>
 </form>
 <footer>
     <jsp:include page="footer.jsp"/>

@@ -102,7 +102,7 @@ public class UserServiceImplLogOnTest { //TODO It doesn't work
         when(daoMoc.findUserByEMail(Mockito.any(String.class))).thenReturn(optionalUserMoc);
 
 //        when(dao.findUserPasswordById(userId)).thenReturn(password);
-//        ((UserServiceImpl) userService).setUserDao(daoMoc); TODO
+//        ((UserServiceImpl) userService).setUserDao(daoMoc);
     }
 
 

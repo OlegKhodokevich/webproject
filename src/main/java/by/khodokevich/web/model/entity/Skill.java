@@ -1,5 +1,13 @@
 package by.khodokevich.web.model.entity;
 
+
+/**
+ * Skill is entity outlining particular traits of executor.
+ * This is what executor can do.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public class Skill extends Entity {
     private Specialization specialization;
     private String cost;

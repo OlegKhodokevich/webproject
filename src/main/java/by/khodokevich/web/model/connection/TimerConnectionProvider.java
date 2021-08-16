@@ -10,6 +10,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * TimerConnectionProvider is timer task which chek pool and add connection if it isn't full.
+ * TimerConnectionProvider stops operation in pool during it work.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public class TimerConnectionProvider extends TimerTask {
     private static final Logger logger = LogManager.getLogger(TimerConnectionProvider.class);
     private static final AtomicBoolean isConnectionProviderRun = CustomConnectionPool.isConnectionProviderRun;
@@ -18,6 +25,7 @@ public class TimerConnectionProvider extends TimerTask {
 
     @Override
     public void run() {
+        logger.info("Start TimerConnectionProvider.");
         try {
             try {
                 timerConnectionProviderLock.lock();
@@ -33,12 +41,8 @@ public class TimerConnectionProvider extends TimerTask {
             logger.info("TimerConnectionProvider start check pool.");
             CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
 
-            try {
-                if (!connectionPool.isFull()) {
-                    connectionPool.addConnectionsToPool();
-                }
-            } catch (PoolConnectionException e) {
-                e.printStackTrace();
+            if (!connectionPool.isFull()) {
+                connectionPool.addConnectionsToPool();
             }
         } finally {
             isConnectionProviderRun.set(false);

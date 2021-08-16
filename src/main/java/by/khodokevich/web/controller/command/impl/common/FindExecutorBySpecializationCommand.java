@@ -21,7 +21,7 @@ import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 public class FindExecutorBySpecializationCommand implements Command {
     private static final Logger logger = LogManager.getLogger(FindExecutorBySpecializationCommand.class);
     private static final String CHECKBOX_VALUE = "on";
-    private static final String CHECKBOX_EMPTY_VALUE = "on";
+    private static final String CHECKBOX_EMPTY_VALUE = "";
 
     @Override
     public Router execute(HttpServletRequest request) {

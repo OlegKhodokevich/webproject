@@ -8,6 +8,12 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+/**
+ * ProxyConnection is proxy wrapper for connection. This helps to authenticate connection and delegate execute to wrapper with it specify behavior.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 class ProxyConnection implements Connection {
     private final static Logger logger = LogManager.getLogger(ProxyConnection.class);
     private Connection connection;
@@ -56,11 +62,17 @@ class ProxyConnection implements Connection {
         connection.rollback();
     }
 
+    /**
+     * Method release connection.
+     */
     @Override
-    public void close() throws SQLException {
+    public void close() {
         CustomConnectionPool.getInstance().releaseConnection(this);
     }
 
+    /**
+     * Method close connection.
+     */
     void reallyClose() {
         try {
             connection.close();

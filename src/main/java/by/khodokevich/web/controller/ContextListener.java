@@ -1,8 +1,9 @@
 package by.khodokevich.web.controller;
 
-import by.khodokevich.web.exception.PoolConnectionException;
 import by.khodokevich.web.model.connection.CustomConnectionPool;
+import by.khodokevich.web.model.connection.TimerConnectionProvider;
 import by.khodokevich.web.model.entity.RegionBelarus;
+import by.khodokevich.web.model.entity.Revoke;
 import by.khodokevich.web.model.entity.Specialization;
 import by.khodokevich.web.model.entity.UserStatus;
 import jakarta.servlet.ServletContextEvent;
@@ -12,12 +13,21 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.HashSet;
+import java.util.Timer;
 
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
+/**
+ * This class-listener sets common attributes to ServletContext and fills connection's pool during initialization.
+ * This class destroy pool during destroying ServletContext.
+ *
+ * @author Oleg Khodokevich
+ */
 @WebListener
 public class ContextListener implements ServletContextListener {
     private static final Logger logger = LogManager.getLogger(ServletContextListener.class);
+    private static final int DELAY = 60 * 60 * 1000;
+    private static final int PERIOD = 8 * 60 * 60 * 1000;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -29,6 +39,12 @@ public class ContextListener implements ServletContextListener {
         sce.getServletContext().setAttribute(SPECIALIZATION_MAP, Specialization.getSpecializationMap());
         sce.getServletContext().setAttribute(STATUS_LIST, UserStatus.getStatusList());
         sce.getServletContext().setAttribute(SET_ARCHIVE_USERS, new HashSet<Long>());
+        sce.getServletContext().setAttribute(MARK_LIST, Revoke.getMarkList());
+
+        CustomConnectionPool.getInstance();
+        TimerConnectionProvider timerConnectionProvider = new TimerConnectionProvider();
+        Timer timer = new Timer(true);
+        timer.scheduleAtFixedRate(timerConnectionProvider, DELAY, PERIOD);
     }
 
     @Override
@@ -36,10 +52,6 @@ public class ContextListener implements ServletContextListener {
         logger.info("Destroy context.");
 
         CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
-        try {
-            connectionPool.destroyPool();
-        } catch (PoolConnectionException e) {
-            logger.error("Can't destroy connection's pool.", e);
-        }
+        connectionPool.destroyPool();
     }
 }

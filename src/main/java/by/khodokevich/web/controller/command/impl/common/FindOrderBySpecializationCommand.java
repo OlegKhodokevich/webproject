@@ -24,6 +24,7 @@ import static by.khodokevich.web.controller.command.Router.RouterType.*;
 public class FindOrderBySpecializationCommand implements Command {
     private static final Logger logger = LogManager.getLogger(FindOrderBySpecializationCommand.class);
     private static final String CHECKBOX_VALUE = "on";
+    private static final String EMPTY_VALUE = "";
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -40,9 +41,9 @@ public class FindOrderBySpecializationCommand implements Command {
                 String value = request.getParameter(key);
                 if (value != null && value.equals(CHECKBOX_VALUE)) {
                     specializations.add(specializationMap.get(key));
-                    session.setAttribute(key, "on");
+                    session.setAttribute(key, CHECKBOX_VALUE);
                 } else {
-                    session.setAttribute(key, "");
+                    session.setAttribute(key, EMPTY_VALUE);
                 }
             }
 
@@ -74,7 +75,7 @@ public class FindOrderBySpecializationCommand implements Command {
             logger.error("Error during query", e);
             router = new Router(PagePath.TO_ERROR_PAGE, Router.RouterType.REDIRECT);
         } catch (NumberFormatException e) {
-            logger.error("Can't parse id.");
+            logger.error("Can't parse id.", e);
             router = new Router(PagePath.ERROR_PAGE, REDIRECT);
         }
 

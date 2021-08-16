@@ -3,6 +3,12 @@ package by.khodokevich.web.model.entity;
 
 import java.util.*;
 
+/**
+ * Specialization is entity outlining main types of builder specialization.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public enum Specialization {
     ELECTRICAL("specialization.electrical", "spec1"),
     PLUMBING("specialization.plumbing", "spec2"),

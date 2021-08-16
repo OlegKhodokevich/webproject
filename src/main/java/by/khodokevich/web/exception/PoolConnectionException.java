@@ -1,5 +1,11 @@
 package by.khodokevich.web.exception;
 
+/**
+ * DaoException is exception is invoked in connection's pool.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public class PoolConnectionException extends Exception{
     public PoolConnectionException() {
     }

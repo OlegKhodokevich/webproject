@@ -1,7 +1,7 @@
 package by.khodokevich.web.model.entity;
 
 /**
- * Contract is the main entity we'll be using to outlining contract between customer and executor
+ * Executor is main entity which outlining user who take order and execute it.
  *
  * @author Oleg Khodokevich
  *

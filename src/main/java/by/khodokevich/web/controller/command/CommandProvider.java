@@ -1,7 +1,7 @@
 package by.khodokevich.web.controller.command;
 
 import by.khodokevich.web.controller.command.impl.*;
-import by.khodokevich.web.controller.command.impl.admin.ActivateUserCommand;
+import by.khodokevich.web.controller.command.impl.ActivateUserCommand;
 import by.khodokevich.web.controller.command.impl.admin.AllUserCommand;
 import by.khodokevich.web.controller.command.impl.admin.FindUserInfoDetailCommand;
 import by.khodokevich.web.controller.command.impl.admin.SetUserStatusCommand;
@@ -24,7 +24,7 @@ public class CommandProvider {
 
     enum CommandType {
         REGISTER(new RegisterUserCommand(), List.of(GUEST)),
-        ACTIVATE(new ActivateUserCommand(), List.of(ADMIN)),
+        ACTIVATE(new ActivateUserCommand(), List.of(UserRole.values())),
         SIGN_IN(new SignInCommand(), List.of(GUEST)),
         LOG_OUT(new LogOutCommand(), List.of(EXECUTOR, CUSTOMER, ADMIN)),
         DEFAULT(new DefaultCommand(), List.of(UserRole.values())),
@@ -54,12 +54,15 @@ public class CommandProvider {
         DISMISS_CONTRACT(new DismissContractCommand(), List.of(CUSTOMER)),
         CLOSE_CONTRACT(new CloseContractCommand(), List.of(CUSTOMER)),
         CREATE_OFFER(new CreateOfferCommand(), List.of(EXECUTOR)),
+        EXECUTOR_REVOKE(new FindExecutorRevokeCommand(), List.of(UserRole.values())),
 
         GO_TO_MAIN(new GoToMainCommand(), List.of(UserRole.values())),
         GO_TO_REGISTRATION(new GoToRegistrationCommand(), List.of(UserRole.values())),
         GO_TO_SIGN_IN(new GoToSignInCommand(), List.of(UserRole.values())),
         GO_TO_ERROR404(new GoToErrorUndefinedPageCommand(), List.of(UserRole.values())),
-        GO_TO_CREATION_ORDER_PAGE(new GoToCreationOrderPage(), List.of(UserRole.values()));
+        GO_TO_CREATION_ORDER_PAGE(new GoToCreationOrderPage(), List.of(UserRole.values())),
+        GO_TO_CREATION_REVOKE_PAGE(new GoToCreationRevokePageCommand(), List.of(CUSTOMER)),
+        CREATE_REVOKE(new CreateRevokeCommand(), List.of(CUSTOMER));
 
         private final Command command;
         private final List<UserRole> roleList;

@@ -40,8 +40,7 @@ public class FindOrderInfoDetailsCommand implements Command {
                 UserService userService = ServiceProvider.USER_SERVICE;
                 Optional<User> optionalUser = userService.findDefineUser(userId);
 
-                if (optionalUser.isPresent()) {
-                    orderService.archiveExpiredUsersOrders(optionalOrder.get());
+                if (optionalUser.isPresent() && orderService.checkOrder(optionalOrder.get())) {
                     String firstName = optionalUser.get().getFirstName();
                     String lastName = optionalUser.get().getLastName();
                     String phone = optionalUser.get().getPhone();

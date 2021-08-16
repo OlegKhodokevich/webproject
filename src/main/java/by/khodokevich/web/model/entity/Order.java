@@ -3,6 +3,12 @@ package by.khodokevich.web.model.entity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Order is entity which contain information about job.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public class Order extends Entity {
     private long orderId;
     private long userId;

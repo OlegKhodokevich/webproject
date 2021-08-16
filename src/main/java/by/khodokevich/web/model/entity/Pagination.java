@@ -3,6 +3,12 @@ package by.khodokevich.web.model.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Pagination is entity for store pagination information.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public class Pagination {
     private int currentPage;
     private int onePageNumberItems;
@@ -55,6 +61,9 @@ public class Pagination {
         this.numberVisiblePage = numberVisiblePage;
     }
 
+    /**
+     * @return list of page number which may be presented.
+     */
     public List<Integer> getListVisiblePage() {
         List<Integer> numberPageList = new ArrayList<>();
         int leftVisible = numberVisiblePage / 2;
@@ -69,16 +78,25 @@ public class Pagination {
         return numberPageList;
     }
 
+    /**
+     * @return boolean if left divider have to be shown
+     */
     public boolean showLeftDivider() {
         return currentPage > (numberVisiblePage - 1) / 2 + 1;
     }
 
+    /**
+     * @return boolean if right divider have to be shown
+     */
     public boolean showRightDivider() {
         int lastPage = getLastPage();
         return currentPage < lastPage - (numberVisiblePage - 1) / 2;
     }
 
 
+    /**
+     * @return last page number of item list
+     */
     public int getLastPage() {
         int lastPage;
         if (numberItems >= onePageNumberItems) {

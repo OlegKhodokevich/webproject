@@ -13,6 +13,9 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class implement Executor Service and serve operations with executor.
+ */
 public class ExecutorServiceImpl implements ExecutorService {
     private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
@@ -29,6 +32,12 @@ public class ExecutorServiceImpl implements ExecutorService {
     }
 
 
+    /**
+     * Method searches all confirmed executors.
+     *
+     * @return List of executors
+     * @throws ServiceException if query can't be executed  or connection isn't work
+     */
     @Override
     public List<Executor> findAllExecutors() throws ServiceException {
         logger.info("Start findAllExecutors().");
@@ -48,6 +57,12 @@ public class ExecutorServiceImpl implements ExecutorService {
         return executors;
     }
 
+    /**
+     * Method searches executor by id.
+     *
+     * @return option executor
+     * @throws ServiceException if query can't be executed  or connection isn't work
+     */
     @Override
     public Optional<Executor> findDefineExecutor(long executorId) throws ServiceException {
         logger.info("Start findDefineExecutor(long executorId). ExecutorId = " + executorId);

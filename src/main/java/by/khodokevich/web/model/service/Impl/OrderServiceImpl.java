@@ -19,6 +19,9 @@ import java.util.*;
 
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
+/**
+ * Class implement Order Service and serve operations with orders.
+ */
 public class OrderServiceImpl implements OrderService {
     private static final Logger logger = LogManager.getLogger(OrderServiceImpl.class);
 
@@ -37,6 +40,14 @@ public class OrderServiceImpl implements OrderService {
         return instance;
     }
 
+    /**
+     * Method searches all open order.
+     * Number of items is limited by pagination.
+     *
+     * @param pagination information about pagination
+     * @return List of order
+     * @throws ServiceException if query can't be executed  or connection isn't work
+     */
     @Override
     public List<Order> findAllOpenOrderOnPage(Pagination pagination) throws ServiceException {
         logger.info("Start findAllOrderOnPage(Pagination pagination).");
@@ -55,24 +66,13 @@ public class OrderServiceImpl implements OrderService {
         return orders;
     }
 
-    @Override
-    public List<Order> findOpenOrderConfirmedUsers() throws ServiceException {
-        logger.info("Start findOpenOrderConfirmedUsers().");
-        List<Order> orders;
-        try (EntityTransaction transaction = new EntityTransaction()) {
-            OrderDaoImpl orderDao = new OrderDaoImpl();
-            transaction.beginSingleQuery(orderDao);
-            List<Order> foundedOrders = orderDao.findConfirmedUserOrders();
-            Date currentDate = new Date();
-            orders = foundedOrders.stream()
-                    .filter((s) -> s.getStatus() == OrderStatus.OPEN && !s.getCompletionDate().before(currentDate))
-                    .toList();
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-        return orders;
-    }
-
+    /**
+     * Method searches order by id.
+     *
+     * @param orderId of order
+     * @return optional order
+     * @throws ServiceException if query can't be executed  or connection isn't work
+     */
     @Override
     public Optional<Order> findDefineOrder(long orderId) throws ServiceException {
         logger.info("Start findDefineOrder(long orderId). orderId = " + orderId);
@@ -88,6 +88,13 @@ public class OrderServiceImpl implements OrderService {
         return orderOptional;
     }
 
+    /**
+     * Method searches all user's orders by user's id.
+     *
+     * @param idUser of user who create order
+     * @return List of orders
+     * @throws ServiceException if query can't be executed  or connection isn't work
+     */
     @Override
     public List<Order> findUsersOrders(long idUser) throws ServiceException {
         logger.info("Start findUsersOrders(long idUser). IdUser = " + idUser);
@@ -103,14 +110,21 @@ public class OrderServiceImpl implements OrderService {
         return orders;
     }
 
+    /**
+     * Method archive expired user's orders which completion date is over.
+     * Status of order will set close.
+     *
+     * @param initialList of orders which is archived.
+     * @throws ServiceException if query can't be executed  or connection isn't work
+     */
     @Override
-    public void archiveExpiredUsersOrders(List<Order> orderlList) throws ServiceException {
-        logger.info("Start archiveExpiredUsersOrders(List<Order> initialList). InitialList  = " + orderlList);
+    public void archiveExpiredUsersOrders(List<Order> initialList) throws ServiceException {
+        logger.info("Start archiveExpiredUsersOrders(List<Order> initialList). InitialList  = " + initialList);
         Date currentDate = new Date();
         try (EntityTransaction transaction = new EntityTransaction()) {
             OrderDaoImpl orderDao = new OrderDaoImpl();
             transaction.beginSingleQuery(orderDao);
-            for (Order order : orderlList) {
+            for (Order order : initialList) {
                 if (order.getCompletionDate().before(currentDate)) {
 
                     if (orderDao.setOrderStatus(order.getOrderId(), OrderStatus.CLOSE)) {
@@ -121,19 +135,28 @@ public class OrderServiceImpl implements OrderService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-        logger.info("End archiveExpiredUsersOrders(List<Order> initialList). Orders = " + orderlList);
+        logger.info("End archiveExpiredUsersOrders(List<Order> initialList). Orders = " + initialList);
     }
 
+    /**
+     * Method check order if it is expired (completion date is over).
+     * Status of order will set close.
+     *
+     * @param order which is checked.
+     * @return true if operation is successful and false if status must be changed to close, but it can't be done
+     * @throws ServiceException if query can't be executed  or connection isn't work
+     */
     @Override
-    public void archiveExpiredUsersOrders(Order order) throws ServiceException {
-        logger.info("Start archiveExpiredUsersOrders(Order order). Order  = " + order);
+    public boolean checkOrder(Order order) throws ServiceException {
+        logger.info("Start checkOrder(Order order). Order  = " + order);
+        boolean result = true;
         Date currentDate = new Date();
         try (EntityTransaction transaction = new EntityTransaction()) {
             OrderDaoImpl orderDao = new OrderDaoImpl();
             transaction.beginSingleQuery(orderDao);
             if (order.getStatus() == OrderStatus.OPEN && order.getCompletionDate().before(currentDate)) {
-
-                if (orderDao.setOrderStatus(order.getOrderId(), OrderStatus.CLOSE)) {
+                result = orderDao.setOrderStatus(order.getOrderId(), OrderStatus.CLOSE);
+                if (result) {
                     order.setStatus(OrderStatus.CLOSE);
                 }
             }
@@ -141,8 +164,16 @@ public class OrderServiceImpl implements OrderService {
             throw new ServiceException(e);
         }
         logger.info("End archiveExpiredUsersOrders(Order order). Order = " + order);
+        return result;
     }
 
+    /**
+     * Method search open and not expired orders by list of specializations.
+     *
+     * @param specializations list of specializations.
+     * @return list of orders
+     * @throws ServiceException if query can't be executed  or connection isn't work
+     */
     @Override
     public List<Order> findOrdersBySpecializations(List<Specialization> specializations) throws ServiceException {
         logger.info("Start findOrdersBySpecializations(List<Specialization> specializations). Specializations = " + specializations);
@@ -152,7 +183,7 @@ public class OrderServiceImpl implements OrderService {
             transaction.beginSingleQuery(orderDao);
 
             for (Specialization specialization : specializations) {
-                List<Order> transferList = orderDao.findOrdersBySpecialization(specialization);
+                List<Order> transferList = orderDao.findOpenOrdersBySpecialization(specialization);
                 Date currentDate = new Date();
                 orders.addAll(transferList.stream()
                         .filter((s) -> s.getStatus() == OrderStatus.OPEN && !s.getCompletionDate().before(currentDate))
@@ -165,6 +196,13 @@ public class OrderServiceImpl implements OrderService {
         return orders;
     }
 
+    /**
+     * Method create order.
+     *
+     * @param orderData Map with order information.
+     * @return Map with result operation and correct value of order information if one of the params is incorrect.
+     * @throws ServiceException if query can't be executed  or connection isn't work
+     */
     @Override
     public Map<String, String> createOrder(Map<String, String> orderData) throws ServiceException {
         Map<String, String> answerMap = OrderDataValidator.checkOrderData(orderData);
@@ -223,6 +261,13 @@ public class OrderServiceImpl implements OrderService {
         return answerMap;
     }
 
+    /**
+     * Method update order.
+     *
+     * @param orderData Map with order information.
+     * @return Map with result operation and correct value of order information if one of the params is incorrect.
+     * @throws ServiceException if query can't be executed  or connection isn't work
+     */
     @Override
     public Map<String, String> updateOrder(Map<String, String> orderData) throws ServiceException {
         logger.info("Start updateOrder(Map<String, String> orderData)." + orderData);
@@ -284,6 +329,14 @@ public class OrderServiceImpl implements OrderService {
         return answerMap;
     }
 
+    /**
+     * Method set status.
+     *
+     * @param orderId of order.
+     * @param status of order.
+     * @return true if it is updated, in other way will return false.
+     * @throws ServiceException if query can't be executed  or connection isn't work
+     */
     @Override
     public boolean setStatus(long orderId, OrderStatus status) throws ServiceException {
         logger.info("Start setStatus()");

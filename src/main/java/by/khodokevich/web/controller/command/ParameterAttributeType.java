@@ -61,6 +61,10 @@ public final class ParameterAttributeType {
     public static final String INDEX_PAGE = "indexPage";
     public static final String PAGINATION = "pagination";
 
+    public static final String REVOKE_LIST = "revokeList";
+    public static final String MARK_LIST = "markList";
+    public static final String RATING = "rating";
+    public static final String DESCRIPTION_REVOKE = "descriptionRevoke";
     private ParameterAttributeType() {
     }
 }

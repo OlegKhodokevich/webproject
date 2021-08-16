@@ -13,6 +13,8 @@ public class Contract extends Entity {
     private User user;
     private ConcludedContractStatus concludedContractStatus;
     private CompletionContractStatus completionContractStatus;
+    private Revoke revoke;
+
 
     public enum CompletionContractStatus {
         COMPLETED("contract.yes"),
@@ -98,6 +100,13 @@ public class Contract extends Entity {
         this.completionContractStatus = completionContractStatus;
     }
 
+    public Revoke getRevoke() {
+        return revoke;
+    }
+
+    public void setRevoke(Revoke revoke) {
+        this.revoke = revoke;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

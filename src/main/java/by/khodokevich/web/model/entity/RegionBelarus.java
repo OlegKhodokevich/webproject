@@ -2,6 +2,12 @@ package by.khodokevich.web.model.entity;
 
 import java.util.*;
 
+/**
+ * Region Belarus is present list of Belarus region.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public enum RegionBelarus {
     MINSK_REGION(1, "region1"),
     HOMYEL_REGION(2, "region2"),

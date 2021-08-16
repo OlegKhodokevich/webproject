@@ -1,84 +1,8 @@
-22:20:43.266 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
-22:20:43.271 [main] ERROR by.khodokevich.web.model.dao.EntityTransaction - Can't get connection
+09:00:33.212 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
+09:00:33.225 [main] ERROR by.khodokevich.web.model.dao.EntityTransaction - Can't get connection
 by.khodokevich.web.exception.PoolConnectionException: Time out for getting connection.
-	at by.khodokevich.web.model.connection.CustomConnectionPool.getConnection(CustomConnectionPool.java:85) ~[classes/:?]
-	at by.khodokevich.web.model.dao.EntityTransaction.beginSingleQuery(EntityTransaction.java:44) ~[classes/:?]
-	at by.khodokevich.web.model.dao.impl.UserDaoImplFindDefineUserByIdTest.testFindEntityById3(UserDaoImplFindDefineUserByIdTest.java:48) ~[test-classes/:?]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78) ~[?:?]
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
-	at java.base/java.lang.reflect.Method.invoke(Method.java:567) ~[?:?]
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:134) ~[testng-7.1.0.jar:?]
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:597) ~[testng-7.1.0.jar:?]
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.1.0.jar:?]
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.1.0.jar:?]
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:816) ~[testng-7.1.0.jar:?]
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.1.0.jar:?]
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.1.0.jar:?]
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.1.0.jar:?]
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
-	at org.testng.TestRunner.privateRun(TestRunner.java:766) [testng-7.1.0.jar:?]
-	at org.testng.TestRunner.run(TestRunner.java:587) [testng-7.1.0.jar:?]
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:384) [testng-7.1.0.jar:?]
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378) [testng-7.1.0.jar:?]
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337) [testng-7.1.0.jar:?]
-	at org.testng.SuiteRunner.run(SuiteRunner.java:286) [testng-7.1.0.jar:?]
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.1.0.jar:?]
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.1.0.jar:?]
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187) [testng-7.1.0.jar:?]
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1109) [testng-7.1.0.jar:?]
-	at org.testng.TestNG.runSuites(TestNG.java:1039) [testng-7.1.0.jar:?]
-	at org.testng.TestNG.run(TestNG.java:1007) [testng-7.1.0.jar:?]
-	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:132) [surefire-testng-2.19.1.jar:2.19.1]
-	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.executeMulti(TestNGDirectoryTestSuite.java:193) [surefire-testng-2.19.1.jar:2.19.1]
-	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.execute(TestNGDirectoryTestSuite.java:94) [surefire-testng-2.19.1.jar:2.19.1]
-	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:147) [surefire-testng-2.19.1.jar:2.19.1]
-	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:290) [surefire-booter-2.19.1.jar:2.19.1]
-	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:242) [surefire-booter-2.19.1.jar:2.19.1]
-	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:121) [surefire-booter-2.19.1.jar:2.19.1]
-22:20:43.273 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
-22:20:43.274 [main] ERROR by.khodokevich.web.model.dao.EntityTransaction - Can't get connection
-by.khodokevich.web.exception.PoolConnectionException: Time out for getting connection.
-	at by.khodokevich.web.model.connection.CustomConnectionPool.getConnection(CustomConnectionPool.java:85) ~[classes/:?]
-	at by.khodokevich.web.model.dao.EntityTransaction.beginSingleQuery(EntityTransaction.java:44) ~[classes/:?]
-	at by.khodokevich.web.model.dao.impl.UserDaoImplFindUserByEmailTest.testFindUserByEMail(UserDaoImplFindUserByEmailTest.java:20) ~[test-classes/:?]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78) ~[?:?]
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
-	at java.base/java.lang.reflect.Method.invoke(Method.java:567) ~[?:?]
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:134) ~[testng-7.1.0.jar:?]
-	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:597) ~[testng-7.1.0.jar:?]
-	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173) ~[testng-7.1.0.jar:?]
-	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46) ~[testng-7.1.0.jar:?]
-	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:816) ~[testng-7.1.0.jar:?]
-	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146) ~[testng-7.1.0.jar:?]
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146) ~[testng-7.1.0.jar:?]
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128) ~[testng-7.1.0.jar:?]
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511) [?:?]
-	at org.testng.TestRunner.privateRun(TestRunner.java:766) [testng-7.1.0.jar:?]
-	at org.testng.TestRunner.run(TestRunner.java:587) [testng-7.1.0.jar:?]
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:384) [testng-7.1.0.jar:?]
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378) [testng-7.1.0.jar:?]
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337) [testng-7.1.0.jar:?]
-	at org.testng.SuiteRunner.run(SuiteRunner.java:286) [testng-7.1.0.jar:?]
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53) [testng-7.1.0.jar:?]
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96) [testng-7.1.0.jar:?]
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1187) [testng-7.1.0.jar:?]
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1109) [testng-7.1.0.jar:?]
-	at org.testng.TestNG.runSuites(TestNG.java:1039) [testng-7.1.0.jar:?]
-	at org.testng.TestNG.run(TestNG.java:1007) [testng-7.1.0.jar:?]
-	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:132) [surefire-testng-2.19.1.jar:2.19.1]
-	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.executeMulti(TestNGDirectoryTestSuite.java:193) [surefire-testng-2.19.1.jar:2.19.1]
-	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.execute(TestNGDirectoryTestSuite.java:94) [surefire-testng-2.19.1.jar:2.19.1]
-	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:147) [surefire-testng-2.19.1.jar:2.19.1]
-	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:290) [surefire-booter-2.19.1.jar:2.19.1]
-	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:242) [surefire-booter-2.19.1.jar:2.19.1]
-	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:121) [surefire-booter-2.19.1.jar:2.19.1]
-22:20:43.276 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
-22:20:43.276 [main] ERROR by.khodokevich.web.model.dao.EntityTransaction - Can't get connection
-by.khodokevich.web.exception.PoolConnectionException: Time out for getting connection.
-	at by.khodokevich.web.model.connection.CustomConnectionPool.getConnection(CustomConnectionPool.java:85) ~[classes/:?]
-	at by.khodokevich.web.model.dao.EntityTransaction.beginSingleQuery(EntityTransaction.java:44) ~[classes/:?]
+	at by.khodokevich.web.model.connection.CustomConnectionPool.getConnection(CustomConnectionPool.java:109) ~[classes/:?]
+	at by.khodokevich.web.model.dao.EntityTransaction.beginSingleQuery(EntityTransaction.java:61) ~[classes/:?]
 	at by.khodokevich.web.model.dao.impl.UserDaoImplGetUserStatusTest.testGetUserStatus1(UserDaoImplGetUserStatusTest.java:15) ~[test-classes/:?]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78) ~[?:?]
@@ -112,11 +36,11 @@ by.khodokevich.web.exception.PoolConnectionException: Time out for getting conne
 	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:290) [surefire-booter-2.19.1.jar:2.19.1]
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:242) [surefire-booter-2.19.1.jar:2.19.1]
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:121) [surefire-booter-2.19.1.jar:2.19.1]
-22:20:43.278 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
-22:20:43.278 [main] ERROR by.khodokevich.web.model.dao.EntityTransaction - Can't get connection
+09:00:33.227 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
+09:00:33.241 [main] ERROR by.khodokevich.web.model.dao.EntityTransaction - Can't get connection
 by.khodokevich.web.exception.PoolConnectionException: Time out for getting connection.
-	at by.khodokevich.web.model.connection.CustomConnectionPool.getConnection(CustomConnectionPool.java:85) ~[classes/:?]
-	at by.khodokevich.web.model.dao.EntityTransaction.beginSingleQuery(EntityTransaction.java:44) ~[classes/:?]
+	at by.khodokevich.web.model.connection.CustomConnectionPool.getConnection(CustomConnectionPool.java:109) ~[classes/:?]
+	at by.khodokevich.web.model.dao.EntityTransaction.beginSingleQuery(EntityTransaction.java:61) ~[classes/:?]
 	at by.khodokevich.web.model.dao.impl.UserDaoImplGetUserStatusTest.testGetUserStatus2(UserDaoImplGetUserStatusTest.java:28) ~[test-classes/:?]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78) ~[?:?]
@@ -150,13 +74,13 @@ by.khodokevich.web.exception.PoolConnectionException: Time out for getting conne
 	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:290) [surefire-booter-2.19.1.jar:2.19.1]
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:242) [surefire-booter-2.19.1.jar:2.19.1]
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:121) [surefire-booter-2.19.1.jar:2.19.1]
-22:20:44.289 [main] INFO  by.khodokevich.web.model.service.Impl.UserServiceImpl - Start logIn(Map<String, String> userData). User data = {password=Password1!, isTest=true, url=http://localhost:8080/, eMail=ivanov@gmail.com}
-22:20:44.298 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
-22:20:44.298 [main] ERROR by.khodokevich.web.model.dao.EntityTransaction - Can't get connection
+09:00:34.074 [main] INFO  by.khodokevich.web.model.service.Impl.UserServiceImpl - Start logIn(Map<String, String> userData). User data = {password=Password1!, isTest=true, url=http://localhost:8080/, eMail=ivanov@gmail.com}
+09:00:34.084 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
+09:00:34.092 [main] ERROR by.khodokevich.web.model.dao.EntityTransaction - Can't get connection
 by.khodokevich.web.exception.PoolConnectionException: Time out for getting connection.
-	at by.khodokevich.web.model.connection.CustomConnectionPool.getConnection(CustomConnectionPool.java:85) ~[classes/:?]
-	at by.khodokevich.web.model.dao.EntityTransaction.beginSingleQuery(EntityTransaction.java:44) ~[classes/:?]
-	at by.khodokevich.web.model.service.Impl.UserServiceImpl.logOn(UserServiceImpl.java:106) ~[classes/:?]
+	at by.khodokevich.web.model.connection.CustomConnectionPool.getConnection(CustomConnectionPool.java:109) ~[classes/:?]
+	at by.khodokevich.web.model.dao.EntityTransaction.beginSingleQuery(EntityTransaction.java:61) ~[classes/:?]
+	at by.khodokevich.web.model.service.Impl.UserServiceImpl.logOn(UserServiceImpl.java:124) ~[classes/:?]
 	at by.khodokevich.web.model.service.Impl.UserServiceImplLogOnTest.testLogOn(UserServiceImplLogOnTest.java:112) ~[test-classes/:?]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78) ~[?:?]
@@ -190,13 +114,13 @@ by.khodokevich.web.exception.PoolConnectionException: Time out for getting conne
 	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:290) [surefire-booter-2.19.1.jar:2.19.1]
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:242) [surefire-booter-2.19.1.jar:2.19.1]
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:121) [surefire-booter-2.19.1.jar:2.19.1]
-22:20:44.311 [main] INFO  by.khodokevich.web.model.service.Impl.UserServiceImpl - Start register(Map<String, String> userData). User data = {firstName=Ivan, lastName=Ivanov, password=Password1, phone=+375293372547, city=Minsk, isTest=true, psw-repeat=Password1, region=MINSK_REGION, url=http://localhost:8080/, eMail=ivanov@gmail.com}
-22:20:44.313 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
-22:20:44.314 [main] ERROR by.khodokevich.web.model.dao.EntityTransaction - Can't get connection
+09:00:34.107 [main] INFO  by.khodokevich.web.model.service.Impl.UserServiceImpl - Start register(Map<String, String> userData). User data = {firstName=Ivan, lastName=Ivanov, password=Password1, phone=+375293372547, city=Minsk, isTest=true, psw-repeat=Password1, region=MINSK_REGION, url=http://localhost:8080/, eMail=ivanov@gmail.com}
+09:00:34.110 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
+09:00:34.124 [main] ERROR by.khodokevich.web.model.dao.EntityTransaction - Can't get connection
 by.khodokevich.web.exception.PoolConnectionException: Time out for getting connection.
-	at by.khodokevich.web.model.connection.CustomConnectionPool.getConnection(CustomConnectionPool.java:85) ~[classes/:?]
-	at by.khodokevich.web.model.dao.EntityTransaction.beginSingleQuery(EntityTransaction.java:44) ~[classes/:?]
-	at by.khodokevich.web.model.service.Impl.UserServiceImpl.register(UserServiceImpl.java:62) ~[classes/:?]
+	at by.khodokevich.web.model.connection.CustomConnectionPool.getConnection(CustomConnectionPool.java:109) ~[classes/:?]
+	at by.khodokevich.web.model.dao.EntityTransaction.beginSingleQuery(EntityTransaction.java:61) ~[classes/:?]
+	at by.khodokevich.web.model.service.Impl.UserServiceImpl.register(UserServiceImpl.java:69) ~[classes/:?]
 	at by.khodokevich.web.model.service.Impl.UserServiceImplRegistrationTest.testRegister(UserServiceImplRegistrationTest.java:86) ~[test-classes/:?]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78) ~[?:?]
@@ -230,5 +154,5 @@ by.khodokevich.web.exception.PoolConnectionException: Time out for getting conne
 	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:290) [surefire-booter-2.19.1.jar:2.19.1]
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:242) [surefire-booter-2.19.1.jar:2.19.1]
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:121) [surefire-booter-2.19.1.jar:2.19.1]
-22:20:44.321 [main] INFO  by.khodokevich.web.model.service.Impl.UserServiceImpl - Start register(Map<String, String> userData). User data = {firstName=Ivan1, lastName=Ivanov, password=Password1, phone=+375293372547, city=Minsk, isTest=true, psw-repeat=Password1, region=MINSK_REGION, url=http://localhost:8080/, eMail=ivanov@gmail.com}
-22:20:44.334 [main] INFO  by.khodokevich.web.model.service.Impl.UserServiceImpl - Start register(Map<String, String> userData). User data = {firstName=Ivan, lastName=Ivanov, password=Password, phone=+375293372547, city=Minsk, isTest=true, psw-repeat=Password, region=MINSK_REGION, url=http://localhost:8080/, eMail=ivanov@gmail.com}
+09:00:34.134 [main] INFO  by.khodokevich.web.model.service.Impl.UserServiceImpl - Start register(Map<String, String> userData). User data = {firstName=Ivan1, lastName=Ivanov, password=Password1, phone=+375293372547, city=Minsk, isTest=true, psw-repeat=Password1, region=MINSK_REGION, url=http://localhost:8080/, eMail=ivanov@gmail.com}
+09:00:34.144 [main] INFO  by.khodokevich.web.model.service.Impl.UserServiceImpl - Start register(Map<String, String> userData). User data = {firstName=Ivan, lastName=Ivanov, password=Password, phone=+375293372547, city=Minsk, isTest=true, psw-repeat=Password, region=MINSK_REGION, url=http://localhost:8080/, eMail=ivanov@gmail.com}

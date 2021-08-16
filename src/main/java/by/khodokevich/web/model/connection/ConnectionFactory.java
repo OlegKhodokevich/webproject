@@ -9,6 +9,12 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+/**
+ * ConnectionFactory is class for creation connection.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 class ConnectionFactory {
     private static final Logger logger = LogManager.getLogger(ConnectionFactory.class);
     private static final String FILE_PROPERTIES_NAME = "database";
@@ -42,6 +48,10 @@ class ConnectionFactory {
         }
     }
 
+    /**
+     * @return ProxyConnection from mysql
+     * @throws SQLException if can't create connection
+     */
     static ProxyConnection createConnection() throws SQLException {
         return new ProxyConnection(DriverManager.getConnection(url, user, password));
     }

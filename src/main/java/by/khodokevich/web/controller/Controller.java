@@ -12,6 +12,12 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
+/**
+ * Controller the main controller which manage commands.
+ * This class define command and execute it.
+ *
+ * @author Oleg Khodokevich
+ */
 @WebServlet(name = "Controller", urlPatterns = {"/controller"})
 public class Controller extends HttpServlet {
 

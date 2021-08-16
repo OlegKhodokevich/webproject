@@ -5,6 +5,13 @@ import by.khodokevich.web.model.entity.User;
 import by.khodokevich.web.model.entity.UserRole;
 import by.khodokevich.web.model.entity.UserStatus;
 
+
+/**
+ * Class which help to create user.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public class UserBuilder {
     private long userId;
     private String firstName;

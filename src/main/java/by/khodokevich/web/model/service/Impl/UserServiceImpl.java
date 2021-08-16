@@ -42,6 +42,14 @@ public class UserServiceImpl implements UserService {
         return instance;
     }
 
+    /**
+     * Method register customer in database.
+     * Initial status declared
+     *
+     * @param userData Map with information about user
+     * @return Map with result operation and correct value of user information if one of the params is incorrect.
+     * @throws ServiceException if query can't be executed  or connection isn't work
+     */
     @Override
     public Map<String, String> register(Map<String, String> userData) throws ServiceException {
         logger.info("Start register(Map<String, String> userData). User data = " + userData);
@@ -96,6 +104,13 @@ public class UserServiceImpl implements UserService {
         return answerMap;
     }
 
+    /**
+     * Method search user in database.
+     *
+     * @param userData Map with information about user (e-mail, password).
+     * @return Map with result operation and correct value of user information if one of the params is incorrect.
+     * @throws ServiceException if query can't be executed  or connection isn't work
+     */
     @Override
     public Map<String, String> logOn(Map<String, String> userData) throws ServiceException {
         logger.info("Start logIn(Map<String, String> userData). User data = " + userData);
@@ -157,6 +172,15 @@ public class UserServiceImpl implements UserService {
         return answerMap;
     }
 
+    /**
+     * Method activate user in the beginning.
+     * It set user status confirmed if it was declared.
+     *
+     * @param eMail of user.
+     * @param token of e-mail for checking.
+     * @return result operation.
+     * @throws ServiceException if query can't be executed  or connection isn't work
+     */
     @Override
     public CheckingResult activateUser(String eMail, String token) throws ServiceException {
         CheckingResult resultType;
@@ -234,6 +258,13 @@ public class UserServiceImpl implements UserService {
         return resultOperation;
     }
 
+    /**
+     * Method update user in database.
+     *
+     * @param userData Map with information about user
+     * @return Map with result operation and correct value of user information if one of the params is incorrect.
+     * @throws ServiceException if query can't be executed  or connection isn't work
+     */
     @Override
     public Map<String, String> updateUser(Map<String, String> userData) throws ServiceException {
         logger.info("Start updateUser(Map<String, String> userData). User data = " + userData);

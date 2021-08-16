@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="mes" uri="custom tag message writer" %>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="text"/>
@@ -14,11 +15,12 @@
 <fmt:message key="contract.executor" var="text_contract_executor"/>
 <fmt:message key="contract.close_contract" var="text_contract_close_contract"/>
 <fmt:message key="contract.my_contracts" var="text_contract_my_contracts"/>
-
+<fmt:message key="revoke.give_feedback" var="text_revoke_give_feedback"/>
 <html>
 <head>
     <title>${text_contract_my_contracts}</title>
     <link href="../../css/custom_styles.css" rel="stylesheet"/>
+    <link href="../../css/styles_create_order_page.css" rel="stylesheet"/>
 </head>
 <body style="background-image: url(../../image/building_3_c1.jpg);
 background-repeat: no-repeat;
@@ -27,6 +29,8 @@ background-size: cover">
 <header>
     <jsp:include page="../header.jsp"/>
 </header>
+
+<h1 class="text-title text-center">${text_contract_my_contracts}</h1>
 
 <div class="container">
     <div class="container payment_window pt-1 pb-1">
@@ -63,11 +67,16 @@ background-size: cover">
                                             </p>
                                             <p>
                                                 <a href="/controller?command=find_executor_info_details&executorId=${contract.user.idUser}">
-                                                        ${text_contract_executor}${contract.user.firstName}
-                                                    : ${contract.user.lastName}
+                                                        ${text_contract_executor}
+                                                    : ${contract.user.firstName} ${contract.user.lastName}
                                                 </a>
                                             </p>
                                         </div>
+                                        <fmt:message key="${contract.concludedContractStatus.key}"
+                                                     var="text_contract_concludedContractStatus"/>
+                                        <p class="mb-1">${text_contract_concluded_status}
+                                            : ${text_contract_concludedContractStatus}</p>
+
                                         <fmt:message key="${contract.completionContractStatus.key}"
                                                      var="text_contract_completionContractStatus"/>
                                         <p class="mb-1">${text_contract_completion_status}
@@ -76,12 +85,18 @@ background-size: cover">
                                     <div class="col wi">
                                         <div class="container">
                                             <div class="list-group">
-                                                <c:if test="${(sessionScope.activeUserId eq contract.order.userId) && (contract.completionContractStatus eq 'NOT_COMPLETED')}">
-                                                    <a class="btn btn-success custom-button-operation-my-order"
-                                                       href="/controller?command=close_contract&contractId=${contract.idContract}&orderId=${contract.order.orderId}"
-                                                       role="button">${text_contract_close_contract}</a>
-
-                                                </c:if>
+                                                <c:choose>
+                                                    <c:when test="${(sessionScope.activeUserId eq contract.order.userId) && (contract.completionContractStatus eq 'NOT_COMPLETED')}">
+                                                        <a class="btn btn-success custom-button-operation-my-order"
+                                                           href="/controller?command=close_contract&contractId=${contract.idContract}&orderId=${contract.order.orderId}"
+                                                           role="button">${text_contract_close_contract}</a>
+                                                    </c:when>
+                                                    <c:when test="${(sessionScope.activeUserId eq contract.order.userId) && (contract.completionContractStatus eq 'COMPLETED') && (contract.revoke == null)}">
+                                                        <a class="btn btn-success custom-button-operation-my-order"
+                                                           href="/controller?command=go_to_creation_revoke_page&contractId=${contract.idContract}"
+                                                           role="button">${text_revoke_give_feedback}</a>
+                                                    </c:when>
+                                                </c:choose>
                                             </div>
                                         </div>
                                     </div>

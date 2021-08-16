@@ -16,22 +16,65 @@ public abstract class AbstractDao<T extends Entity> {
 
     protected Connection connection;
 
+    /**
+     * Method searches all entity in database.
+     *
+     * @return List of entity
+     * @throws DaoException if can't execute query
+     */
     public abstract List<T> findAll() throws DaoException;
-
+    /**
+     * Method searches define entity in database by id
+     *
+     * @param id of entity
+     * @return optional entity.
+     * @throws DaoException if can't execute query
+     */
     public abstract Optional<T> findEntityById(long id) throws DaoException;
-
+    /**
+     * Method delete information about entity by id
+     *
+     * @param id of entity
+     * @return true if it is deleted, in other way will return false.
+     * @throws DaoException if can't execute query
+     */
     public abstract boolean delete(long id) throws DaoException;
-
+    /**
+     * Method delete information about user by entity
+     *
+     * @param entity of entity
+     * @return true if it is deleted, in other way will return false.
+     * @throws DaoException if can't execute query
+     */
     public abstract boolean delete(T entity) throws DaoException;
-
+    /**
+     * Method create entity in database.
+     *
+     * @return true if it is created, in other way will return false.
+     * @throws DaoException if can't execute query.
+     */
     public abstract boolean create(T entity) throws DaoException;
-
+    /**
+     * Method update entity in database.
+     *
+     * @param entity of entity
+     * @return true if it is updated, in other way will return false.
+     * @throws DaoException if can't execute query.
+     */
     public abstract boolean update(T entity) throws DaoException;
-
+    /**
+     * Method set connection for dao.
+     *
+     * @param connection which set
+     */
     void setConnection(Connection connection) {
         this.connection = connection;
     }
-
+    /**
+     * Method statement connection for dao.
+     *
+     * @param statement which is closing
+     */
     void closeStatement(Statement statement) {
         try {
             if (statement != null) {
@@ -44,7 +87,10 @@ public abstract class AbstractDao<T extends Entity> {
             logger.error("Statement can't be closed.", e);
         }
     }
-
+    /**
+     * Method close connection for dao.
+     *
+     */
     void closeConnection() {
         try {
             this.connection.close();

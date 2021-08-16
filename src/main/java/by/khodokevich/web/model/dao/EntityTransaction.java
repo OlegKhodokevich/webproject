@@ -9,12 +9,23 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * This class create transaction for dao and set connection.
+ * It is used for managing transaction(commit, rollback)
+ */
 public class EntityTransaction implements AutoCloseable {
     private static final Logger logger = LogManager.getLogger();
     private Connection connection;
     private boolean singleTransaction;
     private boolean isCommit;
 
+    /**
+     * Method set connection for each dao included in param
+     * Method set autocommit false
+     *
+     * @param daos array of DAO
+     * @throws DaoException when connection can't be taken
+     */
     public void begin(AbstractDao... daos) throws DaoException {
         singleTransaction = false;
         if (connection == null) {
@@ -37,6 +48,12 @@ public class EntityTransaction implements AutoCloseable {
         }
     }
 
+    /**
+     * Method set connection for dao in param
+     *
+     * @param dao which will be used
+     * @throws DaoException when connection can't be taken
+     */
     public void beginSingleQuery(AbstractDao dao) throws DaoException {
         singleTransaction = true;
         if (connection == null) {
@@ -50,6 +67,11 @@ public class EntityTransaction implements AutoCloseable {
         dao.setConnection(connection);
     }
 
+    /**
+     * Method do rollback
+     *
+     * @throws DaoException when connection is null
+     */
     public void rollback() throws DaoException {
         if (connection == null) {
             throw new DaoException("Connection has been lost.");
@@ -62,6 +84,11 @@ public class EntityTransaction implements AutoCloseable {
         }
     }
 
+    /**
+     * Method do commit
+     *
+     * @throws DaoException when connection is null
+     */
     public void commit() throws DaoException {
         if (connection == null) {
             throw new DaoException("Connection has been lost.");
@@ -75,6 +102,11 @@ public class EntityTransaction implements AutoCloseable {
         }
     }
 
+    /**
+     * Method close transaction and do rollback if transaction was failed.
+     *
+     * @throws DaoException when connection is null
+     */
     @Override
     public void close() throws DaoException {
         if (connection == null) {

@@ -17,6 +17,13 @@ import java.util.regex.Pattern;
 
 import static by.khodokevich.web.controller.command.InformationMessage.*;
 
+
+/**
+ * Tag which only shows first message after sign in for greetings.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public class WelcomeMessageTag extends TagSupport {
     public static final boolean isFirst = true;
     private static final Logger logger = LogManager.getLogger(WelcomeMessageTag.class);

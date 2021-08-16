@@ -1,5 +1,14 @@
 package by.khodokevich.web.model.entity;
 
+/**
+ * User is main entity which outlining all application users (customer, admin) and can be extended to executor.
+ * Customer, Admin, Executor are user's role.
+ * Customer can create order, manage contracts.
+ * Executor can create offer.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public class User extends Entity {
     private long userId;
     private String firstName;

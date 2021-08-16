@@ -1,10 +1,10 @@
 package by.khodokevich.web.model.dao.impl;
 
-import static by.khodokevich.web.model.dao.impl.ExecutorColumnName.*;
 
 import by.khodokevich.web.model.builder.ExecutorBuilder;
 import by.khodokevich.web.model.builder.ExecutorOptionBuilder;
 import by.khodokevich.web.model.dao.AbstractDao;
+import by.khodokevich.web.model.dao.ExecutorDao;
 import by.khodokevich.web.model.entity.*;
 import by.khodokevich.web.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
@@ -16,11 +16,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class ExecutorDaoImpl extends AbstractDao<Executor> {
+import static by.khodokevich.web.model.dao.impl.ExecutorColumnName.*;
+import static by.khodokevich.web.model.dao.impl.UserColumnName.*;
+
+/**
+ * This class manage entity executor in database.
+ * It is used for select create or update information connected with executor.
+ */
+public class ExecutorDaoImpl extends AbstractDao<Executor> implements ExecutorDao {
     private static final Logger logger = LogManager.getLogger(ExecutorDaoImpl.class);
 
-    private static final String SQL_SELECT_ALL_EXECUTORS = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN regions ON users.IdRegion = regions.IdRegion WHERE UserRole = \"executor\";";  //TODO password?
+    private static final String SQL_SELECT_ALL_EXECUTORS = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN regions ON users.IdRegion = regions.IdRegion WHERE UserRole = \"executor\";";
     private static final String SQL_SELECT_DEFINED_EXECUTORS = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN regions ON users.IdRegion = regions.IdRegion WHERE UserRole = \"executor\" AND IdUser = ?;";
+    private static final String SQL_SELECT_SELECT_EXECUTOR_OPTION_BY_CONTRACT_ID = "SELECT PersonalFoto, UNP, AverageMark, NumberCompletionContracts, NumberContractsInProgress, DescriptionExecutor FROM executors WHERE IdUserExecutor = ?;";
     private static final String SQL_DELETE_DEFINED_EXECUTORS_BY_ID = "DELETE FROM users WHERE UserRole = \"executor\" AND IdUser = ?;";
     private static final String SQL_DELETE_DEFINED_EXECUTORS_BY_EMAIL = "DELETE FROM users WHERE UserRole = \"executor\" AND EMail = ?;";
     private static final String SQL_INSERT_EXECUTORS = "INSERT INTO users(FirstName, LastName, EMail, Phone, IdRegion, City, UserStatus, UserRole, EncodedPassword) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -32,6 +40,12 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
     private static final String SQL_INSERT_SKILL = "INSERT INTO skills(IdUserExecutor, IdSpecialization, Cost, Measure) VALUES ((SELECT IdUser FROM users JOIN executors ON IdUser = IdUserExecutor WHERE EMail = ?), (SELECT IdSpecialization FROM specializations WHERE Specialization = ?), ?, ?)";
     private static final String SQL_DELETE_SKILL = "DELETE FROM skills WHERE IdUserExecutor = ?;";
 
+    /**
+     * Method searches all executor's entity in database
+     *
+     * @return List of executors find in database
+     * @throws DaoException if can't execute query
+     */
     @Override
     public List<Executor> findAll() throws DaoException {
         logger.info("Start findAll().");
@@ -77,6 +91,13 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
         return executors;
     }
 
+    /**
+     * Method searches define executor in database by id
+     *
+     * @param idExecutor of executor
+     * @return optional executor.
+     * @throws DaoException if can't execute query
+     */
     @Override
     public Optional<Executor> findEntityById(long idExecutor) throws DaoException {
         logger.info("Start findEntityById(long id). Id " + idExecutor);
@@ -121,11 +142,61 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
     }
 
     @Override
-    public boolean delete(long idExecutors) throws DaoException {
-        logger.info("Start delete(long id). Executor's ID = " + idExecutors);
+    public Optional<Executor> findExecutorByContractId(long contractId) throws DaoException {
+        logger.info("Start findExecutorByContractId(long contractId). Id " + contractId);
+        Executor executor = null;
+
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_DEFINED_EXECUTORS)) {
+            statement.setLong(1, contractId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+
+                if (resultSet.next()) {
+                    long userId = resultSet.getLong(ID_USER);
+                    String firstName = resultSet.getString(FIRSTNAME);
+                    String lastName = resultSet.getString(LASTNAME);
+                    String eMail = resultSet.getString(E_MAIL);
+                    String phone = resultSet.getString(PHONE);
+                    RegionBelarus region = RegionBelarus.valueOf(resultSet.getString(REGION).toUpperCase());
+                    String city = resultSet.getString(CITY);
+                    UserStatus status = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
+                    Optional<ExecutorOption> executorOption = findExecutorOption(userId);
+                    if (executorOption.isPresent()) {
+                        executor = new ExecutorBuilder()
+                                .userId(userId)
+                                .firstName(firstName)
+                                .lastName(lastName)
+                                .eMail(eMail)
+                                .phone(phone)
+                                .region(region)
+                                .city(city)
+                                .status(status)
+                                .executorOption(executorOption.get())
+                                .buildExecutor();
+                        logger.info("Has found next executor = " + executor);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
+            throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
+        }
+        logger.info("Has found next executor: " + executor);
+        return Optional.ofNullable(executor);
+    }
+
+    /**
+     * Method delete define executor in database by id
+     *
+     * @param idExecutor of executor
+     * @return true if it is deleted, in other way will return false.
+     * @throws DaoException if can't execute query
+     */
+    @Override
+    public boolean delete(long idExecutor) throws DaoException {
+        logger.info("Start delete(long id). Executor's ID = " + idExecutor);
         int numberUpdatedRows;
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_DELETE_DEFINED_EXECUTORS_BY_ID)) {
-            statement.setLong(1, idExecutors);
+            statement.setLong(1, idExecutor);
             numberUpdatedRows = statement.executeUpdate();
         } catch (SQLException e) {
             logger.error("Prepare statement can't be take from connection." + e.getMessage());
@@ -136,6 +207,13 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
         return result;
     }
 
+    /**
+     * Method delete define executor in database by entity
+     *
+     * @param entity of executor
+     * @return true if it is deleted, in other way will return false.
+     * @throws DaoException if can't execute query
+     */
     @Override
     public boolean delete(Executor entity) throws DaoException {
         logger.info("Start delete(Executor entity)." + entity);
@@ -152,6 +230,13 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
         return result;
     }
 
+    /**
+     * Method create executor user in database by entity
+     *
+     * @param entity of executor
+     * @return true if it is created, in other way will return false.
+     * @throws DaoException if can't execute query
+     */
     @Override
     public boolean create(Executor entity) throws DaoException {
         logger.info("Start create(Executor entity)." + entity);
@@ -183,6 +268,13 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
         return result;
     }
 
+    /**
+     * Method update executor user in database by entity
+     *
+     * @param entity of executor
+     * @return true if it is updated, in other way will return false.
+     * @throws DaoException if can't execute query
+     */
     @Override
     public boolean update(Executor entity) throws DaoException {
         boolean result;
@@ -310,21 +402,21 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
     private boolean createExecutorSkills(Executor entity) throws DaoException {
         List<Skill> skills = entity.getExecutorOption().getSkills();
         logger.info("Start createExecutorSkills(Connection connection, Executor entity)." + entity);
-        int [] numberUpdatedRows;
+        int[] numberUpdatedRows;
 
-            try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_SKILL)) {
-                for (Skill skill : skills) {
-                    statement.setString(1, entity.getEMail());
-                    statement.setString(2, skill.getSpecialization().name().toLowerCase());
-                    statement.setString(3, skill.getCost());
-                    statement.setString(4, skill.getMeasure().name().toLowerCase());
-                    statement.addBatch();
-                }
-                numberUpdatedRows = statement.executeBatch();
-            } catch (SQLException e) {
-                logger.error("Prepare statement can't be take from connection." + e.getMessage());
-                throw new DaoException("Prepare statement can't be take from connection." + e.getMessage());
+        try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_SKILL)) {
+            for (Skill skill : skills) {
+                statement.setString(1, entity.getEMail());
+                statement.setString(2, skill.getSpecialization().name().toLowerCase());
+                statement.setString(3, skill.getCost());
+                statement.setString(4, skill.getMeasure().name().toLowerCase());
+                statement.addBatch();
             }
+            numberUpdatedRows = statement.executeBatch();
+        } catch (SQLException e) {
+            logger.error("Prepare statement can't be take from connection." + e.getMessage());
+            throw new DaoException("Prepare statement can't be take from connection." + e.getMessage());
+        }
 
         boolean result = Arrays.stream(numberUpdatedRows).allMatch(s -> s == 1);
         logger.info(() -> result ? "Operation was successful. " : " Operation was failed.");
@@ -374,5 +466,6 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> {
         logger.info("Has updated " + numberSubstitutedRows + " rows.");
         return numberSubstitutedRows;
     }
+
 
 }

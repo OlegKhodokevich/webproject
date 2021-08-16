@@ -31,6 +31,8 @@ height: 100%">
     <jsp:include page="../header.jsp"/>
 </header>
 
+<h1 class="text-title text-center">${text_order_my_order}</h1>
+
 <script src="../../js/date_formatter.js"></script>
 
 <div class="container">

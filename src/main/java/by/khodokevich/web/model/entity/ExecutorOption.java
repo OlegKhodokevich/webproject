@@ -1,7 +1,15 @@
 package by.khodokevich.web.model.entity;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
+/**
+ * ExecutorOption is option of executor which contain particular information about executor.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public class ExecutorOption extends Entity {
     private String unp;
     private List<Skill> skills;
@@ -78,6 +86,17 @@ public class ExecutorOption extends Entity {
 
     public void setUrlPersonalFoto(String urlPersonalFoto) {
         this.urlPersonalFoto = urlPersonalFoto;
+    }
+
+    public double getTruncatedMark() {
+        BigDecimal bd = new BigDecimal(Double.toString(averageMark));
+        bd = bd.setScale(1, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
+    public int getRatingMark() {
+        int rating = (int) Math.floor(averageMark);
+        return rating;
     }
 
     @Override

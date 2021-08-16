@@ -15,6 +15,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * CustomConnectionPool is pool of connections which give connection to DAO.
+ * CustomConnectionPool should be created only one time before first query in dataBase.
+ * CustomConnectionPool is threadsafe Singleton.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public class CustomConnectionPool {
     private static final Logger logger = LogManager.getLogger(CustomConnectionPool.class);
 
@@ -23,6 +31,7 @@ public class CustomConnectionPool {
     private static final int DEFAULT_POOL_SIZE = 8;
     private static final int MAX_NUMBER_ADDITIONAL_CONNECTION_ATTEMPT = 3;
     private static final int TIME_FOR_WAIT_WHEN_CONNECTION_PROVIDER_WORK_MICROSECONDS = 500;
+    private static final int MAX_WAIT_TIME_FOR_GIVING_CONNECTION_MICROSECONDS = 500;
     private static final AtomicBoolean isInitialized = new AtomicBoolean(false);
 
     protected static final AtomicBoolean isConnectionProviderRun = new AtomicBoolean(false);
@@ -34,6 +43,11 @@ public class CustomConnectionPool {
     private final BlockingDeque<ProxyConnection> busyConnections;
 
 
+    /** Don't let anyone else instantiate this class
+     * Create CustomConnectionPool with DEFAULT_POOL_SIZE
+     * CustomConnectionPool is filling ProxyConnection
+     * in case pool isn't filled by connections throws RuntimeException
+     */
     private CustomConnectionPool() {
         freeConnections = new LinkedBlockingDeque(DEFAULT_POOL_SIZE);
         busyConnections = new LinkedBlockingDeque(DEFAULT_POOL_SIZE);
@@ -57,6 +71,10 @@ public class CustomConnectionPool {
         }
     }
 
+    /**
+     * Only returns one object.
+     * Threadsafe method for return Singleton
+     */
     public static CustomConnectionPool getInstance() {
         while (instance == null) {
             if (isInitialized.compareAndExchange(false, true)) {
@@ -66,12 +84,17 @@ public class CustomConnectionPool {
         return instance;
     }
 
+    /**
+     * Threadsafe method that provide connection.
+     * Method stop threads if TimerConnectionProvider is working.
+     * @return connection
+     * @throws PoolConnectionException if can't get connection in limited time.
+     */
     public ProxyConnection getConnection() throws PoolConnectionException {
         logger.info("Start getConnection(). freeConnections.size() = " + freeConnections.size() + "   busyConnections.size() " + busyConnections.size());
         stopGiveTakeConnectionWhenConnectionProviderRun();
         try {
-
-            if (semaphore.tryAcquire()) {
+            if (semaphore.tryAcquire(MAX_WAIT_TIME_FOR_GIVING_CONNECTION_MICROSECONDS, TimeUnit.MICROSECONDS)) {
                 logger.debug("After" + semaphore.availablePermits());
                 ProxyConnection connection = freeConnections.take();
                 busyConnections.put(connection);
@@ -86,6 +109,12 @@ public class CustomConnectionPool {
         throw new PoolConnectionException("Time out for getting connection.");
     }
 
+    /**
+     * Threadsafe method that release connection and put connection in free connection's deque.
+     * Method stop threads if TimerConnectionProvider is working.
+     *
+     * @param connection which will be released
+     */
     public void releaseConnection(Connection connection) {
         logger.debug("Start releaseConnection(Connection connection).");
         stopGiveTakeConnectionWhenConnectionProviderRun();
@@ -109,7 +138,10 @@ public class CustomConnectionPool {
         logger.info("Connection realize.");
     }
 
-    public void destroyPool() throws PoolConnectionException {
+    /**
+     * Threadsafe method which close connections, deregister drivers and destroy connection's pool.
+     */
+    public void destroyPool() {
         logger.info("Start destroyPool(). freeConnections.size(). Size free = " + freeConnections.size() + " Size busy = " + busyConnections.size());
         stopGiveTakeConnectionWhenConnectionProviderRun();
 
@@ -146,7 +178,11 @@ public class CustomConnectionPool {
         logger.info("End destroyPool(). Size free = " + freeConnections.size());
     }
 
-    boolean isFull() throws PoolConnectionException {
+    /**
+     * Threadsafe method which check connection's pool.
+     * @return true if connection pool is full, and false if pool is short of connection.
+     */
+    boolean isFull() {
         boolean result;
         logger.info("Start check pool isFull().");
         BlockingDeque<ProxyConnection> temptConnections = new LinkedBlockingDeque<>();
@@ -201,6 +237,9 @@ public class CustomConnectionPool {
         return result;
     }
 
+    /**
+     * Threadsafe method which add connection to pool up to default size.
+     */
     void addConnectionsToPool() {
         int count = 0;
         int connectionPoolSize;
@@ -232,6 +271,9 @@ public class CustomConnectionPool {
         logger.info("End addConnectionsToPool(). Number connections in pool = " + connectionPoolSize);
     }
 
+    /**
+     * Method deregister drivers.
+     */
     private void deregisterDrivers() {
         DriverManager.getDrivers().asIterator().forEachRemaining(driver -> {
             try {

@@ -61,19 +61,19 @@ background-size: cover">
                 style="text-align: center">${text_order_edit_order}</h1></c:when>
     </c:choose>
     <div>
-        <input type="text" placeholder="${text_order_example_title}" id="Title" name="title" maxlength="100"
+        <input type="text" placeholder="${text_order_example_title}" id="Title" name="title" minlength="1" maxlength="100"
                required value="${sessionScope.title}">
         <label for="Title">${text_order_title}</label>
     </div>
     <div>
         <input type="text" placeholder="${text_order_example_description}" id="Description" name="description"
-               maxlength="400"
+               minlength="1" maxlength="400"
                required value="${sessionScope.description}">
         <label for="Description">${text_order_description}</label>
     </div>
     <div>
-        <input type="text" placeholder="${text_order_example_address}" id="Address" name="address" maxlength="100"
-               required value="${sessionScope.address}">
+        <input type="text" placeholder="${text_order_example_address}" id="Address" name="address" minlength="1"
+               maxlength="100" required value="${sessionScope.address}">
         <label for="Address">${text_order_address}</label>
     </div>
     <div>

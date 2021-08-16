@@ -29,6 +29,8 @@ background-size: cover">
     <jsp:include page="../header.jsp"/>
 </header>
 
+<h1 class="text-title text-center">${text_contract_my_offer}</h1>
+
 <div class="container">
     <div class="container payment_window pt-1 pb-1">
         <div class="container">
@@ -64,7 +66,7 @@ background-size: cover">
                                             </p>
                                             <p>
                                                 <a href="/controller?command=find_executor_info_details&executorId=${contract.user.idUser}">
-                                                        ${text_contract_executor}${contract.user.firstName} ${contract.user.lastName}
+                                                        ${text_contract_executor} : ${contract.user.firstName} ${contract.user.lastName}
                                                 </a>
                                             </p>
                                         </div>

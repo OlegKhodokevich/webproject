@@ -1,5 +1,10 @@
 package by.khodokevich.web.model.dao.impl;
 
+/**
+ * This class contains all column name of users, regions table which are used in DAO.
+ *
+ * @author Oleg Khodokevich
+ */
 public class UserColumnName {
     protected static final String ID_USER = "IdUser";
     protected static final String FIRSTNAME = "FirstName";

@@ -11,6 +11,12 @@ import org.apache.logging.log4j.Logger;
 
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
+/**
+ * This listener check user session. If it isn't valid FirstVisitListener create it and
+ * set attribute - user's role.
+ *
+ * @author Oleg Khodokevich
+ */
 @WebListener
 public class FirstVisitListener implements ServletRequestListener {
     private static final Logger logger = LogManager.getLogger(FirstVisitListener.class);

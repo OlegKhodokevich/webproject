@@ -1,5 +1,11 @@
 package by.khodokevich.web.exception;
 
+/**
+ * DaoException is exception is invoked in Dao layer.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public class DaoException extends Exception{
     public DaoException() {
     }

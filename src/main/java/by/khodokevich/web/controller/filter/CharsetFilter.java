@@ -8,7 +8,12 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-
+/**
+ * Filter which set encoding UTF-8 to request and response.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 @WebFilter(urlPatterns = {"/controller"}, initParams = {
         @WebInitParam(name = "characterEncoding", value = "UTF-8", description = "Encoding Param")})
 public class CharsetFilter implements Filter {

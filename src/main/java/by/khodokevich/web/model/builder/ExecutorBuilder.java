@@ -2,6 +2,13 @@ package by.khodokevich.web.model.builder;
 
 import by.khodokevich.web.model.entity.*;
 
+
+/**
+ * Class which help to create executor.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public class ExecutorBuilder {
     private long userId;
     private String firstName;

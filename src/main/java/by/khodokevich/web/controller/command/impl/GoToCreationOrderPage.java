@@ -6,7 +6,7 @@ import by.khodokevich.web.controller.command.Router;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-import static by.khodokevich.web.controller.command.ParameterAttributeType.REASON;
+import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
 public class GoToCreationOrderPage implements Command {
     private static final String REASON_CREATE = "create";
@@ -15,6 +15,11 @@ public class GoToCreationOrderPage implements Command {
     public Router execute(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute(REASON, REASON_CREATE);
-        return new Router(PagePath.CREATION_ORDER_PAGE, Router.RouterType.REDIRECT);
+        session.setAttribute(TITLE,"");
+        session.setAttribute(DESCRIPTION,"");
+        session.setAttribute(ADDRESS,"");
+        session.setAttribute(COMPLETION_DATE,"");
+        session.setAttribute(SPECIALIZATION,"");
+        return new Router(PagePath.CREATION_ORDER_PAGE, Router.RouterType.FORWARD);
     }
 }

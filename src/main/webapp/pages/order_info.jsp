@@ -62,6 +62,7 @@ background-size: cover">
                                 : ${sessionScope.firstName} ${sessionScope.lastName}</li>
                             <li class="list-group-item">${text_registration_phone} : ${sessionScope.phone}</li>
                             <li class="list-group-item">e-mail : ${sessionScope.eMail}</li>
+
                         </ul>
                     </div>
                     <c:if test="${sessionScope.activeUserRole eq 'EXECUTOR'}">

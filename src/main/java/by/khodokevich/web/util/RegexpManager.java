@@ -20,6 +20,10 @@ public class RegexpManager {
         }
     }
 
+    /**
+     * @param key param which contain key to regular expression for validation
+     * @return regular expression
+     */
     public static String getRegexp(String key) {
         return resourceBundle.getString(key);
     }

@@ -30,6 +30,8 @@ background-size: cover">
     <jsp:include page="../header.jsp"/>
 </header>
 
+<h1 class="text-title text-center">${text_profile_offer}</h1>
+
 <div class="container">
     <div class="container payment_window pt-1 pb-1">
         <div class="container">

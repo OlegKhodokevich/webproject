@@ -13,6 +13,13 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+/**
+ * Tag which shows message is stored in session. Message will be deleted from session after presentation.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public class AllMessageTag extends TagSupport {
     private static final Logger logger = LogManager.getLogger(AllMessageTag.class);
     private static final Locale DEFAULT_LOCALE = new Locale("ru", "RU");

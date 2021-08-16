@@ -1,4 +1,4 @@
-package by.khodokevich.web.controller.command.impl.admin;
+package by.khodokevich.web.controller.command.impl;
 
 import by.khodokevich.web.controller.command.*;
 import by.khodokevich.web.exception.ServiceException;
@@ -6,6 +6,7 @@ import by.khodokevich.web.model.service.CheckingResult;
 import by.khodokevich.web.model.service.UserService;
 import by.khodokevich.web.model.service.ServiceProvider;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,17 +37,18 @@ public class ActivateUserCommand implements Command {
             resultOperation = CheckingResult.ERROR;
         }
 
+        HttpSession session = request.getSession();
         switch (resultOperation) {
             case SUCCESS -> {
-                request.setAttribute(ParameterAttributeType.USER_MESSAGE, InformationMessage.USER_ACTIVATE);
+                session.setAttribute(MESSAGE, InformationMessage.USER_ACTIVATE);
                 router = new Router(PagePath.LOGIN_PAGE, Router.RouterType.REDIRECT);
             }
             case USER_UNKNOWN -> {
-                request.setAttribute(USER_MESSAGE, InformationMessage.ERROR_USER_UNKNOWN);
+                session.setAttribute(MESSAGE, InformationMessage.ERROR_USER_UNKNOWN);
                 router = new Router(PagePath.MAIN_PAGE, Router.RouterType.REDIRECT);
             }
             case USER_STATUS_NOT_DECLARED -> {
-                request.setAttribute(USER_MESSAGE, InformationMessage.ERROR_USER_STATUS_NOT_DECLARED);
+                session.setAttribute(MESSAGE, InformationMessage.ERROR_USER_STATUS_NOT_DECLARED);
                 router = new Router(PagePath.MAIN_PAGE, Router.RouterType.REDIRECT);
             }
             case ERROR -> router = new Router(PagePath.ERROR_PAGE, Router.RouterType.REDIRECT);

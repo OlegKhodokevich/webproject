@@ -15,7 +15,15 @@ import java.io.IOException;
 
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
-@WebFilter
+/**
+ * Filter which don't pass users except admin on specify page.
+ * We specify url pattern "/pages/admin/*".
+ * In case users hasn't an access he will be redirected to main page.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
+@WebFilter("/pages/admin/*")
 public class AccessAdminPageFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(AccessAdminPageFilter.class);
 

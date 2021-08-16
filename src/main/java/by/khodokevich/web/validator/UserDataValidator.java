@@ -26,12 +26,18 @@ public class UserDataValidator {
     public static Map<String, String> checkUserData(Map<String, String> userData) throws ServiceException {
 
         Map<String, String> answerMap = checkUserDataWithoutPassword(userData);
-        if (!isPasswordValid(userData.get(PASSWORD)) && isRepeatedPasswordValid(userData.get(PASSWORD),userData.get(REPEATED_PASSWORD))) {
+        if (!isPasswordValid(userData.get(PASSWORD)) && isRepeatedPasswordValid(userData.get(PASSWORD), userData.get(REPEATED_PASSWORD))) {
             answerMap = userData;
+            answerMap.put(RESULT, CheckingResult.NOT_VALID.name());
         }
         return answerMap;
     }
 
+    /**
+     * @param userData is Map with param for validation user information.
+     * @return Map with result of validation. If one of param isn't valid will be returned all correct params without incorrect.     *
+     * @throws ServiceException if param is null
+     */
     public static Map<String, String> checkUserDataWithoutPassword(Map<String, String> userData) throws ServiceException {
         String firstName = userData.get(FIRST_NAME);
         String lastName = userData.get(LAST_NAME);

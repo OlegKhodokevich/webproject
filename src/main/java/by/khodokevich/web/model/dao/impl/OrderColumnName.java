@@ -1,5 +1,10 @@
 package by.khodokevich.web.model.dao.impl;
 
+/**
+ * This class contains all column name of orders, specializations table which are used in DAO.
+ *
+ * @author Oleg Khodokevich
+ */
 public class OrderColumnName {
 
     protected static final String ID_ORDER = "IdOrder";

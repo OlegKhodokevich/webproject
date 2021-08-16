@@ -5,6 +5,13 @@ import by.khodokevich.web.model.entity.Skill;
 
 import java.util.List;
 
+
+/**
+ * Class which help to create executorOption.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 public class ExecutorOptionBuilder {
     private String unp;
     private String description;

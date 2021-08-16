@@ -1,15 +1,11 @@
 package by.khodokevich.web.model.dao.impl;
 
+/**
+ * This class contains all column name of executors, specializations table which are used in DAO.
+ *
+ * @author Oleg Khodokevich
+ */
 public class ExecutorColumnName {
-    protected static final String ID_USER = "IdUser";
-    protected static final String FIRSTNAME = "FirstName";
-    protected static final String LASTNAME = "LastName";
-    protected static final String PASSWORD = "EncodedPassword";
-    protected static final String E_MAIL = "EMail";
-    protected static final String PHONE = "Phone";
-    protected static final String REGION = "Region";
-    protected static final String CITY = "City";
-    protected static final String STATUS = "UserStatus";
     protected static final String PERSONAL_FOTO = "PersonalFoto";
     protected static final String UNP = "UNP";
     protected static final String DESCRIPTION = "DescriptionExecutor";
