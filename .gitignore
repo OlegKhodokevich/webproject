@@ -1,9 +1,6 @@
 # Project exclude paths
 /target/**
-*.idea
+.idea
 .txt
 /logs/**
 /logs_roll_arch/**
-.gitignore
-logs
-logs_roll_arch
