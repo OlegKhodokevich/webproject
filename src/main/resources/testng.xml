@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite" verbose="1">
+    <test name="Test group user's validation.">
+        <groups>
+            <run>
+                <include name="user_validation"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="by.khodokevich.web.validator.UserDataValidatorFirstNameTest"/>
+            <class name="by.khodokevich.web.validator.UserDataValidatorLastNameTest"/>
+            <class name="by.khodokevich.web.validator.UserDataValidatorMailTest"/>
+            <class name="by.khodokevich.web.validator.UserDataValidatorPhoneTest"/>
+            <class name="by.khodokevich.web.validator.UserDataValidatorCityTest"/>
+            <class name="by.khodokevich.web.validator.UserDataValidatorRegionTest"/>
+            <class name="by.khodokevich.web.validator.UserDataValidatorPasswordTest"/>
+            <class name="by.khodokevich.web.validator.UserDataValidatorRepeatPasswordTest"/>
+            <class name="by.khodokevich.web.validator.UserDataValidator"/>
+        </classes>
+    </test>
+    <test name="Test group order's validation.">
+        <groups>
+            <run>
+                <include name="order_validation"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="by.khodokevich.web.validator.OrderDataValidatorTitleTest"/>
+            <class name="by.khodokevich.web.validator.OrderDataValidatorDescriptionTest"/>
+            <class name="by.khodokevich.web.validator.OrderDataValidatorAddressTest"/>
+            <class name="by.khodokevich.web.validator.OrderDataValidatorDateTest"/>
+            <class name="by.khodokevich.web.validator.OrderDataValidatorSpecializationTest"/>
+            <class name="by.khodokevich.web.validator.OrderDataValidator"/>
+        </classes>
+    </test>
+</suite>

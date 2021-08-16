@@ -39,7 +39,7 @@
 .registration_form fieldset>div {
     margin: 12px 0;
 }
-.registration_form input[type="text"], .registration_form input[type="password"], #Emailinput, #Phone, #Region, #City {
+.registration_form input[type="text"], .registration_form input[type="password"], #Emailinput, #Phone, #Region, #City, #ChangePassword {
     border: none;
     border-bottom: 2px solid #ccc;
     flex: 0 1 65%;
@@ -49,7 +49,7 @@
     padding: 1px 0;
     box-sizing: inherit;
 }
-.registration_form input[type="text"]:focus, .registration_form input[type="password"]:focus, #Emailinput:focus, #Phone:focus, #Region:focus, #City:focus {
+.registration_form input[type="text"]:focus, .registration_form input[type="password"]:focus, #Emailinput:focus, #Phone:focus, #Region:focus, #City:focus, #ChangePassword:focus {
     outline: none;
     border-bottom: 2px solid blue;
 }
@@ -79,10 +79,10 @@
 .registration_form select {
     /*width: 100%;*/
 }
-.registration_form .checkbox::before {
-    content: " ";
-    flex: 0 0 30%;
-}
+/*.registration_form .checkbox::before {*/
+/*    content: " ";*/
+/*    flex: 0 0 30%;*/
+/*}*/
 .registration_form #agree+label {
     text-align: left;
     height: 25px;
@@ -137,17 +137,17 @@
     .registration_form fieldset>div {
         flex-direction: row;
     }
-    .registration_form input[type="text"], .registration_form input[type="password"], #Emailinput, #Phone, #Region, #City {
+    .registration_form input[type="text"], .registration_form input[type="password"], #Emailinput, #Phone, #Region, #City, #ChangePassword {
         border: 2px solid #ccc;
         width: 100%;
         margin-left: 0;
     }
-    .registration_form input[type="text"]:focus, .registration_form input[type="password"]:focus, #Emailinput:focus, #Phone:focus, #Region:focus, #City:focus {
+    .registration_form input[type="text"]:focus, .registration_form input[type="password"]:focus, #Emailinput:focus, #Phone:focus, #Region:focus, #City:focus, #ChangePassword:focus {
         border: 2px solid blue;
     }
-    .registration_form .checkbox {
-        display: inline-block;
-    }
+    /*.registration_form .checkbox {*/
+    /*    display: inline-block;*/
+    /*}*/
     .registration_form input[type="submit"] {
         width: 100%;
         flex-basis: 60px;

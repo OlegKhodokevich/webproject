@@ -2,10 +2,15 @@ package by.khodokevich.web.controller.filter;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
-import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * This class wraps request and override methods which get parameter or header.
+ * It is used for XSSFilter.
+ *
+ * @author Oleg Khodokevich
+ */
 public class XSSRequestWrapper extends HttpServletRequestWrapper {
     private static final Logger logger = LogManager.getLogger(XSSRequestWrapper.class);
 
@@ -16,14 +21,13 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
     @Override
     public String[] getParameterValues(String name) {
         String[] values = super.getParameterValues(name);
-        if (values == null) {
-            return null;
-        }
-        int length = values.length;
-        String[] encodedValues = new String[length];
-        logger.debug("Encoded values = " + encodedValues);
-        for (int i = 0; i < length; i++) {
-            encodedValues[i] = stripXSS(values[i]);
+        String[] encodedValues = null;
+        if (values != null) {
+            int length = values.length;
+            encodedValues = new String[length];
+            for (int i = 0; i < length; i++) {
+                encodedValues[i] = stripXSS(values[i]);
+            }
         }
         return encodedValues;
     }
@@ -48,7 +52,6 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
             value = value.replace("<","");
             value = value.replace(">","");
         }
-        value = StringEscapeUtils.escapeHtml4(value);
         return value;
     }
 }

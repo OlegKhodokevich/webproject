@@ -53,7 +53,8 @@
     margin-bottom: 10px;
     min-width: 400px;
     word-wrap: break-word;
-    max-width: 850px;
+    max-width: 900px;
+    margin-left: 100px;
 }
 
 
@@ -109,4 +110,50 @@
     word-wrap: break-word;
     max-width: 600px;
     margin-top: 50px;
+}
+
+
+.custom-card-my-contracts {
+    --card-height: 130px;
+
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 20px black;
+    text-decoration: none;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,.125);
+    color: #495057;
+    border-color: #212529!important;
+    margin-bottom: 10px;
+    min-width: 400px;
+    word-wrap: break-word;
+    max-width: 850px;
+}
+
+
+.custom-card-my-contracts a:visited {
+    color: #800080; /* Цвет посещённой ссылки */
+}
+.custom-card-my-contracts a:hover {
+    color: #800000; /* Цвет ссылки при наведении на нее курсора мыши */
+    text-decoration: underline; /* Добавляем подчеркивание */
+}
+.custom-card-my-contracts a {
+    color: black;
+    text-decoration: none; /* Убираем подчеркивание у ссылок */
+    font-weight: bold;
+}
+@media all  {
+    .custom-card-my-contracts a:visited {
+        color: #800080; /* Цвет посещённой ссылки */
+    }
+    .custom-card-my-contracts a:hover {
+        color: #800000; /* Цвет ссылки при наведении на нее курсора мыши */
+        text-decoration: underline; /* Добавляем подчеркивание */
+    }
+    .custom-card-my-contracts a {
+        color: black;
+        text-decoration: none; /* Убираем подчеркивание у ссылок */
+        font-weight: bold;
+    }
 }

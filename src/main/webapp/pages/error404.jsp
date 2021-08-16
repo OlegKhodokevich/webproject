@@ -1,14 +1,12 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
-    <fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="text"/>
 
 <fmt:message key="error.error404.title" var="text_error_404_title"/>
 <fmt:message key="error.error404" var="text_error_404"/>
-
 
 <html>
 <head>
@@ -24,8 +22,7 @@ background-size: cover">
     <h3 class="mb-0 ml-3" style="color: black">${text_error_404}!</h3>
 </div>
 
-
-<footer class="custom-footer">
+<footer>
     <jsp:include page="/pages/footer.jsp"/>
 </footer>
 </body>

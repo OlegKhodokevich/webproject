@@ -2,6 +2,6 @@
 /target/**
 .idea
 .txt
-/src/main/java/by/khodokevich/web/command/**
 /logs/**
 /logs_roll_arch/**
+.iml

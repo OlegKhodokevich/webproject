@@ -1,7 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="abs_path">${pageContext.request.contextPath}</c:set>
+<%@ taglib prefix="mes" uri="custom tag message writer" %>
 
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="text"/>
@@ -35,7 +36,16 @@ flex-direction: column;">
     <jsp:include page="header.jsp"/>
 </header>
 
-<h1 class="text-title" >${text_order_orders}</h1>
+<h1 class="text-title">${text_order_orders}</h1>
+
+
+<div class="container">
+    <div class="container payment_window pt-1 pb-1">
+        <div class="container">
+            <h2 class="mt-1"><mes:messageTag/></h2>
+        </div>
+    </div>
+</div>
 
 <div class="container">
     <div class="row">
@@ -43,7 +53,7 @@ flex-direction: column;">
             <div class="flex-column custom-card" style="width: 380px;">
                 <p class="fs-5 fw-semibold">${text_order_specializations}</p>
                 <form action="/controller" method="post" class="list-group list-group-flush border-bottom scrollarea">
-                    <c:forEach var="specialization" items="${sessionScope.specializationList}">
+                    <c:forEach var="specialization" items="${applicationScope.specializationList}">
                         <c:if test="${specialization != null}">
                             <fmt:message key="${specialization.key}" var="text_specialization"/>
                             <div class="form-check">
@@ -71,17 +81,19 @@ flex-direction: column;">
                     </div>
                 </c:when>
                 <c:when test="${sessionScope.orderList.size() gt 0}">
-                    <div class="list-group">
+                    <div id="listElement" class="list-group">
                         <c:forEach var="order" items="${sessionScope.orderList}">
                             <c:if test="${order != null}">
                                 <a href="/controller?command=find_order_info_details&orderId=${order.orderId}"
                                    class="flex-column custom-card mb-2">
-                                    <p class="date-to-format" style="text-align: right; font-size: 14px; margin-bottom: 0px">${order.creationDate.time}</p>
+                                    <p class="date-to-format"
+                                       style="text-align: right; font-size: 14px; margin-bottom: 0">${order.creationDate.time}</p>
                                     <div class="d-flex w-100 justify-content-between">
                                         <p class="mb-1 " style="font-weight: bold">${order.title}</p>
                                     </div>
                                     <p class="mb-1">${order.description}</p>
-                                    <span>${text_order_completion_date} : <span class="date-to-format">${order.completionDate.time}</span></span>
+                                    <span>${text_order_completion_date} : <span
+                                            class="date-to-format">${order.completionDate.time}</span></span>
                                     <input type="hidden" name="orderId" id="orderId" value="${order.orderId}">
                                 </a>
                             </c:if>
@@ -89,11 +101,83 @@ flex-direction: column;">
                     </div>
                 </c:when>
             </c:choose>
+            <nav aria-label="Page navigation area">
+                <ul class="pagination justify-content-center">
+                    <c:if test="${sessionScope.pagination.currentPage > 1}">
+                        <li class="page-item ${sessionScope.pagination.currentPage eq 1 ? 'disabled': ''}">
+                            <a class="page-link"
+                               href="${abs_path}/controller?command=all_orders&indexPage=${sessionScope.pagination.currentPage - 1}"
+                               tabindex="-1"><<</a>
+                        </li>
+                    </c:if>
+                    <li class="page-item ${sessionScope.pagination.currentPage eq 1 ? 'active': ''}">
+                        <a class="page-link" href="${abs_path}/controller?command=all_orders&indexPage=${1}">1</a>
+                    </li>
+                    <c:if test="${sessionScope.pagination.showLeftDivider()}">
+                        <li class="page-item disabled}">
+                            <a class="page-link disabled" href="">...</a>
+                        </li>
+                    </c:if>
+                    <c:forEach var="i" items="${sessionScope.pagination.listVisiblePage}">
+                        <li class="page-item ${sessionScope.pagination.currentPage eq i ? 'active': ''}">
+                            <a class="page-link"
+                               href="${abs_path}/controller?command=all_orders&indexPage=${i}">${i}</a>
+                        </li>
+                    </c:forEach>
+                    <c:if test="${sessionScope.pagination.showRightDivider()}">
+                        <li class="page-item disabled}">
+                            <a class="page-link disabled" href="">...</a>
+                        </li>
+                    </c:if>
+                    <c:if test="${sessionScope.pagination.lastPage > 1}">
+                        <li class="page-item ${sessionScope.pagination.currentPage eq sessionScope.pagination.lastPage ? 'active': ''}">
+                            <a class="page-link"
+                               href="${abs_path}/controller?command=all_orders&indexPage=${sessionScope.pagination.lastPage}">${sessionScope.pagination.lastPage}</a>
+                        </li>
+                    </c:if>
+                    <c:if test="${sessionScope.pagination.currentPage < sessionScope.pagination.lastPage}">
+                        <li class="page-item ${sessionScope.pagination.currentPage eq sessionScope.pagination.lastPage ? 'disabled': ''}">
+                            <a class="page-link"
+                               href="${abs_path}/controller?command=all_orders&indexPage=${sessionScope.pagination.currentPage + 1}"
+                               tabindex="-1">>></a>
+                        </li>
+                    </c:if>
+                </ul>
+            </nav>
         </div>
+
     </div>
 </div>
 
-<footer class="custom-footer">
+<%--<script>--%>
+<%--    let dataOrders = [${sessionScope.orderList}];--%>
+<%--    let  listElements = document.querySelector('#table');--%>
+<%--    let  items = document.querySelectorAll('#pagination li');--%>
+
+<%--    let  notesOnPage = 3;--%>
+
+<%--    for (let item of items) {--%>
+<%--        item.addEventListener('click', function () {--%>
+<%--            let  pageNum = +this.innerHTML;--%>
+<%--            /*--%>
+
+<%--             */--%>
+
+<%--            let startIndex = notesOnPage * (pageNum - 1);--%>
+<%--            let endIndex = startIndex + notesOnPage;--%>
+<%--            let notes = dataOrders.slice(startIndex, endIndex);--%>
+
+<%--            for (let note of notes) {--%>
+<%--                let  tr = document.createElement('')--%>
+<%--            }--%>
+<%--        });--%>
+<%--    }--%>
+<%--    function createCell(text, tr) {--%>
+<%--        let td = document.createElement('div')--%>
+<%--    }--%>
+<%--</script>--%>
+
+<footer>
     <jsp:include page="footer.jsp"/>
 </footer>
 </body>

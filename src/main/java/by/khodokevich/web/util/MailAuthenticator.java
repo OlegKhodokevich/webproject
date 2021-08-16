@@ -29,22 +29,25 @@ public class MailAuthenticator {
         }
     }
 
-    public static void sendEmail(String eMail, String theme, String text) {
+    /**
+     * @param eMail is user e-mail where sends letter with link for account activation.
+     * @param theme is theme of letter.
+     * @param text is text for letter which consist link for activation.
+     * @throws MessagingException when message can't be sent to e-mail
+     */
+    public static void sendEmail(String eMail, String theme, String text) throws MessagingException {
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(properties.getProperty(AGENT_NAME), properties.getProperty(SPECIFY_PASSWORD_NAME_PROPERTIES));
             }
         });
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(properties.getProperty(SPECIFY_E_MAIL_NAME_PROPERTIES)));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(eMail));
-            message.setSubject(theme);
-            message.setText(text);
-            Transport.send(message);
-        } catch (MessagingException e) {
-            logger.error("Can't send ,message to e-mail = " + eMail, e);
-        }
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(properties.getProperty(SPECIFY_E_MAIL_NAME_PROPERTIES)));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(eMail));
+        message.setSubject(theme);
+        message.setText(text);
+        Transport.send(message);
+
     }
 }

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="ftm" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -23,11 +23,17 @@
 
 <fmt:message key="user.edit_user" var="text_user_edit_user"/>
 
+<fmt:message key="revoke.title" var="text_revoke_title"/>
+<fmt:message key="revoke.executor_revoke" var="text_revoke_executor_revoke"/>
+
+<fmt:message key="revoke.rating" var="text_ravoke_reting"/>
 <html>
 <head>
     <title>${text_executor_executor_info}</title>
     <link href="../css/custom_styles.css" rel="stylesheet"/>
     <link href="../css/custom_card.css" rel="stylesheet"/>
+    <link href="../css/revoke_style.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body style="background-image: url(../image/building_3_c1.jpg);
 background-repeat: no-repeat;
@@ -51,8 +57,9 @@ background-size: cover">
                                 <h6 class="d-flex align-items-center mb-3">${text_executor_skills}</h6>
                                 <c:if test="${sessionScope.executor.executorOption.skills != null}">
                                     <c:forEach var="skill" items="${sessionScope.executor.executorOption.skills}">
+                                        <fmt:message key="${skill.specialization.key}" var="text_specialisation"/>
                                         <div>
-                                            <p style="text-align: left">${skill.specialization}
+                                            <p style="text-align: left">${text_specialisation}
                                                 <span> ${skill.cost} </span><span>${skill.measure}</span></p>
                                         </div>
                                     </c:forEach>
@@ -107,7 +114,9 @@ background-size: cover">
                                 <h6 class="mb-0">${text_registration_region}</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                ${sessionScope.executor.region}
+                                <fmt:message key="${applicationScope.regionMap.get(sessionScope.executor.region)}"
+                                             var="text_region"/>
+                                ${text_region}
                             </div>
                         </div>
                         <hr>
@@ -161,13 +170,37 @@ background-size: cover">
                                 <h6 class="mb-0">${text_executor_average_mark}</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                ${sessionScope.executor.executorOption.averageMark}
+                                ${sessionScope.executor.executorOption.truncatedMark}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">${text_ravoke_reting}</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+
+                                    <c:forEach items="${applicationScope.markList}" varStatus="loop">
+                                        <c:choose>
+                                            <c:when test="${(loop.index + 1) <= sessionScope.executor.executorOption.averageMark}">
+                                                <span class="fa fa-star checked"></span>
+                                            </c:when>
+                                            <c:when test="${(loop.index + 1) > sessionScope.executor.executorOption.averageMark}">
+                                                <span class="fa fa-star"></span>
+                                            </c:when>
+                                        </c:choose>
+                                    </c:forEach>
+
+                                <a href="/controller?command=executor_revoke&executorId=${sessionScope.executor.idUser}">
+                                    ${text_revoke_title}
+                                </a>
                             </div>
                         </div>
                         <hr>
                         <c:if test="${sessionScope.activeUser !=null and sessionScope.activeUser.idUser eq sessionScope.executor.idUser or sessionScope.activeUser.role eq 'ADMIN'}">
                             <div class="col-sm-12">
-                                <a class="btn btn-info " href="/controller?command=prepare_edit_user&userId=${sessionScope.executor.idUser}">${text_user_edit_user}</a>
+                                <a class="btn btn-info "
+                                   href="/controller?command=prepare_edit_user&userId=${sessionScope.executor.idUser}">${text_user_edit_user}</a>
                             </div>
                         </c:if>
                     </div>
@@ -176,7 +209,7 @@ background-size: cover">
         </div>
     </div>
 </div>
-<footer class="custom-footer">
+<footer>
     <jsp:include page="footer.jsp"/>
 </footer>
 </body>

@@ -5,8 +5,6 @@
          https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
 
-    <!--        <display-name> Forward Vs SendRedirect</display-name>-->
-
     <servlet>
         <servlet-name>Controller</servlet-name>
         <servlet-class>by.khodokevich.web.controller.Controller</servlet-class>
@@ -15,6 +13,13 @@
         <servlet-name>Controller</servlet-name>
         <url-pattern>/controller</url-pattern>
     </servlet-mapping>
+
+    <listener>
+        <listener-class>by.khodokevich.web.controller.listener.ContextListenerImpl</listener-class>
+    </listener>
+    <listener>
+        <listener-class>by.khodokevich.web.controller.listener.FirstVisitListenerImpl</listener-class>
+    </listener>
 
     <filter>
         <filter-name>PageNotFoundFilter</filter-name>
@@ -31,6 +36,32 @@
     </filter>
     <filter-mapping>
         <filter-name>XSSFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>AccessAdminPageFilter</filter-name>
+        <filter-class>by.khodokevich.web.controller.filter.AccessAdminPageFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AccessAdminPageFilter</filter-name>
+        <url-pattern>/pages/admin/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>AccessUserPageFilter</filter-name>
+        <filter-class>by.khodokevich.web.controller.filter.AccessUserPageFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AccessUserPageFilter</filter-name>
+        <url-pattern>/pages/user/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>CurrentArchivedUserFilter</filter-name>
+        <filter-class>by.khodokevich.web.controller.filter.CurrentArchivedUserFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CurrentArchivedUserFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
@@ -52,8 +83,27 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <filter-name>AccessRoleFilter</filter-name>
+        <filter-class>by.khodokevich.web.controller.filter.AccessRoleFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AccessRoleFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>CacheFilter</filter-name>
+        <filter-class>by.khodokevich.web.controller.filter.CacheFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CacheFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.htm</welcome-file>
     </welcome-file-list>
 
     <jsp-config>

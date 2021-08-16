@@ -3,10 +3,12 @@ package by.khodokevich.web.util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+/**
+ * Class provide regular expression for validation user, order, revoke data
+ */
 public class RegexpManager {
     private static final Logger logger = LogManager.getLogger(RegexpManager.class);
     private static final ResourceBundle resourceBundle;
@@ -21,6 +23,10 @@ public class RegexpManager {
         }
     }
 
+    /**
+     * @param key param which contain key to regular expression for validation
+     * @return regular expression
+     */
     public static String getRegexp(String key) {
         return resourceBundle.getString(key);
     }

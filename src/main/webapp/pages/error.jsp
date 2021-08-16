@@ -1,15 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 27.06.2021
-  Time: 17:02
-  To change this template use File | Settings | File Templates.
---%>
-<%--<%@ taglib prefix="c" uri="http://jakarta.apache.org/taglibs/standard/permittedTaglibs" %>--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--<%@ taglib prefix="fmt" uri="http://jakarta.apache.org/taglibs/standard/permittedTaglibs" %>--%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
     <fmt:setLocale value="${sessionScope.locale}"/>
 
@@ -39,7 +30,7 @@ background-size: cover">
         <h2 class="mt-1">${text_error_tech_come_later}</h2>
     </div>
 </div>
-<footer class="custom-footer">
+<footer>
     <jsp:include page="footer.jsp"/>
 </footer>
 

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="mes" uri="custom tag message writer" %>
@@ -58,12 +58,13 @@ background-size: cover">
         <input type="hidden" name="command" value="sign_in">
         <input type="submit" value="${text_logging_sign_in}">
     </div>
-    <a class="custom-button-register" href="/controller?command=go_to_registration" id="Button">${text_registration_title}</a>
+    <a class="custom-button-register" href="/controller?command=go_to_registration"
+       id="Button">${text_registration_title}</a>
     <br/>
     <br/>
 </form>
 
-<footer class="custom-footer">
+<footer>
     <jsp:include page="footer.jsp"/>
 </footer>
 </body>

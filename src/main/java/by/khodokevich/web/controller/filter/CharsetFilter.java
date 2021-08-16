@@ -1,18 +1,19 @@
 package by.khodokevich.web.controller.filter;
 
-import by.khodokevich.web.command.ParameterAttributeType;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.annotation.WebInitParam;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.util.Locale;
 
-
+/**
+ * Filter which set encoding UTF-8 to request and response.
+ *
+ * @author Oleg Khodokevich
+ *
+ */
 @WebFilter(urlPatterns = {"/controller"}, initParams = {
         @WebInitParam(name = "characterEncoding", value = "UTF-8", description = "Encoding Param")})
 public class CharsetFilter implements Filter {
@@ -24,7 +25,7 @@ public class CharsetFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         logger.info("Init FilterConfig filter");
         encoding = filterConfig.getInitParameter("characterEncoding");
-        if (encoding ==null) {
+        if (encoding == null) {
             encoding = "UTF-8";
         }
     }

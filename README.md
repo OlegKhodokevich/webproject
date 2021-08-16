@@ -16,20 +16,34 @@ This web site helps people to find professional executor, and on the side on coi
 
 # User roles
 1)	Guest
--	view all executors, and all orders
+-	View all executors, and all orders
 -	Search for items by category 
 -	Authentication and authorization
 -	Registration
+-	See revokes about executor
 2)	Customer
 -	View all executors, and all orders
 -	Search for items by category
 -	Edit personal information (except additional) in the profile
 -	Create orders and manage them (hide, activate and edit)
 -	View his orders and detail information about it
+-	Manage offers(dimiss, conclude)
+-	Close contract
+-	Write feed back
+-	See revokes about executor
 3)	Executor
--	view all executors, and all orders
+-	View all executors, and all orders
 -	Search for items by category 
 -	Edit personal information in the profile
+-	Offer contract to customer
 4) Admin
 -	Manage users (archived, activate, edit) 
+-	Manage orders (hide, activate, edit)
+
+![Project structure](https://user-images.githubusercontent.com/71207387/129571471-9f99866e-6378-42ad-8ed2-4dfea752b157.png)
+
+
+
+
+
 

@@ -1,7 +1,6 @@
 package by.khodokevich.web.controller;
 
-import by.khodokevich.web.command.*;
-import by.khodokevich.web.connection.CustomConnectionPool;
+import by.khodokevich.web.controller.command.*;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,8 +11,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.sql.Connection;
 
+/**
+ * Controller the main controller which manage commands.
+ * This class define command and execute it.
+ *
+ * @author Oleg Khodokevich
+ */
 @WebServlet(name = "Controller", urlPatterns = {"/controller"})
 public class Controller extends HttpServlet {
 
@@ -39,28 +43,16 @@ public class Controller extends HttpServlet {
         Command command = commandProvider.getCommand(commandName);
 
         Router router = command.execute(request);
-        switch (router.getRouterType()) {
-            case REDIRECT:
-                response.sendRedirect(router.getPagePath());
-                break;
-            case FORWARD:
-                RequestDispatcher dispatcher = request.getRequestDispatcher(router.getPagePath());
+        switch (router.routerType()) {
+            case REDIRECT -> response.sendRedirect(router.pagePath());
+            case FORWARD -> {
+                RequestDispatcher dispatcher = request.getRequestDispatcher(router.pagePath());
                 dispatcher.forward(request, response);
-                break;
-            default:
+            }
+            default -> {
                 logger.error("Router type don't specify or it is unknown.");
                 response.sendRedirect(PagePath.ERROR_PAGE);
+            }
         }
-    }
-
-    @Override
-    public void destroy() {
-        CustomConnectionPool connectionPool = CustomConnectionPool.getInstance();
-        connectionPool.destroyPool();
-    }
-
-    @Override
-    public void init() throws ServletException {
-        CustomConnectionPool.getInstance();
     }
 }

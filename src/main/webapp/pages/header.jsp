@@ -1,5 +1,4 @@
-<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-        language="java" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
@@ -14,12 +13,16 @@
 <fmt:message key="profile.my_profile" var="text_profile_my_profile"/>
 <fmt:message key="profile.my_orders" var="text_profile_my_orders"/>
 <fmt:message key="profile.my_contracts" var="text_profile_my_contracts"/>
+<fmt:message key="profile.offer" var="text_profile_offer"/>
+<fmt:message key="profile.my_offer" var="text_profile_my_offer"/>
 <fmt:message key="profile.configuration" var="text_profile_configuration"/>
 <fmt:message key="profile.log_out" var="text_profile_log_out"/>
 
 <fmt:message key="profile.my_revokes" var="text_profile_my_revokes"/>
 <fmt:message key="header.logging" var="text_header_logging"/>
 <fmt:message key="header.registration" var="text_header_registration"/>
+<fmt:message key="user.admin_all_user_title" var="text_user_admin_all_user_title"/>
+
 
 <html>
 <head>
@@ -40,33 +43,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: space-between;">
-            <ul class="navbar-nav mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-
-
-            </ul>
-            <ul class="navbar-nav border-right">
+            <ul class="navbar-nav border-right" style="margin-left: 500px">
 
                 <li class="nav-link active text-md-center">
                     <a class="nav-link" href="/controller?command=set_locale&locale=ru_RU" style="color: black">RU</a>
@@ -85,20 +62,15 @@
                        style="color: black">${text_project_executors}</a>
                 </li>
             </ul>
-            <form class="d-flex align-items-md-center">
-                <input class="form-control me-2 align-items-md-center float-md-none" type="search" placeholder="Search"
-                       aria-label="Search">
-                <button class="btn btn-outline-success align-bottom" type="submit">Search</button>
-            </form>
 
             <c:choose>
-                <c:when test="${empty sessionScope.activeUser}">
+                <c:when test="${sessionScope.activeUserRole eq 'GUEST'}">
                     <li class="nav-link active border-right text-center">
                         <a class="nav-link" href="/controller?command=go_to_sign_in"
                            style="color: black">${text_header_logging}</a>
                     </li>
                 </c:when>
-                <c:when test="${sessionScope.activeUser != null && sessionScope.activeUser.role eq 'CUSTOMER'}">
+                <c:when test="${sessionScope.activeUserRole eq 'CUSTOMER'}">
                     <li class="nav-item dropdown navbar-nav mb-2 mb-lg-0">
                         <a class="nav-link dropdown-toggle" href="#" id="profileCustomer" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -112,9 +84,15 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li><a class="dropdown-item"
-                                   href="/controller?command=find_my_orders">${text_profile_my_orders}</a></li>
+                                   href="/controller?command=find_user_orders">${text_profile_my_orders}</a></li>
+                            <li><a class="dropdown-item"
+                                   href="/controller?command=find_offer_for_user&userId=${sessionScope.activeUserId}">${text_profile_offer}</a>
+                            </li>
 
-                            <li><a class="dropdown-item" href="#">${text_profile_my_contracts}</a></li>
+                            <li><a class="dropdown-item"
+                                   href="/controller?command=find_contract_by_customer_id&userId=${sessionScope.activeUserId}">${text_profile_my_contracts}</a>
+                            </li>
+
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -124,7 +102,7 @@
                     </li>
 
                 </c:when>
-                <c:when test="${sessionScope.activeUser != null && sessionScope.activeUser.role eq 'EXECUTOR'}">
+                <c:when test="${sessionScope.activeUserRole eq 'EXECUTOR'}">
                     <li class="nav-item dropdown navbar-nav mb-2 mb-lg-0">
                         <a class="nav-link dropdown-toggle" href="#" id="profileExecutor" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -137,31 +115,39 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">${text_profile_my_contracts}</a></li>
 
-                            <li><a class="dropdown-item" href="#">${text_profile_my_revokes}</a></li>
+                            <li><a class="dropdown-item"
+                                   href="/controller?command=find_my_offer&executorId=${sessionScope.activeUserId}">${text_profile_my_offer}</a>
+                            </li>
+
+                            <li><a class="dropdown-item"
+                                   href="/controller?command=find_contract_by_executor_id&executorId=${sessionScope.activeUserId}">${text_profile_my_contracts}</a>
+                            </li>
 
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href=/controller?command=log_out">${text_profile_log_out}</a>
+                            <li><a class="dropdown-item" href="/controller?command=log_out">${text_profile_log_out}</a>
                             </li>
                         </ul>
                     </li>
                 </c:when>
 
-                <c:when test="${sessionScope.activeUser != null && sessionScope.activeUser.role eq 'ADMIN'}">
+                <c:when test="${sessionScope.activeUserRole eq 'ADMIN'}">
                     <li class="nav-item dropdown navbar-nav mb-2 mb-lg-0">
                         <a class="nav-link dropdown-toggle" href="#" id="profileAdmin" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                                 ${text_profile_my_profile}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="profileAdmin">
-                            <li><a class="dropdown-item" href="#">${text_profile_configuration}</a></li>
+                            <li><a class="dropdown-item"
+                                   href="/controller?command=find_user_info_details&userId=${sessionScope.activeUser.idUser}">${text_profile_configuration}</a>
+                            </li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">${text_profile_my_contracts}</a></li>
+                            <li><a class="dropdown-item"
+                                   href="/controller?command=all_users">${text_user_admin_all_user_title}</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
