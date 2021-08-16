@@ -92,7 +92,7 @@ background-size: cover">
                                                            role="button">${text_contract_close_contract}</a>
                                                     </c:when>
                                                     <c:when test="${(sessionScope.activeUserId eq contract.order.userId) && (contract.completionContractStatus eq 'COMPLETED') && (contract.revoke == null)}">
-                                                        <a class="btn btn-success custom-button-operation-my-order"
+                                                        <a class="btn btn-info custom-button-operation-my-order"
                                                            href="/controller?command=go_to_creation_revoke_page&contractId=${contract.idContract}"
                                                            role="button">${text_revoke_give_feedback}</a>
                                                     </c:when>

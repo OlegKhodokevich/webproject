@@ -4,3 +4,4 @@
 .txt
 /logs/**
 /logs_roll_arch/**
+.iml

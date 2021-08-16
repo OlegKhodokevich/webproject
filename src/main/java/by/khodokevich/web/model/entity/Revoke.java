@@ -1,7 +1,5 @@
 package by.khodokevich.web.model.entity;
 
-import java.math.BigDecimal;
-import java.text.Format;
 import java.util.*;
 
 public class Revoke extends Entity {
@@ -10,6 +8,7 @@ public class Revoke extends Entity {
     private String description;
     private int mark;
     private Date creationDate;
+
     private static final List<Integer> markList = new ArrayList<>();
 
     static {
@@ -19,6 +18,7 @@ public class Revoke extends Entity {
         markList.add(4);
         markList.add(5);
     }
+
     public Revoke() {
     }
 
@@ -36,6 +36,7 @@ public class Revoke extends Entity {
         this.mark = mark;
         this.creationDate = creationDate;
     }
+
     public static List<Integer> getMarkList() {
         return Collections.unmodifiableList(markList);
     }
@@ -80,11 +81,28 @@ public class Revoke extends Entity {
         this.creationDate = creationDate;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Revoke revoke)) return false;
+        return getRevokeId() == revoke.getRevokeId() && getContractId() == revoke.getContractId() && getMark() == revoke.getMark()
+                && (revoke.getDescription() != null) && getDescription().equals(revoke.getDescription())
+                && (revoke.getCreationDate() != null) && getCreationDate().equals(revoke.getCreationDate());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) revokeId * 31 + (int) contractId;
+        result = result * 31 + description.hashCode();
+        result = result * 31 + mark;
+        result = result * 31 + creationDate.hashCode();
+        return result;
+    }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Revoke{");
-        sb.append("revokeId=").append(revokeId);
+        final StringBuilder sb = new StringBuilder(getClass().getSimpleName());
+        sb.append("{revokeId=").append(revokeId);
         sb.append(", description='").append(description).append('\'');
         sb.append(", contractId=").append(contractId);
         sb.append(", mark=").append(mark);

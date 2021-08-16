@@ -38,7 +38,7 @@ public class ContractDaoImpl extends AbstractDao<Contract> implements ContractDa
     private static final String SQL_SET_CONCLUDED_STATUS = "UPDATE contracts SET Conclude = 'concluded'  WHERE IdContract = ?;";
     private static final String SQL_SET_NOT_CONCLUDED_STATUS_FOR_DEFINE_CONTRACT = "UPDATE contracts SET Conclude = 'not_concluded'  WHERE IdContract = ?;";
     private static final String SQL_SET_COMPLETED_STATUS = "UPDATE contracts SET Complete = 'completed'  WHERE IdContract = ?;";
-
+    private static final String SQL_SELECT_SELECT_ID_EXECUTOR_BY_CONTRACT_ID = "SELECT IdUserExecutor FROM contracts WHERE IdContract = ?;";
 
     /**
      * Method searches all contract's entity in database
@@ -307,6 +307,32 @@ public class ContractDaoImpl extends AbstractDao<Contract> implements ContractDa
         boolean result = numberUpdatedRows == 1;
         logger.info(() -> result ? "Operation was successful. " : " Operation was failed");
         return result;
+    }
+    /**
+     * Method search executorId by contractId
+     *
+     * @param contractId of contract
+     * @return executor id
+     * @throws DaoException if can't execute query
+     */
+    @Override
+    public long getIdExecutor(long contractId) throws DaoException {
+        logger.info("Start getIdExecutor(long contractId). ContractId = " + contractId);
+        long executorId = -1;
+        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_SELECT_ID_EXECUTOR_BY_CONTRACT_ID)) {
+            statement.setLong(1, contractId);
+            try (ResultSet resultSet = statement.executeQuery()){
+                if (resultSet.next()) {
+                    executorId = resultSet.getLong(ID_EXECUTOR);
+                    logger.info("Has found next executor id: " + executorId);
+                }
+            }
+
+        } catch (SQLException e) {
+            logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
+            throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
+        }
+        return executorId;
     }
 
     /**

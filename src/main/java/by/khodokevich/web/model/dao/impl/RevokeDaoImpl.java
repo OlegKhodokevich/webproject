@@ -19,7 +19,11 @@ import java.util.Optional;
 
 import static by.khodokevich.web.model.dao.impl.OrderColumnName.CREATION_DATE;
 import static by.khodokevich.web.model.dao.impl.RevokeColumnName.*;
-
+/**
+ * This class implement RevokeDao
+ * This class manage entity revoke in database.
+ * It is used for select create or update information connected with revoke.
+ */
 public class RevokeDaoImpl extends AbstractDao<Revoke> implements RevokeDao {
     private static final Logger logger = LogManager.getLogger(ContractDaoImpl.class);
 
@@ -30,18 +34,24 @@ public class RevokeDaoImpl extends AbstractDao<Revoke> implements RevokeDao {
 
 
     @Override
-    public List<Revoke> findAll() throws DaoException {
-        return null;
+    public List<Revoke> findAll() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Optional<Revoke> findEntityById(long ContractId) throws DaoException {
         throw new UnsupportedOperationException();
     }
-
+    /**
+     * Method search revoke by contractId
+     *
+     * @param ContractId of contract
+     * @return optional revoke
+     * @throws DaoException if can't execute query
+     */
     @Override
     public Optional<Revoke> findEntityByContractId(long ContractId) throws DaoException {
-        logger.info("Start findContractByIdExecutor(long userExecutorId). Id = " + ContractId);
+        logger.info("Start findEntityByContractId(long ContractId). Id = " + ContractId);
         Revoke revoke = null;
         SimpleDateFormat parser = new SimpleDateFormat(DATE_PATTERN);
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_ALL_REVOKE_BY_ID_CONTRACT)) {
@@ -71,14 +81,21 @@ public class RevokeDaoImpl extends AbstractDao<Revoke> implements RevokeDao {
 
     @Override
     public boolean delete(long id) throws DaoException {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean delete(Revoke entity) throws DaoException {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
+    /**
+     * Method create entity revoke in database.
+     *
+     * @param revoke entity
+     * @return true if it is created, in other way will return false.
+     * @throws DaoException if can't execute query
+     */
     @Override
     public boolean create(Revoke revoke) throws DaoException {
         logger.info("Start create(Order entity)." + revoke);
@@ -106,9 +123,16 @@ public class RevokeDaoImpl extends AbstractDao<Revoke> implements RevokeDao {
 
     @Override
     public boolean update(Revoke entity) throws DaoException {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
+    /**
+     * Method search executor's revokes by executor id.
+     *
+     * @param userExecutorId of executor
+     * @return  List of revokes
+     * @throws DaoException if can't execute query
+     */
     @Override
     public List<Revoke> findAllExecutorRevoke(long userExecutorId) throws DaoException {
         logger.info("Start findContractByIdExecutor(long userExecutorId). Id = " + userExecutorId);

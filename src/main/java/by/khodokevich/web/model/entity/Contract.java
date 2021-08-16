@@ -111,13 +111,14 @@ public class Contract extends Entity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Contract contract)) return false;
-        return getIdContract() == contract.getIdContract() && getOrder().equals(contract.getOrder()) && getUser().equals(contract.getUser()) && getConcludedContractStatus() == contract.getConcludedContractStatus() && getCompletionContractStatus() == contract.getCompletionContractStatus();
+        return getIdContract() == contract.getIdContract() && contract.getOrder() != null && getOrder().equals(contract.getOrder()) && contract.getUser() != null && getUser().equals(contract.getUser()) && getConcludedContractStatus() == contract.getConcludedContractStatus() && getCompletionContractStatus() == contract.getCompletionContractStatus();
     }
 
     @Override
     public int hashCode() {
-        int result = (int) getIdContract() * 31 + order.hashCode();
-        result = result * 31 + order.hashCode();
+        int result = (int) getIdContract() * 31 + ((order != null) ? order.hashCode() : 0);
+        result = result * 31 + ((user != null) ? user.hashCode() : 0);
+        result = result * 31 + ((revoke != null) ? revoke.hashCode() : 0);
         result = result * 31 + completionContractStatus.ordinal();
         result = result * 31 + concludedContractStatus.ordinal();
         return result;
@@ -129,6 +130,7 @@ public class Contract extends Entity {
         sb.append("{idContract=").append(idContract);
         sb.append(", order=").append(order);
         sb.append(", user=").append(user);
+        sb.append(", revoke=").append(revoke);
         sb.append(", concludedContractStatus=").append(concludedContractStatus);
         sb.append(", completionContractStatus=").append(completionContractStatus);
         sb.append('}');

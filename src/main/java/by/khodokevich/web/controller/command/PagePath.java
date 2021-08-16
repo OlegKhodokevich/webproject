@@ -25,7 +25,6 @@ public final class PagePath {
     public static final String TO_USERS_ORDERS = "?command=find_user_orders";
     public static final String TO_MY_CONTRACT = "?command=find_contract_by_customer_id";
     public static final String TO_OFFER = "?command=find_offer_for_user";
-
     private PagePath() {
     }
 }

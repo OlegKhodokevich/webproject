@@ -7,7 +7,6 @@ import java.util.Date;
  * Order is entity which contain information about job.
  *
  * @author Oleg Khodokevich
- *
  */
 public class Order extends Entity {
     private long orderId;
@@ -119,19 +118,23 @@ public class Order extends Entity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return orderId == order.orderId && userId == order.userId && title.equals(order.title) && description.equals(order.description) && address.equals(order.address) && creationDate.equals(order.creationDate) && completionDate.equals(order.completionDate) && specialization == order.specialization && status == order.status;
+        return orderId == order.orderId && userId == order.userId && order.title != null && title.equals(order.title)
+                && order.description != null && description.equals(order.description) && order.address != null
+                && address.equals(order.address) && order.creationDate != null && creationDate.equals(order.creationDate)
+                && order.completionDate != null && completionDate.equals(order.completionDate) && order.specialization != null
+                && specialization == order.specialization && status == order.status;
     }
 
     @Override
     public int hashCode() {
         int result = (int) orderId + 31 * title.hashCode();
         result = result * 31 + (int) userId;
-        result = result * 31 + description.hashCode();
-        result = result * 31 + address.hashCode();
-        result = result * 31 + creationDate.hashCode();
-        result = result * 31 + completionDate.hashCode();
-        result = result * 31 + specialization.ordinal();
-        result = result * 31 + status.ordinal();
+        result = result * 31 + (description!= null ? description.hashCode() :0);
+        result = result * 31 + (address!= null ? address.hashCode() :0);
+        result = result * 31 + (creationDate!= null ? creationDate.hashCode() :0);
+        result = result * 31 + (completionDate!= null ? completionDate.hashCode() :0);
+        result = result * 31 + (specialization!= null ? specialization.hashCode() :0);
+        result = result * 31 + (status!= null ? status.hashCode() :0);
         return result;
     }
 

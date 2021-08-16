@@ -7,6 +7,7 @@ import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.model.service.Impl.RevokeServiceImpl;
 import by.khodokevich.web.model.service.RevokeService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,6 +16,7 @@ import static by.khodokevich.web.controller.command.Router.RouterType.REDIRECT;
 
 public class CreateRevokeCommand implements Command {
     private static final Logger logger = LogManager.getLogger(CreateRevokeCommand.class);
+    private static final String MESSAGE_FAILED = "project.unsupported_operation";
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -24,10 +26,23 @@ public class CreateRevokeCommand implements Command {
         String contractIdString = request.getParameter(CONTRACT_ID);
         String markString = request.getParameter(RATING);
         String description = request.getParameter(DESCRIPTION_REVOKE);
+        HttpSession session = request.getSession();
+        Long activeUserId = (Long) session.getAttribute(ACTIVE_USER_ID);
         try {
-            revokeService.createRevoke(contractIdString, description, markString);
-            router = new Router(PagePath.TO_MY_CONTRACT, REDIRECT);
-        }catch (NumberFormatException e) {
+            if (activeUserId != null) {
+                if (revokeService.createRevoke(contractIdString, description, markString)){
+                    router = new Router(PagePath.TO_MY_CONTRACT + "&userId=" + activeUserId, REDIRECT);
+                } else {
+                    session.setAttribute(MESSAGE, MESSAGE_FAILED);
+                    router = new Router(PagePath.TO_MY_CONTRACT + "&userId=" + activeUserId, REDIRECT);
+                }
+
+            } else {
+
+                router = new Router(PagePath.MAIN_PAGE, REDIRECT);
+            }
+
+        } catch (NumberFormatException e) {
             logger.error("Incorrect format", e);
             router = new Router(PagePath.ERROR_PAGE, REDIRECT);
         } catch (ServiceException e) {

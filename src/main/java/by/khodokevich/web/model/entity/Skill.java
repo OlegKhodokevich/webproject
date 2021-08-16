@@ -6,7 +6,6 @@ package by.khodokevich.web.model.entity;
  * This is what executor can do.
  *
  * @author Oleg Khodokevich
- *
  */
 public class Skill extends Entity {
     private Specialization specialization;
@@ -50,14 +49,14 @@ public class Skill extends Entity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Skill checkedSkill)) return false;
-        return specialization == checkedSkill.specialization && cost.equals(checkedSkill.cost) && measure == checkedSkill.measure;
+        return specialization == checkedSkill.specialization && checkedSkill.cost != null && cost.equals(checkedSkill.cost) && measure == checkedSkill.measure;
     }
 
     @Override
     public int hashCode() {
-        int result = specialization.ordinal();
-        result = result * 31 + cost.hashCode();
-        result = result * 31 + measure.ordinal();
+        int result = specialization != null ? specialization.ordinal() : 0;
+        result = result * 31 + (cost != null ? cost.hashCode() : 0);
+        result = result * 31 + (measure != null ? measure.ordinal() : 0);
         return result;
     }
 

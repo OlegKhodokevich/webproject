@@ -2,6 +2,7 @@ package by.khodokevich.web.model.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Pagination is entity for store pagination information.
@@ -105,5 +106,29 @@ public class Pagination {
             lastPage = 1;
         }
         return lastPage;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pagination)) return false;
+        Pagination that = (Pagination) o;
+        return getCurrentPage() == that.getCurrentPage() && getOnePageNumberItems() == that.getOnePageNumberItems() && getNumberItems() == that.getNumberItems() && getNumberVisiblePage() == that.getNumberVisiblePage();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCurrentPage(), getOnePageNumberItems(), getNumberItems(), getNumberVisiblePage());
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Pagination{");
+        sb.append("currentPage=").append(currentPage);
+        sb.append(", onePageNumberItems=").append(onePageNumberItems);
+        sb.append(", numberItems=").append(numberItems);
+        sb.append(", numberVisiblePage=").append(numberVisiblePage);
+        sb.append('}');
+        return sb.toString();
     }
 }

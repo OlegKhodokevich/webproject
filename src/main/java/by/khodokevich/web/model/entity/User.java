@@ -7,7 +7,6 @@ package by.khodokevich.web.model.entity;
  * Executor can create offer.
  *
  * @author Oleg Khodokevich
- *
  */
 public class User extends Entity {
     private long userId;
@@ -122,19 +121,22 @@ public class User extends Entity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User user)) return false;
-        return userId == user.userId && firstName.equals(user.firstName) && lastName.equals(user.lastName) && eMail.equals(user.eMail) && phone.equals(user.phone) && region == user.region && city.equals(user.city) && status == user.status && role == user.role;
+        return userId == user.userId && user.firstName != null && firstName.equals(user.firstName) && user.lastName != null
+                && lastName.equals(user.lastName) && user.eMail != null && eMail.equals(user.eMail) && user.phone != null
+                && phone.equals(user.phone) && user.region != null && region == user.region && user.city != null
+                && city.equals(user.city) && user.status != null && status == user.status && user.role != null && role == user.role;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) userId + 31 * firstName.hashCode();
-        result = result * 31 + lastName.hashCode();
-        result = result * 31 + eMail.hashCode();
-        result = result * 31 + phone.hashCode();
-        result = result * 31 + region.ordinal();
-        result = result * 31 + city.hashCode();
-        result = result * 31 + status.ordinal();
-        result = result * 31 + role.ordinal();
+        int result = (int) userId + 31 * (firstName != null ? firstName.hashCode() : 0);
+        result = result * 31 + (lastName != null ? lastName.hashCode() : 0);
+        result = result * 31 + (eMail != null ? eMail.hashCode() : 0);
+        result = result * 31 + (phone != null ? phone.hashCode() : 0);
+        result = result * 31 + (region != null ? region.ordinal() : 0);
+        result = result * 31 + (city != null ? city.hashCode() : 0);
+        result = result * 31 + (status != null ? status.ordinal() : 0);
+        result = result * 31 + (role != null ? role.ordinal() : 0);
         return result;
     }
 

@@ -8,7 +8,6 @@ import java.util.List;
  * ExecutorOption is option of executor which contain particular information about executor.
  *
  * @author Oleg Khodokevich
- *
  */
 public class ExecutorOption extends Entity {
     private String unp;
@@ -104,19 +103,21 @@ public class ExecutorOption extends Entity {
         if (this == o) return true;
         if (!(o instanceof ExecutorOption executorOption)) return false;
         return Double.compare(executorOption.averageMark, averageMark) == 0 && numberContractsInProgress == executorOption.numberContractsInProgress
-                && numberCompletionContracts == executorOption.numberCompletionContracts && unp.equals(executorOption.unp)
+                && numberCompletionContracts == executorOption.numberCompletionContracts && executorOption.unp != null
+                && unp.equals(executorOption.unp) && executorOption.getSkills() != null
                 && skills.containsAll(executorOption.skills) && executorOption.skills.containsAll(skills)
-                && description.equalsIgnoreCase(executorOption.description) && urlPersonalFoto.equals(executorOption.urlPersonalFoto);
+                && executorOption.getDescription() != null && description.equalsIgnoreCase(executorOption.description)
+                && executorOption.urlPersonalFoto != null && urlPersonalFoto.equals(executorOption.urlPersonalFoto);
     }
 
     @Override
     public int hashCode() {
         int result = unp.hashCode() * 31 + skills.hashCode();
         result = result * 31 + (int) averageMark * 100;
-        result = result * 31 + description.hashCode();
+        result = result * 31 + (description != null ? description.hashCode() : 0);
         result = result * 31 + numberCompletionContracts;
         result = result * 31 + numberContractsInProgress;
-        result = result * 31 + urlPersonalFoto.hashCode();
+        result = result * 31 + (urlPersonalFoto != null ? urlPersonalFoto.hashCode() : 0);
         return result;
     }
 

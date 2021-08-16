@@ -28,11 +28,10 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> implements ExecutorDa
 
     private static final String SQL_SELECT_ALL_EXECUTORS = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN regions ON users.IdRegion = regions.IdRegion WHERE UserRole = \"executor\";";
     private static final String SQL_SELECT_DEFINED_EXECUTORS = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN regions ON users.IdRegion = regions.IdRegion WHERE UserRole = \"executor\" AND IdUser = ?;";
-    private static final String SQL_SELECT_SELECT_EXECUTOR_OPTION_BY_CONTRACT_ID = "SELECT PersonalFoto, UNP, AverageMark, NumberCompletionContracts, NumberContractsInProgress, DescriptionExecutor FROM executors WHERE IdUserExecutor = ?;";
     private static final String SQL_DELETE_DEFINED_EXECUTORS_BY_ID = "DELETE FROM users WHERE UserRole = \"executor\" AND IdUser = ?;";
     private static final String SQL_DELETE_DEFINED_EXECUTORS_BY_EMAIL = "DELETE FROM users WHERE UserRole = \"executor\" AND EMail = ?;";
     private static final String SQL_INSERT_EXECUTORS = "INSERT INTO users(FirstName, LastName, EMail, Phone, IdRegion, City, UserStatus, UserRole, EncodedPassword) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE_EXECUTORS = "UPDATE users SET FirstName = ?, LastName = ?, EMail = ?, Phone = ?, IdRegion = ?, City = ?, UserStatus = ?, UserRole = ?, EncodedPassword = ? WHERE UserRole = \"executor\" AND IdUser = ?;";
+    private static final String SQL_UPDATE_EXECUTORS = "UPDATE users SET FirstName = ?, LastName = ?, EMail = ?, Phone = ?, City = ?, UserStatus = ?, UserRole = ? WHERE UserRole = \"executor\" AND IdUser = ?;";
     private static final String SQL_SELECT_EXECUTOR_OPTION = "SELECT PersonalFoto, UNP, AverageMark, NumberCompletionContracts, NumberContractsInProgress, DescriptionExecutor FROM executors WHERE IdUserExecutor = ?;";
     private static final String SQL_INSERT_EXECUTOR_OPTION = "INSERT INTO executors(IdUserExecutor, PersonalFoto, UNP, AverageMark, NumberCompletionContracts, NumberContractsInProgress, DescriptionExecutor) VALUES ((SELECT IdUser FROM users WHERE EMail = ?),?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE_EXECUTOR_OPTION = "UPDATE executors SET PersonalFoto = ?, UNP = ?, AverageMark = ?, NumberCompletionContracts = ?, NumberContractsInProgress = ?, DescriptionExecutor = ? WHERE IdUserExecutor = ?;";
@@ -115,6 +114,7 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> implements ExecutorDa
                     String phone = resultSet.getString(PHONE);
                     RegionBelarus region = RegionBelarus.valueOf(resultSet.getString(REGION).toUpperCase());
                     String city = resultSet.getString(CITY);
+                    UserRole role = UserRole.valueOf(resultSet.getString(ROLE_STATUS).toUpperCase());
                     UserStatus status = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
                     Optional<ExecutorOption> executorOption = findExecutorOption(userId);
                     if (executorOption.isPresent()) {
@@ -126,6 +126,7 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> implements ExecutorDa
                                 .phone(phone)
                                 .region(region)
                                 .city(city)
+                                .role(role)
                                 .status(status)
                                 .executorOption(executorOption.get())
                                 .buildExecutor();
@@ -289,11 +290,10 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> implements ExecutorDa
             statement.setString(2, entity.getLastName());
             statement.setString(3, entity.getEMail());
             statement.setString(4, entity.getPhone());
-            statement.setInt(5, entity.getRegion().ordinal());
-            statement.setString(6, entity.getCity());
-            statement.setString(7, entity.getStatus().name().toLowerCase());
-            statement.setString(8, entity.getRole().name().toLowerCase());
-            statement.setLong(9, entity.getIdUser());
+            statement.setString(5, entity.getCity());
+            statement.setString(6, entity.getStatus().name().toLowerCase());
+            statement.setString(7, entity.getRole().name().toLowerCase());
+            statement.setLong(8, entity.getIdUser());
             numberUpdatedRows = statement.executeUpdate();
             result = numberUpdatedRows == 1;
             if (result) {

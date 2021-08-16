@@ -4,7 +4,6 @@ package by.khodokevich.web.model.entity;
  * Executor is main entity which outlining user who take order and execute it.
  *
  * @author Oleg Khodokevich
- *
  */
 public class Executor extends User {
 
@@ -42,16 +41,20 @@ public class Executor extends User {
         if (this == o) return true;
         if (!(o instanceof Executor executor)) return false;
         if (!super.equals(o)) return false;
-        return super.getEMail().equals(executor.getEMail()) && super.getFirstName().equals(executor.getFirstName())
-                && super.getLastName().equals(executor.getLastName()) && super.getPhone().equals(executor.getPhone())
-                && super.getRegion().equals(executor.getRegion()) && super.getRole().equals(executor.getRole())
-                && super.getStatus().equals(executor.getStatus()) && super.getCity().equals(executor.getCity())
+        return executor.getEMail() != null && super.getEMail().equals(executor.getEMail()) && executor.getFirstName() != null
+                && super.getFirstName().equals(executor.getFirstName()) && executor.getLastName() != null
+                && super.getLastName().equals(executor.getLastName()) && executor.getPhone() != null
+                && super.getPhone().equals(executor.getPhone()) && executor.getRegion() != null
+                && super.getRegion().equals(executor.getRegion()) && executor.getRole() != null
+                && super.getRole().equals(executor.getRole()) && executor.getStatus() != null
+                && super.getStatus().equals(executor.getStatus()) && executor.getCity() != null
+                && super.getCity().equals(executor.getCity()) && executor.executorOption != null
                 && executorOption.equals(executor.executorOption);
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode() + executorOption.hashCode();
+        return super.hashCode() + (executorOption != null ? executorOption.hashCode() : 0);
     }
 
     @Override

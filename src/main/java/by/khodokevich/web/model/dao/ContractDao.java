@@ -90,4 +90,13 @@ public interface ContractDao {
      * @throws DaoException if can't execute query
      */
     boolean createOffer(long orderId, long executorId) throws DaoException;
+
+    /**
+     * Method search executorId by contractId
+     *
+     * @param contractId of contract
+     * @return executor id
+     * @throws DaoException if can't execute query
+     */
+    long getIdExecutor(long contractId) throws DaoException;
 }

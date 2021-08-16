@@ -36,7 +36,7 @@ background-size: cover">
 <form action="${pageContext.request.contextPath}/controller" method="post" class="creation_revoke_page">
     <h1 style="text-align: center">${text_revoke_you_revoke}</h1>
 
-    <div class="rating-area">
+    <div class="rating-area" style="margin-left: 200px;">
         <input type="radio" id="star-1" name="rating" value="1">
         <label for="star-1" title="Оценка «1»"></label>
         <input type="radio" id="star-2" name="rating" value="2">
@@ -51,10 +51,6 @@ background-size: cover">
     <div>
         <p><b>Введите ваш отзыв:</b></p>
         <p><textarea rows="5" cols="100" name="descriptionRevoke"></textarea></p>
-        <%--        <input type="text" id="Revoke" name="Revoke" minlength="1"--%>
-        <%--               maxlength="100"--%>
-        <%--               required value="${sessionScope.title}">--%>
-        <%--        <label for="Title">${text_revoke_revoke}</label>--%>
     </div>
 
     <div>
