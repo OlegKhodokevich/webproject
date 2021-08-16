@@ -18,6 +18,9 @@ import java.util.List;
 
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
+/**
+ * This class search customer order.
+ */
 public class FindUserOrdersCommand implements Command {
     private static final Logger logger = LogManager.getLogger(FindUserOrdersCommand.class);
 

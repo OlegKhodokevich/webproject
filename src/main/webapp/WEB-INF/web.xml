@@ -15,10 +15,10 @@
     </servlet-mapping>
 
     <listener>
-        <listener-class>by.khodokevich.web.controller.ContextListener</listener-class>
+        <listener-class>by.khodokevich.web.controller.listener.ContextListenerImpl</listener-class>
     </listener>
     <listener>
-        <listener-class>by.khodokevich.web.controller.FirstVisitListener</listener-class>
+        <listener-class>by.khodokevich.web.controller.listener.FirstVisitListenerImpl</listener-class>
     </listener>
 
     <filter>

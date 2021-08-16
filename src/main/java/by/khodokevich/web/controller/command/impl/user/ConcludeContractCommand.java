@@ -4,7 +4,6 @@ import by.khodokevich.web.controller.command.Command;
 import by.khodokevich.web.controller.command.PagePath;
 import by.khodokevich.web.controller.command.Router;
 import by.khodokevich.web.exception.ServiceException;
-import by.khodokevich.web.model.entity.Contract;
 import by.khodokevich.web.model.service.ContractService;
 import by.khodokevich.web.model.service.ServiceProvider;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +14,9 @@ import org.apache.logging.log4j.Logger;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.Router.RouterType.*;
 
+/**
+ * This class search all users in database
+ */
 public class ConcludeContractCommand implements Command {
     private static final Logger logger = LogManager.getLogger(ConcludeContractCommand.class);
 
@@ -25,11 +27,9 @@ public class ConcludeContractCommand implements Command {
         ContractService contractService = ServiceProvider.CONTRACT_SERVICE;
         String contractIdString = request.getParameter(CONTRACT_ID);
         String orderIdString = request.getParameter(ORDER_ID);
-        long contractId = -1;
-        long orderId = -1;
         try {
-            contractId = Long.parseLong(contractIdString);
-            orderId = Long.parseLong(orderIdString);
+            long contractId = Long.parseLong(contractIdString);
+            long orderId = Long.parseLong(orderIdString);
             if (contractService.setConcludedStatus(contractId, orderId)) {
 
                 HttpSession session = request.getSession();
@@ -43,7 +43,7 @@ public class ConcludeContractCommand implements Command {
             logger.error("Can't parse contractId = " + contractIdString, e);
             router = new Router(PagePath.ERROR_PAGE, REDIRECT);
         } catch (ServiceException e) {
-            logger.error("Can't set concludedStatus for contract with id = " + contractId, e);
+            logger.error("Can't set concludedStatus for contract.", e);
             router = new Router(PagePath.ERROR_PAGE, REDIRECT);
         }
         return router;

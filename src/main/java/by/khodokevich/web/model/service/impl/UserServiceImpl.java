@@ -1,4 +1,4 @@
-package by.khodokevich.web.model.service.Impl;
+package by.khodokevich.web.model.service.impl;
 
 import by.khodokevich.web.model.builder.UserBuilder;
 import by.khodokevich.web.model.dao.EntityTransaction;
@@ -34,7 +34,9 @@ public class UserServiceImpl implements UserService {
 
     private UserServiceImpl() {
     }
-
+    /**
+     * @return UserServiceImpl instance as singleton
+     */
     public static UserService getInstance() {
         if (instance == null) {
             instance = new UserServiceImpl();
@@ -75,7 +77,7 @@ public class UserServiceImpl implements UserService {
                             .lastName(lastName)
                             .eMail(eMail)
                             .phone(phone)
-                            .region(RegionBelarus.valueOf(region.toUpperCase()))
+                            .region(Region.valueOf(region.toUpperCase()))
                             .city(city)
                             .status(UserStatus.DECLARED)
                             .role(UserRole.CUSTOMER)
@@ -312,7 +314,7 @@ public class UserServiceImpl implements UserService {
                                     .lastName(lastName)
                                     .eMail(eMail)
                                     .phone(phone)
-                                    .region(RegionBelarus.valueOf(region.toUpperCase()))
+                                    .region(Region.valueOf(region.toUpperCase()))
                                     .city(city)
                                     .buildUser();
 
@@ -414,7 +416,7 @@ public class UserServiceImpl implements UserService {
                                     .lastName(lastName)
                                     .eMail(eMail)
                                     .phone(phone)
-                                    .region(RegionBelarus.valueOf(region.toUpperCase()))
+                                    .region(Region.valueOf(region.toUpperCase()))
                                     .city(city)
                                     .buildUser();
 

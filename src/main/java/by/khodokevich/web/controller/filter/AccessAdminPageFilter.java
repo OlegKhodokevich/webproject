@@ -2,7 +2,6 @@ package by.khodokevich.web.controller.filter;
 
 import by.khodokevich.web.controller.command.PagePath;
 import by.khodokevich.web.model.entity.UserRole;
-import by.khodokevich.web.model.entity.UserStatus;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;

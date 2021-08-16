@@ -1,7 +1,7 @@
 package by.khodokevich.web.model.dao.impl;
 
 import by.khodokevich.web.model.dao.EntityTransaction;
-import by.khodokevich.web.model.entity.RegionBelarus;
+import by.khodokevich.web.model.entity.Region;
 import by.khodokevich.web.model.entity.User;
 import by.khodokevich.web.model.entity.UserRole;
 import by.khodokevich.web.model.entity.UserStatus;
@@ -21,7 +21,7 @@ public class UserDaoImplFindDefineUserByIdTest {
             long userId = 44;
             Optional<User> actualOptionalUser = userDao.findEntityById(userId);
 
-            Optional<User> expectedOptionalUser = Optional.of(new User(44, "Иван", "Иванов", "Test@test.by", "+375291228877", RegionBelarus.MINSK_REGION, "Минск", UserStatus.CONFIRMED, UserRole.CUSTOMER));
+            Optional<User> expectedOptionalUser = Optional.of(new User(44, "Иван", "Иванов", "Test@test.by", "+375291228877", Region.MINSK_REGION, "Минск", UserStatus.CONFIRMED, UserRole.CUSTOMER));
 
             Assert.assertEquals(actualOptionalUser, expectedOptionalUser);
         }

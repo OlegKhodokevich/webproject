@@ -15,6 +15,11 @@ import static by.khodokevich.web.controller.command.ParameterAttributeType.ACTIV
 import static by.khodokevich.web.controller.command.ParameterAttributeType.CONTRACT_ID;
 import static by.khodokevich.web.controller.command.Router.RouterType.REDIRECT;
 
+
+/**
+ * This class dismiss offer.
+ * Customer can dismiss offer.
+ */
 public class DismissContractCommand implements Command {
     private static final Logger logger = LogManager.getLogger(DismissContractCommand.class);
 

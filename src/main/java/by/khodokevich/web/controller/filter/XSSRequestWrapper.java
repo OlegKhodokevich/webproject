@@ -2,7 +2,6 @@ package by.khodokevich.web.controller.filter;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
-import org.apache.commons.text.StringEscapeUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,7 +25,6 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
         if (values != null) {
             int length = values.length;
             encodedValues = new String[length];
-            logger.debug("Encoded values = " + encodedValues);
             for (int i = 0; i < length; i++) {
                 encodedValues[i] = stripXSS(values[i]);
             }

@@ -17,6 +17,10 @@ import java.util.List;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.CONTRACT_LIST;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.USER_ID;
 
+/**
+ * This class search offer from executor to defined customer.
+ * Customer search this information.
+ */
 public class FindOfferForUserCommand implements Command {
     private static final Logger logger = LogManager.getLogger(FindOfferForUserCommand.class);
 

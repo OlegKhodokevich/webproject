@@ -18,6 +18,9 @@ import java.util.*;
 import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
+/**
+ * This class search executors by defined specializations.
+ */
 public class FindExecutorBySpecializationCommand implements Command {
     private static final Logger logger = LogManager.getLogger(FindExecutorBySpecializationCommand.class);
     private static final String CHECKBOX_VALUE = "on";

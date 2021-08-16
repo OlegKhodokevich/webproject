@@ -1,5 +1,8 @@
 package by.khodokevich.web.controller.command;
 
+/**
+ * This class contain path to pages and commands.
+ */
 public final class PagePath {
     public static final String MAIN_PAGE = "/pages/main_page.jsp";
     public static final String REGISTER_PAGE = "/pages/registration.jsp";

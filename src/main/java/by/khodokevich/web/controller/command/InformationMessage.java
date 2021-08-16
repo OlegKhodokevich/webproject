@@ -1,5 +1,8 @@
 package by.khodokevich.web.controller.command;
 
+/**
+ * This class contain message key for clients.
+ */
 public final class InformationMessage {
     public static final String USER_ACTIVATE = "activate.user_activate";
     public static final String ERROR_USER_UNKNOWN = "activate.error_user_unknown";

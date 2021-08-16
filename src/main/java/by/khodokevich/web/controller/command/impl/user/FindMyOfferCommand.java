@@ -16,6 +16,10 @@ import java.util.List;
 
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
+/**
+ * This class search offer from executor.
+ * When search executor.
+ */
 public class FindMyOfferCommand implements Command {
     private static final Logger logger = LogManager.getLogger(FindMyOfferCommand.class);
 

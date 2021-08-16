@@ -22,6 +22,9 @@ import java.util.Set;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.Router.RouterType.*;
 
+/**
+ * This class set user status.
+ */
 public class SetUserStatusCommand implements Command {
     private static final Logger logger = LogManager.getLogger(SetUserStatusCommand.class);
 

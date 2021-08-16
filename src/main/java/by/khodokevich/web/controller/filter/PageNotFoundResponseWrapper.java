@@ -1,6 +1,5 @@
 package by.khodokevich.web.controller.filter;
 
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpServletResponseWrapper;
 

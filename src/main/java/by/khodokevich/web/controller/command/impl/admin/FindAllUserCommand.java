@@ -18,8 +18,11 @@ import java.util.List;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.Router.RouterType.*;
 
-public class AllUserCommand implements Command {
-    private static final Logger logger = LogManager.getLogger(AllUserCommand.class);
+/**
+ * This class search all users in database
+ */
+public class FindAllUserCommand implements Command {
+    private static final Logger logger = LogManager.getLogger(FindAllUserCommand.class);
 
     @Override
     public Router execute(HttpServletRequest request) {

@@ -1,4 +1,4 @@
-package by.khodokevich.web.controller;
+package by.khodokevich.web.controller.listener;
 
 import by.khodokevich.web.model.entity.UserRole;
 import jakarta.servlet.ServletRequestEvent;
@@ -18,8 +18,8 @@ import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
  * @author Oleg Khodokevich
  */
 @WebListener
-public class FirstVisitListener implements ServletRequestListener {
-    private static final Logger logger = LogManager.getLogger(FirstVisitListener.class);
+public class FirstVisitListenerImpl implements ServletRequestListener {
+    private static final Logger logger = LogManager.getLogger(FirstVisitListenerImpl.class);
 
     @Override
     public void requestInitialized(ServletRequestEvent sre) {

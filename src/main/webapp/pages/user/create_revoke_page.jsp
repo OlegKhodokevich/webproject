@@ -9,6 +9,7 @@
 <fmt:message key="revoke.you_revoke" var="text_revoke_you_revoke"/>
 <fmt:message key="revoke.post_revoke" var="revoke_post_revoke"/>
 <fmt:message key="revoke.revoke" var="text_revoke_revoke"/>
+<fmt:message key="revoke.enter_revoke" var="text_revoke_enter_revoke"/>
 
 <html>
 <head>
@@ -49,8 +50,10 @@ background-size: cover">
         <label for="star-5" title="Оценка «5»"></label>
     </div>
     <div>
-        <p><b>Введите ваш отзыв:</b></p>
-        <p><textarea rows="5" cols="100" name="descriptionRevoke"></textarea></p>
+        <p><b>${text_revoke_enter_revoke}</b></p>
+        <p><label>
+            <textarea rows="5" cols="100" name="descriptionRevoke"></textarea>
+        </label></p>
     </div>
 
     <div>

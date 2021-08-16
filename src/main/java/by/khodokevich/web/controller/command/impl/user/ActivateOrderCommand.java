@@ -19,7 +19,10 @@ import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.Router.RouterType.*;
 
-
+/**
+ * This class activate user order.
+ * It sets open status and update order information in database
+ */
 public class ActivateOrderCommand implements Command {
     private static final Logger logger = LogManager.getLogger(ActivateOrderCommand.class);
 

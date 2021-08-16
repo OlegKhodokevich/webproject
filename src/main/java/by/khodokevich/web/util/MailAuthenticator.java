@@ -33,7 +33,7 @@ public class MailAuthenticator {
      * @param eMail is user e-mail where sends letter with link for account activation.
      * @param theme is theme of letter.
      * @param text is text for letter which consist link for activation.
-     * @throws MessagingException
+     * @throws MessagingException when message can't be sent to e-mail
      */
     public static void sendEmail(String eMail, String theme, String text) throws MessagingException {
         Session session = Session.getInstance(properties, new Authenticator() {

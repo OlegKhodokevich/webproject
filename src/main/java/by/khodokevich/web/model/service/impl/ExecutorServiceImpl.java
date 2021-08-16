@@ -1,4 +1,4 @@
-package by.khodokevich.web.model.service.Impl;
+package by.khodokevich.web.model.service.impl;
 
 import by.khodokevich.web.model.dao.EntityTransaction;
 import by.khodokevich.web.model.dao.impl.ExecutorDaoImpl;
@@ -23,7 +23,9 @@ public class ExecutorServiceImpl implements ExecutorService {
 
     private ExecutorServiceImpl() {
     }
-
+    /**
+     * @return ExecutorServiceImpl instance as singleton
+     */
     public static ExecutorService getInstance() {
         if (instance == null) {
             instance = new ExecutorServiceImpl();

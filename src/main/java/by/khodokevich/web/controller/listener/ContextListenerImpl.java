@@ -1,8 +1,8 @@
-package by.khodokevich.web.controller;
+package by.khodokevich.web.controller.listener;
 
 import by.khodokevich.web.model.connection.CustomConnectionPool;
-import by.khodokevich.web.model.connection.TimerConnectionProvider;
-import by.khodokevich.web.model.entity.RegionBelarus;
+import by.khodokevich.web.model.connection.TimerPoolConnectionProvider;
+import by.khodokevich.web.model.entity.Region;
 import by.khodokevich.web.model.entity.Revoke;
 import by.khodokevich.web.model.entity.Specialization;
 import by.khodokevich.web.model.entity.UserStatus;
@@ -24,7 +24,7 @@ import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
  * @author Oleg Khodokevich
  */
 @WebListener
-public class ContextListener implements ServletContextListener {
+public class ContextListenerImpl implements ServletContextListener {
     private static final Logger logger = LogManager.getLogger(ServletContextListener.class);
     private static final int DELAY = 60 * 60 * 1000;
     private static final int PERIOD = 8 * 60 * 60 * 1000;
@@ -33,8 +33,8 @@ public class ContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         logger.info("Init context.");
         ServletContextListener.super.contextInitialized(sce);
-        sce.getServletContext().setAttribute(REGION_MAP, RegionBelarus.getRegionMap());
-        sce.getServletContext().setAttribute(REGION_LIST, RegionBelarus.getRegionList());
+        sce.getServletContext().setAttribute(REGION_MAP, Region.getRegionMap());
+        sce.getServletContext().setAttribute(REGION_LIST, Region.getRegionList());
         sce.getServletContext().setAttribute(SPECIALIZATION_LIST, Specialization.getSpecializationList());
         sce.getServletContext().setAttribute(SPECIALIZATION_MAP, Specialization.getSpecializationMap());
         sce.getServletContext().setAttribute(STATUS_LIST, UserStatus.getStatusList());
@@ -42,9 +42,9 @@ public class ContextListener implements ServletContextListener {
         sce.getServletContext().setAttribute(MARK_LIST, Revoke.getMarkList());
 
         CustomConnectionPool.getInstance();
-        TimerConnectionProvider timerConnectionProvider = new TimerConnectionProvider();
+        TimerPoolConnectionProvider timerPoolConnectionProvider = new TimerPoolConnectionProvider();
         Timer timer = new Timer(true);
-        timer.scheduleAtFixedRate(timerConnectionProvider, DELAY, PERIOD);
+        timer.scheduleAtFixedRate(timerPoolConnectionProvider, DELAY, PERIOD);
     }
 
     @Override

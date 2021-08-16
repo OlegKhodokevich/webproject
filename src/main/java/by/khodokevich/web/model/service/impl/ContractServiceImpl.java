@@ -1,4 +1,4 @@
-package by.khodokevich.web.model.service.Impl;
+package by.khodokevich.web.model.service.impl;
 
 import by.khodokevich.web.exception.DaoException;
 import by.khodokevich.web.exception.ServiceException;
@@ -23,7 +23,9 @@ public class ContractServiceImpl implements ContractService {
 
     private ContractServiceImpl() {
     }
-
+    /**
+     * @return ContractServiceImpl instance as singleton
+     */
     public static ContractServiceImpl getInstance() {
         if (instance == null) {
             instance = new ContractServiceImpl();
@@ -174,7 +176,8 @@ public class ContractServiceImpl implements ContractService {
      * @throws ServiceException if query can't be executed  or connection isn't work
      */
     @Override
-    public List<Contract> findUnderConsiderationContractByUserCustomerId(long userCustomerId) throws ServiceException {
+    public List<Contract> findUnderConsiderationContractByUserCustomerId(long userCustomerId) throws
+            ServiceException {
         logger.info("Start findUnderConsiderationContractByUserCustomerId(long userCustomerId). Id = " + userCustomerId);
         List<Contract> contracts;
         try (EntityTransaction transaction = new EntityTransaction()) {
@@ -219,7 +222,8 @@ public class ContractServiceImpl implements ContractService {
      * @throws ServiceException if query can't be executed  or connection isn't work
      */
     @Override
-    public List<Contract> findUnderConsiderationContractByUserExecutorId(long userExecutorId) throws ServiceException {
+    public List<Contract> findUnderConsiderationContractByUserExecutorId(long userExecutorId) throws
+            ServiceException {
         logger.info("Start findUnderConsiderationContractByUserExecutorId(long userCustomerId). Id = " + userExecutorId);
         List<Contract> contracts;
         try (EntityTransaction transaction = new EntityTransaction()) {

@@ -1,6 +1,10 @@
 package by.khodokevich.web.controller.command;
 
 
+/**
+ * This class contain parameter and attribute for operation with
+ * request or session or application.
+ */
 public final class ParameterAttributeType {
     public static final String USER = "user";
     public static final String USER_ID = "userId";
@@ -23,7 +27,6 @@ public final class ParameterAttributeType {
     public static final String COMMAND = "command";
     public static final String URL = "url";
     public static final String TOKEN = "token";
-    public static final String USER_MESSAGE = "user_message";
     public static final String LOCALE = "locale";
     public static final String CURRENT_PAGE = "current_page";
     public static final String MESSAGE = "message";
@@ -65,6 +68,7 @@ public final class ParameterAttributeType {
     public static final String MARK_LIST = "markList";
     public static final String RATING = "rating";
     public static final String DESCRIPTION_REVOKE = "descriptionRevoke";
+
     private ParameterAttributeType() {
     }
 }

@@ -4,7 +4,6 @@ import by.khodokevich.web.controller.command.Command;
 import by.khodokevich.web.controller.command.PagePath;
 import by.khodokevich.web.controller.command.Router;
 import by.khodokevich.web.exception.ServiceException;
-import by.khodokevich.web.model.dao.ContractDao;
 import by.khodokevich.web.model.service.ContractService;
 import by.khodokevich.web.model.service.ServiceProvider;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,8 +12,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
-import static by.khodokevich.web.controller.command.Router.RouterType.REDIRECT;
 
+/**
+ * This class close contract.
+ * It set completed status.
+ * And set close status for order.
+ * Update information about contracts for executor.
+ */
 public class CloseContractCommand implements Command {
     private static final Logger logger = LogManager.getLogger(CloseContractCommand.class);
 

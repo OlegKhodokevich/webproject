@@ -18,12 +18,12 @@ public class Executor extends User {
         this.executorOption = executorOption;
     }
 
-    public Executor(String firstName, String lastName, String eMail, String phone, RegionBelarus region, String city, UserStatus status, UserRole role, ExecutorOption executorOption) {
+    public Executor(String firstName, String lastName, String eMail, String phone, Region region, String city, UserStatus status, UserRole role, ExecutorOption executorOption) {
         super(firstName, lastName, eMail, phone, region, city, status, role);
         this.executorOption = executorOption;
     }
 
-    public Executor(long idUser, String firstName, String lastName, String eMail, String phone, RegionBelarus region, String city, UserStatus status, UserRole role, ExecutorOption executorOption) {
+    public Executor(long idUser, String firstName, String lastName, String eMail, String phone, Region region, String city, UserStatus status, UserRole role, ExecutorOption executorOption) {
         super(idUser, firstName, lastName, eMail, phone, region, city, status, role);
         this.executorOption = executorOption;
     }

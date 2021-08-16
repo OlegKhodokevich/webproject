@@ -18,6 +18,9 @@ import java.util.Map;
 import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
+/**
+ * This class create order in database.
+ */
 public class CreateOrderCommand implements Command {
     private static final Logger logger = LogManager.getLogger(CreateOrderCommand.class);
 

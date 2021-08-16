@@ -4,7 +4,6 @@ package by.khodokevich.web.model.dao.impl;
 import by.khodokevich.web.model.builder.ExecutorBuilder;
 import by.khodokevich.web.model.builder.ExecutorOptionBuilder;
 import by.khodokevich.web.model.dao.AbstractDao;
-import by.khodokevich.web.model.dao.ExecutorDao;
 import by.khodokevich.web.model.entity.*;
 import by.khodokevich.web.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
@@ -23,7 +22,7 @@ import static by.khodokevich.web.model.dao.impl.UserColumnName.*;
  * This class manage entity executor in database.
  * It is used for select create or update information connected with executor.
  */
-public class ExecutorDaoImpl extends AbstractDao<Executor> implements ExecutorDao {
+public class ExecutorDaoImpl extends AbstractDao<Executor> {
     private static final Logger logger = LogManager.getLogger(ExecutorDaoImpl.class);
 
     private static final String SQL_SELECT_ALL_EXECUTORS = "SELECT IdUser, FirstName, LastName, EMail, Phone, Region, City, UserStatus, UserRole FROM users JOIN regions ON users.IdRegion = regions.IdRegion WHERE UserRole = \"executor\";";
@@ -59,7 +58,7 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> implements ExecutorDa
                 String lastName = resultSet.getString(LASTNAME);
                 String eMail = resultSet.getString(E_MAIL);
                 String phone = resultSet.getString(PHONE);
-                RegionBelarus region = RegionBelarus.valueOf(resultSet.getString(REGION).toUpperCase());
+                Region region = Region.valueOf(resultSet.getString(REGION).toUpperCase());
                 String city = resultSet.getString(CITY);
                 UserStatus status = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
 
@@ -112,7 +111,7 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> implements ExecutorDa
                     String lastName = resultSet.getString(LASTNAME);
                     String eMail = resultSet.getString(E_MAIL);
                     String phone = resultSet.getString(PHONE);
-                    RegionBelarus region = RegionBelarus.valueOf(resultSet.getString(REGION).toUpperCase());
+                    Region region = Region.valueOf(resultSet.getString(REGION).toUpperCase());
                     String city = resultSet.getString(CITY);
                     UserRole role = UserRole.valueOf(resultSet.getString(ROLE_STATUS).toUpperCase());
                     UserStatus status = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
@@ -127,49 +126,6 @@ public class ExecutorDaoImpl extends AbstractDao<Executor> implements ExecutorDa
                                 .region(region)
                                 .city(city)
                                 .role(role)
-                                .status(status)
-                                .executorOption(executorOption.get())
-                                .buildExecutor();
-                        logger.info("Has found next executor = " + executor);
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
-            throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
-        }
-        logger.info("Has found next executor: " + executor);
-        return Optional.ofNullable(executor);
-    }
-
-    @Override
-    public Optional<Executor> findExecutorByContractId(long contractId) throws DaoException {
-        logger.info("Start findExecutorByContractId(long contractId). Id " + contractId);
-        Executor executor = null;
-
-        try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_DEFINED_EXECUTORS)) {
-            statement.setLong(1, contractId);
-            try (ResultSet resultSet = statement.executeQuery()) {
-
-                if (resultSet.next()) {
-                    long userId = resultSet.getLong(ID_USER);
-                    String firstName = resultSet.getString(FIRSTNAME);
-                    String lastName = resultSet.getString(LASTNAME);
-                    String eMail = resultSet.getString(E_MAIL);
-                    String phone = resultSet.getString(PHONE);
-                    RegionBelarus region = RegionBelarus.valueOf(resultSet.getString(REGION).toUpperCase());
-                    String city = resultSet.getString(CITY);
-                    UserStatus status = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
-                    Optional<ExecutorOption> executorOption = findExecutorOption(userId);
-                    if (executorOption.isPresent()) {
-                        executor = new ExecutorBuilder()
-                                .userId(userId)
-                                .firstName(firstName)
-                                .lastName(lastName)
-                                .eMail(eMail)
-                                .phone(phone)
-                                .region(region)
-                                .city(city)
                                 .status(status)
                                 .executorOption(executorOption.get())
                                 .buildExecutor();

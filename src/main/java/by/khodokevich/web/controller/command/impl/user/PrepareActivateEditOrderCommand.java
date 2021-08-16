@@ -20,6 +20,9 @@ import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.Router.RouterType.*;
 
+/**
+ * This class search order information from database and forward to order page for edition.
+ */
 public class PrepareActivateEditOrderCommand implements Command {
     private static final Logger logger = LogManager.getLogger(PrepareActivateEditOrderCommand.class);
     private static final String DATE_PATTERN = "yyyy-MM-dd";
@@ -49,11 +52,11 @@ public class PrepareActivateEditOrderCommand implements Command {
                 session.setAttribute(SPECIALIZATION, order.getSpecialization());
                 String reason = request.getParameter(REASON);
                 session.setAttribute(REASON, reason);
-                router = new Router(PagePath.CREATION_ORDER_PAGE, REDIRECT);
+                router = new Router(PagePath.CREATION_ORDER_PAGE, FORWARD);
             } else {
                 session.setAttribute(ORDER, null);
                 session.setAttribute(MESSAGE, MESSAGE_UNSUPPORTED_OPERATION);
-                router = new Router(PagePath.MY_ORDERS, REDIRECT);
+                router = new Router(PagePath.MY_ORDERS, FORWARD);
             }
 
         } catch (ServiceException e) {

@@ -19,6 +19,9 @@ import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.MESSAGE;
 
+/**
+ * This class edit(update) order in database
+ */
 public class EditOrderCommand implements Command {
     private static final Logger logger = LogManager.getLogger(EditOrderCommand.class);
 

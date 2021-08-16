@@ -18,6 +18,9 @@ import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.Router.RouterType.*;
 
+/**
+ * This class create offer from executor to customer.
+ */
 public class CreateOfferCommand implements Command {
     private static final Logger logger = LogManager.getLogger(CreateOfferCommand.class);
 

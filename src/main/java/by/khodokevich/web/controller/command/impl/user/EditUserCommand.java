@@ -2,7 +2,7 @@ package by.khodokevich.web.controller.command.impl.user;
 
 import by.khodokevich.web.controller.command.*;
 import by.khodokevich.web.model.builder.UserBuilder;
-import by.khodokevich.web.model.entity.RegionBelarus;
+import by.khodokevich.web.model.entity.Region;
 import by.khodokevich.web.model.entity.User;
 import by.khodokevich.web.model.entity.UserRole;
 import by.khodokevich.web.model.entity.UserStatus;
@@ -21,6 +21,9 @@ import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.Router.RouterType.REDIRECT;
 
+/**
+ * This class edit(update) user in database
+ */
 public class EditUserCommand implements Command {
     private static final Logger logger = LogManager.getLogger(EditUserCommand.class);
 
@@ -53,7 +56,7 @@ public class EditUserCommand implements Command {
                 switch (resultOperation) {
                     case SUCCESS:
                         long userId = Long.parseLong(userData.get(USER_ID));
-                        RegionBelarus regionBelarus = RegionBelarus.valueOf(userData.get(REGION));
+                        Region region = Region.valueOf(userData.get(REGION));
                         String roleString = answerMap.get(ROLE);
                         UserRole role = UserRole.valueOf(roleString);
                         String statusString = answerMap.get(STATUS);
@@ -64,7 +67,7 @@ public class EditUserCommand implements Command {
                                 .lastName(userData.get(LAST_NAME))
                                 .eMail(userData.get(E_MAIL))
                                 .phone(userData.get(PHONE))
-                                .region(regionBelarus)
+                                .region(region)
                                 .city(userData.get(CITY))
                                 .status(status)
                                 .role(role)
@@ -78,7 +81,7 @@ public class EditUserCommand implements Command {
                         break;
                     case SUCCESS_WITH_SEND_EMAIL:
                         userId = Long.parseLong(userData.get(REGION));
-                        regionBelarus = RegionBelarus.valueOf(userData.get(REGION));
+                        region = Region.valueOf(userData.get(REGION));
                         roleString = answerMap.get(ROLE);
                         role = UserRole.valueOf(roleString);
                         statusString = answerMap.get(STATUS);
@@ -89,7 +92,7 @@ public class EditUserCommand implements Command {
                                 .lastName(userData.get(LAST_NAME))
                                 .eMail(userData.get(E_MAIL))
                                 .phone(userData.get(PHONE))
-                                .region(regionBelarus)
+                                .region(region)
                                 .city(userData.get(CITY))
                                 .status(status)
                                 .role(role)

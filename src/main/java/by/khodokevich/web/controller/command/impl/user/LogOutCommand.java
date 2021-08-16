@@ -10,6 +10,9 @@ import org.apache.logging.log4j.Logger;
 
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
+/**
+ * This class is used to log out user from system.
+ */
 public class LogOutCommand implements Command {
     private static final Logger logger = LogManager.getLogger(LogOutCommand.class);
 

@@ -111,9 +111,8 @@ public class Pagination {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Pagination)) return false;
-        Pagination that = (Pagination) o;
-        return getCurrentPage() == that.getCurrentPage() && getOnePageNumberItems() == that.getOnePageNumberItems() && getNumberItems() == that.getNumberItems() && getNumberVisiblePage() == that.getNumberVisiblePage();
+        if (!(o instanceof Pagination pagination)) return false;
+        return getCurrentPage() == pagination.getCurrentPage() && getOnePageNumberItems() == pagination.getOnePageNumberItems() && getNumberItems() == pagination.getNumberItems() && getNumberVisiblePage() == pagination.getNumberVisiblePage();
     }
 
     @Override

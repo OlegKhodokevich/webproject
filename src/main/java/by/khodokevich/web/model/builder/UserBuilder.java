@@ -1,6 +1,6 @@
 package by.khodokevich.web.model.builder;
 
-import by.khodokevich.web.model.entity.RegionBelarus;
+import by.khodokevich.web.model.entity.Region;
 import by.khodokevich.web.model.entity.User;
 import by.khodokevich.web.model.entity.UserRole;
 import by.khodokevich.web.model.entity.UserStatus;
@@ -18,7 +18,7 @@ public class UserBuilder {
     private String lastName;
     private String eMail;
     private String phone;
-    private RegionBelarus region;
+    private Region region;
     private String city;
     private UserStatus status;
     private UserRole role;
@@ -51,7 +51,7 @@ public class UserBuilder {
         return this;
     }
 
-    public UserBuilder region(RegionBelarus region) {
+    public UserBuilder region(Region region) {
         this.region = region;
         return this;
     }

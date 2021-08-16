@@ -71,7 +71,6 @@ height: 100%">
                                                style="text-align: right; font-size: 14px; margin-bottom: 0">${order.creationDate.time}</p>
                                             <div class="w-100 justify-content-between">
                                                 <p class="mb-1" style="font-weight: bold ">${order.title}</p>
-                                                    <%--    //TODO data format--%>
                                             </div>
                                             <p class="mb-1">${order.description}</p>
                                             <p class="date-to-format">${order.completionDate.time}</p>

@@ -6,8 +6,6 @@ import by.khodokevich.web.controller.command.Router;
 import by.khodokevich.web.model.entity.Executor;
 import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.model.service.ExecutorService;
-import by.khodokevich.web.model.service.Impl.RevokeServiceImpl;
-import by.khodokevich.web.model.service.RevokeService;
 import by.khodokevich.web.model.service.ServiceProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -20,6 +18,9 @@ import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.Router.RouterType.*;
 
+/**
+ * This class search information about define executor.
+ */
 public class FindExecutorInfoDetailCommand implements Command {
     private static final Logger logger = LogManager.getLogger(FindExecutorInfoDetailCommand.class);
 

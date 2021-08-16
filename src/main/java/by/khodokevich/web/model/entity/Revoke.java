@@ -2,6 +2,11 @@ package by.khodokevich.web.model.entity;
 
 import java.util.*;
 
+/**
+ * Revoke is an entity customer will be using to give feedback.
+ *
+ * @author Oleg Khodokevich
+ */
 public class Revoke extends Entity {
     private long revokeId;
     private long contractId;

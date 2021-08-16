@@ -2,7 +2,7 @@ package by.khodokevich.web.controller.command;
 
 import by.khodokevich.web.controller.command.impl.*;
 import by.khodokevich.web.controller.command.impl.ActivateUserCommand;
-import by.khodokevich.web.controller.command.impl.admin.AllUserCommand;
+import by.khodokevich.web.controller.command.impl.admin.FindAllUserCommand;
 import by.khodokevich.web.controller.command.impl.admin.FindUserInfoDetailCommand;
 import by.khodokevich.web.controller.command.impl.admin.SetUserStatusCommand;
 import by.khodokevich.web.controller.command.impl.common.*;
@@ -15,6 +15,9 @@ import java.util.List;
 
 import static by.khodokevich.web.model.entity.UserRole.*;
 
+/**
+ * This class provides instance command.
+ */
 public class CommandProvider {
     private static final Logger logger = LogManager.getLogger(CommandProvider.class);
     private static CommandProvider instance;
@@ -32,9 +35,9 @@ public class CommandProvider {
         FIND_ORDERS_BY_SPECIALIZATIONS(new FindOrderBySpecializationCommand(), List.of(UserRole.values())),
         FIND_USER_ORDERS(new FindUserOrdersCommand(), List.of(CUSTOMER, ADMIN)),
         FIND_ORDER_INFO_DETAILS(new FindOrderInfoDetailsCommand(), List.of(UserRole.values())),
-        ALL_ORDERS(new AllOrderOnPageCommand(), List.of(UserRole.values())),
+        ALL_ORDERS(new FindAllOrderOnPageCommand(), List.of(UserRole.values())),
         CREATE_ORDER(new CreateOrderCommand(), List.of(CUSTOMER)),
-        ALL_EXECUTORS(new AllExecutorCommand(), List.of(UserRole.values())),
+        ALL_EXECUTORS(new FindAllExecutorCommand(), List.of(UserRole.values())),
         FIND_EXECUTOR_INFO_DETAILS(new FindExecutorInfoDetailCommand(), List.of(UserRole.values())),
         FIND_USER_INFO_DETAILS(new FindUserInfoDetailCommand(), List.of(UserRole.values())),
         FIND_EXECUTORS_BY_SPECIALIZATIONS(new FindExecutorBySpecializationCommand(), List.of(UserRole.values())),
@@ -44,7 +47,7 @@ public class CommandProvider {
         EDIT_ORDER(new EditOrderCommand(), List.of(CUSTOMER, ADMIN)),
         EDIT_USER(new EditUserCommand(), List.of(UserRole.values())),
         PREPARE_EDIT_USER(new PrepareEditUserCommand(), List.of(CUSTOMER, EXECUTOR, ADMIN)),
-        ALL_USERS(new AllUserCommand(), List.of(ADMIN)),
+        ALL_USERS(new FindAllUserCommand(), List.of(ADMIN)),
         SET_USER_STATUS(new SetUserStatusCommand(), List.of(UserRole.values())),
         FIND_CONTRACT_BY_CUSTOMER_ID(new FindContractByCustomerIdCommand(), List.of(CUSTOMER, ADMIN)),
         FIND_CONTRACT_BY_EXECUTOR_ID(new FindContractByExecutorIdCommand(), List.of(EXECUTOR, ADMIN)),
@@ -81,6 +84,12 @@ public class CommandProvider {
         }
     }
 
+    /**
+     * Method get instance;
+     * It is singleton realization.
+     *
+     * @return CommandProvider
+     */
     public static CommandProvider getInstance() {
         if (instance == null) {
             instance = new CommandProvider();
@@ -88,6 +97,12 @@ public class CommandProvider {
         return instance;
     }
 
+    /**
+     * Method take string and interpret to command
+     *
+     * @param commandName of command
+     * @return command
+     */
     public Command getCommand(String commandName) {
         CommandType commandType;
         if (commandName == null) {
@@ -103,6 +118,12 @@ public class CommandProvider {
         return commandType.getCommand();
     }
 
+    /**
+     * Method get list of user's role which confirm for access.
+     *
+     * @param commandName of command
+     * @return List of confirmed user's role
+     */
     public List<UserRole> getRoleList(String commandName) {
         CommandType commandType;
         if (commandName == null) {

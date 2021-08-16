@@ -21,6 +21,9 @@ import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.Router.RouterType.REDIRECT;
 
+/**
+ * This class search defined order.
+ */
 public class FindOrderInfoDetailsCommand implements Command {
     private static final Logger logger = LogManager.getLogger(FindOrderInfoDetailsCommand.class);
 

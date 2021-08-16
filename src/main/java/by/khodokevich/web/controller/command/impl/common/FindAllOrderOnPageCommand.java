@@ -18,8 +18,11 @@ import java.util.List;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.InformationMessage.*;
 
-public class AllOrderOnPageCommand implements Command {
-    private static final Logger logger = LogManager.getLogger(AllOrderOnPageCommand.class);
+/**
+ * This class search all order on page.
+ */
+public class FindAllOrderOnPageCommand implements Command {
+    private static final Logger logger = LogManager.getLogger(FindAllOrderOnPageCommand.class);
 
     @Override
     public Router execute(HttpServletRequest request) {

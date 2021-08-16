@@ -10,9 +10,18 @@ import java.util.Map;
 
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
+/**
+ * This class is used to get request and session params and attributes.
+ */
 public class RequestData {
     private static final Logger logger = LogManager.getLogger(RequestData.class);
 
+    /**
+     * Method get order information from request
+     *
+     * @param request of servlet
+     * @return Map with order params
+     */
     public static Map<String, String> getRequestOrderData(HttpServletRequest request) {
         logger.info("Start getRequestOrderData(HttpServletRequest request).");
         String orderId = request.getParameter(ORDER_ID);
@@ -40,6 +49,12 @@ public class RequestData {
         return orderData;
     }
 
+    /**
+     * Method get user information from request
+     *
+     * @param request of servlet
+     * @return Map with user params
+     */
     public static Map<String, String> getRequestUserData(HttpServletRequest request) {
         HttpSession session = request.getSession();
         String activeId = String.valueOf(session.getAttribute(ACTIVE_USER_ID));

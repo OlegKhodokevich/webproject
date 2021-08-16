@@ -1,7 +1,5 @@
 package by.khodokevich.web.model.entity;
 
-import java.util.Objects;
-
 /**
  * Contract is the main entity we'll be using to outlining contract between customer and executor
  *

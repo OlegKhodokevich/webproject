@@ -1,6 +1,5 @@
 package by.khodokevich.web.model.connection;
 
-import by.khodokevich.web.exception.PoolConnectionException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,8 +16,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author Oleg Khodokevich
  *
  */
-public class TimerConnectionProvider extends TimerTask {
-    private static final Logger logger = LogManager.getLogger(TimerConnectionProvider.class);
+public class TimerPoolConnectionProvider extends TimerTask {
+    private static final Logger logger = LogManager.getLogger(TimerPoolConnectionProvider.class);
     private static final AtomicBoolean isConnectionProviderRun = CustomConnectionPool.isConnectionProviderRun;
     private static final ReentrantLock timerConnectionProviderLock = CustomConnectionPool.timerConnectionProviderLock;
     private static Condition condition = timerConnectionProviderLock.newCondition();

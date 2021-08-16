@@ -5,7 +5,7 @@ import by.khodokevich.web.model.builder.UserBuilder;
 import by.khodokevich.web.controller.command.Command;
 import by.khodokevich.web.controller.command.PagePath;
 import by.khodokevich.web.controller.command.Router;
-import by.khodokevich.web.model.entity.RegionBelarus;
+import by.khodokevich.web.model.entity.Region;
 import by.khodokevich.web.model.entity.User;
 import by.khodokevich.web.model.entity.UserRole;
 import by.khodokevich.web.model.entity.UserStatus;
@@ -24,6 +24,9 @@ import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.Router.RouterType.*;
 
+/**
+ * This class is doing authentication user by e-mail and password.
+ */
 public class SignInCommand implements Command {
     private static final Logger logger = LogManager.getLogger(SignInCommand.class);
 
@@ -41,7 +44,7 @@ public class SignInCommand implements Command {
             switch (resultType) {
                 case SUCCESS -> {
                     long userId = Long.parseLong(answerMap.get(USER_ID));
-                    RegionBelarus regionBelarus = RegionBelarus.valueOf(answerMap.get(REGION));
+                    Region region = Region.valueOf(answerMap.get(REGION));
                     UserRole role = UserRole.valueOf(answerMap.get(ROLE));
                     UserStatus status = UserStatus.valueOf(answerMap.get(STATUS));
                     User user = new UserBuilder()
@@ -50,7 +53,7 @@ public class SignInCommand implements Command {
                             .lastName(answerMap.get(LAST_NAME))
                             .eMail(answerMap.get(E_MAIL))
                             .phone(answerMap.get(PHONE))
-                            .region(regionBelarus)
+                            .region(region)
                             .city(answerMap.get(CITY))
                             .status(status)
                             .role(role)

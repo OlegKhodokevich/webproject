@@ -8,6 +8,9 @@ import jakarta.servlet.http.HttpSession;
 
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
+/**
+ * This class forward to order creation page.
+ */
 public class GoToCreationOrderPage implements Command {
     private static final String REASON_CREATE = "create";
 

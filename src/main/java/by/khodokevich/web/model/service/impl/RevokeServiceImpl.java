@@ -1,37 +1,52 @@
-package by.khodokevich.web.model.service.Impl;
+package by.khodokevich.web.model.service.impl;
 
-import by.khodokevich.web.controller.command.ParameterAttributeType;
 import by.khodokevich.web.exception.DaoException;
 import by.khodokevich.web.exception.ServiceException;
-import by.khodokevich.web.model.builder.OrderBuilder;
 import by.khodokevich.web.model.dao.EntityTransaction;
 import by.khodokevich.web.model.dao.impl.ContractDaoImpl;
 import by.khodokevich.web.model.dao.impl.ExecutorDaoImpl;
-import by.khodokevich.web.model.dao.impl.OrderDaoImpl;
 import by.khodokevich.web.model.dao.impl.RevokeDaoImpl;
 import by.khodokevich.web.model.entity.*;
-import by.khodokevich.web.model.service.CheckingResult;
 import by.khodokevich.web.model.service.RevokeService;
-import by.khodokevich.web.validator.OrderDataValidator;
 import by.khodokevich.web.validator.RevokeDataValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
-import static by.khodokevich.web.controller.command.ParameterAttributeType.RESULT;
 
+/**
+ * Class implement Revoke Service and serve operations with revoke.
+ *
+ */
 public class RevokeServiceImpl implements RevokeService {
     private static final Logger logger = LogManager.getLogger(RevokeServiceImpl.class);
 
-    private static final String DATE_PATTERN = "yyyy-MM-dd";
+    private static RevokeService instance;
 
+
+    private RevokeServiceImpl() {
+    }
+
+    /**
+     * @return RevokeServiceImpl instance as singleton
+     */
+    public static RevokeService getInstance() {
+        if (instance == null) {
+            instance = new RevokeServiceImpl();
+        }
+        return instance;
+    }
+
+    /**
+     * Method search executor revoke by id
+     *
+     * @param userExecutorId of executor
+     * @return List of revokes
+     * @throws ServiceException if query can't be executed  or connection isn't work
+     */
     @Override
     public List<Revoke> findAllExecutorRevoke(long userExecutorId) throws ServiceException {
         logger.info("Start findAllExecutorRevoke(long userExecutorId). IdUser = " + userExecutorId);
@@ -47,6 +62,15 @@ public class RevokeServiceImpl implements RevokeService {
         return revokes;
     }
 
+    /**
+     * Method create revoke in database
+     *
+     * @param contractIdString of contract
+     * @param description      of revoke
+     * @param markString       of revoke
+     * @return true if revoke was created  and executor's information was changed.
+     * @throws ServiceException if query can't be executed  or connection isn't work
+     */
     @Override
     public boolean createRevoke(String contractIdString, String description, String markString) throws ServiceException {
         logger.info("Start createRevoke(String contractIdString, String description, String markString). contractIdString = " + contractIdString + " , description = " + description + " , markString = " + markString);

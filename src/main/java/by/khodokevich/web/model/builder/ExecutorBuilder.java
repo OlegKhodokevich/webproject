@@ -15,7 +15,7 @@ public class ExecutorBuilder {
     private String lastName;
     private String eMail;
     private String phone;
-    private RegionBelarus region;
+    private Region region;
     private String city;
     private UserStatus status;
     private UserRole role;
@@ -47,7 +47,7 @@ public class ExecutorBuilder {
         return this;
     }
 
-    public ExecutorBuilder region(RegionBelarus region) {
+    public ExecutorBuilder region(Region region) {
         this.region = region;
         return this;
     }

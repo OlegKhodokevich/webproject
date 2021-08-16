@@ -5,8 +5,8 @@ import by.khodokevich.web.controller.command.PagePath;
 import by.khodokevich.web.controller.command.Router;
 import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.model.entity.Revoke;
-import by.khodokevich.web.model.service.Impl.RevokeServiceImpl;
 import by.khodokevich.web.model.service.RevokeService;
+import by.khodokevich.web.model.service.ServiceProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +18,9 @@ import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.Router.RouterType.FORWARD;
 import static by.khodokevich.web.controller.command.Router.RouterType.REDIRECT;
 
+/**
+ * This class search executor's revoke.
+ */
 public class FindExecutorRevokeCommand implements Command {
     private static final Logger logger = LogManager.getLogger(FindExecutorRevokeCommand.class);
 
@@ -27,7 +30,7 @@ public class FindExecutorRevokeCommand implements Command {
         String executorIdString = request.getParameter(EXECUTOR_ID);
         try {
             long executorId = Long.parseLong(executorIdString);
-            RevokeService revokeService = new RevokeServiceImpl();
+            RevokeService revokeService = ServiceProvider.REVOKE_SERVICE;
             List<Revoke> revokeList = revokeService.findAllExecutorRevoke(executorId);
             HttpSession session = request.getSession();
             session.setAttribute(REVOKE_LIST, revokeList);

@@ -19,6 +19,9 @@ import static by.khodokevich.web.controller.command.Router.RouterType.REDIRECT;
 
 import static by.khodokevich.web.controller.command.InformationMessage.*;
 
+/**
+ * This class search information about defined user.
+ */
 public class FindUserInfoDetailCommand implements Command {
     private static final Logger logger = LogManager.getLogger(FindUserInfoDetailCommand.class);
 

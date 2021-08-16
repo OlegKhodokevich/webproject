@@ -12,7 +12,10 @@ import org.apache.logging.log4j.Logger;
 
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
-
+/**
+ * This class search activate user.
+ * Customer come forward link and activate his account.
+ */
 public class ActivateUserCommand implements Command {
     private static final Logger logger = LogManager.getLogger(ActivateUserCommand.class);
 

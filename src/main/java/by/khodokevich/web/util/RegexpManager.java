@@ -6,6 +6,9 @@ import org.apache.logging.log4j.Logger;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+/**
+ * Class provide regular expression for validation user, order, revoke data
+ */
 public class RegexpManager {
     private static final Logger logger = LogManager.getLogger(RegexpManager.class);
     private static final ResourceBundle resourceBundle;

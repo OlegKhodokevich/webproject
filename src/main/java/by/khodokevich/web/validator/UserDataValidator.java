@@ -1,7 +1,7 @@
 package by.khodokevich.web.validator;
 
 import by.khodokevich.web.exception.ServiceException;
-import by.khodokevich.web.model.entity.RegionBelarus;
+import by.khodokevich.web.model.entity.Region;
 import by.khodokevich.web.model.service.CheckingResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,6 +14,9 @@ import java.util.Map;
 import static by.khodokevich.web.util.RegexpManager.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
+/**
+ * Class for checking user data
+ */
 public class UserDataValidator {
     private static final Logger logger = LogManager.getLogger(UserDataValidator.class);
     private static final String KEY_REGEXP_FIRSTNAME = "regexp.user.firstName";
@@ -144,7 +147,7 @@ public class UserDataValidator {
             logger.error("region = null.");
             throw new ServiceException("region = null.");
         }
-        RegionBelarus[] regions = RegionBelarus.values();
+        Region[] regions = Region.values();
         boolean result = Arrays.stream(regions).anyMatch((s) -> s.name().equalsIgnoreCase(region));
         return result;
     }

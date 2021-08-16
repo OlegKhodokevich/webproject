@@ -50,7 +50,7 @@ class ConnectionFactory {
 
     /**
      * @return ProxyConnection from mysql
-     * @throws SQLException if can't create connection
+     * @throws SQLException if connection create can't be created
      */
     static ProxyConnection createConnection() throws SQLException {
         return new ProxyConnection(DriverManager.getConnection(url, user, password));

@@ -21,6 +21,10 @@ import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.Router.RouterType.*;
 
+
+/**
+ * This class search open orders by defined specializations.
+ */
 public class FindOrderBySpecializationCommand implements Command {
     private static final Logger logger = LogManager.getLogger(FindOrderBySpecializationCommand.class);
     private static final String CHECKBOX_VALUE = "on";

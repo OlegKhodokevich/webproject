@@ -5,5 +5,4 @@ public class RevokeColumnName {
     protected static final String ID_CONTRACT = "IdContract";
     protected static final String DESCRIPTION = "Description";
     protected static final String MARK = "Mark";
-    protected static final String CREATION_DATE = "CreationDate";
 }

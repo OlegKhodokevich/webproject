@@ -16,6 +16,9 @@ import java.util.List;
 
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
+/**
+ * This class search customer contracts.
+ */
 public class FindContractByCustomerIdCommand implements Command {
     private static final Logger logger = LogManager.getLogger(FindContractByCustomerIdCommand.class);
 

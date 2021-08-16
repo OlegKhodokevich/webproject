@@ -15,7 +15,9 @@ import java.util.Map;
 
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.util.RegexpManager.getRegexp;
-
+/**
+ * Class for checking order data
+ */
 public class OrderDataValidator {
     private static final Logger logger = LogManager.getLogger(UserDataValidator.class);
     private static final String KEY_REGEXP_TITLE = "regexp.order.title";

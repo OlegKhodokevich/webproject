@@ -18,8 +18,11 @@ import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.Router.RouterType.*;
 import static by.khodokevich.web.controller.command.InformationMessage.*;
 
-public class AllExecutorCommand implements Command {
-    private static final Logger logger = LogManager.getLogger(AllExecutorCommand.class);
+/**
+ * This class search all confirmed executor.
+ */
+public class FindAllExecutorCommand implements Command {
+    private static final Logger logger = LogManager.getLogger(FindAllExecutorCommand.class);
 
     @Override
     public Router execute(HttpServletRequest request) {
@@ -33,7 +36,6 @@ public class AllExecutorCommand implements Command {
             if (executorList.isEmpty()) {
                 session.setAttribute(MESSAGE, EXECUTOR_NOT_FOUND);
             }
-
             session.setAttribute(EXECUTOR_LIST, executorList);
             router = new Router(PagePath.EXECUTORS, REDIRECT);
         } catch (ServiceException e) {

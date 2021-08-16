@@ -93,11 +93,6 @@ public class ExecutorOption extends Entity {
         return bd.doubleValue();
     }
 
-    public int getRatingMark() {
-        int rating = (int) Math.floor(averageMark);
-        return rating;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

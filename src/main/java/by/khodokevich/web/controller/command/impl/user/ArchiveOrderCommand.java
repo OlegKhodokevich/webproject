@@ -15,6 +15,10 @@ import org.apache.logging.log4j.Logger;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 import static by.khodokevich.web.controller.command.Router.RouterType.*;
 
+/**
+ * This class archived order.
+ * It set close order status.
+ */
 public class ArchiveOrderCommand implements Command {
     private static final Logger logger = LogManager.getLogger(ArchiveOrderCommand.class);
 

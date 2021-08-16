@@ -17,6 +17,9 @@ import java.util.Optional;
 import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
+/**
+ * This class search user information from database and forward to user page for edition.
+ */
 public class PrepareEditUserCommand implements Command {
     private static final Logger logger = LogManager.getLogger(PrepareEditUserCommand.class);
 

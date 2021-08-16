@@ -10,6 +10,9 @@ import org.apache.logging.log4j.Logger;
 
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
 
+/**
+ * This class set locale for user in the session.
+ */
 public class SetLocaleCommand implements Command {
     private static final Logger logger = LogManager.getLogger(SetLocaleCommand.class);
 

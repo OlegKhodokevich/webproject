@@ -7,8 +7,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
-import static by.khodokevich.web.controller.command.ParameterAttributeType.SPECIALIZATION;
 
+/**
+ * This class forward to order creation page.
+ */
 public class GoToCreationRevokePageCommand implements Command {
 
     @Override

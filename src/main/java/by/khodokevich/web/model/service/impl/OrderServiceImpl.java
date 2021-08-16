@@ -1,4 +1,4 @@
-package by.khodokevich.web.model.service.Impl;
+package by.khodokevich.web.model.service.impl;
 
 import by.khodokevich.web.model.builder.OrderBuilder;
 import by.khodokevich.web.controller.command.ParameterAttributeType;
@@ -32,7 +32,9 @@ public class OrderServiceImpl implements OrderService {
 
     private OrderServiceImpl() {
     }
-
+    /**
+     * @return OrderServiceImpl instance as singleton
+     */
     public static OrderService getInstance() {
         if (instance == null) {
             instance = new OrderServiceImpl();

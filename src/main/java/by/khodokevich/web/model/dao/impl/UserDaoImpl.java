@@ -66,7 +66,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
                     String lastName = resultSet.getString(LASTNAME);
                     String eMail = resultSet.getString(E_MAIL);
                     String phone = resultSet.getString(PHONE);
-                    RegionBelarus region = RegionBelarus.valueOf(resultSet.getString(REGION).toUpperCase());
+                    Region region = Region.valueOf(resultSet.getString(REGION).toUpperCase());
                     String city = resultSet.getString(CITY);
                     UserStatus status = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
                     UserRole role = UserRole.valueOf(resultSet.getString(ROLE_STATUS).toUpperCase());
@@ -115,7 +115,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
                     String lastName = resultSet.getString(LASTNAME);
                     String eMail = resultSet.getString(E_MAIL);
                     String phone = resultSet.getString(PHONE);
-                    RegionBelarus region = RegionBelarus.valueOf(resultSet.getString(REGION).toUpperCase());
+                    Region region = Region.valueOf(resultSet.getString(REGION).toUpperCase());
                     String city = resultSet.getString(CITY);
                     UserStatus status = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
                     UserRole role = UserRole.valueOf(resultSet.getString(ROLE_STATUS).toUpperCase());
@@ -159,7 +159,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
                     String firstName = resultSet.getString(FIRSTNAME);
                     String lastName = resultSet.getString(LASTNAME);
                     String phone = resultSet.getString(PHONE);
-                    RegionBelarus region = RegionBelarus.valueOf(resultSet.getString(REGION).toUpperCase());
+                    Region region = Region.valueOf(resultSet.getString(REGION).toUpperCase());
                     String city = resultSet.getString(CITY);
                     UserStatus status = UserStatus.valueOf(resultSet.getString(STATUS).toUpperCase());
                     UserRole role = UserRole.valueOf(resultSet.getString(ROLE_STATUS).toUpperCase());
@@ -268,7 +268,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
             throw new DaoException("Prepare statement can't be take from connection." + e.getMessage());
         }
         boolean result = numberUpdatedRows == 1;
-        logger.info(() -> result ? "Operation was successful. " : " Operation was failed"); // TODO Do I have to push Exception if false?
+        logger.info(() -> result ? "Operation was successful. " : " Operation was failed");
         return result;
     }
 

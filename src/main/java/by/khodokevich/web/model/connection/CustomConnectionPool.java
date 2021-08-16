@@ -88,7 +88,7 @@ public class CustomConnectionPool {
      * Threadsafe method that provide connection.
      * Method stop threads if TimerConnectionProvider is working.
      * @return connection
-     * @throws PoolConnectionException if can't get connection in limited time.
+     * @throws PoolConnectionException connection can't be taken in limited time.
      */
     public ProxyConnection getConnection() throws PoolConnectionException {
         logger.info("Start getConnection(). freeConnections.size() = " + freeConnections.size() + "   busyConnections.size() " + busyConnections.size());
@@ -125,7 +125,7 @@ public class CustomConnectionPool {
                     freeConnections.put(proxyConnection);
                     semaphore.release();
                 } else {
-                    logger.error("Can't put in pool connection because connection is't valid.");
+                    logger.error("Can't put in pool connection because connection is not valid.");
                 }
 
             } catch (InterruptedException e) {

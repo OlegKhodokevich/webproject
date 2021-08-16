@@ -14,7 +14,7 @@ public class User extends Entity {
     private String lastName;
     private String eMail;
     private String phone;
-    private RegionBelarus region;
+    private Region region;
     private String city;
     private UserStatus status;
     private UserRole role;
@@ -26,7 +26,7 @@ public class User extends Entity {
         this.userId = userId;
     }
 
-    public User(String firstName, String lastName, String eMail, String phone, RegionBelarus region, String city, UserStatus status, UserRole role) {
+    public User(String firstName, String lastName, String eMail, String phone, Region region, String city, UserStatus status, UserRole role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.eMail = eMail;
@@ -37,7 +37,7 @@ public class User extends Entity {
         this.role = role;
     }
 
-    public User(long idUser, String firstName, String lastName, String eMail, String phone, RegionBelarus region, String city, UserStatus status, UserRole role) {
+    public User(long idUser, String firstName, String lastName, String eMail, String phone, Region region, String city, UserStatus status, UserRole role) {
         this.userId = idUser;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -85,11 +85,11 @@ public class User extends Entity {
         this.phone = phone;
     }
 
-    public RegionBelarus getRegion() {
+    public Region getRegion() {
         return region;
     }
 
-    public void setRegion(RegionBelarus region) {
+    public void setRegion(Region region) {
         this.region = region;
     }
 

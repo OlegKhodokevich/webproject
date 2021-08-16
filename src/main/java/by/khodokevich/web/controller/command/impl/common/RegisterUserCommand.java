@@ -17,6 +17,10 @@ import java.util.Map;
 
 import static by.khodokevich.web.controller.command.InformationMessage.*;
 
+/**
+ * This class register new user in system.
+ * User is registered as customer.
+ */
 public class RegisterUserCommand implements Command {
     private static final Logger logger = LogManager.getLogger(RegisterUserCommand.class);
 

@@ -1,8 +1,8 @@
-package by.khodokevich.web.model.service.Impl;
+package by.khodokevich.web.model.service.impl;
 
 import by.khodokevich.web.model.builder.UserBuilder;
 import by.khodokevich.web.model.dao.impl.UserDaoImpl;
-import by.khodokevich.web.model.entity.RegionBelarus;
+import by.khodokevich.web.model.entity.Region;
 import by.khodokevich.web.model.entity.User;
 import by.khodokevich.web.model.entity.UserRole;
 import by.khodokevich.web.model.entity.UserStatus;
@@ -44,7 +44,7 @@ public class UserServiceImplRegistrationTest {
     public void beforeClass() throws DaoException {
         dao = mock(UserDaoImpl.class);
         userService = ServiceProvider.USER_SERVICE;
-//        ((UserServiceImpl) userService).setUserDao(dao); TODO
+//        ((UserServiceImpl) userService).setUserDao(dao);
         String firstName = "Ivan";
         String lastName = "Ivanov";
         String eMail = "ivanov@gmail.com";
@@ -70,7 +70,7 @@ public class UserServiceImplRegistrationTest {
                 .lastName(lastName)
                 .eMail(eMail)
                 .phone(phone)
-                .region(RegionBelarus.valueOf(regionString))
+                .region(Region.valueOf(regionString))
                 .city(city)
                 .status(UserStatus.DECLARED)
                 .role(UserRole.CUSTOMER)
