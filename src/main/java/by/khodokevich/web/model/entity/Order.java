@@ -109,6 +109,22 @@ public class Order extends Entity {
         return status;
     }
 
+    public void  closeOrder(){
+        status.close(this);
+    }
+
+    public void openOrder(){
+        status.open(this);
+    }
+
+    public void workingOrder(){
+        status.working(this);
+    }
+
+    public void considering(){
+        status.considering(this);
+    }
+
     public void setStatus(OrderStatus status) {
         this.status = status;
     }
@@ -118,23 +134,25 @@ public class Order extends Entity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return orderId == order.orderId && userId == order.userId && order.title != null && title.equals(order.title)
-                && order.description != null && description.equals(order.description) && order.address != null
-                && address.equals(order.address) && order.creationDate != null && creationDate.equals(order.creationDate)
-                && order.completionDate != null && completionDate.equals(order.completionDate) && order.specialization != null
-                && specialization == order.specialization && status == order.status;
+        return orderId == order.orderId && userId == order.userId && order.title != null ? title.equals(order.title) : order.title == title
+                && order.description != null ? description.equals(order.description) : order.description == description
+                && order.address != null ? address.equals(order.address) : order.address == address
+                && order.creationDate != null ? creationDate.equals(order.creationDate) : order.creationDate == creationDate
+                && order.completionDate != null ? completionDate.equals(order.completionDate) : order.completionDate == completionDate
+                && order.specialization != null ? specialization == order.specialization : order.specialization == specialization
+                && status == order.status;
     }
 
     @Override
     public int hashCode() {
         int result = (int) orderId + 31 * title.hashCode();
         result = result * 31 + (int) userId;
-        result = result * 31 + (description!= null ? description.hashCode() :0);
-        result = result * 31 + (address!= null ? address.hashCode() :0);
-        result = result * 31 + (creationDate!= null ? creationDate.hashCode() :0);
-        result = result * 31 + (completionDate!= null ? completionDate.hashCode() :0);
-        result = result * 31 + (specialization!= null ? specialization.hashCode() :0);
-        result = result * 31 + (status!= null ? status.hashCode() :0);
+        result = result * 31 + (description != null ? description.hashCode() : 0);
+        result = result * 31 + (address != null ? address.hashCode() : 0);
+        result = result * 31 + (creationDate != null ? creationDate.hashCode() : 0);
+        result = result * 31 + (completionDate != null ? completionDate.hashCode() : 0);
+        result = result * 31 + (specialization != null ? specialization.hashCode() : 0);
+        result = result * 31 + (status != null ? status.hashCode() : 0);
         return result;
     }
 

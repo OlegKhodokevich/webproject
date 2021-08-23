@@ -49,21 +49,24 @@ public class SetUserStatusCommand implements Command {
                     int index = Integer.parseInt(indexString);
                     User user = userList.get(index);
                     user.setStatus(status);
-                    OrderService orderService = ServiceProvider.ORDER_SERVICE;
-                    List<Order> orders = orderService.findUsersOrders(userId);
+                    if (status != UserStatus.CONFIRMED) {
+                        OrderService orderService = ServiceProvider.ORDER_SERVICE;
+                        List<Order> orders = orderService.findUsersOrders(userId);
 
-                    for (Order order : orders) {
-                        if (order.getStatus() == OrderStatus.OPEN) {
-                            if (!orderService.setStatus(order.getOrderId(), OrderStatus.CLOSE)) {
-                                logger.error("Can't change order status. Order id = " + order.getOrderId());
+                        for (Order order : orders) {
+                            if (order.getStatus() == OrderStatus.OPEN) {
+                                if (!orderService.setStatus(order.getOrderId(), OrderStatus.CLOSE)) {
+                                    logger.error("Can't change order status. Order id = " + order.getOrderId());
+                                }
                             }
                         }
-                    }
-
-                    if (status != UserStatus.CONFIRMED) {
                         Set<Long> archivedUserSet = (Set<Long>) (request).getServletContext().getAttribute(SET_ARCHIVE_USERS);
                         archivedUserSet.add(userId);
+                    } else {
+                        Set<Long> archivedUserSet = (Set<Long>) (request).getServletContext().getAttribute(SET_ARCHIVE_USERS);
+                        archivedUserSet.remove(userId);
                     }
+
                     router = new Router(PagePath.ALL_USERS, REDIRECT);
 
                 } else {

@@ -28,6 +28,7 @@ import static by.khodokevich.web.controller.command.Router.RouterType.*;
 public class FindOrderBySpecializationCommand implements Command {
     private static final Logger logger = LogManager.getLogger(FindOrderBySpecializationCommand.class);
     private static final String CHECKBOX_VALUE = "on";
+    private static final String SEARCH_BY_SPECIALIZATION = "specialization";
     private static final String EMPTY_VALUE = "";
 
     @Override
@@ -72,8 +73,9 @@ public class FindOrderBySpecializationCommand implements Command {
             if (orderList.isEmpty()) {
                 session.setAttribute(ParameterAttributeType.MESSAGE, ORDERS_NOT_FOUND);
             }
+            session.setAttribute(REASON, SEARCH_BY_SPECIALIZATION);
             session.setAttribute(ParameterAttributeType.ORDER_LIST, orderList);
-            router = new Router(PagePath.ORDERS, Router.RouterType.REDIRECT);
+            router = new Router(PagePath.ORDERS, FORWARD);
 
         } catch (ServiceException e) {
             logger.error("Error during query", e);

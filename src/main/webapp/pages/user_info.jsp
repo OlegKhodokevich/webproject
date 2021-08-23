@@ -20,6 +20,7 @@
     <title>${text_user_user_info}</title>
     <link href="../css/custom_styles.css" rel="stylesheet"/>
     <link href="../css/custom_card.css" rel="stylesheet"/>
+    <link href="../css/main.css" rel="stylesheet"/>
 </head>
 <body style="background-image: url(../image/building_3_c1.jpg);
 background-repeat: no-repeat;
@@ -28,72 +29,74 @@ background-size: cover">
 <header>
     <jsp:include page="header.jsp"/>
 </header>
-<div class="container">
-    <div class="main-body">
-        <div class="row gutters-sm">
-            <br>
-            <div class="col-md-8">
-                <div class="card mb-3 custom-card-user">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">${text_registration_firstname}</h6>
+<div class="main-content">
+    <div class="container">
+        <div class="main-body">
+            <div class="row gutters-sm">
+                <br>
+                <div class="col-md-8">
+                    <div class="card mb-3 custom-card-user">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">${text_registration_firstname}</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    ${sessionScope.user.firstName}
+                                </div>
                             </div>
-                            <div class="col-sm-9 text-secondary">
-                                ${sessionScope.user.firstName}
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">${text_registration_lastname}</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    ${sessionScope.user.lastName}
+                                </div>
                             </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    ${sessionScope.user.EMail}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0"> ${text_registration_phone}</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    ${sessionScope.user.phone}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">${text_registration_region}</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    ${sessionScope.user.region}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">${text_registration_city}</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    ${sessionScope.user.city}
+                                </div>
+                            </div>
+                            <hr>
+                            <c:if test="${sessionScope.activeUser.idUser eq sessionScope.user.idUser or sessionScope.activeUserRole eq 'ADMIN'}">
+                                <div class="col-sm-12">
+                                    <a class="btn btn-info " href="/controller?command=prepare_edit_user&userId=${sessionScope.user.idUser}">${text_user_edit_user}</a>
+                                </div>
+                            </c:if>
                         </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">${text_registration_lastname}</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                ${sessionScope.user.lastName}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Email</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                ${sessionScope.user.EMail}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0"> ${text_registration_phone}</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                ${sessionScope.user.phone}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">${text_registration_region}</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                ${sessionScope.user.region}
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">${text_registration_city}</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                ${sessionScope.user.city}
-                            </div>
-                        </div>
-                        <hr>
-                        <c:if test="${sessionScope.activeUser.idUser eq sessionScope.user.idUser or sessionScope.activeUserRole eq 'ADMIN'}">
-                            <div class="col-sm-12">
-                                <a class="btn btn-info " href="/controller?command=prepare_edit_user&userId=${sessionScope.user.idUser}">${text_user_edit_user}</a>
-                            </div>
-                        </c:if>
                     </div>
                 </div>
             </div>

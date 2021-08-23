@@ -2,6 +2,7 @@ package by.khodokevich.web.tag;
 
 import by.khodokevich.web.controller.command.ParameterAttributeType;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.tagext.TagSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,7 +28,7 @@ public class AllMessageTag extends TagSupport {
     private static final String FILE_RESOURCE_NAME = "text";
 
     @Override
-    public int doStartTag() {
+    public int doStartTag() throws JspException {
         logger.debug("Start doStartTag(). message = ");
         HttpSession session = pageContext.getSession();
         String keyMessage = (String) session.getAttribute("message");
@@ -49,8 +50,10 @@ public class AllMessageTag extends TagSupport {
                 session.removeAttribute(ParameterAttributeType.MESSAGE);
             } catch (IOException e) {
                 logger.error("Can't write the message : " + message);
+                throw new JspException(e.getMessage());
             } catch (MissingResourceException e) {
                 logger.error("Wrong property file or localeString");
+                throw new JspException(e.getMessage());
             }
         }
         return SKIP_BODY;

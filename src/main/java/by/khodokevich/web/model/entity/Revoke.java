@@ -91,8 +91,8 @@ public class Revoke extends Entity {
         if (this == o) return true;
         if (!(o instanceof Revoke revoke)) return false;
         return getRevokeId() == revoke.getRevokeId() && getContractId() == revoke.getContractId() && getMark() == revoke.getMark()
-                && (revoke.getDescription() != null) && getDescription().equals(revoke.getDescription())
-                && (revoke.getCreationDate() != null) && getCreationDate().equals(revoke.getCreationDate());
+                && (revoke.getDescription() != null) ? getDescription().equals(revoke.getDescription()) : revoke.description == description
+                && (revoke.getCreationDate() != null) ? getCreationDate().equals(revoke.getCreationDate()) : revoke.creationDate == creationDate;
     }
 
     @Override

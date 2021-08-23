@@ -322,12 +322,7 @@ public class ContractServiceImpl implements ContractService {
             transaction.begin(contractDao, orderDao, executorDao);
             Optional<Contract> contractOptional = findContractInformationById(contractId);
             if (contractOptional.isPresent()) {
-                List<Long> contractIdList = contractDao.findAllContractIdByOrderId(orderId);
-                contractIdList.remove(contractId);
-                if (contractDao.setConcludedStatus(contractId)) {
-                    result = contractDao.setNotConcludedStatusForCompetitor(contractIdList);
-                }
-
+                contractDao.setConcludedStatusDefineContractNotConcludedOtherOrderContract(contractId);
                 orderDao.setOrderStatus(orderId, OrderStatus.IN_WORK);
                 Optional<Executor> optionalExecutor = executorDao.findEntityById(contractOptional.get().getUser().getIdUser());
                 if (optionalExecutor.isPresent()) {
@@ -335,6 +330,7 @@ public class ContractServiceImpl implements ContractService {
                     int numberContractInProgress = executorOption.getNumberContractsInProgress();
                     executorOption.setNumberContractsInProgress(numberContractInProgress + 1);
                     executorDao.updateExecutorOption(optionalExecutor.get());
+                    result =true;
                 }
             }
             transaction.commit();

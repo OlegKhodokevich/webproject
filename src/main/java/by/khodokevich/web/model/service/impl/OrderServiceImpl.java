@@ -130,7 +130,7 @@ public class OrderServiceImpl implements OrderService {
                 if (order.getCompletionDate().before(currentDate)) {
 
                     if (orderDao.setOrderStatus(order.getOrderId(), OrderStatus.CLOSE)) {
-                        order.setStatus(OrderStatus.CLOSE);
+                        order.closeOrder();
                     }
                 }
             }
@@ -159,7 +159,7 @@ public class OrderServiceImpl implements OrderService {
             if (order.getStatus() == OrderStatus.OPEN && order.getCompletionDate().before(currentDate)) {
                 result = orderDao.setOrderStatus(order.getOrderId(), OrderStatus.CLOSE);
                 if (result) {
-                    order.setStatus(OrderStatus.CLOSE);
+                    order.closeOrder();
                 }
             }
         } catch (DaoException e) {

@@ -30,7 +30,7 @@ public class ContractDaoImpl extends AbstractDao<Contract> implements ContractDa
     private static final String SQL_SELECT_ALL_CONTRACTS_BY_ID_CUSTOMER = "SELECT IdContract, orders.IdOrder, IdUserExecutor, Conclude, Complete FROM contracts JOIN orders ON orders.IdOrder = contracts.IdOrder WHERE orders.IdUserCustomer = ?;";
     private static final String SQL_SELECT_ALL_CONTRACTS_BY_ID_EXECUTOR = "SELECT IdContract, IdOrder, IdUserExecutor, Conclude, Complete FROM contracts WHERE IdUserExecutor = ?;";
     private static final String SQL_SELECT_ID_CONTRACTS_BY_ORDER_ID = "SELECT IdContract FROM contracts WHERE IdOrder = ?;";
-    private static final String SQL_SELECT_ALL_OFFER_BY_ID_EXECUTOR = "SELECT IdContract, IdOrder, IdUserExecutor, Conclude, Complete FROM contracts WHERE Conclude = 'not_concluded' AND IdUserExecutor = ? ORDER BY IdOrder;";
+    private static final String SQL_SELECT_ALL_OFFER_BY_ID_EXECUTOR = "SELECT IdContract, IdOrder, IdUserExecutor, Conclude, Complete FROM contracts WHERE Conclude = 'under_consideration' AND IdUserExecutor = ? ORDER BY IdOrder;";
     private static final String SQL_SELECT_DEFINED_CONTRACT = "SELECT IdOrder, IdUserExecutor, Conclude, Complete FROM contracts WHERE IdContract = ?;";
     private static final String SQL_DELETE_DEFINED_CONTRACT_BY_ID = "DELETE FROM contracts WHERE IdContract = ?;";
     private static final String SQL_INSERT_CONTRACT = "INSERT INTO contracts(IdOrder, IdUserExecutor, Conclude, Complete) VALUES (?, ?, ?, ?);";
@@ -39,6 +39,8 @@ public class ContractDaoImpl extends AbstractDao<Contract> implements ContractDa
     private static final String SQL_SET_NOT_CONCLUDED_STATUS_FOR_DEFINE_CONTRACT = "UPDATE contracts SET Conclude = 'not_concluded'  WHERE IdContract = ?;";
     private static final String SQL_SET_COMPLETED_STATUS = "UPDATE contracts SET Complete = 'completed'  WHERE IdContract = ?;";
     private static final String SQL_SELECT_SELECT_ID_EXECUTOR_BY_CONTRACT_ID = "SELECT IdUserExecutor FROM contracts WHERE IdContract = ?;";
+
+    private static final String SQL_CALL_PROCEDURE_SET_NOT_CONCLUDED = "{CALL setstatus(?)}";
 
     /**
      * Method searches all contract's entity in database
@@ -333,6 +335,25 @@ public class ContractDaoImpl extends AbstractDao<Contract> implements ContractDa
             throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
         }
         return executorId;
+    }
+
+    /**
+     * Method set concluded status for define contract and not concluded status for other contract of same order.
+     *
+     * @param contractId of contract
+     * @return true if it is updated, in other way will return false.
+     * @throws DaoException if can't execute query
+     */
+    @Override
+    public void setConcludedStatusDefineContractNotConcludedOtherOrderContract(long contractId) throws DaoException {
+        logger.info("Start setConcludedStatusDefineContractNotConcludedOtherOrderContract(long contractId). ContractId = " + contractId);
+        try (PreparedStatement statement = connection.prepareCall(SQL_CALL_PROCEDURE_SET_NOT_CONCLUDED)) {
+            statement.setLong(1, contractId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Prepare statement can't be take from connection or unknown field." + e.getMessage());
+            throw new DaoException("Prepare statement can't be take from connection or unknown field." + e.getMessage());
+        }
     }
 
     /**

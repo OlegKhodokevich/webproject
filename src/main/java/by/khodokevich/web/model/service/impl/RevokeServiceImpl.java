@@ -101,9 +101,13 @@ public class RevokeServiceImpl implements RevokeService {
                         if (executorOptional.isPresent()) {
                             ExecutorOption executorOption = executorOptional.get().getExecutorOption();
                             List<Revoke> revokes = revokeDao.findAllExecutorRevoke(executorId);
+                            logger.debug(" Revokes = " + revokes);
                             int numberRevokes = revokes.size();
+                            logger.debug(" revokes number = " + numberRevokes);
                             double averageMark = executorOption.getAverageMark();
-                            averageMark = (averageMark * numberRevokes + mark) / (numberRevokes + 1);
+                            logger.debug(" average mark = " + averageMark);
+                            averageMark = (averageMark * (numberRevokes - 1) + mark) / numberRevokes;
+                            logger.debug(revokes);
                             executorOption.setAverageMark(averageMark);
                             executorDao.update(executorOptional.get());
                             result = true;

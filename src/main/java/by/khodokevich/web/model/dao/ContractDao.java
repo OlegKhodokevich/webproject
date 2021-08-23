@@ -99,4 +99,14 @@ public interface ContractDao {
      * @throws DaoException if can't execute query
      */
     long getIdExecutor(long contractId) throws DaoException;
+
+    /**
+     * Method set concluded status for define contract and not concluded status for other contract of same order.
+     *
+     * @param contractId of contract
+     * @return true if it is updated, in other way will return false.
+     * @throws DaoException if can't execute query
+     */
+    void setConcludedStatusDefineContractNotConcludedOtherOrderContract(long contractId) throws DaoException;
+
 }

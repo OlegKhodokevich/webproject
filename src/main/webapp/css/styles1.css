@@ -24,6 +24,7 @@
     display: flex;
     margin-top: 20px;
     align-items: baseline;
+    flex-wrap: wrap;
 }
 .registration_form label {
     text-align: right;
@@ -159,4 +160,8 @@
         width: 100%;
         max-width: 100%;
     }
+}
+
+.registration_form div.hidden {
+    display: none;
 }

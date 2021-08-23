@@ -105,11 +105,14 @@ public class Contract extends Entity {
     public void setRevoke(Revoke revoke) {
         this.revoke = revoke;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Contract contract)) return false;
-        return getIdContract() == contract.getIdContract() && contract.getOrder() != null && getOrder().equals(contract.getOrder()) && contract.getUser() != null && getUser().equals(contract.getUser()) && getConcludedContractStatus() == contract.getConcludedContractStatus() && getCompletionContractStatus() == contract.getCompletionContractStatus();
+        return getIdContract() == contract.getIdContract() && contract.getOrder() != null ? getOrder().equals(contract.getOrder()) : contract.getOrder() == getOrder()
+                && contract.getUser() != null ? getUser().equals(contract.getUser()) : contract.getUser() == getUser()
+                && getConcludedContractStatus() == contract.getConcludedContractStatus() && getCompletionContractStatus() == contract.getCompletionContractStatus();
     }
 
     @Override

@@ -19,3 +19,17 @@
     color: blue;
     border: 1px solid blue;
 }
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.main-content {
+    flex-grow: 1;
+}

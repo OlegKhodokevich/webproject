@@ -98,11 +98,12 @@ public class ExecutorOption extends Entity {
         if (this == o) return true;
         if (!(o instanceof ExecutorOption executorOption)) return false;
         return Double.compare(executorOption.averageMark, averageMark) == 0 && numberContractsInProgress == executorOption.numberContractsInProgress
-                && numberCompletionContracts == executorOption.numberCompletionContracts && executorOption.unp != null
-                && unp.equals(executorOption.unp) && executorOption.getSkills() != null
-                && skills.containsAll(executorOption.skills) && executorOption.skills.containsAll(skills)
-                && executorOption.getDescription() != null && description.equalsIgnoreCase(executorOption.description)
-                && executorOption.urlPersonalFoto != null && urlPersonalFoto.equals(executorOption.urlPersonalFoto);
+                && numberCompletionContracts == executorOption.numberCompletionContracts
+                && executorOption.unp != null ? unp.equals(executorOption.unp) : executorOption.unp == unp
+                && executorOption.getSkills() != null ? skills.containsAll(executorOption.skills) : executorOption.skills == skills
+                && executorOption.skills.containsAll(skills)
+                && executorOption.getDescription() != null ? description.equalsIgnoreCase(executorOption.description) : executorOption.description == description
+                && executorOption.urlPersonalFoto != null ? urlPersonalFoto.equals(executorOption.urlPersonalFoto) : executorOption.urlPersonalFoto == urlPersonalFoto;
     }
 
     @Override

@@ -25,158 +25,122 @@
     <link href="../css/custom_styles.css" rel="stylesheet"/>
     <link href="../css/custom_button.css" rel="stylesheet" media="all"/>
     <link href="../css/custom_text.css" rel="stylesheet"/>
+    <link href="../css/main.css" rel="stylesheet"/>
 </head>
-<body style="background-image: url(../image/building_3_c1.jpg);
-background-repeat: no-repeat;
-background-position: center center;
-background-size: cover;
-display: flex;
-flex-direction: column;">
+<body>
 <header>
     <jsp:include page="header.jsp"/>
 </header>
 
-<h1 class="text-title">${text_order_orders}</h1>
-
-
-<div class="container">
-    <div class="container payment_window pt-1 pb-1">
-        <div class="container">
-            <h2 class="mt-1"><mes:messageTag/></h2>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="flex-column custom-card" style="width: 380px;">
-                <p class="fs-5 fw-semibold">${text_order_specializations}</p>
-                <form action="/controller" method="post" class="list-group list-group-flush border-bottom scrollarea">
-                    <c:forEach var="specialization" items="${applicationScope.specializationList}">
-                        <c:if test="${specialization != null}">
-                            <fmt:message key="${specialization.key}" var="text_specialization"/>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="${specialization.id}" value="on"
-                                       id="${specialization.id}" ${sessionScope.get(specialization.id) eq "on" ? 'checked' : null}>
-                                <label class="form-check-label" for="${specialization.id}">
-                                        ${text_specialization}
-                                </label>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                    <div>
-                        <input type="hidden" name="command" value="find_orders_by_specializations">
-                        <input type="submit" class="custom-button-order-search" value="${text_order_search}">
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="col">
-            <c:choose>
-                <c:when test="${sessionScope.orderList.size() eq 0}">
-                    <div class="container mt-5 ml-3 text-message">
-                        <h3>${text_order_empty_list}</h3>
-                    </div>
-                </c:when>
-                <c:when test="${sessionScope.orderList.size() gt 0}">
-                    <div id="listElement" class="list-group">
-                        <c:forEach var="order" items="${sessionScope.orderList}">
-                            <c:if test="${order != null}">
-                                <a href="/controller?command=find_order_info_details&orderId=${order.orderId}"
-                                   class="flex-column custom-card mb-2">
-                                    <p class="date-to-format"
-                                       style="text-align: right; font-size: 14px; margin-bottom: 0">${order.creationDate.time}</p>
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <p class="mb-1 " style="font-weight: bold">${order.title}</p>
-                                    </div>
-                                    <p class="mb-1">${order.description}</p>
-                                    <span>${text_order_completion_date} : <span
-                                            class="date-to-format">${order.completionDate.time}</span></span>
-                                    <input type="hidden" name="orderId" id="orderId" value="${order.orderId}">
-                                </a>
+<div class="main-content">
+    <h1 class="text-title">${text_order_orders}</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="flex-column custom-card" style="width: 380px;">
+                    <p class="fs-5 fw-semibold">${text_order_specializations}</p>
+                    <form action="/controller" method="post" class="list-group list-group-flush border-bottom scrollarea">
+                        <c:forEach var="specialization" items="${applicationScope.specializationList}">
+                            <c:if test="${specialization != null}">
+                                <fmt:message key="${specialization.key}" var="text_specialization"/>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="${specialization.id}" value="on"
+                                           id="${specialization.id}" ${sessionScope.get(specialization.id) eq "on" ? 'checked' : null}>
+                                    <label class="form-check-label" for="${specialization.id}">
+                                            ${text_specialization}
+                                    </label>
+                                </div>
                             </c:if>
                         </c:forEach>
-                    </div>
-                </c:when>
-            </c:choose>
-            <nav aria-label="Page navigation area">
-                <ul class="pagination justify-content-center">
-                    <c:if test="${sessionScope.pagination.currentPage > 1}">
-                        <li class="page-item ${sessionScope.pagination.currentPage eq 1 ? 'disabled': ''}">
-                            <a class="page-link"
-                               href="${abs_path}/controller?command=all_orders&indexPage=${sessionScope.pagination.currentPage - 1}"
-                               tabindex="-1"><<</a>
-                        </li>
-                    </c:if>
-                    <li class="page-item ${sessionScope.pagination.currentPage eq 1 ? 'active': ''}">
-                        <a class="page-link" href="${abs_path}/controller?command=all_orders&indexPage=${1}">1</a>
-                    </li>
-                    <c:if test="${sessionScope.pagination.showLeftDivider()}">
-                        <li class="page-item disabled}">
-                            <a class="page-link disabled" href="">...</a>
-                        </li>
-                    </c:if>
-                    <c:forEach var="i" items="${sessionScope.pagination.listVisiblePage}">
-                        <li class="page-item ${sessionScope.pagination.currentPage eq i ? 'active': ''}">
-                            <a class="page-link"
-                               href="${abs_path}/controller?command=all_orders&indexPage=${i}">${i}</a>
-                        </li>
-                    </c:forEach>
-                    <c:if test="${sessionScope.pagination.showRightDivider()}">
-                        <li class="page-item disabled}">
-                            <a class="page-link disabled" href="">...</a>
-                        </li>
-                    </c:if>
-                    <c:if test="${sessionScope.pagination.lastPage > 1}">
-                        <li class="page-item ${sessionScope.pagination.currentPage eq sessionScope.pagination.lastPage ? 'active': ''}">
-                            <a class="page-link"
-                               href="${abs_path}/controller?command=all_orders&indexPage=${sessionScope.pagination.lastPage}">${sessionScope.pagination.lastPage}</a>
-                        </li>
-                    </c:if>
-                    <c:if test="${sessionScope.pagination.currentPage < sessionScope.pagination.lastPage}">
-                        <li class="page-item ${sessionScope.pagination.currentPage eq sessionScope.pagination.lastPage ? 'disabled': ''}">
-                            <a class="page-link"
-                               href="${abs_path}/controller?command=all_orders&indexPage=${sessionScope.pagination.currentPage + 1}"
-                               tabindex="-1">>></a>
-                        </li>
-                    </c:if>
-                </ul>
-            </nav>
-        </div>
+                        <div>
+                            <input type="hidden" name="command" value="find_orders_by_specializations">
+                            <input type="submit" class="custom-button-order-search" value="${text_order_search}">
+                        </div>
+                    </form>
+                </div>
+            </div>
 
+            <div class="col">
+                <c:choose>
+                    <c:when test="${sessionScope.orderList.size() eq 0}">
+                        <div class="container">
+                            <div class="container payment_window pt-1 pb-1">
+                                <div class="container">
+                                    <h2 class="mt-1" style="width: 500px;"><mes:messageTag/></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </c:when>
+                    <c:when test="${sessionScope.orderList.size() gt 0}">
+                        <div id="listElement" class="list-group">
+                            <c:forEach var="order" items="${sessionScope.orderList}">
+                                <c:if test="${order != null}">
+                                    <a href="/controller?command=find_order_info_details&orderId=${order.orderId}"
+                                       class="flex-column custom-card mb-2">
+                                        <p class="date-to-format"
+                                           style="text-align: right; font-size: 14px; margin-bottom: 0">${order.creationDate.time}</p>
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <p class="mb-1 " style="font-weight: bold">${order.title}</p>
+                                        </div>
+                                        <p class="mb-1">${order.description}</p>
+                                        <span>${text_order_completion_date} : <span
+                                                class="date-to-format">${order.completionDate.time}</span></span>
+                                        <input type="hidden" name="orderId" id="orderId" value="${order.orderId}">
+                                    </a>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                    </c:when>
+                </c:choose>
+                <c:if test="${sessionScope.reason ne 'specialization'}">
+                    <nav aria-label="Page navigation area">
+                        <ul class="pagination justify-content-center">
+                            <c:if test="${sessionScope.pagination.currentPage > 1}">
+                                <li class="page-item ${sessionScope.pagination.currentPage eq 1 ? 'disabled': ''}">
+                                    <a class="page-link"
+                                       href="${abs_path}/controller?command=all_orders&indexPage=${sessionScope.pagination.currentPage - 1}"
+                                       tabindex="-1"><<</a>
+                                </li>
+                                <li class="page-item ${sessionScope.pagination.currentPage eq 1 ? 'active': ''}">
+                                    <a class="page-link" href="${abs_path}/controller?command=all_orders&indexPage=${1}">1</a>
+                                </li>
+                            </c:if>
+                            <c:if test="${sessionScope.pagination.showLeftDivider()}">
+                                <li class="page-item disabled}">
+                                    <a class="page-link disabled" href="">...</a>
+                                </li>
+                            </c:if>
+                            <c:forEach var="i" items="${sessionScope.pagination.listVisiblePage}">
+                                <li class="page-item ${sessionScope.pagination.currentPage eq i ? 'active': ''}">
+                                    <a class="page-link"
+                                       href="${abs_path}/controller?command=all_orders&indexPage=${i}">${i}</a>
+                                </li>
+                            </c:forEach>
+                            <c:if test="${sessionScope.pagination.showRightDivider()}">
+                                <li class="page-item disabled}">
+                                    <a class="page-link disabled" href="">...</a>
+                                </li>
+                            </c:if>
+                            <c:if test="${sessionScope.pagination.lastPage > 1}">
+                                <li class="page-item ${sessionScope.pagination.currentPage eq sessionScope.pagination.lastPage ? 'active': ''}">
+                                    <a class="page-link"
+                                       href="${abs_path}/controller?command=all_orders&indexPage=${sessionScope.pagination.lastPage}">${sessionScope.pagination.lastPage}</a>
+                                </li>
+                            </c:if>
+                            <c:if test="${sessionScope.pagination.currentPage < sessionScope.pagination.lastPage}">
+                                <li class="page-item ${sessionScope.pagination.currentPage eq sessionScope.pagination.lastPage ? 'disabled': ''}">
+                                    <a class="page-link"
+                                       href="${abs_path}/controller?command=all_orders&indexPage=${sessionScope.pagination.currentPage + 1}"
+                                       tabindex="-1">>></a>
+                                </li>
+                            </c:if>
+                        </ul>
+                    </nav>
+                </c:if>
+            </div>
+        </div>
     </div>
 </div>
-
-<%--<script>--%>
-<%--    let dataOrders = [${sessionScope.orderList}];--%>
-<%--    let  listElements = document.querySelector('#table');--%>
-<%--    let  items = document.querySelectorAll('#pagination li');--%>
-
-<%--    let  notesOnPage = 3;--%>
-
-<%--    for (let item of items) {--%>
-<%--        item.addEventListener('click', function () {--%>
-<%--            let  pageNum = +this.innerHTML;--%>
-<%--            /*--%>
-
-<%--             */--%>
-
-<%--            let startIndex = notesOnPage * (pageNum - 1);--%>
-<%--            let endIndex = startIndex + notesOnPage;--%>
-<%--            let notes = dataOrders.slice(startIndex, endIndex);--%>
-
-<%--            for (let note of notes) {--%>
-<%--                let  tr = document.createElement('')--%>
-<%--            }--%>
-<%--        });--%>
-<%--    }--%>
-<%--    function createCell(text, tr) {--%>
-<%--        let td = document.createElement('div')--%>
-<%--    }--%>
-<%--</script>--%>
-
 <footer>
     <jsp:include page="footer.jsp"/>
 </footer>

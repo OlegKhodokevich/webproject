@@ -48,7 +48,8 @@ class ConnectionFactory {
         }
     }
 
-    /**
+    /** Method create connection for ConnectionPool
+     *
      * @return ProxyConnection from mysql
      * @throws SQLException if connection create can't be created
      */

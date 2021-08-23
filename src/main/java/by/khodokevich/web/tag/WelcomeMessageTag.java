@@ -4,6 +4,7 @@ import by.khodokevich.web.controller.command.ParameterAttributeType;
 import by.khodokevich.web.model.entity.User;
 import by.khodokevich.web.model.entity.UserRole;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.tagext.TagSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,7 +34,7 @@ public class WelcomeMessageTag extends TagSupport {
 
 
     @Override
-    public int doStartTag() {
+    public int doStartTag() throws JspException {
         logger.debug("Start doStartTag().");
         StringBuilder stringBuilder = new StringBuilder();
         HttpSession session = pageContext.getSession();
@@ -67,8 +68,10 @@ public class WelcomeMessageTag extends TagSupport {
                 session.setAttribute("isFirstCustomTag", "false");
             } catch (IOException e) {
                 logger.error("Can't write the message : " + stringBuilder);
+                throw new JspException(e.getMessage());
             } catch (MissingResourceException e) {
                 logger.error("Wrong property file or localeString");
+                throw new JspException(e.getMessage());
             }
         }
         return SKIP_BODY;

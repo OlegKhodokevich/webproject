@@ -121,10 +121,12 @@ public class User extends Entity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User user)) return false;
-        return userId == user.userId && user.firstName != null && firstName.equals(user.firstName) && user.lastName != null
-                && lastName.equals(user.lastName) && user.eMail != null && eMail.equals(user.eMail) && user.phone != null
-                && phone.equals(user.phone) && user.region != null && region == user.region && user.city != null
-                && city.equals(user.city) && user.status != null && status == user.status && user.role != null && role == user.role;
+        return userId == user.userId && user.firstName != null ? firstName.equals(user.firstName) : user.firstName == firstName
+                && user.lastName != null ? lastName.equals(user.lastName) : user.lastName == lastName
+                && user.eMail != null ? eMail.equals(user.eMail) : user.eMail == eMail
+                && user.phone != null ? phone.equals(user.phone) : user.phone == phone
+                && user.region != null && region == user.region && user.city != null ? city.equals(user.city) : user.city == city
+                && user.status != null && status == user.status && user.role != null && role == user.role;
     }
 
     @Override

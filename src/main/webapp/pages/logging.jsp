@@ -26,6 +26,7 @@
     <link href="../css/custom_styles.css" rel="stylesheet"/>
     <link href="../css/styles1.css" rel="stylesheet"/>
     <link href="../css/custom_button.css" rel="stylesheet" media="all"/>
+    <link href="../css/main.css" rel="stylesheet"/>
 </head>
 <body style="background-image: url(../image/building_3_c1.jpg);
 background-repeat: no-repeat;
@@ -34,35 +35,37 @@ background-size: cover">
 <header>
     <jsp:include page="header.jsp"/>
 </header>
-
-<div class="container">
-    <div class="container payment_window pt-1 pb-1">
-        <div class="container">
-            <h2 class="mt-1"><mes:messageTag/></h2>
+<div class="main-content">
+    <div class="container">
+        <div class="container payment_window pt-1 pb-1">
+            <div class="container">
+                <h2 class="mt-1 custom-message"><mes:messageTag/></h2>
+            </div>
         </div>
     </div>
+
+    <form action="${pageContext.request.contextPath}/controller" method="post" class="registration_form">
+        <h1 style="text-align: center">${text_logging_title}</h1>
+        <div>
+            <input type="email" placeholder="e-mail-adress@gmail.com" id="Emailinput" name="eMail" required>
+            <label for="Emailinput">E-mail</label>
+        </div>
+        <div>
+            <input type="password" placeholder="Пароль" id="Password" name="password" required>
+            <label for="Password">${text_registration_password}</label>
+        </div>
+
+        <div>
+            <input type="hidden" name="command" value="sign_in">
+            <input type="submit" value="${text_logging_sign_in}">
+        </div>
+        <a class="custom-button-register" href="/controller?command=go_to_registration"
+           id="Button">${text_registration_title}</a>
+        <br/>
+        <br/>
+    </form>
+
 </div>
-
-<form action="${pageContext.request.contextPath}/controller" method="post" class="registration_form">
-    <h1 style="text-align: center">${text_logging_title}</h1>
-    <div>
-        <input type="email" placeholder="e-mail-adress@gmail.com" id="Emailinput" name="eMail" required>
-        <label for="Emailinput">E-mail</label>
-    </div>
-    <div>
-        <input type="password" placeholder="Пароль" id="Password" name="password" required>
-        <label for="Password">${text_registration_password}</label>
-    </div>
-
-    <div>
-        <input type="hidden" name="command" value="sign_in">
-        <input type="submit" value="${text_logging_sign_in}">
-    </div>
-    <a class="custom-button-register" href="/controller?command=go_to_registration"
-       id="Button">${text_registration_title}</a>
-    <br/>
-    <br/>
-</form>
 
 <footer>
     <jsp:include page="footer.jsp"/>

@@ -49,7 +49,8 @@ public class Skill extends Entity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Skill checkedSkill)) return false;
-        return specialization == checkedSkill.specialization && checkedSkill.cost != null && cost.equals(checkedSkill.cost) && measure == checkedSkill.measure;
+        return specialization == checkedSkill.specialization && checkedSkill.cost != null ? cost.equals(checkedSkill.cost) : checkedSkill.cost == cost
+                && measure == checkedSkill.measure;
     }
 
     @Override

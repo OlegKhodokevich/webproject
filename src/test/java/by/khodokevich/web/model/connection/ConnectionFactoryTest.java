@@ -11,6 +11,5 @@ public class ConnectionFactoryTest {
     public void testCreateConnection1() throws SQLException {
         ProxyConnection proxyConnection = ConnectionFactory.createConnection();
         Assert.assertNotNull(proxyConnection);
-        proxyConnection.reallyClose();
     }
 }

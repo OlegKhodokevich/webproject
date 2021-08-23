@@ -7,10 +7,7 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
@@ -36,11 +33,11 @@ public class CustomConnectionPool {
 
     protected static final AtomicBoolean isConnectionProviderRun = new AtomicBoolean(false);
     protected static final ReentrantLock timerConnectionProviderLock = new ReentrantLock();
-    private static final Semaphore semaphore = new Semaphore(DEFAULT_POOL_SIZE);
+    private static final Semaphore semaphore = new Semaphore(DEFAULT_POOL_SIZE, true);
     private static final Condition timerConnectionProviderLockCondition = timerConnectionProviderLock.newCondition();
 
-    private final BlockingDeque<ProxyConnection> freeConnections;
-    private final BlockingDeque<ProxyConnection> busyConnections;
+    private final BlockingQueue<ProxyConnection> freeConnections;
+    private final BlockingQueue<ProxyConnection> busyConnections;
 
 
     /** Don't let anyone else instantiate this class
@@ -49,8 +46,8 @@ public class CustomConnectionPool {
      * in case pool isn't filled by connections throws RuntimeException
      */
     private CustomConnectionPool() {
-        freeConnections = new LinkedBlockingDeque(DEFAULT_POOL_SIZE);
-        busyConnections = new LinkedBlockingDeque(DEFAULT_POOL_SIZE);
+        freeConnections = new LinkedBlockingQueue<>(DEFAULT_POOL_SIZE);
+        busyConnections = new LinkedBlockingQueue<>(DEFAULT_POOL_SIZE);
 
         for (int i = 0; i < DEFAULT_POOL_SIZE; i++) {
             try {

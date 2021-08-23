@@ -23,7 +23,7 @@ import java.util.*;
 public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
     private static final Logger logger = LogManager.getLogger(OrderDaoImpl.class);
 
-    private static final String SQL_SELECT_ALL_ORDER_ON_PAGE = "SELECT IdOrder, IdUserCustomer, Title, JobDescription, Address, CreationDate, CompletionDate, Specialization, OrderStatus FROM orders JOIN specializations ON orders.IdSpecialization = specializations.IdSpecialization  WHERE OrderStatus = 'open' ORDER BY CreationDate LIMIT ?,?;";
+    private static final String SQL_SELECT_ALL_ORDER_ON_PAGE = "SELECT IdOrder, IdUserCustomer, Title, JobDescription, Address, CreationDate, CompletionDate, Specialization, OrderStatus FROM orders JOIN specializations ON orders.IdSpecialization = specializations.IdSpecialization  WHERE OrderStatus = 'open' AND CompletionDate > ? ORDER BY CreationDate LIMIT ?,?;";
     private static final String SQL_SELECT_OPEN_ORDER_ONLY_CONFIRMED_USERS = "SELECT IdOrder, IdUserCustomer, Title, JobDescription, Address, CreationDate, CompletionDate, Specialization, OrderStatus FROM orders JOIN specializations ON orders.IdSpecialization = specializations.IdSpecialization JOIN users ON users.IdUser = orders.IdUserCustomer WHERE users.UserStatus = \"confirmed\" AND OrderStatus = 'open';";
     private static final String SQL_SELECT_DEFINED_ORDER = "SELECT IdOrder, IdUserCustomer, Title, JobDescription, Address, CreationDate, CompletionDate, Specialization, OrderStatus FROM orders JOIN specializations ON orders.IdSpecialization = specializations.IdSpecialization WHERE IdOrder = ?;";
     private static final String SQL_SELECT_USERS_ORDERS = "SELECT IdOrder, IdUserCustomer, Title, JobDescription, Address, CreationDate, CompletionDate, Specialization, OrderStatus FROM orders JOIN specializations ON orders.IdSpecialization = specializations.IdSpecialization WHERE IdUserCustomer = ?;";
@@ -55,9 +55,12 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
         logger.info("Start findAllOrdersOnPage(Pagination pagination).");
         List<Order> orders = new ArrayList<>();
         SimpleDateFormat parser = new SimpleDateFormat(DATE_PATTERN);
+        Date currentDate = new Date();
         try (PreparedStatement statement = super.connection.prepareStatement(SQL_SELECT_ALL_ORDER_ON_PAGE)) {
-            statement.setInt(1, pagination.getLastIndexBeforeFirstItemOnPage());
-            statement.setInt(2, pagination.getOnePageNumberItems());
+
+            statement.setString(1, parser.format(currentDate));
+            statement.setInt(2, pagination.getLastIndexBeforeFirstItemOnPage());
+            statement.setInt(3, pagination.getOnePageNumberItems());
             try (ResultSet resultSet = statement.executeQuery()) {
 
                 while (resultSet.next()) {

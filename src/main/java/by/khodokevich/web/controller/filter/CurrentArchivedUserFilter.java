@@ -1,6 +1,7 @@
 package by.khodokevich.web.controller.filter;
 
 import by.khodokevich.web.controller.command.PagePath;
+import by.khodokevich.web.model.entity.UserRole;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import java.util.Set;
 
 import static by.khodokevich.web.controller.command.InformationMessage.*;
 import static by.khodokevich.web.controller.command.ParameterAttributeType.*;
+import static by.khodokevich.web.model.entity.UserRole.*;
 
 /**
  * Filter which search user which was blocked by admin.
@@ -40,6 +42,7 @@ public class CurrentArchivedUserFilter implements Filter {
             session.invalidate();
             session = ((HttpServletRequest) servletRequest).getSession();
             session.setAttribute(MESSAGE, MASSAGE_KEY);
+            session.setAttribute(ACTIVE_USER_ROLE, GUEST.name());
             archivedUserSet.remove(activeUserId);
             ((HttpServletResponse) servletResponse).sendRedirect(PagePath.MAIN_PAGE);
             logger.debug("User was throw out. Id = " + activeUserId);

@@ -14,6 +14,7 @@
 <html>
 <head>
     <title>${text_error_error}</title>
+    <link href="../css/main.css" rel="stylesheet"/>
 </head>
 <body style="background-image: url(../image/building_3_c1.jpg);
 background-repeat: no-repeat;
@@ -22,12 +23,13 @@ background-size: cover">
 <header>
     <jsp:include page="header.jsp"/>
 </header>
+<div class="main-content">
 
-
-<div class="container payment_window mb-5 pt-3 pb-5">
-    <div class="container mt-5">
-        <h2 class="mt-5">${text_error_tech_problems}</h2>
-        <h2 class="mt-1">${text_error_tech_come_later}</h2>
+    <div class="container payment_window mb-5 pt-3 pb-5">
+        <div class="container mt-5">
+            <h2 class="mt-5">${text_error_tech_problems}</h2>
+            <h2 class="mt-1">${text_error_tech_come_later}</h2>
+        </div>
     </div>
 </div>
 <footer>

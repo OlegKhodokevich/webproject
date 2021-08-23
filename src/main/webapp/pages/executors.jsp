@@ -36,6 +36,7 @@
     <link href="../css/custom_styles.css" rel="stylesheet"/>
     <link href="../css/custom_button.css" rel="stylesheet" media="all"/>
     <link href="../css/custom_text.css" rel="stylesheet"/>
+    <link href="../css/main.css" rel="stylesheet"/>
 </head>
 <body style="background-image: url(../image/building_3_c1.jpg);
 background-repeat: no-repeat;
@@ -44,72 +45,74 @@ background-size: cover">
 <header>
     <jsp:include page="header.jsp"/>
 </header>
+<div class="main-content">
 
-<h1 class="text-title">${text_executor_executors}</h1>
-<div class="container">
-    <div class="row">
-        <div class="col" style="max-width: 300px">
-            <div class="flex-column custom-card" style="width: 300px;">
-                <p class="fs-5 fw-semibold">${text_executor_specializations}</p>
-                <form action="/controller" method="post" class="list-group list-group-flush border-bottom scrollarea">
-                    <c:forEach var="specialization" items="${applicationScope.specializationList}">
-                        <c:if test="${specialization != null}">
-                            <fmt:message key="${specialization.key}" var="text_specialization"/>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="${specialization.id}" value="on"
-                                       id="${specialization.id}" ${sessionScope.get(specialization.id) eq "on" ? 'checked' : null}>
-                                <label class="form-check-label" for="${specialization.id}">
-                                        ${text_specialization}
-                                </label>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-                    <div>
-                        <input type="hidden" name="command" value="find_executors_by_specializations">
-                        <input type="submit" value="${text_executor_search}"
-                               style="background-color: #71dd8a; width: 150px">
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="col">
-            <c:choose>
-                <c:when test="${sessionScope.executorList.size() eq 0}">
-
-                    <div class="container py-2 mt-5 label_window">
-                        <h3 class="mb-0 ml-3" style="color: black">${text_executor_empty_list}</h3>
-                    </div>
-
-                </c:when>
-                <c:when test="${sessionScope.executorList.size() gt 0}">
-                    <div class="list-group">
-                        <c:forEach var="executor" items="${sessionScope.executorList}">
-                            <c:if test="${executor != null}">
-                                <div class="container custom-card mb-2">
-                                    <div class="row">
-                                        <div class="col custom-card-image"
-                                             style="--background: url('${executor.executorOption.urlPersonalFoto}')"></div>
-                                        <a class="col custom-card-link"
-                                           href="/controller?command=find_executor_info_details&executorId=${executor.idUser}">
-                                            <div>
-                                                <h5>${executor.firstName} ${executor.lastName}</h5>
-                                            </div>
-                                            <p>${executor.executorOption.description}</p>
-                                            <input type="hidden" name="executorId" id="ExecutorId"
-                                                   value="${executor.idUser}">
-                                        </a>
-                                    </div>
+    <h1 class="text-title">${text_executor_executors}</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col" style="max-width: 300px">
+                <div class="flex-column custom-card" style="width: 300px;">
+                    <p class="fs-5 fw-semibold">${text_executor_specializations}</p>
+                    <form action="/controller" method="post" class="list-group list-group-flush border-bottom scrollarea">
+                        <c:forEach var="specialization" items="${applicationScope.specializationList}">
+                            <c:if test="${specialization != null}">
+                                <fmt:message key="${specialization.key}" var="text_specialization"/>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="${specialization.id}" value="on"
+                                           id="${specialization.id}" ${sessionScope.get(specialization.id) eq "on" ? 'checked' : null}>
+                                    <label class="form-check-label" for="${specialization.id}">
+                                            ${text_specialization}
+                                    </label>
                                 </div>
                             </c:if>
                         </c:forEach>
-                    </div>
-                </c:when>
-            </c:choose>
+                        <div>
+                            <input type="hidden" name="command" value="find_executors_by_specializations">
+                            <input type="submit" value="${text_executor_search}"
+                                   style="background-color: #71dd8a; width: 150px">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col" style="margin-left: 100px">
+                <c:choose>
+                    <c:when test="${sessionScope.executorList.size() eq 0}">
+
+                        <div class="container py-2 mt-5 label_window">
+                            <h3 class="mb-0 ml-3" style="color: black; text-align: center;">${text_executor_empty_list}</h3>
+                        </div>
+
+                    </c:when>
+                    <c:when test="${sessionScope.executorList.size() gt 0}">
+                        <div class="list-group">
+                            <c:forEach var="executor" items="${sessionScope.executorList}">
+                                <c:if test="${executor != null}">
+                                    <div class="container custom-card mb-2">
+                                        <div class="row">
+                                            <div class="col custom-card-image"
+                                                 style="--background: url('${executor.executorOption.urlPersonalFoto}')"></div>
+                                            <a class="col custom-card-link"
+                                               href="/controller?command=find_executor_info_details&executorId=${executor.idUser}">
+                                                <div>
+                                                    <h5>${executor.firstName} ${executor.lastName}</h5>
+                                                </div>
+                                                <p>${executor.executorOption.description}</p>
+                                                <input type="hidden" name="executorId" id="ExecutorId"
+                                                       value="${executor.idUser}">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                    </c:when>
+                </c:choose>
+            </div>
         </div>
     </div>
-</div>
 
+</div>
 <footer>
     <jsp:include page="footer.jsp"/>
 </footer>

@@ -6,9 +6,11 @@
     color: orange;
 }
 
-.rating-area {
+div.rating-area {
     width: 30px;
-    margin-left: 200px;
+    margin-left: 315px;
+    display: flex;
+    flex-direction: row-reverse;
 }
 .rating-area:not(:checked) > input {
     display: none;

@@ -29,24 +29,23 @@ public class ArchiveOrderCommand implements Command {
         OrderService orderService = ServiceProvider.ORDER_SERVICE;
         HttpSession session = request.getSession();
         String userIdString;
-        String activeUserRole = (String)session.getAttribute(ACTIVE_USER_ROLE);
-        if (activeUserRole != null && activeUserRole .equalsIgnoreCase("ADMIN")) {
-            userIdString = request.getParameter(USER_ID);
-        } else {
-            userIdString = (String) session.getAttribute(ACTIVE_USER_ID);
-        }
+        String activeUserRole = (String) session.getAttribute(ACTIVE_USER_ROLE);
         try {
-            String orderIdString =  request.getParameter(ORDER_ID);
+            if (activeUserRole != null && activeUserRole.equalsIgnoreCase("ADMIN")) {
+                userIdString = request.getParameter(USER_ID);
+            } else {
+                userIdString = String.valueOf(session.getAttribute(ACTIVE_USER_ID));
+            }
+            String orderIdString = request.getParameter(ORDER_ID);
             if (userIdString != null && orderIdString != null) {
                 long orderId = Long.parseLong(orderIdString);
-                if (!orderService.setStatus(orderId, OrderStatus.CLOSE)) {
+                if (orderService.setStatus(orderId, OrderStatus.CLOSE)) {
+                    router = new Router(PagePath.TO_USERS_ORDERS + "&userId=" + userIdString, REDIRECT);
+                } else {
                     logger.error("User Id or Order Id is null. User Id = " + userIdString + " , order id = " + orderIdString);
                     router = new Router(PagePath.ERROR_PAGE, REDIRECT);
-                } else {
-                    logger.error("Can't change order's status.");
-                    router = new Router(PagePath.TO_USERS_ORDERS + "&userId=" + userIdString, REDIRECT);
                 }
-            } else{
+            } else {
                 logger.error("User Id or Order Id is null. User Id = " + userIdString + " , order id = " + orderIdString);
                 router = new Router(PagePath.ERROR_PAGE, REDIRECT);
             }
