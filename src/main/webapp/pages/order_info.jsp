@@ -71,7 +71,7 @@ background-size: cover">
                                    style="background-color: #1e7e34">
                             <input type="hidden" name="command" value="create_offer">
                             <%--                <input type="hidden" name="userId" value="${sessionScope.userId}" >--%>
-                            <input type="submit" value="${text_contract_make_offer}">
+                            <input type="submit" class="btn-success" style="width: 250px;align-self: center;margin-bottom: 20px;" value="${text_contract_make_offer}">
 
                         </c:if>
                     </div>
@@ -79,6 +79,8 @@ background-size: cover">
             </div>
 
         </form>
+        <div style="min-height: 270px">
+        </div>
     </div>
 </main>
 

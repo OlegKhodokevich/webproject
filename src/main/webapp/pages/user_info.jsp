@@ -30,6 +30,7 @@ background-size: cover">
     <jsp:include page="header.jsp"/>
 </header>
 <div class="main-content">
+
     <div class="container">
         <div class="main-body">
             <div class="row gutters-sm">
@@ -93,7 +94,7 @@ background-size: cover">
                             <hr>
                             <c:if test="${sessionScope.activeUser.idUser eq sessionScope.user.idUser or sessionScope.activeUserRole eq 'ADMIN'}">
                                 <div class="col-sm-12">
-                                    <a class="btn btn-info " href="/controller?command=prepare_edit_user&userId=${sessionScope.user.idUser}">${text_user_edit_user}</a>
+                                    <a class="btn btn-success" href="/controller?command=prepare_edit_user&userId=${sessionScope.user.idUser}" style="width: 250px;align-self: center;margin-bottom: 20px;">${text_user_edit_user}</a>
                                 </div>
                             </c:if>
                         </div>
@@ -103,6 +104,9 @@ background-size: cover">
         </div>
     </div>
 </div>
+<footer>
+    <jsp:include page="footer.jsp"/>
+</footer>
 </body>
 </html>
 

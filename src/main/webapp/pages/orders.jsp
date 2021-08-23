@@ -39,12 +39,14 @@
             <div class="col">
                 <div class="flex-column custom-card" style="width: 380px;">
                     <p class="fs-5 fw-semibold">${text_order_specializations}</p>
-                    <form action="/controller" method="post" class="list-group list-group-flush border-bottom scrollarea">
+                    <form action="/controller" method="post"
+                          class="list-group list-group-flush border-bottom scrollarea">
                         <c:forEach var="specialization" items="${applicationScope.specializationList}">
                             <c:if test="${specialization != null}">
                                 <fmt:message key="${specialization.key}" var="text_specialization"/>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="${specialization.id}" value="on"
+                                    <input class="form-check-input" type="checkbox" name="${specialization.id}"
+                                           value="on"
                                            id="${specialization.id}" ${sessionScope.get(specialization.id) eq "on" ? 'checked' : null}>
                                     <label class="form-check-label" for="${specialization.id}">
                                             ${text_specialization}
@@ -95,14 +97,17 @@
                 <c:if test="${sessionScope.reason ne 'specialization'}">
                     <nav aria-label="Page navigation area">
                         <ul class="pagination justify-content-center">
-                            <c:if test="${sessionScope.pagination.currentPage > 1}">
+                            <c:if test="${sessionScope.pagination.currentPage gt 1}">
                                 <li class="page-item ${sessionScope.pagination.currentPage eq 1 ? 'disabled': ''}">
                                     <a class="page-link"
                                        href="${abs_path}/controller?command=all_orders&indexPage=${sessionScope.pagination.currentPage - 1}"
                                        tabindex="-1"><<</a>
                                 </li>
+                            </c:if>
+                            <c:if test="${sessionScope.pagination.showFirstPage()}">
                                 <li class="page-item ${sessionScope.pagination.currentPage eq 1 ? 'active': ''}">
-                                    <a class="page-link" href="${abs_path}/controller?command=all_orders&indexPage=${1}">1</a>
+                                    <a class="page-link"
+                                       href="${abs_path}/controller?command=all_orders&indexPage=${1}">1</a>
                                 </li>
                             </c:if>
                             <c:if test="${sessionScope.pagination.showLeftDivider()}">

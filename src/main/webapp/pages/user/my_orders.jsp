@@ -26,8 +26,7 @@
 <body style="background-image: url(../../image/building_3_c1.jpg);
 background-repeat: no-repeat;
 background-position: center center;
-background-size: cover;
-height: 100%">
+background-size: cover">
 <header>
     <jsp:include page="../header.jsp"/>
 </header>

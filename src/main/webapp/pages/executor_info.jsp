@@ -201,7 +201,7 @@ background-size: cover">
                             <hr>
                             <c:if test="${sessionScope.activeUser !=null and sessionScope.activeUser.idUser eq sessionScope.executor.idUser or sessionScope.activeUser.role eq 'ADMIN'}">
                                 <div class="col-sm-12">
-                                    <a class="btn btn-info "
+                                    <a class="btn btn-success"
                                        href="/controller?command=prepare_edit_user&userId=${sessionScope.executor.idUser}">${text_user_edit_user}</a>
                                 </div>
                             </c:if>

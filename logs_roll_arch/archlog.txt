@@ -1,74 +1,144 @@
-11:58:46.057 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Place there
-11:58:46.061 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
-11:59:17.554 [main] INFO  by.khodokevich.web.model.connection.ConnectionFactory - Driver has been loaded : com.mysql.cj.jdbc.Driver
-11:59:17.730 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Before class
-11:59:17.750 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Pool connection was created successfully. Size = 8
-11:59:17.751 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Start testGetInstance1();
-11:59:17.752 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 8   busyConnections.size() 0
-11:59:17.753 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After7
-11:59:17.753 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
-11:59:17.753 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - Start releaseConnection(Connection connection).
-11:59:17.753 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection realize.
-11:59:17.754 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Start testGetInstance2();
-11:59:17.754 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 8   busyConnections.size() 0
-11:59:17.754 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After7
-11:59:17.754 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
-11:59:17.754 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 7   busyConnections.size() 1
-11:59:17.754 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After6
-11:59:17.754 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
-11:59:17.755 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 6   busyConnections.size() 2
-11:59:17.755 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After5
-11:59:17.755 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
-11:59:17.755 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 5   busyConnections.size() 3
-11:59:17.755 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After4
-11:59:17.755 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
-11:59:17.755 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 4   busyConnections.size() 4
-11:59:17.755 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After3
-11:59:17.755 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
-11:59:17.755 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 3   busyConnections.size() 5
-11:59:17.755 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After2
-11:59:17.756 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
-11:59:17.756 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 2   busyConnections.size() 6
-11:59:17.756 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After1
-11:59:17.756 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
-11:59:17.756 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 1   busyConnections.size() 7
-11:59:17.756 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After0
-11:59:17.756 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
-11:59:17.756 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Place there
-11:59:17.756 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
-11:59:20.564 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Before class
-11:59:20.573 [main] INFO  by.khodokevich.web.model.connection.ConnectionFactory - Driver has been loaded : com.mysql.cj.jdbc.Driver
-11:59:20.715 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Pool connection was created successfully. Size = 8
-11:59:20.722 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Start testGetInstance1();
-11:59:20.724 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 8   busyConnections.size() 0
-11:59:20.725 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After7
-11:59:20.725 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
-11:59:20.726 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - Start releaseConnection(Connection connection).
-11:59:20.726 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection realize.
-11:59:20.730 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Start testGetInstance2();
-11:59:20.730 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 8   busyConnections.size() 0
-11:59:20.730 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After7
-11:59:20.730 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
-11:59:20.731 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 7   busyConnections.size() 1
-11:59:20.731 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After6
-11:59:20.731 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
-11:59:20.731 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 6   busyConnections.size() 2
-11:59:20.731 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After5
-11:59:20.731 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
-11:59:20.731 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 5   busyConnections.size() 3
-11:59:20.731 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After4
-11:59:20.731 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
-11:59:20.732 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 4   busyConnections.size() 4
-11:59:20.732 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After3
-11:59:20.732 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
-11:59:20.732 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 3   busyConnections.size() 5
-11:59:20.732 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After2
-11:59:20.732 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
-11:59:20.732 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 2   busyConnections.size() 6
-11:59:20.732 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After1
-11:59:20.732 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
-11:59:20.732 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 1   busyConnections.size() 7
-11:59:20.732 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After0
-11:59:20.732 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
-11:59:20.732 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Place there
-11:59:20.732 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
+19:03:13.269 [main] INFO  by.khodokevich.web.model.connection.ConnectionFactory - Driver has been loaded : com.mysql.cj.jdbc.Driver
+19:03:13.469 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Before class
+19:03:13.520 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Pool connection was created successfully. Size = 8
+19:03:13.521 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Start testGetInstance1();
+19:03:13.522 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 8   busyConnections.size() 0
+19:03:13.522 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After7
+19:03:13.523 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:03:13.523 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - Start releaseConnection(Connection connection).
+19:03:13.523 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection realize.
+19:03:13.523 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Start testGetInstance2();
+19:03:13.524 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 8   busyConnections.size() 0
+19:03:13.524 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After7
+19:03:13.524 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:03:13.524 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 7   busyConnections.size() 1
+19:03:13.524 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After6
+19:03:13.524 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:03:13.524 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 6   busyConnections.size() 2
+19:03:13.524 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After5
+19:03:13.524 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:03:13.524 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 5   busyConnections.size() 3
+19:03:13.524 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After4
+19:03:13.525 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:03:13.525 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 4   busyConnections.size() 4
+19:03:13.525 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After3
+19:03:13.525 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:03:13.525 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 3   busyConnections.size() 5
+19:03:13.525 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After2
+19:03:13.525 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:03:13.525 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 2   busyConnections.size() 6
+19:03:13.525 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After1
+19:03:13.525 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:03:13.525 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 1   busyConnections.size() 7
+19:03:13.526 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After0
+19:03:13.526 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:03:13.526 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Place there
+19:03:13.526 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
+19:14:57.928 [main] INFO  by.khodokevich.web.model.connection.ConnectionFactory - Driver has been loaded : com.mysql.cj.jdbc.Driver
+19:14:58.043 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Before class
+19:14:58.060 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Pool connection was created successfully. Size = 8
+19:14:58.061 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Start testGetInstance1();
+19:14:58.062 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 8   busyConnections.size() 0
+19:14:58.062 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After7
+19:14:58.062 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:14:58.063 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - Start releaseConnection(Connection connection).
+19:14:58.063 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection realize.
+19:14:58.063 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Start testGetInstance2();
+19:14:58.063 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 8   busyConnections.size() 0
+19:14:58.063 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After7
+19:14:58.064 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:14:58.064 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 7   busyConnections.size() 1
+19:14:58.064 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After6
+19:14:58.064 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:14:58.064 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 6   busyConnections.size() 2
+19:14:58.064 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After5
+19:14:58.064 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:14:58.064 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 5   busyConnections.size() 3
+19:14:58.064 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After4
+19:14:58.064 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:14:58.064 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 4   busyConnections.size() 4
+19:14:58.064 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After3
+19:14:58.064 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:14:58.064 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 3   busyConnections.size() 5
+19:14:58.064 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After2
+19:14:58.065 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:14:58.065 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 2   busyConnections.size() 6
+19:14:58.065 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After1
+19:14:58.065 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:14:58.065 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 1   busyConnections.size() 7
+19:14:58.065 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After0
+19:14:58.065 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:14:58.065 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Place there
+19:14:58.065 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
+19:36:41.868 [main] INFO  by.khodokevich.web.model.connection.ConnectionFactory - Driver has been loaded : com.mysql.cj.jdbc.Driver
+19:36:42.016 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Before class
+19:36:42.096 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Pool connection was created successfully. Size = 8
+19:36:42.097 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Start testGetInstance1();
+19:36:42.099 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 8   busyConnections.size() 0
+19:36:42.099 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After7
+19:36:42.100 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:36:42.100 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - Start releaseConnection(Connection connection).
+19:36:42.100 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection realize.
+19:36:42.101 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Start testGetInstance2();
+19:36:42.101 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 8   busyConnections.size() 0
+19:36:42.101 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After7
+19:36:42.101 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:36:42.101 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 7   busyConnections.size() 1
+19:36:42.101 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After6
+19:36:42.101 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:36:42.101 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 6   busyConnections.size() 2
+19:36:42.101 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After5
+19:36:42.101 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:36:42.102 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 5   busyConnections.size() 3
+19:36:42.102 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After4
+19:36:42.102 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:36:42.102 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 4   busyConnections.size() 4
+19:36:42.102 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After3
+19:36:42.102 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:36:42.102 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 3   busyConnections.size() 5
+19:36:42.102 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After2
+19:36:42.102 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:36:42.102 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 2   busyConnections.size() 6
+19:36:42.102 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After1
+19:36:42.103 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:36:42.103 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 1   busyConnections.size() 7
+19:36:42.103 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After0
+19:36:42.103 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:36:42.103 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Place there
+19:36:42.103 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8
+19:44:04.626 [main] INFO  by.khodokevich.web.model.connection.ConnectionFactory - Driver has been loaded : com.mysql.cj.jdbc.Driver
+19:44:04.813 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Before class
+19:44:04.857 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Pool connection was created successfully. Size = 8
+19:44:04.858 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Start testGetInstance1();
+19:44:04.860 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 8   busyConnections.size() 0
+19:44:04.860 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After7
+19:44:04.860 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:44:04.860 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - Start releaseConnection(Connection connection).
+19:44:04.860 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection realize.
+19:44:04.861 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Start testGetInstance2();
+19:44:04.861 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 8   busyConnections.size() 0
+19:44:04.861 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After7
+19:44:04.861 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:44:04.861 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 7   busyConnections.size() 1
+19:44:04.861 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After6
+19:44:04.861 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:44:04.861 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 6   busyConnections.size() 2
+19:44:04.861 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After5
+19:44:04.861 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:44:04.862 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 5   busyConnections.size() 3
+19:44:04.862 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After4
+19:44:04.862 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:44:04.862 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 4   busyConnections.size() 4
+19:44:04.862 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After3
+19:44:04.862 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:44:04.862 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 3   busyConnections.size() 5
+19:44:04.862 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After2
+19:44:04.862 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:44:04.862 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 2   busyConnections.size() 6
+19:44:04.862 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After1
+19:44:04.862 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:44:04.862 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 1   busyConnections.size() 7
+19:44:04.862 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPool - After0
+19:44:04.863 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Connection has given.
+19:44:04.863 [main] DEBUG by.khodokevich.web.model.connection.CustomConnectionPoolGetInstanceTest - Place there
+19:44:04.863 [main] INFO  by.khodokevich.web.model.connection.CustomConnectionPool - Start getConnection(). freeConnections.size() = 0   busyConnections.size() 8

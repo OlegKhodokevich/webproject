@@ -8,7 +8,6 @@ import java.util.Objects;
  * Pagination is entity for store pagination information.
  *
  * @author Oleg Khodokevich
- *
  */
 public class Pagination {
     private int currentPage;
@@ -94,6 +93,12 @@ public class Pagination {
         return currentPage < lastPage - (numberVisiblePage - 1) / 2;
     }
 
+    /**
+     * @return boolean if right divider have to be shown
+     */
+    public boolean showFirstPage() {
+        return numberItems > onePageNumberItems;
+    }
 
     /**
      * @return last page number of item list
