@@ -21,8 +21,8 @@ import static by.khodokevich.web.controller.command.ParameterAttributeType.COMMA
  *
  */
 @WebFilter
-public class CacheFilter implements Filter {
-    private static final Logger logger = LogManager.getLogger(CacheFilter.class);
+public class CachePageFilter implements Filter {
+    private static final Logger logger = LogManager.getLogger(CachePageFilter.class);
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

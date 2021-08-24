@@ -28,7 +28,7 @@ public class CustomConnectionPool {
     private static final int DEFAULT_POOL_SIZE = 8;
     private static final int MAX_NUMBER_ADDITIONAL_CONNECTION_ATTEMPT = 3;
     private static final int TIME_FOR_WAIT_WHEN_CONNECTION_PROVIDER_WORK_MICROSECONDS = 500;
-    private static final int MAX_WAIT_TIME_FOR_GIVING_CONNECTION_MICROSECONDS = 500;
+    private static final int MAX_WAIT_TIME_FOR_GIVING_CONNECTION_MICROSECONDS = 1000;
     private static final AtomicBoolean isInitialized = new AtomicBoolean(false);
 
     protected static final AtomicBoolean isConnectionProviderRun = new AtomicBoolean(false);

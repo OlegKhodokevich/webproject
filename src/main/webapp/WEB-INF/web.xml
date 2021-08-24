@@ -94,7 +94,7 @@
 
     <filter>
         <filter-name>CacheFilter</filter-name>
-        <filter-class>by.khodokevich.web.controller.filter.CacheFilter</filter-class>
+        <filter-class>by.khodokevich.web.controller.filter.CachePageFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>CacheFilter</filter-name>

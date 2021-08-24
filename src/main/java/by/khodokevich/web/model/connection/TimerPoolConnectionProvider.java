@@ -18,6 +18,8 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class TimerPoolConnectionProvider extends TimerTask {
     private static final Logger logger = LogManager.getLogger(TimerPoolConnectionProvider.class);
+
+    private static final int TIME_FOR_WAIT_BEFORE_CONNECTION_PROVIDER_WORK_MICROSECONDS = 100;
     private static final AtomicBoolean isConnectionProviderRun = CustomConnectionPool.isConnectionProviderRun;
     private static final ReentrantLock timerConnectionProviderLock = CustomConnectionPool.timerConnectionProviderLock;
     private static Condition condition = timerConnectionProviderLock.newCondition();
@@ -28,7 +30,7 @@ public class TimerPoolConnectionProvider extends TimerTask {
         try {
             try {
                 timerConnectionProviderLock.lock();
-                condition.await(100, TimeUnit.MILLISECONDS);
+                condition.await(TIME_FOR_WAIT_BEFORE_CONNECTION_PROVIDER_WORK_MICROSECONDS, TimeUnit.MICROSECONDS);
             } catch (InterruptedException e) {
                 logger.error("Can't wait.", e);
                 Thread.currentThread().interrupt();
