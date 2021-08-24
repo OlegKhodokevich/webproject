@@ -4,8 +4,8 @@
 <html>
 <head>
     <title>Title</title>
+    <c:redirect url="/controller?command=go_to_main"/>
 </head>
 <body>
-<c:redirect url="/controller?command=go_to_main"/>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package by.khodokevich.web.tag;
+package by.khodokevich.web.controller.tag;
 
 import by.khodokevich.web.controller.command.ParameterAttributeType;
 import by.khodokevich.web.model.entity.User;

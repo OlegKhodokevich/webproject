@@ -1,4 +1,4 @@
-package by.khodokevich.web.validator;
+package by.khodokevich.web.util.validator;
 
 import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.model.entity.Region;

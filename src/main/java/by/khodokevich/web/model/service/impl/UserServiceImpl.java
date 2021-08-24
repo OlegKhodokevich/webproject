@@ -10,7 +10,7 @@ import by.khodokevich.web.exception.DaoException;
 import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.model.service.UserService;
 import by.khodokevich.web.util.MailAuthenticator;
-import by.khodokevich.web.validator.UserDataValidator;
+import by.khodokevich.web.util.validator.UserDataValidator;
 import jakarta.mail.MessagingException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;

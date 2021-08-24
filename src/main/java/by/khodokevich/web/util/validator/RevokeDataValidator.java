@@ -1,4 +1,4 @@
-package by.khodokevich.web.validator;
+package by.khodokevich.web.util.validator;
 
 import by.khodokevich.web.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;

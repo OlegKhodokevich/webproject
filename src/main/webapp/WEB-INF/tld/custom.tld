@@ -7,7 +7,7 @@
     <uri>customtags</uri>
     <tag>
         <name>welcome</name>
-        <tag-class>by.khodokevich.web.tag.WelcomeMessageTag</tag-class>
+        <tag-class>by.khodokevich.web.controller.tag.WelcomeMessageTag</tag-class>
         <body-content>empty</body-content>
     </tag>
 </taglib>

@@ -8,7 +8,7 @@ import by.khodokevich.web.model.dao.impl.ExecutorDaoImpl;
 import by.khodokevich.web.model.dao.impl.RevokeDaoImpl;
 import by.khodokevich.web.model.entity.*;
 import by.khodokevich.web.model.service.RevokeService;
-import by.khodokevich.web.validator.RevokeDataValidator;
+import by.khodokevich.web.util.validator.RevokeDataValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -7,7 +7,7 @@
     <uri>custom tag message writer</uri>
     <tag>
         <name>messageTag</name>
-        <tag-class>by.khodokevich.web.tag.AllMessageTag</tag-class>
+        <tag-class>by.khodokevich.web.controller.tag.AllMessageTag</tag-class>
         <body-content>empty</body-content>
     </tag>
 </taglib>

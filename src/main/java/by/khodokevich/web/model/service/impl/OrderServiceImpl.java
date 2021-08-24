@@ -9,7 +9,7 @@ import by.khodokevich.web.exception.DaoException;
 import by.khodokevich.web.exception.ServiceException;
 import by.khodokevich.web.model.service.CheckingResult;
 import by.khodokevich.web.model.service.OrderService;
-import by.khodokevich.web.validator.OrderDataValidator;
+import by.khodokevich.web.util.validator.OrderDataValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
